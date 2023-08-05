@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Toongether"
 include(":app")
+include(":core:designsystem")

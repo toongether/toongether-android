@@ -1,4 +1,5 @@
-package kr.toongether.android.ui.theme
+package kr.toongether.designsystem.theme
+
 
 import android.app.Activity
 import android.os.Build

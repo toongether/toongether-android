@@ -1,4 +1,4 @@
-package kr.toongether.android.ui.theme
+package kr.toongether.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

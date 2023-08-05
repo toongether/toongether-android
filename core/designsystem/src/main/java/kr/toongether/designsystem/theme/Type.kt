@@ -1,4 +1,4 @@
-package kr.toongether.android.ui.theme
+package kr.toongether.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
