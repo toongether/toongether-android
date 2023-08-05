@@ -19,6 +19,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.detekt.gradlePlugin)
 }
 
 gradlePlugin {
@@ -48,9 +49,9 @@ gradlePlugin {
             id = "toongether.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
-        register("ktlint") {
-            id = "toongether.ktlint"
-            implementationClass = "KtlintConventionPlugin"
+        register("kotlinCode") {
+            id = "toongether.kotlin.code"
+            implementationClass = "KotlinCodeConventionPlugin"
         }
     }
 }

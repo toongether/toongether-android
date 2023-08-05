@@ -2,7 +2,7 @@ plugins {
     id("toongether.android.application")
     id("toongether.android.application.compose")
     id("toongether.android.hilt")
-    id("toongether.ktlint")
+    id("toongether.kotlin.code")
 }
 
 android {
