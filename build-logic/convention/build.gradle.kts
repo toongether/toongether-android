@@ -48,5 +48,9 @@ gradlePlugin {
             id = "toongether.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+        register("ktlint") {
+            id = "toongether.ktlint"
+            implementationClass = "KtlintConventionPlugin"
+        }
     }
 }
