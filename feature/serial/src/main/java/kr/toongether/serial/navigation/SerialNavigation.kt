@@ -12,7 +12,7 @@ fun NavController.navigateToSerial(navOptions: NavOptions? = null) {
     this.navigate(serialRoute, navOptions)
 }
 
-fun NavGraphBuilder.homeScreen() {
+fun NavGraphBuilder.serialScreen() {
     composable(route = serialRoute) {
         SerialRoute()
     }
