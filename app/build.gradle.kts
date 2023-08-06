@@ -56,4 +56,5 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:serial"))
     implementation(project(":feature:shortstory"))
+    implementation(project(":feature:community"))
 }
