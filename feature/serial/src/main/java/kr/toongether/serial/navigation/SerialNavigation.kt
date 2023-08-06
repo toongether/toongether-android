@@ -6,7 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kr.toongether.serial.SerialRoute
 
-const val serialRoute = "home_route"
+const val serialRoute = "serial_route"
 
 fun NavController.navigateToSerial(navOptions: NavOptions? = null) {
     this.navigate(serialRoute, navOptions)
