@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "kr.toongether.shortstory"
+    namespace = "kr.toongether.shorts"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -1,6 +1,8 @@
 complexity:
   LongParameterList:
     ignoreDefaultParameters: true
+  LongMethod:
+    active: false
 
 style:
   MagicNumber:
@@ -14,3 +16,4 @@ naming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
+  
