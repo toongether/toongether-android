@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,25 +23,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.designsystem.icon.ToongetherIcons
-import kr.toongether.designsystem.icon.icons.Toongether
 import kr.toongether.designsystem.theme.pretendard
 
 @Composable
 internal fun SerialRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current,
+    context: Context = LocalContext.current
 ) {
     SerialScreen(
         modifier = modifier,
-        context = context,
+        context = context
     )
 }
 
 @Composable
 internal fun SerialScreen(
     modifier: Modifier = Modifier,
-    context: Context,
+    context: Context
 ) {
     Surface(
         modifier = modifier

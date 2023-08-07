@@ -23,13 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.designsystem.theme.ToongetherTheme
 import kr.toongether.designsystem.theme.pretendard
 
 @Composable
 internal fun MyRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current,
+    context: Context = LocalContext.current
 ) {
     MyScreen(
         modifier = modifier,
@@ -40,7 +39,7 @@ internal fun MyRoute(
 @Composable
 internal fun MyScreen(
     modifier: Modifier = Modifier,
-    context: Context,
+    context: Context
 ) {
     Surface(
         modifier = modifier

@@ -23,13 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.designsystem.theme.ToongetherTheme
 import kr.toongether.designsystem.theme.pretendard
 
 @Composable
 internal fun CommunityRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current,
+    context: Context = LocalContext.current
 ) {
     CommunityScreen(
         modifier = modifier,

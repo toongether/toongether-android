@@ -23,7 +23,7 @@ fun ToongetherButton(
     shape: RoundedCornerShape = Shape.large,
     color: ButtonColors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
     contentPadding: PaddingValues = PaddingValues(horizontal = 24.dp, vertical = 14.dp),
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     Button(
         onClick = onClick,

@@ -16,11 +16,22 @@ val ToongetherIcons.Toongether: ImageVector
         if (_vector != null) {
             return _vector!!
         }
-        _vector = Builder(name = "Vector", defaultWidth = 75.0.dp, defaultHeight = 24.0.dp,
-                viewportWidth = 75.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _vector = Builder(
+            name = "Vector",
+            defaultWidth = 75.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 75.0f,
+            viewportHeight = 24.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFffffff)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(0.0f, 0.0f)
                 horizontalLineTo(23.6604f)
                 verticalLineTo(3.5064f)
@@ -55,9 +66,15 @@ val ToongetherIcons.Toongether: ImageVector
                 horizontalLineTo(8.1756f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFFffffff)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(25.6688f, 23.5969f)
                 verticalLineTo(16.037f)
                 curveTo(27.3698f, 15.5476f, 28.5138f, 14.0545f, 28.5138f, 9.9434f)
@@ -82,9 +99,15 @@ val ToongetherIcons.Toongether: ImageVector
                 verticalLineTo(23.5969f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFFffffff)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(51.3396f, 17.1866f)
                 verticalLineTo(0.0f)
                 horizontalLineTo(65.5985f)
@@ -110,7 +133,7 @@ val ToongetherIcons.Toongether: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _vector!!
     }
 
