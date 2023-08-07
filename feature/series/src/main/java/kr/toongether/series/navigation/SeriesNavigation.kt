@@ -6,14 +6,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kr.toongether.series.SerialRoute
 
-const val seriesRoute = "series_route"
+const val SeriesRoute = "series_route"
 
 fun NavController.navigateToSeries(navOptions: NavOptions? = null) {
-    this.navigate(seriesRoute, navOptions)
+    this.navigate(SeriesRoute, navOptions)
 }
 
 fun NavGraphBuilder.seriesScreen() {
-    composable(route = seriesRoute) {
+    composable(route = SeriesRoute) {
         SerialRoute()
     }
 }

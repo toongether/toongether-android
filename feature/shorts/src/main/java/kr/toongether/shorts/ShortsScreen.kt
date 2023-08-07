@@ -1,6 +1,7 @@
 package kr.toongether.shorts
 
 import androidx.compose.runtime.Composable
+import kr.toongether.designsystem.theme.ToongetherTheme
 
 @Composable
 internal fun ShortsRoute() {
@@ -9,5 +10,6 @@ internal fun ShortsRoute() {
 
 @Composable
 internal fun ShortsScreen() {
-
+    ToongetherTheme {
+    }
 }

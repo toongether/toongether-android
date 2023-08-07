@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.NavHost
 import kr.toongether.android.navigation.NavigationDestination
 import kr.toongether.android.navigation.ToongetherNavHost
 import kr.toongether.designsystem.component.ToongetherNavigationBar
@@ -61,7 +60,7 @@ private fun ToongetherBottomBar(
     destinations: List<NavigationDestination>,
     onNavigateToDestination: (NavigationDestination) -> Unit,
     currentDestination: NavDestination?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     ToongetherNavigationBar(
         modifier = modifier
@@ -99,4 +98,3 @@ private fun NavDestination?.isNavigationDestinationInHierarchy(destination: Navi
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
     } ?: false
-

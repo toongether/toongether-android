@@ -1,6 +1,5 @@
 package kr.toongether.designsystem.theme
 
-
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

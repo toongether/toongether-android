@@ -6,14 +6,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kr.toongether.shorts.ShortsRoute
 
-const val shortsRoute = "shorts_route"
+const val ShortsRoute = "shorts_route"
 
 fun NavController.navigateToShorts(navOptions: NavOptions? = null) {
-    this.navigate(shortsRoute, navOptions)
+    this.navigate(ShortsRoute, navOptions)
 }
 
 fun NavGraphBuilder.shortsScreen() {
-    composable(route = shortsRoute) {
+    composable(route = ShortsRoute) {
         ShortsRoute()
     }
 }

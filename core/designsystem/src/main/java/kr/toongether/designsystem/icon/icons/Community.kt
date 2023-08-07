@@ -16,11 +16,22 @@ public val ToongetherIcons.Community: ImageVector
         if (_community != null) {
             return _community!!
         }
-        _community = Builder(name = "Community", defaultWidth = 168.0.dp, defaultHeight = 168.0.dp,
-                viewportWidth = 168.0f, viewportHeight = 168.0f).apply {
-            path(fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+        _community = Builder(
+            name = "Community",
+            defaultWidth = 168.0.dp,
+            defaultHeight = 168.0.dp,
+            viewportWidth = 168.0f,
+            viewportHeight = 168.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF787878)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = EvenOdd
+            ) {
                 moveTo(35.0f, 20.0f)
                 curveTo(26.716f, 20.0f, 20.0f, 26.716f, 20.0f, 35.0f)
                 verticalLineTo(91.0f)
@@ -74,7 +85,7 @@ public val ToongetherIcons.Community: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _community!!
     }
 

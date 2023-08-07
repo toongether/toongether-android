@@ -6,14 +6,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kr.toongether.home.HomeRoute
 
-const val homeRoute = "home_route"
+const val HomeRoute = "home_route"
 
 fun NavController.navigateToHome(navOptions: NavOptions? = null) {
-    this.navigate(homeRoute, navOptions)
+    this.navigate(HomeRoute, navOptions)
 }
 
 fun NavGraphBuilder.homeScreen() {
-    composable(route = homeRoute) {
+    composable(route = HomeRoute) {
         HomeRoute()
     }
 }

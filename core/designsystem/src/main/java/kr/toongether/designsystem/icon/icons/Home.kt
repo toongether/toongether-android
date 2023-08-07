@@ -16,11 +16,22 @@ public val ToongetherIcons.Home: ImageVector
         if (_home != null) {
             return _home!!
         }
-        _home = Builder(name = "Home", defaultWidth = 168.0.dp, defaultHeight = 168.0.dp,
-                viewportWidth = 168.0f, viewportHeight = 168.0f).apply {
-            path(fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+        _home = Builder(
+            name = "Home",
+            defaultWidth = 168.0.dp,
+            defaultHeight = 168.0.dp,
+            viewportWidth = 168.0f,
+            viewportHeight = 168.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF787878)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = EvenOdd
+            ) {
                 moveTo(74.203f, 23.65f)
                 curveTo(79.832f, 18.795f, 88.168f, 18.795f, 93.797f, 23.65f)
                 lineTo(112.753f, 40.0f)
@@ -48,7 +59,7 @@ public val ToongetherIcons.Home: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _home!!
     }
 

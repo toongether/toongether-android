@@ -6,14 +6,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kr.toongether.community.CommunityRoute
 
-const val communityRoute = "community_route"
+const val CommunityRoute = "community_route"
 
 fun NavController.navigateToCommunity(navOptions: NavOptions? = null) {
-    this.navigate(communityRoute, navOptions)
+    this.navigate(CommunityRoute, navOptions)
 }
 
 fun NavGraphBuilder.communityScreen() {
-    composable(route = communityRoute) {
+    composable(route = CommunityRoute) {
         CommunityRoute()
     }
 }

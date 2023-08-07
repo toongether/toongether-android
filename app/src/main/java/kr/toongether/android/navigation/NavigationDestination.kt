@@ -12,26 +12,26 @@ import kr.toongether.designsystem.icon.icons.Shorts
 
 enum class NavigationDestination(
     val icon: ImageVector,
-    @StringRes val iconTextId: Int,
+    @StringRes val iconTextId: Int
 ) {
     HOME(
         icon = ToongetherIcons.Home,
-        iconTextId = R.string.home,
+        iconTextId = R.string.home
     ),
     SERIES(
         icon = ToongetherIcons.Series,
-        iconTextId = R.string.series,
+        iconTextId = R.string.series
     ),
     SHORTS(
         icon = ToongetherIcons.Shorts,
-        iconTextId = R.string.shorts,
+        iconTextId = R.string.shorts
     ),
     COMMUNITY(
         icon = ToongetherIcons.Community,
-        iconTextId = R.string.community,
+        iconTextId = R.string.community
     ),
     MY(
         icon = ToongetherIcons.My,
-        iconTextId = R.string.my,
+        iconTextId = R.string.my
     )
 }

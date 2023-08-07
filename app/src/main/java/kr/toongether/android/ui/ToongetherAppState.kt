@@ -3,7 +3,6 @@ package kr.toongether.android.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -11,21 +10,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import kr.toongether.android.navigation.NavigationDestination
-import kr.toongether.community.navigation.communityRoute
 import kr.toongether.community.navigation.navigateToCommunity
-import kr.toongether.home.navigation.homeRoute
 import kr.toongether.home.navigation.navigateToHome
 import kr.toongether.my.navigation.navigateToMy
-import kr.toongether.my.navigation.myRoute
 import kr.toongether.series.navigation.navigateToSeries
-import kr.toongether.series.navigation.seriesRoute
 import kr.toongether.shorts.navigation.navigateToShorts
-import kr.toongether.shorts.navigation.shortsRoute
 
 @Composable
 fun rememberToongetherAppState(
     navController: NavHostController = rememberNavController(),
-    isShowBottomBar: Boolean = true,
+    isShowBottomBar: Boolean = true
 ): ToongetherAppState {
     return remember(
         navController,
@@ -41,7 +35,7 @@ fun rememberToongetherAppState(
 @Stable
 class ToongetherAppState(
     val navController: NavHostController,
-    val isShowBottomBar: Boolean,
+    val isShowBottomBar: Boolean
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController

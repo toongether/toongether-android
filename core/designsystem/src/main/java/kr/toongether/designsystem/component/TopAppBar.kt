@@ -18,7 +18,7 @@ fun ToongetherTopAppBar(
     modifier: Modifier = Modifier,
     onActionClick: () -> Unit,
     backgroundColor: Color = Color.Black,
-    contentColor: Color = Color.White,
+    contentColor: Color = Color.White
 ) {
     TopAppBar(
         title = title,
@@ -42,7 +42,7 @@ fun ToongetherTopAppBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     backgroundColor: Color = Color.Black,
-    contentColor: Color = Color.White,
+    contentColor: Color = Color.White
 ) {
     TopAppBar(
         title = title,
@@ -63,7 +63,7 @@ fun ToongetherTopAppBar(
     onActionClick: () -> Unit,
     onNavigationClick: () -> Unit,
     backgroundColor: Color = Color.Black,
-    contentColor: Color = Color.White,
+    contentColor: Color = Color.White
 ) {
     TopAppBar(
         title = title,

@@ -16,11 +16,22 @@ public val ToongetherIcons.Shorts: ImageVector
         if (_shorts != null) {
             return _shorts!!
         }
-        _shorts = Builder(name = "Shorts", defaultWidth = 168.0.dp, defaultHeight = 168.0.dp,
-                viewportWidth = 168.0f, viewportHeight = 168.0f).apply {
-            path(fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+        _shorts = Builder(
+            name = "Shorts",
+            defaultWidth = 168.0.dp,
+            defaultHeight = 168.0.dp,
+            viewportWidth = 168.0f,
+            viewportHeight = 168.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF787878)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = EvenOdd
+            ) {
                 moveTo(35.0f, 20.0f)
                 curveTo(26.716f, 20.0f, 20.0f, 26.716f, 20.0f, 35.0f)
                 verticalLineTo(133.0f)
@@ -63,7 +74,7 @@ public val ToongetherIcons.Shorts: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _shorts!!
     }
 

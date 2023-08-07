@@ -6,14 +6,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kr.toongether.my.MyRoute
 
-const val myRoute = "my_route"
+const val MyRoute = "my_route"
 
 fun NavController.navigateToMy(navOptions: NavOptions? = null) {
-    this.navigate(myRoute, navOptions)
+    this.navigate(MyRoute, navOptions)
 }
 
 fun NavGraphBuilder.myScreen() {
-    composable(route = myRoute) {
+    composable(route = MyRoute) {
         MyRoute()
     }
 }

@@ -17,12 +17,23 @@ public val ToongetherIcons.Series: ImageVector
         if (_series != null) {
             return _series!!
         }
-        _series = Builder(name = "Series", defaultWidth = 168.0.dp, defaultHeight = 168.0.dp,
-                viewportWidth = 168.0f, viewportHeight = 168.0f).apply {
+        _series = Builder(
+            name = "Series",
+            defaultWidth = 168.0.dp,
+            defaultHeight = 168.0.dp,
+            viewportWidth = 168.0f,
+            viewportHeight = 168.0f
+        ).apply {
             group {
-                path(fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = EvenOdd) {
+                path(
+                    fill = SolidColor(Color(0xFF787878)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
+                    pathFillType = EvenOdd
+                ) {
                     moveTo(91.876f, 23.822f)
                     curveTo(91.113f, 25.319f, 91.113f, 27.28f, 91.113f, 31.2f)
                     verticalLineTo(136.689f)
@@ -98,7 +109,7 @@ public val ToongetherIcons.Series: ImageVector
                 }
             }
         }
-        .build()
+            .build()
         return _series!!
     }
 

@@ -1,7 +1,5 @@
 package kr.toongether.designsystem.component
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -10,7 +8,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.emptyFlow
 import kr.toongether.designsystem.theme.Gray
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 
@@ -35,7 +32,7 @@ fun RowScope.ToongetherNavigationBarItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     label: @Composable (() -> Unit)? = null,
-    alwaysShowLabel: Boolean = true,
+    alwaysShowLabel: Boolean = true
 ) {
     BottomNavigationItem(
         selected = selected,
