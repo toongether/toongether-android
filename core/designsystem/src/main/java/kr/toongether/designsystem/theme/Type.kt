@@ -1,10 +1,12 @@
-package kr.toongether.android.ui.theme
+package kr.toongether.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import kr.toongether.designsystem.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,4 +33,10 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val pretendard = FontFamily(
+    Font(R.font.pretendard_bold, FontWeight.Bold),
+    Font(R.font.pretendard_medium, FontWeight.Medium),
+    Font(R.font.pretendard_regular, FontWeight.Normal)
 )

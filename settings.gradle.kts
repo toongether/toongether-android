@@ -16,3 +16,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Toongether"
 include(":app")
+include(":core:designsystem")
+include(":feature:home")
+include(":feature:series")
+include(":feature:shorts")
+include(":feature:community")
+include(":feature:my")
