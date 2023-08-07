@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "kr.toongether.profile"
+    namespace = "kr.toongether.my"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
