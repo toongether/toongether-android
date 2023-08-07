@@ -54,8 +54,8 @@ dependencies {
 
     implementation(project(":core:designsystem"))
     implementation(project(":feature:home"))
-    implementation(project(":feature:serial"))
-    implementation(project(":feature:shortstory"))
+    implementation(project(":feature:series"))
+    implementation(project(":feature:shorts"))
     implementation(project(":feature:community"))
-    implementation(project(":feature:profile"))
+    implementation(project(":feature:my"))
 }
