@@ -1,9 +1,12 @@
 package kr.toongether.network.di
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kr.toongether.network.ToongetherNetworkDataSource
+import kr.toongether.network.retrofit.RetrofitToongetherNetwork
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,3 +32,12 @@ object NetworkModule {
 
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
+interface DataSourceModule {
+    @Singleton
+    @Binds
+    fun bindsToongetherNetworkDataSource(
+        retrofitToongetherNetwork: RetrofitToongetherNetwork
+    ): ToongetherNetworkDataSource
+}
