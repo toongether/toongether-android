@@ -18,10 +18,10 @@ class PreReleaseViewModel @Inject constructor(
     override val container = container<PreReleaseState, PreReleaseSideEffect>(PreReleaseState())
 
     init {
-        getWebtoonList()
+        getShortsList()
     }
 
-    fun getWebtoonList() = intent {
+    fun getShortsList() = intent {
         reduce {
             state.copy(isLoading = true)
         }

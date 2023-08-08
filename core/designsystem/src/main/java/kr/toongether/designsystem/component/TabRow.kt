@@ -9,14 +9,12 @@ import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kr.toongether.designsystem.theme.DarkGray
 import kr.toongether.designsystem.theme.pretendard
 
 @Composable
@@ -24,7 +22,7 @@ fun ToongetherScrollableTabRow(
     modifier: Modifier = Modifier,
     tabs: List<String>,
     selectedTabIndex: Int,
-    onTabClick: (tabIndex: Int) -> Unit,
+    onTabClick: (tabIndex: Int) -> Unit
 ) {
     ScrollableTabRow(
         modifier = modifier,
@@ -34,7 +32,7 @@ fun ToongetherScrollableTabRow(
         divider = {
             Divider(
                 modifier = modifier.fillMaxWidth(),
-                color = Color(0xFF2F2F2F)
+                color = DarkGray
             )
         },
         edgePadding = 0.dp,
@@ -57,7 +55,7 @@ fun ToongetherScrollableTabRow(
                         fontSize = 16.sp,
                         fontFamily = pretendard,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White,
+                        color = Color.White
                     )
                 }
             )

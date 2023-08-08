@@ -33,7 +33,7 @@ import kr.toongether.shorts.genre.prerelease.PreReleaseScreen
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ShortsRoute(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
@@ -50,7 +50,7 @@ internal fun ShortsRoute(
 internal fun ShortsScreen(
     modifier: Modifier = Modifier,
     pagerState: PagerState,
-    coroutineScope: CoroutineScope,
+    coroutineScope: CoroutineScope
 ) {
     Surface(
         modifier = modifier
@@ -113,7 +113,7 @@ internal fun ShortsScreen(
             HorizontalPager(
                 modifier = modifier.fillMaxSize(),
                 pageCount = ComicGenre.values().size,
-                state = pagerState,
+                state = pagerState
             ) { page ->
                 when (page) {
                     0 -> PreReleaseScreen()

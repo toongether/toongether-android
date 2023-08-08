@@ -33,22 +33,22 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 fun PreReleaseScreen(
     modifier: Modifier = Modifier,
     viewModel: PreReleaseViewModel = hiltViewModel(),
-    context: Context = LocalContext.current,
+    context: Context = LocalContext.current
 ) {
     val preReleaseUiState by viewModel.collectAsState()
 
     val refreshState = rememberPullRefreshState(
         refreshing = preReleaseUiState.isLoading,
         onRefresh = {
-            viewModel.getWebtoonList()
+            viewModel.getShortsList()
         }
     )
-    
+
     viewModel.collectSideEffect {
         when (it) {
             is PreReleaseSideEffect.Toast -> {
                 Toast.makeText(context, it.text, Toast.LENGTH_SHORT).show()
-                Log.e("ERROR", "PreReleaseScreen: ${preReleaseUiState.error}", )
+                Log.e("ERROR", "PreReleaseScreen: ${preReleaseUiState.error}")
             }
         }
     }
@@ -57,7 +57,7 @@ fun PreReleaseScreen(
         modifier = modifier,
         preReleaseUiState = preReleaseUiState,
         isRefreshing = preReleaseUiState.isLoading,
-        refreshState = refreshState,
+        refreshState = refreshState
     )
 }
 
@@ -67,7 +67,7 @@ fun PreReleaseScreen(
     modifier: Modifier = Modifier,
     preReleaseUiState: PreReleaseState,
     isRefreshing: Boolean,
-    refreshState: PullRefreshState,
+    refreshState: PullRefreshState
 ) {
     LazyColumn(
         modifier = modifier
@@ -81,8 +81,11 @@ fun PreReleaseScreen(
                     .background(Color.Black)
                     .fillMaxWidth()
                     .height(
-                        if (isRefreshing) 70.dp
-                        else lerp(0.dp, 70.dp, refreshState.progress.coerceIn(0f..1f))
+                        if (isRefreshing) {
+                            70.dp
+                        } else {
+                            lerp(0.dp, 70.dp, refreshState.progress.coerceIn(0f..1f))
+                        }
                     )
             ) {
                 if (isRefreshing) {

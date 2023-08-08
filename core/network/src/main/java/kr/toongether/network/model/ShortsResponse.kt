@@ -12,5 +12,5 @@ data class ShortsResponse(
     @field:SerializedName("thumbnail")
     val thumbnail: String,
     @field:SerializedName("createdDate")
-    val createdDate: String,
+    val createdDate: String
 )

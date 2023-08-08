@@ -8,5 +8,5 @@ fun ShortsResponse.asModel(): Shorts = Shorts(
     id = id,
     title = title,
     writer = writer,
-    thumbnail = thumbnail,
-    )
+    thumbnail = thumbnail
+)

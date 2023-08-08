@@ -29,7 +29,6 @@ object NetworkModule {
     @Provides
     fun providesGsonConverterFactory(): GsonConverterFactory =
         GsonConverterFactory.create()
-
 }
 
 @Module

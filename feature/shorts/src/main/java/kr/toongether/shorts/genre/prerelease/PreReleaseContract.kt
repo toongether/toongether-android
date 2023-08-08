@@ -6,7 +6,7 @@ data class PreReleaseState(
     val webtoonList: List<Shorts> = emptyList(),
     val error: Throwable? = null,
     val isLoading: Boolean = false,
-    val isRefresh: Boolean = false,
+    val isRefresh: Boolean = false
 )
 
 sealed class PreReleaseSideEffect {

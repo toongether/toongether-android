@@ -11,8 +11,7 @@ import javax.inject.Singleton
 
 private interface RetrofitToongetherNetworkApi {
     @GET("comic/shorts")
-    suspend fun getShortsList(
-    ): List<ShortsResponse>
+    suspend fun getShortsList(): List<ShortsResponse>
 }
 
 private const val ToongetherUrl = "http://api.toongether.kr:8002/"
@@ -20,7 +19,7 @@ private const val ToongetherUrl = "http://api.toongether.kr:8002/"
 @Singleton
 class RetrofitToongetherNetwork @Inject constructor(
     gsonConverterFactory: GsonConverterFactory,
-    okHttpCallFactory: Call.Factory,
+    okHttpCallFactory: Call.Factory
 ) : ToongetherNetworkDataSource {
 
     private val networkApi = Retrofit.Builder()
@@ -32,5 +31,4 @@ class RetrofitToongetherNetwork @Inject constructor(
 
     override suspend fun getShortsList(): List<ShortsResponse> =
         networkApi.getShortsList()
-
 }
