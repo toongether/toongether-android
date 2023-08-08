@@ -54,40 +54,8 @@ internal fun HomeScreen(
                 .fillMaxSize()
         ) {
             ToongetherTopAppBar(
-                modifier = modifier
-                    .align(Alignment.TopCenter),
-                title = {
-                    Row(
-                        modifier = modifier
-                            .padding(bottom = 10.dp)
-                    ) {
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Icon(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                imageVector = ToongetherIcons.Toongether,
-                                contentDescription = null,
-                                tint = Color.White
-                            )
-                        }
-                        Spacer(modifier = modifier.size(5.dp))
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Text(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                text = "프리 릴리즈",
-                                fontFamily = pretendard,
-                                fontWeight = FontWeight.Normal,
-                                color = Color.White,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                }
+                titleIcon = ToongetherIcons.Toongether,
+                subTitle = "프리 릴리즈"
             )
 
             Column(

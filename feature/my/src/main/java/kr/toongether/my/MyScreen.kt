@@ -51,42 +51,8 @@ internal fun MyScreen(
                 .fillMaxSize()
         ) {
             ToongetherTopAppBar(
-                modifier = modifier
-                    .align(Alignment.TopCenter),
-                title = {
-                    Row(
-                        modifier = modifier
-                            .padding(bottom = 10.dp)
-                    ) {
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Text(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                text = "마이 페이지",
-                                fontFamily = pretendard,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White,
-                                fontSize = 26.sp
-                            )
-                        }
-                        Spacer(modifier = modifier.size(5.dp))
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Text(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                text = "준비 중",
-                                fontFamily = pretendard,
-                                fontWeight = FontWeight.Normal,
-                                color = Color.White,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                }
+                title = "마이 페이지",
+                subTitle = "준비 중"
             )
 
             Column(

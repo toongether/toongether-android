@@ -5,11 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -51,42 +48,8 @@ internal fun SerialScreen(
                 .fillMaxSize()
         ) {
             ToongetherTopAppBar(
-                modifier = modifier
-                    .align(Alignment.TopCenter),
-                title = {
-                    Row(
-                        modifier = modifier
-                            .padding(bottom = 10.dp)
-                    ) {
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Text(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                text = "연재 웹툰",
-                                fontFamily = pretendard,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White,
-                                fontSize = 26.sp
-                            )
-                        }
-                        Spacer(modifier = modifier.size(5.dp))
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Text(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                text = "준비 중",
-                                fontFamily = pretendard,
-                                fontWeight = FontWeight.Normal,
-                                color = Color.White,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                }
+                title = "연재 웹툰",
+                subTitle = "준비 중"
             )
 
             Column(

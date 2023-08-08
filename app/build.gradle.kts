@@ -58,4 +58,5 @@ dependencies {
     implementation(project(":feature:shorts"))
     implementation(project(":feature:community"))
     implementation(project(":feature:my"))
+    implementation(project(":feature:comic"))
 }

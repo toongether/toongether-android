@@ -1,6 +1,7 @@
 package kr.toongether.designsystem.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
 import androidx.compose.material.ScrollableTabRow
@@ -9,6 +10,7 @@ import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +33,7 @@ fun ToongetherScrollableTabRow(
         backgroundColor = Color.Black,
         divider = {
             Divider(
-                modifier = modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 color = DarkGray
             )
         },
@@ -40,7 +42,8 @@ fun ToongetherScrollableTabRow(
             TabRowDefaults.Indicator(
                 modifier = modifier
                     .tabIndicatorOffset(tabPositions[selectedTabIndex])
-                    .padding(horizontal = 15.dp),
+                    .padding(horizontal = 15.dp)
+                    .height(3.dp),
                 color = Color.White
             )
         }
