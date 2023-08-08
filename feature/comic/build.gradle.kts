@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "kr.toongether.shorts"
+    namespace = "kr.toongether.comic"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -36,5 +36,4 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
-    implementation(project(":feature:comic"))
 }

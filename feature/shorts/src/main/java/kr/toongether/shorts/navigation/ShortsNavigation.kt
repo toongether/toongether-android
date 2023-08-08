@@ -12,8 +12,8 @@ fun NavController.navigateToShorts(navOptions: NavOptions? = null) {
     this.navigate(ShortsRoute, navOptions)
 }
 
-fun NavGraphBuilder.shortsScreen() {
+fun NavGraphBuilder.shortsScreen(navController: NavController) {
     composable(route = ShortsRoute) {
-        ShortsRoute()
+        ShortsRoute(navController = navController)
     }
 }

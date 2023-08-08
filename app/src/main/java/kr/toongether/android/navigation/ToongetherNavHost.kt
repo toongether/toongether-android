@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import kr.toongether.android.ui.ToongetherAppState
+import kr.toongether.comic.navigation.comicScreen
 import kr.toongether.community.navigation.communityScreen
 import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.homeScreen
@@ -25,8 +26,10 @@ fun ToongetherNavHost(
     ) {
         homeScreen()
         seriesScreen()
-        shortsScreen()
+        shortsScreen(navController)
         communityScreen()
         myScreen()
+        comicScreen(navController)
     }
+
 }

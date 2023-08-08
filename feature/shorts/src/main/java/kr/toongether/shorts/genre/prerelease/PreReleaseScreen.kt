@@ -23,7 +23,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.component.ToongetherCircularProgressIndicator
+import kr.toongether.model.Shorts
 import kr.toongether.ui.shortsCardItems
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -33,7 +36,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 fun PreReleaseScreen(
     modifier: Modifier = Modifier,
     viewModel: PreReleaseViewModel = hiltViewModel(),
-    context: Context = LocalContext.current
+    context: Context = LocalContext.current,
+    navController: NavController
 ) {
     val preReleaseUiState by viewModel.collectAsState()
 
@@ -57,7 +61,8 @@ fun PreReleaseScreen(
         modifier = modifier,
         preReleaseUiState = preReleaseUiState,
         isRefreshing = preReleaseUiState.isLoading,
-        refreshState = refreshState
+        refreshState = refreshState,
+        onItemClick = { navController.navigateToComic(it) }
     )
 }
 
@@ -67,7 +72,8 @@ fun PreReleaseScreen(
     modifier: Modifier = Modifier,
     preReleaseUiState: PreReleaseState,
     isRefreshing: Boolean,
-    refreshState: PullRefreshState
+    refreshState: PullRefreshState,
+    onItemClick: (Shorts) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -98,9 +104,7 @@ fun PreReleaseScreen(
 
         shortsCardItems(
             items = preReleaseUiState.webtoonList,
-            onItemClick = {
-                // TODO : 웹툰 화면으로 이동하기
-            }
+            onItemClick = onItemClick
         )
     }
 }
