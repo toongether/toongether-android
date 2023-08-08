@@ -38,16 +38,19 @@ fun ToongetherApp(
                 ToongetherBottomBar(
                     destinations = appState.navigationDestinations,
                     onNavigateToDestination = appState::navigateToNavigationDestination,
-                    currentDestination = appState.currentDestination
+                    currentDestination = appState.currentDestination,
+                    isShowBottomBar = appState.isShowBottomBar
                 )
             }
         }
     ) { paddingValues ->
         Surface(
-            modifier = Modifier
+            modifier = if (appState.isShowBottomBar) Modifier
                 .fillMaxSize()
                 .background(Color.Black)
-                .padding(paddingValues),
+                .padding(paddingValues)
+            else Modifier
+                .fillMaxSize(),
             color = Color.Black
         ) {
             ToongetherNavHost(appState = appState)
@@ -60,12 +63,14 @@ private fun ToongetherBottomBar(
     destinations: List<NavigationDestination>,
     onNavigateToDestination: (NavigationDestination) -> Unit,
     currentDestination: NavDestination?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isShowBottomBar: Boolean,
 ) {
     ToongetherNavigationBar(
-        modifier = modifier
+        modifier = if (isShowBottomBar) modifier
             .background(Color.Black)
             .navigationBarsPadding()
+        else modifier
     ) {
         destinations.forEach { destination ->
             val selected = currentDestination.isNavigationDestinationInHierarchy(destination)

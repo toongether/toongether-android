@@ -12,3 +12,4 @@ val Pink40 = Color(0xFF7D5260)
 
 val Gray = Color(0xFF787878)
 val DarkGray = Color(0xFF2F2F2F)
+val TransparentBlack = Color(0x80000000)

@@ -1,8 +1,9 @@
-package kr.toongether.shorts.genre.prerelease
+package kr.toongether.comic
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kr.toongether.domain.GetShortsListUseCase
+import kr.toongether.domain.GetComicListUseCase
+import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -11,34 +12,34 @@ import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
 @HiltViewModel
-class PreReleaseViewModel @Inject constructor(
-    private val getShortsListUseCase: GetShortsListUseCase
-) : ContainerHost<PreReleaseState, PreReleaseSideEffect>, ViewModel() {
+class ComicViewModel @Inject constructor(
+    private val getComicListUseCase: GetComicListUseCase
+) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
 
-    override val container = container<PreReleaseState, PreReleaseSideEffect>(PreReleaseState())
+    override val container = container<ComicState, ComicSideEffect>(ComicState())
 
     init {
-        getShortsList()
+//        getComicList(id)
     }
 
-    fun getShortsList() = intent {
+    fun getComicList(id: Long) = intent {
         reduce {
             state.copy(isLoading = true)
         }
-        getShortsListUseCase.invoke()
+        getComicListUseCase.invoke(id)
             .onSuccess {
                 reduce {
                     state.copy(
                         isLoading = false,
-                        shortsList = it
+                        comicList = it
                     )
                 }
             }.onFailure {
-                postSideEffect(PreReleaseSideEffect.Toast("서버 연결에 실패했습니다."))
+                postSideEffect(ComicSideEffect.Toast("서버 연결에 실패했습니다."))
                 reduce {
                     state.copy(
-                        isLoading = false,
-                        error = it
+                        error = it,
+                        isLoading = false
                     )
                 }
             }

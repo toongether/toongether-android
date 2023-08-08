@@ -183,15 +183,16 @@ fun ToongetherTopAppBar(
             .fillMaxWidth()
             .height(50.dp)
             .background(backgroundColor)
+            .padding(horizontal = 5.dp)
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .align(Alignment.CenterStart)
                 .wrapContentSize()
         ) {
 
             IconButton(
-                modifier = modifier
+                modifier = Modifier
                     .align(Alignment.Bottom)
                     .size(30.dp),
                 onClick = onNavigationClick
@@ -199,13 +200,13 @@ fun ToongetherTopAppBar(
                 Icon(
                     imageVector = navigationIcon,
                     contentDescription = null,
-                    modifier = modifier.size(20.dp),
+                    modifier = Modifier.size(20.dp),
                     tint = contentColor
                 )
             }
-            Spacer(modifier = modifier.size(5.dp))
+            Spacer(modifier = Modifier.size(5.dp))
             Text(
-                modifier = modifier.align(Alignment.Bottom),
+                modifier = Modifier.align(Alignment.Bottom),
                 text = title,
                 fontFamily = pretendard,
                 fontWeight = FontWeight.Bold,
@@ -213,9 +214,9 @@ fun ToongetherTopAppBar(
                 fontSize = 24.sp
             )
             subTitle?.let {
-                Spacer(modifier = modifier.size(5.dp))
+                Spacer(modifier = Modifier.size(5.dp))
                 Text(
-                    modifier = modifier
+                    modifier = Modifier
                         .align(Alignment.Bottom)
                         .padding(bottom = 2.dp),
                     text = it,

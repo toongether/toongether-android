@@ -103,7 +103,7 @@ fun PreReleaseScreen(
         }
 
         shortsCardItems(
-            items = preReleaseUiState.webtoonList,
+            items = preReleaseUiState.shortsList,
             onItemClick = onItemClick
         )
     }
