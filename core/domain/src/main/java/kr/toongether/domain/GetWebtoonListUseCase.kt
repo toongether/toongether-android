@@ -1,13 +1,13 @@
 package kr.toongether.domain
 
-import kotlinx.coroutines.flow.Flow
-import kr.toongether.data.repository.WebtoonRepository
-import kr.toongether.model.Webtoon
+import kr.toongether.data.repository.ComicRepository
+import kr.toongether.model.Shorts
 import javax.inject.Inject
 
-class GetWebtoonListUseCase @Inject constructor(
-    private val webtoonRepository: WebtoonRepository
+class GetShortsListUseCase @Inject constructor(
+    private val comicRepository: ComicRepository
 ) {
-    operator fun invoke(): Flow<List<Webtoon>> =
-        webtoonRepository.getWebtoonList()
+    suspend operator fun invoke(): Result<List<Shorts>> = kotlin.runCatching {
+        comicRepository.getShortsList()
+    }
 }

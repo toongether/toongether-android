@@ -1,7 +1,7 @@
 package kr.toongether.network
 
-import kr.toongether.network.model.WebtoonResponse
+import kr.toongether.network.model.ShortsResponse
 
 interface ToongetherNetworkDataSource {
-    suspend fun getWebtoonList(): List<WebtoonResponse>
+    suspend fun getShortsList(): List<ShortsResponse>
 }

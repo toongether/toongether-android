@@ -1,9 +1,7 @@
 package kr.toongether.model
 
-import java.time.LocalDateTime
-
-data class Webtoon(
-    val createDate: LocalDateTime,
+data class Shorts(
+    val createdDate: String,
     val id: Long,
     val title: String,
     val writer: String,

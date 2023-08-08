@@ -1,23 +1,24 @@
 package kr.toongether.network.retrofit
 
 import kr.toongether.network.ToongetherNetworkDataSource
-import kr.toongether.network.model.WebtoonResponse
+import kr.toongether.network.model.ShortsResponse
 import okhttp3.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import javax.inject.Inject
 import javax.inject.Singleton
 
 private interface RetrofitToongetherNetworkApi {
-    @GET("webtoon/webtoon-list")
-    suspend fun getWebtoonList(
-    ): List<WebtoonResponse>
+    @GET("comic/shorts")
+    suspend fun getShortsList(
+    ): List<ShortsResponse>
 }
 
 private const val ToongetherUrl = "http://api.toongether.kr:8002/"
 
 @Singleton
-class RetrofitToongetherNetwork(
+class RetrofitToongetherNetwork @Inject constructor(
     gsonConverterFactory: GsonConverterFactory,
     okHttpCallFactory: Call.Factory,
 ) : ToongetherNetworkDataSource {
@@ -29,7 +30,7 @@ class RetrofitToongetherNetwork(
         .build()
         .create(RetrofitToongetherNetworkApi::class.java)
 
-    override suspend fun getWebtoonList(): List<WebtoonResponse> =
-        networkApi.getWebtoonList()
+    override suspend fun getShortsList(): List<ShortsResponse> =
+        networkApi.getShortsList()
 
 }
