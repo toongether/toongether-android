@@ -43,9 +43,7 @@ fun PreReleaseScreen(
 
     val refreshState = rememberPullRefreshState(
         refreshing = preReleaseUiState.isLoading,
-        onRefresh = {
-            viewModel.getShortsList()
-        }
+        onRefresh = viewModel::getShortsList
     )
 
     viewModel.collectSideEffect {
@@ -62,7 +60,7 @@ fun PreReleaseScreen(
         preReleaseUiState = preReleaseUiState,
         isRefreshing = preReleaseUiState.isLoading,
         refreshState = refreshState,
-        onItemClick = { navController.navigateToComic(it) }
+        onItemClick = navController::navigateToComic
     )
 }
 

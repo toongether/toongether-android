@@ -84,16 +84,16 @@ internal fun ShortsScreen(
                     }
                 }
             )
-
-            HorizontalPager(
-                modifier = modifier.fillMaxSize(),
-                pageCount = ComicGenre.values().size,
-                state = pagerState
-            ) { page ->
-                when (page) {
-                    0 -> PreReleaseScreen(navController = navController)
-                }
-            }
+            PreReleaseScreen(navController = navController)
+//            HorizontalPager(
+//                modifier = modifier.fillMaxSize(),
+//                pageCount = ComicGenre.values().size,
+//                state = pagerState
+//            ) { page ->
+//                when (page) {
+//                    0 -> PreReleaseScreen(navController = navController)
+//                }
+//            }
         }
     }
 }

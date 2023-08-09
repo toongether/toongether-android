@@ -30,10 +30,10 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
             navArgument("writer") { type = NavType.StringType }
         ),
         enterTransition = {
-            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400))
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400))
         }
     ) {
         ComicRoute(

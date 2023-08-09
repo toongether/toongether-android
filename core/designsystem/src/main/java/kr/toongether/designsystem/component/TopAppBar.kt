@@ -15,6 +15,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.designsystem.utils.NoRippleInteractionSource
 
 @Composable
 fun ToongetherTopAppBar(
@@ -195,7 +197,8 @@ fun ToongetherTopAppBar(
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .size(30.dp),
-                onClick = onNavigationClick
+                onClick = onNavigationClick,
+                interactionSource = remember { NoRippleInteractionSource() }
             ) {
                 Icon(
                     imageVector = navigationIcon,
