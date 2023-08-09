@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.orbit.mvi.core)
     implementation(libs.orbit.mvi.compose)
     implementation(libs.glide.compose)
+    implementation(libs.navigation.animation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

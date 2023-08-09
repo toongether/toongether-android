@@ -1,5 +1,6 @@
 package kr.toongether.android.ui
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -9,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kr.toongether.android.navigation.NavigationDestination
 import kr.toongether.comic.navigation.ComicRoute
 import kr.toongether.community.navigation.navigateToCommunity
@@ -18,9 +20,10 @@ import kr.toongether.my.navigation.navigateToMy
 import kr.toongether.series.navigation.navigateToSeries
 import kr.toongether.shorts.navigation.navigateToShorts
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun rememberToongetherAppState(
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController = rememberAnimatedNavController(),
 ): ToongetherAppState {
     return remember(navController) {
         ToongetherAppState(navController)

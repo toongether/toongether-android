@@ -1,12 +1,15 @@
 package kr.toongether.comic.navigation
 
 import android.util.Log
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.accompanist.navigation.animation.composable
 import kr.toongether.comic.ComicRoute
 import kr.toongether.model.Shorts
 
@@ -17,6 +20,7 @@ fun NavController.navigateToComic(shorts: Shorts, navOptions: NavOptions? = null
     Log.d("TEST", shorts.id.toString())
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.comicScreen(navController: NavController) {
     composable(
         route = ComicRoute,
@@ -24,7 +28,13 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
             navArgument("id") { type = NavType.LongType },
             navArgument("title") { type = NavType.StringType },
             navArgument("writer") { type = NavType.StringType }
-        )
+        ),
+        enterTransition = {
+            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+        },
+        exitTransition = {
+            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+        }
     ) {
         ComicRoute(
             navController = navController,

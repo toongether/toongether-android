@@ -25,6 +25,7 @@ glide = "1.0.0-alpha.1"
 orbit-mvi = "4.5.0"
 paging = "3.1.1"
 paging-compose = "1.0.0-alpha18"
+navigation-animation = "0.28.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -57,7 +58,7 @@ orbit-mvi-viewmodel = { group = "org.orbit-mvi", name = "orbit-viewmodel", versi
 orbit-mvi-compose = { group = "org.orbit-mvi", name = "orbit-compose", version.ref = "orbit-mvi" }
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
-
+navigation-animation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "navigation-animation" }
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
