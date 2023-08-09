@@ -1,5 +1,6 @@
 package kr.toongether.comic
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -27,6 +29,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
@@ -35,6 +41,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import kr.toongether.designsystem.component.ToongetherScrollbar
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
@@ -138,11 +145,24 @@ internal fun ComicScreen(
                 ) { index, imageUrl ->
                     if (index < comicState.comicList.endIndex)
                         ComicItem(height = minHeight, imageUrl = imageUrl)
-                    else if (index == comicState.comicList.endIndex)
-                        ComicItem(height = lastHeight, imageUrl = imageUrl)
-
                 }
             }
+
+//            AnimatedVisibility(
+//                modifier = modifier.align(Alignment.TopEnd),
+//                visible = isShowTabs,
+//                enter = fadeIn(),
+//                exit = fadeOut()
+//            ) {
+                ToongetherScrollbar(
+                    state = lazyListState,
+                    modifier = modifier
+                        .align(Alignment.TopEnd)
+                        .navigationBarsPadding()
+                        .padding(top = 90.dp, bottom = 35.dp),
+                )
+//            }
+
             AnimatedVisibility(
                 visible = isShowTabs,
                 enter = fadeIn(),
