@@ -8,7 +8,6 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import kr.toongether.android.ui.ToongetherAppState
 import kr.toongether.comic.navigation.comicScreen
 import kr.toongether.community.navigation.communityScreen
-import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.homeScreen
 import kr.toongether.my.navigation.myScreen
 import kr.toongether.series.navigation.seriesScreen
