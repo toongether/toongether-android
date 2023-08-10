@@ -24,6 +24,7 @@ androidxHiltNavigationCompose = "1.0.0"
 glide = "1.0.0-alpha.1"
 orbit-mvi = "4.5.0"
 navigation-animation = "0.28.0"
+constraintLayout = "1.0.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -55,6 +56,7 @@ orbit-mvi-core = { group = "org.orbit-mvi", name = "orbit-core", version.ref = "
 orbit-mvi-viewmodel = { group = "org.orbit-mvi", name = "orbit-viewmodel", version.ref = "orbit-mvi" }
 orbit-mvi-compose = { group = "org.orbit-mvi", name = "orbit-compose", version.ref = "orbit-mvi" }
 navigation-animation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "navigation-animation" }
+androidx-constraint-layout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintLayout" }
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
