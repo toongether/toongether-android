@@ -1,0 +1,22 @@
+complexity:
+  LongParameterList:
+    ignoreDefaultParameters: true
+    functionThreshold: 10
+  LongMethod:
+    active: false
+  CyclomaticComplexMethod:
+    threshold: 30
+
+style:
+  MagicNumber:
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+  UnusedPrivateMember:
+    ignoreAnnotated: [ 'preview' ]
+
+naming:
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+  FunctionNaming:
+    ignoreAnnotated: [ 'Composable' ]
+  
