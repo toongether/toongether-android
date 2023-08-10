@@ -191,7 +191,7 @@ internal fun InternalToongetherScrollbar(
         }
         @Composable
         fun DraggableBar() = Box(
-            modifier = modifier
+            modifier = Modifier
                 .align(Alignment.TopEnd)
                 .width(30.dp)
                 .fillMaxHeight()

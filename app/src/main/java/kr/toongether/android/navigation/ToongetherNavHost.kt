@@ -8,10 +8,10 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import kr.toongether.android.ui.ToongetherAppState
 import kr.toongether.comic.navigation.comicScreen
 import kr.toongether.community.navigation.communityScreen
-import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.homeScreen
 import kr.toongether.my.navigation.myScreen
 import kr.toongether.series.navigation.seriesScreen
+import kr.toongether.shorts.navigation.ShortsRoute
 import kr.toongether.shorts.navigation.shortsScreen
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -19,7 +19,7 @@ import kr.toongether.shorts.navigation.shortsScreen
 fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = HomeRoute
+    startDestination: String = ShortsRoute
 ) {
     val navController = appState.navController
 
