@@ -1,8 +1,11 @@
 complexity:
   LongParameterList:
     ignoreDefaultParameters: true
+    functionThreshold: 10
   LongMethod:
     active: false
+  CyclomaticComplexMethod:
+    threshold: 30
 
 style:
   MagicNumber:

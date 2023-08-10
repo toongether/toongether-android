@@ -62,12 +62,8 @@ internal fun InternalToongetherScrollbar(
     isShow: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
-
     var isSelected by remember { mutableStateOf(false) }
-
     var dragOffset by remember { mutableStateOf(0f) }
-
-    val reverseLayout by remember { derivedStateOf { listState.layoutInfo.reverseLayout } }
 
     val realFirstVisibleItem by remember {
         derivedStateOf {
@@ -85,12 +81,6 @@ internal fun InternalToongetherScrollbar(
             realIndex != firstVisibleIndex
         }
     }
-
-    fun LazyListItemInfo.fractionHiddenTop(firstItemOffset: Int) =
-        if (size == 0) 0f else firstItemOffset / size.toFloat()
-
-    fun LazyListItemInfo.fractionVisibleBottom(viewportEndOffset: Int) =
-        if (size == 0) 0f else (viewportEndOffset - offset).toFloat() / size.toFloat()
 
     val normalizedThumbSizeReal by remember {
         derivedStateOf {
@@ -118,25 +108,6 @@ internal fun InternalToongetherScrollbar(
         }
     }
 
-    fun offsetCorrection(top: Float): Float {
-        val topRealMax = (1f - normalizedThumbSizeReal).coerceIn(0f, 1f)
-        if (normalizedThumbSizeReal >= thumbMinHeight) {
-            return top
-        }
-
-        val topMax = 1f - thumbMinHeight
-        return top * topMax / topRealMax
-    }
-
-    fun offsetCorrectionInverse(top: Float): Float {
-        if (normalizedThumbSizeReal >= thumbMinHeight) {
-            return top
-        }
-        val topRealMax = 1f - normalizedThumbSizeReal
-        val topMax = 1f - thumbMinHeight
-        return top * topRealMax / topMax
-    }
-
     val normalizedOffsetPosition by remember {
         derivedStateOf {
             listState.layoutInfo.let {
@@ -146,9 +117,13 @@ internal fun InternalToongetherScrollbar(
 
                 val firstItem = realFirstVisibleItem ?: return@let 0f
                 val top = firstItem.run {
-                        index.toFloat() + fractionHiddenTop(listState.firstVisibleItemScrollOffset)
-                    } / it.totalItemsCount.toFloat()
-                offsetCorrection(top)
+                    index.toFloat() + fractionHiddenTop(listState.firstVisibleItemScrollOffset)
+                } / it.totalItemsCount.toFloat()
+                offsetCorrection(
+                    normalizedThumbSizeReal = normalizedThumbSizeReal,
+                    thumbMinHeight = thumbMinHeight,
+                    top = top
+                )
             }
         }
     }
@@ -161,7 +136,11 @@ internal fun InternalToongetherScrollbar(
     fun setScrollOffset(newOffset: Float) {
         setDragOffset(newOffset)
         val totalItemsCount = listState.layoutInfo.totalItemsCount.toFloat()
-        val exactIndex = offsetCorrectionInverse(totalItemsCount * dragOffset)
+        val exactIndex = offsetCorrectionInverse(
+            normalizedThumbSizeReal = normalizedThumbSizeReal,
+            thumbMinHeight = thumbMinHeight,
+            top = totalItemsCount * dragOffset
+        )
         val index: Int = floor(exactIndex).toInt()
         val remainder: Float = exactIndex - floor(exactIndex)
 
@@ -210,32 +189,24 @@ internal fun InternalToongetherScrollbar(
                 }
             }
         }
-
         @Composable
         fun DraggableBar() = Box(
-            modifier = Modifier
+            modifier = modifier
                 .align(Alignment.TopEnd)
                 .width(30.dp)
                 .fillMaxHeight()
                 .draggable(
                     state = rememberDraggableState { delta ->
-                        val displace = if (reverseLayout) -delta else delta
                         if (isSelected) {
-                            setScrollOffset(dragOffset + displace / maxHeightFloat)
+                            setScrollOffset(dragOffset + delta / maxHeightFloat)
                         }
                     },
                     orientation = Orientation.Vertical,
                     startDragImmediately = true,
                     onDragStarted = onDragStarted@{ offset ->
                         if (maxHeightFloat <= 0f) return@onDragStarted
-                        val newOffset = when {
-                            reverseLayout -> (maxHeightFloat - offset.y) / maxHeightFloat
-                            else -> offset.y / maxHeightFloat
-                        }
-                        val currentOffset = when {
-                            reverseLayout -> 1f - normalizedOffsetPosition - normalizedThumbSize
-                            else -> normalizedOffsetPosition
-                        }
+                        val newOffset = offset.y / maxHeightFloat
+                        val currentOffset = normalizedOffsetPosition
 
                         if (newOffset in currentOffset..(currentOffset + normalizedThumbSize)) {
                             setDragOffset(currentOffset)
@@ -247,6 +218,40 @@ internal fun InternalToongetherScrollbar(
                     }
                 )
         )
+
         DraggableBar()
     }
+}
+
+private fun LazyListItemInfo.fractionHiddenTop(firstItemOffset: Int) =
+    if (size == 0) 0f else firstItemOffset / size.toFloat()
+
+private fun LazyListItemInfo.fractionVisibleBottom(viewportEndOffset: Int) =
+    if (size == 0) 0f else (viewportEndOffset - offset).toFloat() / size.toFloat()
+
+private fun offsetCorrection(
+    top: Float,
+    normalizedThumbSizeReal: Float,
+    thumbMinHeight: Float
+): Float {
+    val topRealMax = (1f - normalizedThumbSizeReal).coerceIn(0f, 1f)
+    if (normalizedThumbSizeReal >= thumbMinHeight) {
+        return top
+    }
+
+    val topMax = 1f - thumbMinHeight
+    return top * topMax / topRealMax
+}
+
+private fun offsetCorrectionInverse(
+    top: Float,
+    normalizedThumbSizeReal: Float,
+    thumbMinHeight: Float
+): Float {
+    if (normalizedThumbSizeReal >= thumbMinHeight) {
+        return top
+    }
+    val topRealMax = 1f - normalizedThumbSizeReal
+    val topMax = 1f - thumbMinHeight
+    return top * topRealMax / topMax
 }

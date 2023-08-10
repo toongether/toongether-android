@@ -1,6 +1,5 @@
 package kr.toongether.comic
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -69,7 +68,7 @@ internal fun ComicRoute(
             toggledTime = null
             isShowTabs = false
         } else {
-            toggledTime = LocalTime.now().plusSeconds(3L)
+            toggledTime = LocalTime.now().plusSeconds(PlusSecond)
             isShowTabs = true
             timer(period = 500) {
                 if (toggledTime == null) {
@@ -100,7 +99,8 @@ internal fun ComicRoute(
         isShowTabs = isShowTabs || isTopOrBottom,
         recomposition = {
             isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
-                    lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == lazyListState.layoutInfo.totalItemsCount - 1
+                lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                lazyListState.layoutInfo.totalItemsCount - 1
         }
     )
 }
@@ -115,7 +115,7 @@ internal fun ComicScreen(
     comicState: ComicState,
     onClick: () -> Unit,
     isShowTabs: Boolean,
-    recomposition: () -> Unit,
+    recomposition: () -> Unit
 ) {
     val minHeight: Dp
     val lastHeight: Dp
@@ -184,7 +184,7 @@ internal fun ComicScreen(
             }
             AnimatedVisibility(
                 modifier = modifier.align(Alignment.BottomCenter),
-                visible = isShowTabs ,
+                visible = isShowTabs,
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
@@ -227,3 +227,5 @@ private fun ComicItem(
         )
     }
 }
+
+private const val PlusSecond: Long = 3
