@@ -17,12 +17,23 @@ val ToongetherIcons.ScrollIndicator: ImageVector
         if (_scrollindicator != null) {
             return _scrollindicator!!
         }
-        _scrollindicator = Builder(name = "Scrollindicator", defaultWidth = 14.0.dp, defaultHeight =
-                30.0.dp, viewportWidth = 14.0f, viewportHeight = 30.0f).apply {
+        _scrollindicator = Builder(
+            name = "Scrollindicator",
+            defaultWidth = 14.0.dp,
+            defaultHeight = 30.0.dp,
+            viewportWidth = 14.0f,
+            viewportHeight = 30.0f
+        ).apply {
             group {
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(0.2646f, 6.7733f)
                     curveTo(0.0947f, 6.9471f, 0.0f, 7.1787f, 0.0f, 7.4455f)
                     curveTo(0.0f, 7.9836f, 0.3993f, 8.4038f, 0.9128f, 8.4038f)
@@ -41,9 +52,15 @@ val ToongetherIcons.ScrollIndicator: ImageVector
                 }
             }
             group {
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(13.7354f, 23.2267f)
                     curveTo(13.9053f, 23.0529f, 14.0f, 22.8213f, 14.0f, 22.5545f)
                     curveTo(14.0f, 22.0165f, 13.6007f, 21.5962f, 13.0872f, 21.5962f)
@@ -62,7 +79,7 @@ val ToongetherIcons.ScrollIndicator: ImageVector
                 }
             }
         }
-        .build()
+            .build()
         return _scrollindicator!!
     }
 

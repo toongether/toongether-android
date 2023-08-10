@@ -41,26 +41,25 @@ fun ToongetherScrollbar(
     listState: LazyListState,
     thumbMinHeight: Float = 0.1f,
     isShow: Boolean,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
-    content()
     Box {
         content()
-        InternalLazyColumnScrollbar(
+        InternalToongetherScrollbar(
             modifier = modifier,
             listState = listState,
             thumbMinHeight = thumbMinHeight,
-            isShow = isShow,
+            isShow = isShow
         )
     }
 }
 
 @Composable
-fun InternalLazyColumnScrollbar(
+internal fun InternalToongetherScrollbar(
     listState: LazyListState,
     modifier: Modifier = Modifier,
     thumbMinHeight: Float = 0.1f,
-    isShow: Boolean,
+    isShow: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -96,8 +95,9 @@ fun InternalLazyColumnScrollbar(
     val normalizedThumbSizeReal by remember {
         derivedStateOf {
             listState.layoutInfo.let {
-                if (it.totalItemsCount == 0)
+                if (it.totalItemsCount == 0) {
                     return@let 0f
+                }
 
                 val firstItem = realFirstVisibleItem ?: return@let 0f
                 val firstPartial =
@@ -120,16 +120,18 @@ fun InternalLazyColumnScrollbar(
 
     fun offsetCorrection(top: Float): Float {
         val topRealMax = (1f - normalizedThumbSizeReal).coerceIn(0f, 1f)
-        if (normalizedThumbSizeReal >= thumbMinHeight)
+        if (normalizedThumbSizeReal >= thumbMinHeight) {
             return top
+        }
 
         val topMax = 1f - thumbMinHeight
         return top * topMax / topRealMax
     }
 
     fun offsetCorrectionInverse(top: Float): Float {
-        if (normalizedThumbSizeReal >= thumbMinHeight)
+        if (normalizedThumbSizeReal >= thumbMinHeight) {
             return top
+        }
         val topRealMax = 1f - normalizedThumbSizeReal
         val topMax = 1f - thumbMinHeight
         return top * topRealMax / topMax
@@ -138,12 +140,14 @@ fun InternalLazyColumnScrollbar(
     val normalizedOffsetPosition by remember {
         derivedStateOf {
             listState.layoutInfo.let {
-                if (it.totalItemsCount == 0 || it.visibleItemsInfo.isEmpty())
+                if (it.totalItemsCount == 0 || it.visibleItemsInfo.isEmpty()) {
                     return@let 0f
+                }
 
                 val firstItem = realFirstVisibleItem ?: return@let 0f
-                val top = firstItem
-                    .run { index.toFloat() + fractionHiddenTop(listState.firstVisibleItemScrollOffset) } / it.totalItemsCount.toFloat()
+                val top = firstItem.run {
+                        index.toFloat() + fractionHiddenTop(listState.firstVisibleItemScrollOffset)
+                    } / it.totalItemsCount.toFloat()
                 offsetCorrection(top)
             }
         }

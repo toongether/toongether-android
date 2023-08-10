@@ -17,12 +17,23 @@ val ToongetherIcons.Back: ImageVector
         if (_back != null) {
             return _back!!
         }
-        _back = Builder(name = "Back", defaultWidth = 20.0.dp, defaultHeight = 20.0.dp,
-                viewportWidth = 20.0f, viewportHeight = 20.0f).apply {
+        _back = Builder(
+            name = "Back",
+            defaultWidth = 20.0.dp,
+            defaultHeight = 20.0.dp,
+            viewportWidth = 20.0f,
+            viewportHeight = 20.0f
+        ).apply {
             group {
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(4.0f, 9.4946f)
                     curveTo(4.0f, 9.8574f, 4.1304f, 10.1648f, 4.4234f, 10.4517f)
                     lineTo(12.8546f, 18.63f)
@@ -40,7 +51,7 @@ val ToongetherIcons.Back: ImageVector
                 }
             }
         }
-        .build()
+            .build()
         return _back!!
     }
 

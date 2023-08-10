@@ -8,18 +8,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.colorspace.WhitePoint
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,7 +32,7 @@ fun ToongetherTopAppBar(
     actionIconContentDescription: String? = null,
     modifier: Modifier = Modifier,
     onActionClick: () -> Unit,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -90,7 +87,7 @@ fun ToongetherTopAppBar(
     subTitle: String? = null,
     modifier: Modifier = Modifier,
     contentColor: Color = Color.White,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -114,7 +111,7 @@ fun ToongetherTopAppBar(
             )
             subTitle?.let {
                 Spacer(modifier = modifier.size(5.dp))
-                
+
                 Text(
                     modifier = modifier
                         .align(Alignment.Bottom)
@@ -136,7 +133,7 @@ fun ToongetherTopAppBar(
     subTitle: String? = null,
     modifier: Modifier = Modifier,
     contentColor: Color = Color.White,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -178,7 +175,7 @@ fun ToongetherTopAppBar(
     modifier: Modifier = Modifier,
     onNavigationClick: () -> Unit,
     contentColor: Color = Color.White,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -192,7 +189,6 @@ fun ToongetherTopAppBar(
                 .align(Alignment.CenterStart)
                 .wrapContentSize()
         ) {
-
             IconButton(
                 modifier = Modifier
                     .align(Alignment.Bottom)

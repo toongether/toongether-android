@@ -8,13 +8,11 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kr.toongether.android.navigation.NavigationDestination
 import kr.toongether.comic.navigation.ComicRoute
 import kr.toongether.community.navigation.navigateToCommunity
-import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.navigateToHome
 import kr.toongether.my.navigation.navigateToMy
 import kr.toongether.series.navigation.navigateToSeries
@@ -23,7 +21,7 @@ import kr.toongether.shorts.navigation.navigateToShorts
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun rememberToongetherAppState(
-    navController: NavHostController = rememberAnimatedNavController(),
+    navController: NavHostController = rememberAnimatedNavController()
 ): ToongetherAppState {
     return remember(navController) {
         ToongetherAppState(navController)
@@ -32,7 +30,7 @@ fun rememberToongetherAppState(
 
 @Stable
 class ToongetherAppState(
-    val navController: NavHostController,
+    val navController: NavHostController
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController

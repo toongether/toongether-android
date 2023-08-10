@@ -3,8 +3,6 @@ package kr.toongether.android.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import kr.toongether.android.ui.ToongetherAppState
@@ -28,7 +26,7 @@ fun ToongetherNavHost(
     AnimatedNavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier,
+        modifier = modifier
     ) {
         homeScreen()
         seriesScreen()

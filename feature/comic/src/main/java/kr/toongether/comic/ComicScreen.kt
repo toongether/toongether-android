@@ -1,5 +1,6 @@
 package kr.toongether.comic
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
@@ -56,8 +58,11 @@ internal fun ComicRoute(
     viewModel: ComicViewModel = hiltViewModel()
 ) {
     val comicState by viewModel.collectAsState()
+    val lazyListState = rememberLazyListState()
+
     var isShowTabs by remember { mutableStateOf(true) }
     var toggledTime: LocalTime? by remember { mutableStateOf(null) }
+    var isTopOrBottom by remember { mutableStateOf(true) }
 
     fun showTabs() {
         if (toggledTime != null) {
@@ -86,27 +91,32 @@ internal fun ComicRoute(
 
     ComicScreen(
         modifier = modifier,
+        lazyListState = lazyListState,
         title = title,
         writer = writer,
         onClickBack = navController::popBackStack,
         comicState = comicState,
         onClick = ::showTabs,
-        isShowTabs = isShowTabs,
+        isShowTabs = isShowTabs || isTopOrBottom,
+        recomposition = {
+            isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
+                    lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == lazyListState.layoutInfo.totalItemsCount - 1
+        }
     )
 }
 
 @Composable
 internal fun ComicScreen(
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState,
     title: String,
     writer: String,
     onClickBack: () -> Unit,
     comicState: ComicState,
     onClick: () -> Unit,
     isShowTabs: Boolean,
+    recomposition: () -> Unit,
 ) {
-    val lazyListState = rememberLazyListState()
-
     val minHeight: Dp
     val lastHeight: Dp
 
@@ -135,7 +145,7 @@ internal fun ComicScreen(
                     .padding(top = 90.dp, bottom = 35.dp)
                     .navigationBarsPadding(),
                 listState = lazyListState,
-                isShow = isShowTabs,
+                isShow = isShowTabs
             ) {
                 LazyColumn(
                     modifier = modifier
@@ -143,12 +153,14 @@ internal fun ComicScreen(
                     state = lazyListState
                 ) {
                     itemsIndexed(
-                        items = comicState.comicList.imageUrl,
+                        items = comicState.comicList.imageUrl
                     ) { index, imageUrl ->
-                        if (index < comicState.comicList.endIndex)
+                        if (index < comicState.comicList.endIndex) {
                             ComicItem(height = minHeight, imageUrl = imageUrl)
-                        else if (index == comicState.comicList.endIndex)
+                        } else if (index == comicState.comicList.endIndex) {
                             ComicItem(height = lastHeight, imageUrl = imageUrl)
+                        }
+                        recomposition.invoke()
                     }
                 }
             }
@@ -172,7 +184,7 @@ internal fun ComicScreen(
             }
             AnimatedVisibility(
                 modifier = modifier.align(Alignment.BottomCenter),
-                visible = isShowTabs,
+                visible = isShowTabs ,
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
@@ -198,7 +210,7 @@ internal fun ComicScreen(
 private fun ComicItem(
     modifier: Modifier = Modifier,
     height: Dp,
-    imageUrl: String,
+    imageUrl: String
 ) {
     Box(
         modifier = modifier

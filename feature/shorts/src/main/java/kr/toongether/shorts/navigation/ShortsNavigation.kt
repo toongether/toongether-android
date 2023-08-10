@@ -15,7 +15,7 @@ fun NavController.navigateToShorts(navOptions: NavOptions? = null) {
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.shortsScreen(navController: NavController) {
-    composable(route = ShortsRoute,) {
+    composable(route = ShortsRoute) {
         ShortsRoute(navController = navController)
     }
 }

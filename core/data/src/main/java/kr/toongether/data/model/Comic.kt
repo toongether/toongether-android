@@ -8,5 +8,5 @@ fun ComicListResponse.asModel(): ComicList = ComicList(
     width = width,
     height = height,
     lastHeight = lastHeight,
-    endIndex = endIndex,
+    endIndex = endIndex
 )

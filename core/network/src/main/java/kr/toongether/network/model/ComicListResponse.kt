@@ -12,5 +12,5 @@ data class ComicListResponse(
     @field:SerializedName("lastHeight")
     val lastHeight: Int,
     @field:SerializedName("endIndex")
-    val endIndex: Int,
+    val endIndex: Int
 )
