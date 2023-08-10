@@ -27,6 +27,7 @@ dependencies {
     implementation(libs.orbit.mvi.viewmodel)
     implementation(libs.orbit.mvi.core)
     implementation(libs.orbit.mvi.compose)
+    implementation(libs.navigation.animation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -36,4 +37,5 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
+    implementation(project(":feature:comic"))
 }

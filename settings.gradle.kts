@@ -18,6 +18,7 @@ rootProject.name = "Toongether"
 include(":app")
 include(":core:designsystem")
 include(":feature:home")
+include(":feature:comic")
 include(":feature:series")
 include(":feature:shorts")
 include(":feature:community")

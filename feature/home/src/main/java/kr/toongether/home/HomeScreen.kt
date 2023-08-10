@@ -5,13 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -54,40 +50,8 @@ internal fun HomeScreen(
                 .fillMaxSize()
         ) {
             ToongetherTopAppBar(
-                modifier = modifier
-                    .align(Alignment.TopCenter),
-                title = {
-                    Row(
-                        modifier = modifier
-                            .padding(bottom = 10.dp)
-                    ) {
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Icon(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                imageVector = ToongetherIcons.Toongether,
-                                contentDescription = null,
-                                tint = Color.White
-                            )
-                        }
-                        Spacer(modifier = modifier.size(5.dp))
-                        Box(
-                            modifier = modifier
-                                .fillMaxHeight()
-                        ) {
-                            Text(
-                                modifier = modifier.align(Alignment.BottomCenter),
-                                text = "프리 릴리즈",
-                                fontFamily = pretendard,
-                                fontWeight = FontWeight.Normal,
-                                color = Color.White,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                }
+                titleIcon = ToongetherIcons.Toongether,
+                subTitle = "프리 릴리즈"
             )
 
             Column(

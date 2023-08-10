@@ -30,7 +30,7 @@ class PreReleaseViewModel @Inject constructor(
                 reduce {
                     state.copy(
                         isLoading = false,
-                        webtoonList = it
+                        shortsList = it
                     )
                 }
             }.onFailure {

@@ -1,6 +1,7 @@
 package kr.toongether.data.repository
 
 import kr.toongether.data.model.asModel
+import kr.toongether.model.ComicList
 import kr.toongether.model.Shorts
 import kr.toongether.network.ToongetherNetworkDataSource
 import javax.inject.Inject
@@ -10,4 +11,7 @@ class ComicRepositoryImpl @Inject constructor(
 ) : ComicRepository {
     override suspend fun getShortsList(): List<Shorts> =
         network.getShortsList().map { it.asModel() }
+
+    override suspend fun getComicList(id: Long): ComicList =
+        network.getComicList(id).asModel()
 }
