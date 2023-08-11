@@ -27,6 +27,15 @@ internal fun Project.configureAndroidCompose(
             val bom = libs.findLibrary("androidx-compose-bom").get()
             add("implementation", platform(bom))
             add("androidTestImplementation", platform(bom))
+
+            add("implementation", libs.findLibrary("androidx.compose.material3").get())
+            add("implementation", libs.findLibrary("androidx.compose.material").get())
+            add("implementation", libs.findLibrary("androidx.navigation.compose").get())
+            add("implementation", libs.findLibrary("navigation.animation").get())
+
+            add("androidTestImplementation", libs.findLibrary("androidx.test.espresso.core").get())
+            add("androidTestImplementation", libs.findLibrary("androidx.test.runner").get())
+            add("androidTestImplementation", libs.findLibrary("androidx.test.ext").get())
         }
     }
 

@@ -6,6 +6,3 @@ plugins {
 android {
     namespace = "kr.toongether.home"
 }
-
-dependencies {
-}

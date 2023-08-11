@@ -38,7 +38,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
                 add("implementation", libs.findLibrary("orbit.mvi.viewmodel").get())
                 add("implementation", libs.findLibrary("orbit.mvi.compose").get())
-                add("implementation", libs.findLibrary("navigation.animation").get())
 
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
 

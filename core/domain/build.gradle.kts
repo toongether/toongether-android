@@ -1,7 +1,6 @@
 plugins {
     id("toongether.android.library")
     id("toongether.android.hilt")
-    id("toongether.kotlin.code")
 }
 
 android {
@@ -12,6 +11,4 @@ dependencies {
 
     implementation(project(":core:model"))
     implementation(project(":core:data"))
-
-    implementation(libs.androidx.core.ktx)
 }

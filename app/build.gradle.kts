@@ -2,7 +2,6 @@ plugins {
     id("toongether.android.application")
     id("toongether.android.application.compose")
     id("toongether.android.hilt")
-    id("toongether.kotlin.code")
 }
 
 android {
@@ -36,17 +35,6 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.ui.util)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.lifecycle.viewModelCompose)
-    implementation(libs.androidx.lifecycle.runtimeCompose)
-    implementation(libs.navigation.animation)
-    debugImplementation(libs.androidx.compose.ui.testManifest)
 
     implementation(project(":core:designsystem"))
     implementation(project(":feature:home"))
