@@ -5,12 +5,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
 import kr.toongether.network.ToongetherNetworkDataSource
 import kr.toongether.network.retrofit.RetrofitToongetherNetwork
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -25,10 +25,11 @@ object NetworkModule {
         )
         .build()
 
-    @Singleton
     @Provides
-    fun providesGsonConverterFactory(): GsonConverterFactory =
-        GsonConverterFactory.create()
+    @Singleton
+    fun providesNetworkJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
 }
 
 @Module

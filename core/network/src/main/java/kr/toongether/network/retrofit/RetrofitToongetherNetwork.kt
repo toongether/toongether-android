@@ -1,11 +1,13 @@
 package kr.toongether.network.retrofit
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
 import kr.toongether.network.ToongetherNetworkDataSource
 import kr.toongether.network.model.ComicListResponse
 import kr.toongether.network.model.ShortsResponse
 import okhttp3.Call
+import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import javax.inject.Inject
@@ -25,14 +27,16 @@ private const val ToongetherUrl = "http://api.toongether.kr:8002/"
 
 @Singleton
 class RetrofitToongetherNetwork @Inject constructor(
-    gsonConverterFactory: GsonConverterFactory,
+    networkJson: Json,
     okHttpCallFactory: Call.Factory
 ) : ToongetherNetworkDataSource {
 
     private val networkApi = Retrofit.Builder()
         .baseUrl(ToongetherUrl)
         .callFactory(okHttpCallFactory)
-        .addConverterFactory(gsonConverterFactory)
+        .addConverterFactory(
+            networkJson.asConverterFactory("application/json".toMediaType())
+        )
         .build()
         .create(RetrofitToongetherNetworkApi::class.java)
 

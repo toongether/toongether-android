@@ -1,16 +1,18 @@
 package kr.toongether.network.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ComicListResponse(
-    @field:SerializedName("imageURL")
+    @SerialName("imageURL")
     val imageUrl: List<String>,
-    @field:SerializedName("width")
+    @SerialName("width")
     val width: Int,
-    @field:SerializedName("height")
+    @SerialName("height")
     val height: Int,
-    @field:SerializedName("lastHeight")
+    @SerialName("lastHeight")
     val lastHeight: Int,
-    @field:SerializedName("endIndex")
+    @SerialName("endIndex")
     val endIndex: Int
 )
