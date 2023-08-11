@@ -1,16 +1,18 @@
 package kr.toongether.network.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ShortsResponse(
-    @field:SerializedName("id")
+    @SerialName("id")
     val id: Long,
-    @field:SerializedName("title")
+    @SerialName("title")
     val title: String,
-    @field:SerializedName("writer")
+    @SerialName("writer")
     val writer: String,
-    @field:SerializedName("thumbnail")
+    @SerialName("thumbnail")
     val thumbnail: String,
-    @field:SerializedName("createdDate")
+    @SerialName("createdDate")
     val createdDate: String
 )
