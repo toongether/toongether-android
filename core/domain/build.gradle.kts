@@ -13,6 +13,5 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:data"))
 
-    implementation(libs.core.ktx)
-    testImplementation(libs.junit)
+    implementation(libs.androidx.core.ktx)
 }

@@ -2,6 +2,7 @@ plugins {
     id("toongether.android.library")
     id("toongether.android.hilt")
     id("toongether.kotlin.code")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -10,13 +11,10 @@ android {
 
 dependencies {
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
-    implementation(libs.gson.converter)
+    implementation(libs.retrofit.kotlin.serialization)
 }
