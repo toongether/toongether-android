@@ -41,6 +41,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("navigation.animation").get())
 
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
+
+                add("testImplementation", libs.findLibrary("junit4").get())
+                add("androidTestImplementation", libs.findLibrary("androidx.test.runner").get())
+                add("androidTestImplementation", libs.findLibrary("androidx.test.espresso.core").get())
             }
         }
     }
