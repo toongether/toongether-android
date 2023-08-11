@@ -33,7 +33,7 @@ fun ShortsCard(
     title: String,
     writer: String,
     createdDate: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -65,14 +65,14 @@ fun ShortsCard(
                     fontFamily = pretendard,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    color = Color.White
                 )
                 Text(
                     text = writer,
                     fontFamily = pretendard,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color.White,
+                    color = Color.White
                 )
             }
 
@@ -82,7 +82,7 @@ fun ShortsCard(
                 fontFamily = pretendard,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = Gray,
+                color = Gray
             )
         }
     }

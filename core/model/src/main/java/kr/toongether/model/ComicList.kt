@@ -5,5 +5,5 @@ data class ComicList(
     val width: Int,
     val height: Int,
     val lastHeight: Int,
-    val endIndex: Int,
+    val endIndex: Int
 )

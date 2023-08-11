@@ -5,5 +5,4 @@ plugins {
 
 android {
     namespace = "kr.toongether.common"
-
 }

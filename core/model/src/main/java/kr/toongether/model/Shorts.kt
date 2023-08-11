@@ -5,5 +5,5 @@ data class Shorts(
     val id: Long,
     val title: String,
     val writer: String,
-    val thumbnail: String,
+    val thumbnail: String
 )
