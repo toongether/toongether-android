@@ -68,6 +68,7 @@ internal fun CommunityScreen(
                 Spacer(modifier = modifier.size(10.dp))
 
                 ToongetherButton(
+                    color = Color.White,
                     onClick = {
                         context.startActivity(
                             Intent(
