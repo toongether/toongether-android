@@ -14,6 +14,7 @@ import kr.toongether.android.navigation.NavigationDestination
 import kr.toongether.comic.navigation.ComicRoute
 import kr.toongether.community.navigation.navigateToCommunity
 import kr.toongether.home.navigation.navigateToHome
+import kr.toongether.login.navigation.LoginRoute
 import kr.toongether.my.navigation.navigateToMy
 import kr.toongether.series.navigation.navigateToSeries
 import kr.toongether.shorts.navigation.navigateToShorts
@@ -41,6 +42,7 @@ class ToongetherAppState(
     val isShowBottomBar: Boolean
         @Composable get() = when (currentDestination?.route) {
             ComicRoute -> false
+            LoginRoute -> false
             else -> true
         }
 

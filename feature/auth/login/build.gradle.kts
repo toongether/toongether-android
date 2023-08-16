@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "kr.toongether.login"
 }
+
+dependencies {
+    implementation(libs.androidx.compose.material.icons)
+}

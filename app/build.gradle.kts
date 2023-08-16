@@ -43,4 +43,5 @@ dependencies {
     implementation(project(":feature:community"))
     implementation(project(":feature:my"))
     implementation(project(":feature:comic"))
+    implementation(project(":feature:auth:login"))
 }

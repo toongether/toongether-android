@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "kr.toongether.my"
 }
+
+dependencies {
+    implementation(project(":feature:auth:login"))
+}
