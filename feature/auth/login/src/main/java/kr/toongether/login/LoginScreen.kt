@@ -1,5 +1,7 @@
 package kr.toongether.login
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,13 +29,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
@@ -44,15 +49,46 @@ import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun LoginRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
+    var userId by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var showPassword by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current!!
+    val context = LocalContext.current
+
+    val state by viewModel.collectAsState()
+
+    viewModel.collectSideEffect {
+        when (it) {
+            is LoginSideEffect.Toast -> {
+                Toast.makeText(context, it.text, Toast.LENGTH_SHORT).show()
+                Log.d("ERROR", "LoginRoute: ${state.error?.message}")
+            }
+        }
+    }
+
     LoginScreen(
         modifier = modifier,
-        onBackClick = navController::popBackStack
+        onBackClick = navController::popBackStack,
+        onClickLogin = viewModel::login,
+        userId = userId,
+        password = password,
+        showPassword = showPassword,
+        keyboardController = keyboardController,
+        onClickUserIdCancel = { userId = "" },
+        onPasswordChange = { password = it },
+        onUserIdChange = { userId = it},
+        onClickShowPassword = { showPassword = !showPassword },
+        onClickPasswordCancel = { password = "" }
     )
 }
 
@@ -60,12 +96,18 @@ internal fun LoginRoute(
 @Composable
 internal fun LoginScreen(
     modifier: Modifier = Modifier,
+    userId: String,
+    password: String,
+    showPassword: Boolean,
+    keyboardController: SoftwareKeyboardController,
     onBackClick: () -> Unit,
+    onClickLogin: (String, String) -> Unit,
+    onUserIdChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onClickUserIdCancel: () -> Unit,
+    onClickShowPassword: () -> Unit,
+    onClickPasswordCancel: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var showPassword by remember { mutableStateOf(false) }
-    val keyboardController = LocalSoftwareKeyboardController.current!!
 
     Column(
         modifier = modifier
@@ -99,8 +141,8 @@ internal fun LoginScreen(
 
         ToongetherTextField(
             modifier = modifier.fillMaxWidth(),
-            text = email,
-            onTextChange = { email = it },
+            text = userId,
+            onTextChange = onUserIdChange,
             label = "아이디 또는 이메일",
             placeholder = "example@toongether.kr",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -109,7 +151,7 @@ internal fun LoginScreen(
                     modifier = modifier
                         .padding(top = 10.dp, end = 10.dp)
                         .size(24.dp),
-                    onClick = { email = "" }
+                    onClick = onClickUserIdCancel
                 ) {
                     Icon(
                         modifier = modifier.size(18.dp),
@@ -127,7 +169,7 @@ internal fun LoginScreen(
             modifier = modifier
                 .fillMaxWidth(),
             text = password,
-            onTextChange = { password = it },
+            onTextChange = onPasswordChange,
             label = "비밀번호",
             placeholder = "example1234!",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -141,7 +183,7 @@ internal fun LoginScreen(
                         modifier = modifier
                             .padding(top = 10.dp, end = 10.dp)
                             .size(24.dp),
-                        onClick = { password = "" }
+                        onClick = onClickPasswordCancel
                     ) {
                         Icon(
                             modifier = modifier.size(18.dp),
@@ -155,7 +197,7 @@ internal fun LoginScreen(
                         modifier = modifier
                             .padding(top = 10.dp, end = 10.dp)
                             .size(24.dp),
-                        onClick = { showPassword = !showPassword }
+                        onClick = onClickShowPassword
                     ) {
                         Icon(
                             imageVector = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
@@ -173,8 +215,8 @@ internal fun LoginScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            onClick = { /*TODO*/ },
-            color = if (email.isNotBlank() && password.isNotBlank()) Blue60 else Blue80
+            onClick = { onClickLogin(userId, password) },
+            color = if (userId.isNotBlank() && password.isNotBlank()) Blue60 else Blue80
         ) {
             Text(
                 text = "로그인",

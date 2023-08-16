@@ -6,7 +6,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import kr.toongether.network.ToongetherAuthNetworkDataSource
 import kr.toongether.network.ToongetherNetworkDataSource
+import kr.toongether.network.retrofit.RetrofitToongetherAuthNetwork
 import kr.toongether.network.retrofit.RetrofitToongetherNetwork
 import okhttp3.Call
 import okhttp3.OkHttpClient
@@ -40,4 +42,10 @@ interface DataSourceModule {
     fun bindsToongetherNetworkDataSource(
         retrofitToongetherNetwork: RetrofitToongetherNetwork
     ): ToongetherNetworkDataSource
+
+    @Singleton
+    @Binds
+    fun bindsToongetherAuthNetworkDataSource(
+        retrofitToongetherAuthNetwork: RetrofitToongetherAuthNetwork
+    ): ToongetherAuthNetworkDataSource
 }
