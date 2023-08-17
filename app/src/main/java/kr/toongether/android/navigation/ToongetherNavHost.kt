@@ -14,6 +14,7 @@ import kr.toongether.my.navigation.myScreen
 import kr.toongether.series.navigation.seriesScreen
 import kr.toongether.shorts.navigation.ShortsRoute
 import kr.toongether.shorts.navigation.shortsScreen
+import kr.toongether.signup.navigation.signupScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -36,5 +37,6 @@ fun ToongetherNavHost(
         myScreen(navController)
         comicScreen(navController)
         loginScreen(navController)
+        signupScreen(navController)
     }
 }

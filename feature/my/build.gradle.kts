@@ -9,4 +9,5 @@ android {
 
 dependencies {
     implementation(project(":feature:auth:login"))
+    implementation(project(":feature:auth:signup"))
 }

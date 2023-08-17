@@ -229,13 +229,13 @@ internal fun LoginScreen(
 
         Spacer(modifier = modifier.height(16.dp))
 
-        Text(
+        /*Text(
             modifier = modifier.align(Alignment.CenterHorizontally),
             text = "비밀번호가 기억나지 않나요?",
             fontWeight = FontWeight.Normal,
             fontFamily = pretendard,
             color = Gray60,
             fontSize = 14.sp
-        )
+        )*/
     }
 }
