@@ -9,4 +9,5 @@ android {
 
 dependencies {
     implementation(libs.androidx.compose.material.icons)
+    implementation(project(":core:common"))
 }

@@ -24,13 +24,13 @@ class SignupViewModel @Inject constructor(
 
     override val container = container<SignupState, SignupSideEffect>(SignupState())
 
-    fun sendEmail(email: Email) = intent {
+    fun sendEmail(email: String) = intent {
         reduce {
             state.copy(
                 isLoading = true
             )
         }
-        sendEmailUseCase.invoke(email)
+        sendEmailUseCase.invoke(Email(email))
             .onSuccess {
                 postSideEffect(SignupSideEffect.NavigateToCheckEmail)
                 reduce {
@@ -49,20 +49,22 @@ class SignupViewModel @Inject constructor(
             }
     }
 
-    fun checkEmail(checkEmail: CheckEmail) = intent {
+    fun checkEmail(code: String) = intent {
         reduce {
             state.copy(
                 isLoading = true
             )
         }
-        checkEmailUseCase.invoke(checkEmail)
+        checkEmailUseCase.invoke(CheckEmail(code))
             .onSuccess {
+                if (it) postSideEffect(SignupSideEffect.NavigateToInputPassword)
                 reduce {
                     state.copy(
                         isEmailChecked = it,
                         isLoading = false,
                     )
                 }
+
             }
             .onFailure {
                 reduce {

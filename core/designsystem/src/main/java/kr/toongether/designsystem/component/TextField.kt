@@ -99,7 +99,7 @@ fun ToongetherTextField(
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
-            trailingIcon = if (isFocused) trailingIcon else null
+            trailingIcon = if (isFocused) trailingIcon else null,
         )
 
         Divider(

@@ -17,7 +17,6 @@ const val ComicRoute = "comic_route/{id}/{title}/{writer}"
 
 fun NavController.navigateToComic(shorts: Shorts, navOptions: NavOptions? = null) {
     this.navigate("comic_route/${shorts.id}/${shorts.title}/${shorts.writer}", navOptions)
-    Log.d("TEST", shorts.id.toString())
 }
 
 @OptIn(ExperimentalAnimationApi::class)

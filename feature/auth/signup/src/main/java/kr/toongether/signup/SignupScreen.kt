@@ -35,6 +35,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -43,8 +44,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import kr.toongether.common.shortToast
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
 import kr.toongether.designsystem.icon.ToongetherIcons
@@ -55,13 +58,17 @@ import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToCheckEmail
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignupRoute(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: SignupViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     var isShowId by remember { mutableStateOf(false) }
     var isShowEmail by remember { mutableStateOf(false) }
 
@@ -86,6 +93,13 @@ fun SignupRoute(
         focusManager.moveFocus(FocusDirection.Up)
     }
 
+    viewModel.collectSideEffect {
+        when (it) {
+            is SignupSideEffect.NavigateToCheckEmail -> navController.navigateToCheckEmail(email)
+            is SignupSideEffect.Toast -> context.shortToast("이메일을 다시 입력해주세요.")
+            else -> {}
+        }
+    }
 
     SignupScreen(
         modifier = modifier,
@@ -102,7 +116,7 @@ fun SignupRoute(
         onClickEmailCancel = { email = "" },
         onClickNicknameCancel = { nickname = "" },
         keyboardController = keyboardController,
-        onClickEmailButton = navController::navigateToCheckEmail,
+        onClickEmailButton = viewModel::sendEmail,
         showId = { isShowId = true },
         showEmail = { isShowEmail = true },
     )
@@ -125,7 +139,7 @@ internal fun SignupScreen(
     onClickEmailCancel: () -> Unit,
     onClickNicknameCancel: () -> Unit,
     keyboardController: SoftwareKeyboardController,
-    onClickEmailButton: () -> Unit,
+    onClickEmailButton: (String) -> Unit,
     showEmail: () -> Unit,
     showId: () -> Unit,
 ) {
@@ -254,7 +268,7 @@ internal fun SignupScreen(
                     .navigationBarsPadding()
                     .padding(bottom = 24.dp)
                     .padding(horizontal = 16.dp),
-                onClick = onClickEmailButton,
+                onClick = { onClickEmailButton(email) },
                 color = if (userId.isNotBlank() && nickname.isNotBlank() && email.isNotBlank()) Blue60 else Blue80
             ) {
                 Text(
