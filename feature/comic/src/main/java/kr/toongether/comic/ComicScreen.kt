@@ -122,7 +122,7 @@ internal fun ComicScreen(
 
     with(LocalDensity.current) {
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp.toPx()
-        minHeight = (screenWidth * comicState.comicList.height / comicState.comicList.width).toDp()
+        minHeight = (screenWidth * comicState.comicList.height / comicState.comicList.width).toDp()  - 5.dp
         lastHeight = comicState.comicList.lastHeight.toDp()
     }
 

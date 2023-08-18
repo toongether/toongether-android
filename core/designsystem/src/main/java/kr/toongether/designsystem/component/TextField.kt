@@ -19,9 +19,11 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
@@ -51,6 +53,12 @@ fun ToongetherTextField(
                 .focusRequester(focusRequester)
                 .onFocusChanged { isFocused = it.isFocused },
             value = text,
+            textStyle = TextStyle(
+                fontSize = 20.sp,
+                fontFamily = pretendard,
+                color = Color.White,
+                fontWeight = FontWeight.Normal
+            ),
             onValueChange = onTextChange,
             enabled = enabled,
             label = {
@@ -59,6 +67,7 @@ fun ToongetherTextField(
                         text = it,
                         fontFamily = pretendard,
                         fontWeight = FontWeight.SemiBold,
+                        fontSize = 12.sp
                     )
                 }
             },
@@ -68,6 +77,7 @@ fun ToongetherTextField(
                         text = it,
                         fontFamily = pretendard,
                         fontWeight = FontWeight.Normal,
+                        fontSize = 20.sp
                     )
                 }
             },

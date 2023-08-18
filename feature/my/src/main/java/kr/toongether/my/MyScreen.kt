@@ -19,6 +19,7 @@ import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.login.navigation.navigateToLogin
+import kr.toongether.signup.navigation.navigateToSignup
 
 @Composable
 internal fun MyRoute(
@@ -68,7 +69,7 @@ internal fun MyScreen(
                 ToongetherButton(
                     color = Color.White,
                     onClick = {
-                        navController.navigateToLogin()
+                        navController.navigateToSignup()
                     }
                 ) {
                     Text(
