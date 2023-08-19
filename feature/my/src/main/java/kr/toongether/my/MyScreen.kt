@@ -1,8 +1,5 @@
 package kr.toongether.my
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,29 +11,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.signup.navigation.navigateToSignup
 
 @Composable
 internal fun MyRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current
+    navController: NavController
 ) {
     MyScreen(
         modifier = modifier,
-        context = context
+        navController = navController
     )
 }
 
 @Composable
 internal fun MyScreen(
     modifier: Modifier = Modifier,
-    context: Context
+    navController: NavController
 ) {
     Surface(
         modifier = modifier
@@ -68,17 +66,13 @@ internal fun MyScreen(
                 Spacer(modifier = modifier.size(10.dp))
 
                 ToongetherButton(
+                    color = Color.White,
                     onClick = {
-                        context.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://toongether.kr/beta")
-                            )
-                        )
+                        navController.navigateToSignup()
                     }
                 ) {
                     Text(
-                        text = "자세히 알아보기",
+                        text = "로그인",
                         fontFamily = pretendard,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,

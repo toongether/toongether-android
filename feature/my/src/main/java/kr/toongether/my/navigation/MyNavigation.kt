@@ -14,8 +14,8 @@ fun NavController.navigateToMy(navOptions: NavOptions? = null) {
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.myScreen() {
+fun NavGraphBuilder.myScreen(navController: NavController) {
     composable(route = MyRoute) {
-        MyRoute()
+        MyRoute(navController = navController)
     }
 }

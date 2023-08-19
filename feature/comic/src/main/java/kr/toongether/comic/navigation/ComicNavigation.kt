@@ -1,6 +1,5 @@
 package kr.toongether.comic.navigation
 
-import android.util.Log
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
@@ -17,7 +16,6 @@ const val ComicRoute = "comic_route/{id}/{title}/{writer}"
 
 fun NavController.navigateToComic(shorts: Shorts, navOptions: NavOptions? = null) {
     this.navigate("comic_route/${shorts.id}/${shorts.title}/${shorts.writer}", navOptions)
-    Log.d("TEST", shorts.id.toString())
 }
 
 @OptIn(ExperimentalAnimationApi::class)
