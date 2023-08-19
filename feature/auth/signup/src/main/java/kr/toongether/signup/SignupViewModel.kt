@@ -40,6 +40,7 @@ class SignupViewModel @Inject constructor(
                 }
             }
             .onFailure {
+                postSideEffect(SignupSideEffect.Toast("이메일을 다시 확인해주세요."))
                 reduce {
                     state.copy(
                         isLoading = false,
@@ -67,6 +68,7 @@ class SignupViewModel @Inject constructor(
 
             }
             .onFailure {
+                postSideEffect(SignupSideEffect.Toast("인증번호가 일치하지않습니다."))
                 reduce {
                     state.copy(
                         isLoading = false,
@@ -97,7 +99,8 @@ class SignupViewModel @Inject constructor(
                 code
             )
         ).onSuccess {
-            postSideEffect(SignupSideEffect.NavigateToCheckEmail)
+            postSideEffect(SignupSideEffect.NavigateToMy)
+            postSideEffect(SignupSideEffect.Toast("회원가입을 성공했습니다."))
             reduce {
                 state.copy(
                     isLoading = false

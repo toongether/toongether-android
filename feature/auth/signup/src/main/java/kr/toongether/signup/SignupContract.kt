@@ -10,4 +10,5 @@ sealed class SignupSideEffect {
     data class Toast(val text: String) : SignupSideEffect()
     object NavigateToCheckEmail : SignupSideEffect()
     object NavigateToInputPassword : SignupSideEffect()
+    object NavigateToMy : SignupSideEffect()
 }

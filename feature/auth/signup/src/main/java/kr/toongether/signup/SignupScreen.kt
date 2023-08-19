@@ -58,6 +58,8 @@ import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToCheckEmail
+import kr.toongether.ui.LoadingScreen
+import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -67,6 +69,8 @@ fun SignupRoute(
     navController: NavController,
     viewModel: SignupViewModel = hiltViewModel()
 ) {
+    val signupState by viewModel.collectAsState()
+
     val context = LocalContext.current
 
     var isShowId by remember { mutableStateOf(false) }
@@ -95,8 +99,12 @@ fun SignupRoute(
 
     viewModel.collectSideEffect {
         when (it) {
-            is SignupSideEffect.NavigateToCheckEmail -> navController.navigateToCheckEmail(email)
-            is SignupSideEffect.Toast -> context.shortToast("이메일을 다시 입력해주세요.")
+            is SignupSideEffect.NavigateToCheckEmail -> navController.navigateToCheckEmail(
+                email = email,
+                name = nickname,
+                userId = userId
+            )
+            is SignupSideEffect.Toast -> context.shortToast(it.text)
             else -> {}
         }
     }
@@ -119,6 +127,7 @@ fun SignupRoute(
         onClickEmailButton = viewModel::sendEmail,
         showId = { isShowId = true },
         showEmail = { isShowEmail = true },
+        signupState = signupState
     )
 }
 
@@ -142,6 +151,7 @@ internal fun SignupScreen(
     onClickEmailButton: (String) -> Unit,
     showEmail: () -> Unit,
     showId: () -> Unit,
+    signupState: SignupState
 ) {
     Box(
         modifier
@@ -302,6 +312,10 @@ internal fun SignupScreen(
                     )
                 }
             }
+        }
+
+        if (signupState.isLoading) {
+            LoadingScreen()
         }
     }
 }

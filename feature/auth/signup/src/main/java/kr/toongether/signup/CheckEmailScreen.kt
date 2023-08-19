@@ -50,6 +50,7 @@ import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToInputPassword
+import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -59,20 +60,12 @@ fun CheckEmailRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     email: String,
+    name: String,
+    userId: String,
     viewModel: SignupViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-
-    viewModel.collectSideEffect {
-        when (it) {
-            is SignupSideEffect.NavigateToInputPassword -> {
-                navController.navigateToInputPassword()
-            }
-
-            is SignupSideEffect.Toast -> context.shortToast("서버 연결에 실패했습니다.")
-            else -> {}
-        }
-    }
+    val state by viewModel.collectAsState()
 
     val keyboardController = LocalSoftwareKeyboardController.current!!
     val focusManager = LocalFocusManager.current
@@ -80,17 +73,36 @@ fun CheckEmailRoute(
     var code by remember { mutableStateOf("") }
     var timer by remember { mutableStateOf("") }
 
-    val countDown = object : CountDownTimer(300_000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-            timer = String.format(
-                "%02d : %02d",
-                (millisUntilFinished.toFloat() / 1000 / 60).toInt(),
-                (millisUntilFinished.toFloat() / 1000 % 60).toInt(),
-            )
-        }
+    val countDown by remember {
+        mutableStateOf(
+            object : CountDownTimer(300_000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    timer = String.format(
+                        "%02d : %02d",
+                        (millisUntilFinished.toFloat() / 1000 / 60).toInt(),
+                        (millisUntilFinished.toFloat() / 1000 % 60).toInt(),
+                    )
+                }
 
-        override fun onFinish() {
-            timer = ""
+                override fun onFinish() {
+                    timer = "00 : 00"
+                }
+            }
+        )
+    }
+
+    viewModel.collectSideEffect {
+        when (it) {
+            is SignupSideEffect.NavigateToInputPassword -> {
+                navController.navigateToInputPassword(
+                    code = code,
+                    email = email,
+                    name = name,
+                    userId = userId,
+                )
+            }
+            is SignupSideEffect.Toast -> context.shortToast(it.text)
+            else -> {}
         }
     }
 
@@ -113,7 +125,8 @@ fun CheckEmailRoute(
             countDown.cancel()
             countDown.start()
             viewModel.sendEmail(email)
-        }
+        },
+        state = state,
     )
 }
 
@@ -128,6 +141,7 @@ internal fun CheckEmailScreen(
     keyboardController: SoftwareKeyboardController,
     onClickCheckButton: (String) -> Unit,
     onClickRefresh: () -> Unit,
+    state: SignupState,
 ) {
     Box(
         modifier
@@ -217,6 +231,10 @@ internal fun CheckEmailScreen(
                 color = Color.White,
                 fontSize = 18.sp
             )
+        }
+
+        if (state.isLoading) {
+            LoadingScreen()
         }
     }
 }
