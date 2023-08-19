@@ -14,13 +14,13 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-) : ContainerHost<LoginState, LoginSideEffect>, ViewModel()  {
+) : ContainerHost<LoginState, LoginSideEffect>, ViewModel() {
 
     override val container = container<LoginState, LoginSideEffect>(LoginState())
 
     fun login(
         userId: String,
-        password: String,
+        password: String
     ) = intent {
         reduce {
             state.copy(

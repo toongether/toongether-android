@@ -19,7 +19,7 @@ import javax.inject.Inject
 class SignupViewModel @Inject constructor(
     private val signupUseCase: SignupUseCase,
     private val checkEmailUseCase: CheckEmailUseCase,
-    private val sendEmailUseCase: SendEmailUseCase,
+    private val sendEmailUseCase: SendEmailUseCase
 ) : ContainerHost<SignupState, SignupSideEffect>, ViewModel() {
 
     override val container = container<SignupState, SignupSideEffect>(SignupState())
@@ -62,10 +62,9 @@ class SignupViewModel @Inject constructor(
                 reduce {
                     state.copy(
                         isEmailChecked = it,
-                        isLoading = false,
+                        isLoading = false
                     )
                 }
-
             }
             .onFailure {
                 postSideEffect(SignupSideEffect.Toast("인증번호가 일치하지않습니다."))

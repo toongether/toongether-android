@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import kr.toongether.designsystem.component.ToongetherCircularProgressIndicator
+import kr.toongether.designsystem.theme.TransparentBlack
 
 @Composable
 fun LoadingScreen(
@@ -16,7 +16,7 @@ fun LoadingScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0x80000000))
+            .background(TransparentBlack)
     ) {
         ToongetherCircularProgressIndicator(modifier.align(Alignment.Center))
     }

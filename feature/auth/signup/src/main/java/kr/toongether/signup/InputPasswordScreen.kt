@@ -82,7 +82,11 @@ fun InputPasswordRoute(
 
     viewModel.collectSideEffect {
         when (it) {
-            is SignupSideEffect.NavigateToMy -> navController.popBackStack("my_route", inclusive = false)
+            is SignupSideEffect.NavigateToMy -> navController.popBackStack(
+                "my_route",
+                inclusive = false
+            )
+
             is SignupSideEffect.Toast -> context.shortToast(it.text)
             else -> {}
         }
@@ -105,14 +109,14 @@ fun InputPasswordRoute(
                 userId = userId,
                 email = email,
                 code = code,
-                password = it,
+                password = it
             )
         },
         onClickShowPassword = { showPassword = !showPassword },
         onClickShowPasswordCheck = { showPasswordCheck = !showPasswordCheck },
         onClickNext = { focusManager.moveFocus(FocusDirection.Down) },
         showPassword = showPassword,
-        showPasswordCheck = showPasswordCheck,
+        showPasswordCheck = showPasswordCheck
     )
 }
 
@@ -221,7 +225,11 @@ internal fun InputPasswordScreen(
                 label = "비밀번호 확인",
                 placeholder = "example1234!",
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                visualTransformation = if (showPasswordCheck) VisualTransformation.None else PasswordVisualTransformation(),
+                visualTransformation = if (showPasswordCheck) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
                 keyboardActions = KeyboardActions(onDone = { keyboardController.hide() }),
                 trailingIcon = {
                     Row(
@@ -248,7 +256,11 @@ internal fun InputPasswordScreen(
                             onClick = onClickShowPasswordCheck
                         ) {
                             Icon(
-                                imageVector = if (showPasswordCheck) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                                imageVector = if (showPasswordCheck) {
+                                    Icons.Filled.Visibility
+                                } else {
+                                    Icons.Filled.VisibilityOff
+                                },
                                 contentDescription = "Visibility",
                                 tint = Gray60
                             )
@@ -256,7 +268,6 @@ internal fun InputPasswordScreen(
                     }
                 }
             )
-
         }
 
         ToongetherButton(

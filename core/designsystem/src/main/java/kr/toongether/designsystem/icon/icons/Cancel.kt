@@ -16,11 +16,22 @@ val ToongetherIcons.Cancel: ImageVector
         if (_cancel != null) {
             return _cancel!!
         }
-        _cancel = Builder(name = "Cancel", defaultWidth = 16.0.dp, defaultHeight = 16.0.dp,
-                viewportWidth = 16.0f, viewportHeight = 16.0f).apply {
-            path(fill = SolidColor(Color(0xFFA5A5A5)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+        _cancel = Builder(
+            name = "Cancel",
+            defaultWidth = 16.0.dp,
+            defaultHeight = 16.0.dp,
+            viewportWidth = 16.0f,
+            viewportHeight = 16.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFA5A5A5)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = EvenOdd
+            ) {
                 moveTo(8.0f, 16.0f)
                 curveTo(12.4183f, 16.0f, 16.0f, 12.4183f, 16.0f, 8.0f)
                 curveTo(16.0f, 3.5817f, 12.4183f, 0.0f, 8.0f, 0.0f)
@@ -47,7 +58,7 @@ val ToongetherIcons.Cancel: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _cancel!!
     }
 

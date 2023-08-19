@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
@@ -31,9 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -88,12 +84,12 @@ fun SignupRoute(
     }
 
     LaunchedEffect(isShowId) {
-        delay(10)
+        delay(timeMillis = 10)
         focusManager.moveFocus(FocusDirection.Up)
     }
 
     LaunchedEffect(isShowEmail) {
-        delay(10)
+        delay(timeMillis = 10)
         focusManager.moveFocus(FocusDirection.Up)
     }
 

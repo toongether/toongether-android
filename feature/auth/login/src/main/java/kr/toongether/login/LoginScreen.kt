@@ -25,7 +25,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -86,7 +85,7 @@ internal fun LoginRoute(
         keyboardController = keyboardController,
         onClickUserIdCancel = { userId = "" },
         onPasswordChange = { password = it },
-        onUserIdChange = { userId = it},
+        onUserIdChange = { userId = it },
         onClickShowPassword = { showPassword = !showPassword },
         onClickPasswordCancel = { password = "" }
     )
@@ -108,7 +107,6 @@ internal fun LoginScreen(
     onClickShowPassword: () -> Unit,
     onClickPasswordCancel: () -> Unit
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize()

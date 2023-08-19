@@ -10,4 +10,3 @@ fun Context.shortToast(text: String) {
 fun Context.longToast(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_LONG).show()
 }
-

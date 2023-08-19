@@ -62,7 +62,7 @@ fun CheckEmailRoute(
     email: String,
     name: String,
     userId: String,
-    viewModel: SignupViewModel = hiltViewModel(),
+    viewModel: SignupViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val state by viewModel.collectAsState()
@@ -77,10 +77,9 @@ fun CheckEmailRoute(
         mutableStateOf(
             object : CountDownTimer(300_000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-                    timer = String.format(
-                        "%02d : %02d",
+                    timer = "%02d : %02d".format(
                         (millisUntilFinished.toFloat() / 1000 / 60).toInt(),
-                        (millisUntilFinished.toFloat() / 1000 % 60).toInt(),
+                        (millisUntilFinished.toFloat() / 1000 % 60).toInt()
                     )
                 }
 
@@ -98,7 +97,7 @@ fun CheckEmailRoute(
                     code = code,
                     email = email,
                     name = name,
-                    userId = userId,
+                    userId = userId
                 )
             }
             is SignupSideEffect.Toast -> context.shortToast(it.text)
@@ -126,7 +125,7 @@ fun CheckEmailRoute(
             countDown.start()
             viewModel.sendEmail(email)
         },
-        state = state,
+        state = state
     )
 }
 
@@ -141,7 +140,7 @@ internal fun CheckEmailScreen(
     keyboardController: SoftwareKeyboardController,
     onClickCheckButton: (String) -> Unit,
     onClickRefresh: () -> Unit,
-    state: SignupState,
+    state: SignupState
 ) {
     Box(
         modifier
@@ -185,7 +184,7 @@ internal fun CheckEmailScreen(
                         keyboardType = KeyboardType.Number,
                         imeAction = ImeAction.Done
                     ),
-                    keyboardActions = KeyboardActions(onDone = { keyboardController.hide() }),
+                    keyboardActions = KeyboardActions(onDone = { keyboardController.hide() })
                 )
                 Text(
                     modifier = modifier

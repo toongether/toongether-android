@@ -14,5 +14,5 @@ data class SignupRequest(
     @SerialName("email")
     val email: String,
     @SerialName("code")
-    val code: String,
+    val code: String
 )

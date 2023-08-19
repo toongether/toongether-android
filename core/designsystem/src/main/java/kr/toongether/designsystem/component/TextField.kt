@@ -42,7 +42,7 @@ fun ToongetherTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardActions: KeyboardActions = KeyboardActions()
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val focusRequester by remember { mutableStateOf(FocusRequester.Default) }
@@ -93,13 +93,13 @@ fun ToongetherTextField(
                 unfocusedContainerColor = Color.Transparent,
                 unfocusedLabelColor = Gray60,
                 unfocusedPlaceholderColor = Gray60,
-                unfocusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
             ),
             isError = isError,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
-            trailingIcon = if (isFocused) trailingIcon else null,
+            trailingIcon = if (isFocused) trailingIcon else null
         )
 
         Divider(

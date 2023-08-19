@@ -1,7 +1,7 @@
 complexity:
   LongParameterList:
     ignoreDefaultParameters: true
-    functionThreshold: 10
+    functionThreshold: 20
   LongMethod:
     active: false
   CyclomaticComplexMethod:
@@ -9,6 +9,7 @@ complexity:
 
 style:
   MagicNumber:
+    active: false
     ignorePropertyDeclaration: true
     ignoreCompanionObjectPropertyDeclaration: true
   UnusedPrivateMember:

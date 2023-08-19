@@ -8,5 +8,5 @@ data class LoginRequest(
     @SerialName("userId")
     val userId: String,
     @SerialName("password")
-    val password: String,
+    val password: String
 )

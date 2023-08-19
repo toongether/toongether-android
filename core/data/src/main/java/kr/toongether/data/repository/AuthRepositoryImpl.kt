@@ -8,8 +8,6 @@ import kr.toongether.model.Login
 import kr.toongether.model.Signup
 import kr.toongether.model.Token
 import kr.toongether.network.ToongetherAuthNetworkDataSource
-import kr.toongether.network.model.CheckEmailRequest
-import kr.toongether.network.model.EmailRequest
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(

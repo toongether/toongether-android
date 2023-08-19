@@ -18,13 +18,12 @@ import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.theme.pretendard
-import kr.toongether.login.navigation.navigateToLogin
 import kr.toongether.signup.navigation.navigateToSignup
 
 @Composable
 internal fun MyRoute(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    navController: NavController
 ) {
     MyScreen(
         modifier = modifier,
@@ -35,7 +34,7 @@ internal fun MyRoute(
 @Composable
 internal fun MyScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    navController: NavController
 ) {
     Surface(
         modifier = modifier

@@ -13,12 +13,12 @@ import kr.toongether.network.model.TokenResponse
 
 fun Login.asRequest() = LoginRequest(
     userId = userId,
-    password = password,
+    password = password
 )
 
 fun TokenResponse.asModel() = Token(
     accessToken = accessToken,
-    refreshToken = refreshToken,
+    refreshToken = refreshToken
 )
 
 fun Signup.asRequest() = SignupRequest(
@@ -26,13 +26,13 @@ fun Signup.asRequest() = SignupRequest(
     password = password,
     name = name,
     email = email,
-    code = code,
+    code = code
 )
 
 fun Email.asRequest() = EmailRequest(
-    email = email,
+    email = email
 )
 
 fun CheckEmail.asRequest() = CheckEmailRequest(
-    code = code,
+    code = code
 )

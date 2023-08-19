@@ -11,21 +11,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kr.toongether.android.navigation.NavigationDestination
-import kr.toongether.comic.navigation.ComicRoute
 import kr.toongether.community.navigation.CommunityRoute
 import kr.toongether.community.navigation.navigateToCommunity
 import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.navigateToHome
-import kr.toongether.login.navigation.LoginRoute
 import kr.toongether.my.navigation.MyRoute
 import kr.toongether.my.navigation.navigateToMy
 import kr.toongether.series.navigation.SeriesRoute
 import kr.toongether.series.navigation.navigateToSeries
 import kr.toongether.shorts.navigation.ShortsRoute
 import kr.toongether.shorts.navigation.navigateToShorts
-import kr.toongether.signup.navigation.CheckEmailRoute
-import kr.toongether.signup.navigation.InputPasswordRoute
-import kr.toongether.signup.navigation.SignupRoute
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

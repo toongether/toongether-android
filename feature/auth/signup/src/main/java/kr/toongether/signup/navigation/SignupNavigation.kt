@@ -3,7 +3,6 @@ package kr.toongether.signup.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
-import androidx.navigation.NavArgument
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -70,7 +69,7 @@ fun NavGraphBuilder.signupScreen(navController: NavController) {
             navController = navController,
             email = it.arguments?.getString("email") ?: "",
             name = it.arguments?.getString("name") ?: "",
-            userId = it.arguments?.getString("userId") ?: "",
+            userId = it.arguments?.getString("userId") ?: ""
         )
     }
     composable(
@@ -79,7 +78,7 @@ fun NavGraphBuilder.signupScreen(navController: NavController) {
             navArgument("email") { type = NavType.StringType },
             navArgument("userId") { type = NavType.StringType },
             navArgument("name") { type = NavType.StringType },
-            navArgument("code") { type = NavType.StringType },
+            navArgument("code") { type = NavType.StringType }
         ),
         enterTransition = {
             slideIntoContainer(
