@@ -4,7 +4,6 @@ import kr.toongether.model.Shorts
 
 data class PreReleaseState(
     val shortsList: List<Shorts> = emptyList(),
-    val error: Throwable? = null,
     val isLoading: Boolean = false
 )
 
