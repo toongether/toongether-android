@@ -8,7 +8,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 suspend inline fun <T> networkHandler(
-    crossinline networkCall: suspend () -> T,
+    crossinline networkCall: suspend () -> T
 ): T {
     return try {
         withContext(Dispatchers.IO) {
@@ -19,18 +19,18 @@ suspend inline fun <T> networkHandler(
 
         when (e.code()) {
             500, 501, 502, 503 -> {
-                throw RuntimeException(INTERNAL_SERVER_MESSAGE)
+                throw RuntimeException(InternalServerExceptionMessage)
             }
             else -> {
                 throw RuntimeException(message)
             }
         }
     } catch (e: UnknownHostException) {
-        throw RuntimeException(NETWORK_EXCEPTION_MESSAGE)
+        throw RuntimeException(NetworkExceptionMessage)
     } catch (e: SocketTimeoutException) {
         throw RuntimeException(e.message)
     }
 }
 
-const val NETWORK_EXCEPTION_MESSAGE = "네트워크 연결을 확인해주세요."
-const val INTERNAL_SERVER_MESSAGE = "서버 연결에 실패했어요.."
+const val NetworkExceptionMessage = "네트워크 연결을 확인해주세요."
+const val InternalServerExceptionMessage = "서버 연결에 실패했어요.."

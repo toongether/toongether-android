@@ -37,7 +37,7 @@ class PreReleaseViewModel @Inject constructor(
                 postSideEffect(PreReleaseSideEffect.Toast(it.message!!))
                 reduce {
                     state.copy(
-                        isLoading = false,
+                        isLoading = false
                     )
                 }
             }

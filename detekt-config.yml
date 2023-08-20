@@ -14,6 +14,9 @@ style:
     ignoreCompanionObjectPropertyDeclaration: true
   UnusedPrivateMember:
     ignoreAnnotated: [ 'preview' ]
+  ThrowsCount:
+    active: true
+    max: 10
 
 naming:
   TopLevelPropertyNaming:
@@ -21,3 +24,8 @@ naming:
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
   
+exceptions:
+  TooGenericExceptionThrown:
+    active: false
+  SwallowedException:
+    active: false
