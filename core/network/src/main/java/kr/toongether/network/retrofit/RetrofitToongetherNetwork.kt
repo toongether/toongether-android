@@ -2,6 +2,7 @@ package kr.toongether.network.retrofit
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
+import kr.toongether.common.network.networkHandler
 import kr.toongether.network.ToongetherAuthNetworkDataSource
 import kr.toongether.network.ToongetherNetworkDataSource
 import kr.toongether.network.model.CheckEmailRequest
@@ -71,11 +72,13 @@ class RetrofitToongetherNetwork @Inject constructor(
         .build()
         .create(RetrofitToongetherNetworkApi::class.java)
 
-    override suspend fun getShortsList(): List<ShortsResponse> =
+    override suspend fun getShortsList(): List<ShortsResponse> = networkHandler {
         networkApi.getShortsList()
+    }
 
-    override suspend fun getComicList(id: Long): ComicListResponse =
+    override suspend fun getComicList(id: Long): ComicListResponse = networkHandler {
         networkApi.getComicList(id)
+    }
 }
 
 @Singleton
@@ -93,15 +96,21 @@ class RetrofitToongetherAuthNetwork @Inject constructor(
         .build()
         .create(RetrofitToongetherAuthNetworkApi::class.java)
 
-    override suspend fun login(loginRequest: LoginRequest): TokenResponse =
+    override suspend fun login(loginRequest: LoginRequest): TokenResponse = networkHandler {
         networkApi.login(loginRequest)
+    }
 
-    override suspend fun signup(signupRequest: SignupRequest) =
+    override suspend fun signup(signupRequest: SignupRequest) = networkHandler {
         networkApi.signup(signupRequest)
+    }
 
-    override suspend fun sendEmail(emailRequest: EmailRequest) =
+    override suspend fun sendEmail(emailRequest: EmailRequest) = networkHandler {
         networkApi.sendEmail(emailRequest)
+    }
 
-    override suspend fun checkEmail(checkEmailRequest: CheckEmailRequest): Boolean =
+    override suspend fun checkEmail(
+        checkEmailRequest: CheckEmailRequest
+    ): Boolean = networkHandler {
         networkApi.checkEmail(checkEmailRequest)
+    }
 }

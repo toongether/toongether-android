@@ -1,7 +1,6 @@
 package kr.toongether.shorts.genre.prerelease
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +24,7 @@ import androidx.compose.ui.unit.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kr.toongether.comic.navigation.navigateToComic
+import kr.toongether.common.shortToast
 import kr.toongether.designsystem.component.ToongetherCircularProgressIndicator
 import kr.toongether.model.Shorts
 import kr.toongether.ui.shortsCardItems
@@ -48,10 +48,7 @@ fun PreReleaseScreen(
 
     viewModel.collectSideEffect {
         when (it) {
-            is PreReleaseSideEffect.Toast -> {
-                Toast.makeText(context, it.text, Toast.LENGTH_SHORT).show()
-                Log.e("ERROR", "PreReleaseScreen: ${preReleaseUiState.error}")
-            }
+            is PreReleaseSideEffect.Toast -> context.shortToast(it.text)
         }
     }
 

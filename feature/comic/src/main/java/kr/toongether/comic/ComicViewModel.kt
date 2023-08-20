@@ -34,7 +34,7 @@ class ComicViewModel @Inject constructor(
                     )
                 }
             }.onFailure {
-                postSideEffect(ComicSideEffect.Toast("서버 연결에 실패했습니다."))
+                postSideEffect(ComicSideEffect.Toast(it.message!!))
                 reduce {
                     state.copy(
                         error = it,

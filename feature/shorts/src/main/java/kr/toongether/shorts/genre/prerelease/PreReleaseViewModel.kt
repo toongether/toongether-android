@@ -34,11 +34,10 @@ class PreReleaseViewModel @Inject constructor(
                     )
                 }
             }.onFailure {
-                postSideEffect(PreReleaseSideEffect.Toast("서버 연결에 실패했습니다."))
+                postSideEffect(PreReleaseSideEffect.Toast(it.message!!))
                 reduce {
                     state.copy(
-                        isLoading = false,
-                        error = it
+                        isLoading = false
                     )
                 }
             }
