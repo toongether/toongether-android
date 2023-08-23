@@ -112,7 +112,7 @@ internal fun LoginScreen(
     onClickUserIdCancel: () -> Unit,
     onClickShowPassword: () -> Unit,
     onClickPasswordCancel: () -> Unit,
-    onClickSignup: () -> Unit,
+    onClickSignup: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -256,7 +256,6 @@ internal fun LoginScreen(
                 color = Gray60,
                 fontSize = 14.sp
             )
-
 
             Text(
                 modifier = modifier,

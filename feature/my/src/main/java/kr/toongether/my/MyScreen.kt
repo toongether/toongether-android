@@ -16,7 +16,6 @@ import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.login.navigation.navigateToLogin
-import kr.toongether.model.ComicGenre
 import kr.toongether.model.MyGenre
 
 @Composable
@@ -38,7 +37,7 @@ internal fun MyRoute(
 internal fun MyScreen(
     modifier: Modifier = Modifier,
     onClickLogin: () -> Unit,
-    isLogin: Boolean,
+    isLogin: Boolean
 ) {
     Surface(
         modifier = modifier

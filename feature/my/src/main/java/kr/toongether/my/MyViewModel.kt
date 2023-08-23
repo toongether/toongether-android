@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
-import kr.toongether.datastore.TokenPreferences
 import kr.toongether.model.Token
 import javax.inject.Inject
 
