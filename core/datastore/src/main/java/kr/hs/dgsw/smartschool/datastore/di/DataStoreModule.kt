@@ -11,8 +11,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kr.hs.dgsw.smartschool.datastore.PreferencesSerializer
-import java.util.prefs.Preferences
+import kr.hs.dgsw.smartschool.datastore.TokenPreferencesSerializer
+import kr.toongether.common.network.Dispatcher
+import kr.toongether.common.network.ToongetherDispatcher
+import kr.toongether.common.network.di.ApplicationScope
+import kr.toongether.datastore.TokenPreferences
 import javax.inject.Singleton
 
 @Module
@@ -20,12 +23,12 @@ import javax.inject.Singleton
 object DataStoreModule {
     @Provides
     @Singleton
-    fun providesPreferencesDataStore(
+    fun providesTokenPreferencesDataStore(
         @ApplicationContext context: Context,
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+        @Dispatcher(ToongetherDispatcher.IO) ioDispatcher: CoroutineDispatcher,
         @ApplicationScope scope: CoroutineScope,
-        preferencesSerializer: PreferencesSerializer,
-    ): DataStore<Preferences> =
+        preferencesSerializer: TokenPreferencesSerializer,
+    ): DataStore<TokenPreferences> =
         DataStoreFactory.create(
             serializer = preferencesSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),

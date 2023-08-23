@@ -10,4 +10,6 @@ android {
 dependencies {
     implementation(project(":feature:auth:login"))
     implementation(project(":feature:auth:signup"))
+
+    implementation(project(":core:datastore"))
 }
