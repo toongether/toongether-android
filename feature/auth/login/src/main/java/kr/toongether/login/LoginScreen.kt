@@ -3,7 +3,9 @@ package kr.toongether.login
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +51,8 @@ import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.designsystem.utils.NoRippleInteractionSource
+import kr.toongether.signup.navigation.navigateToSignup
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -87,7 +92,8 @@ internal fun LoginRoute(
         onPasswordChange = { password = it },
         onUserIdChange = { userId = it },
         onClickShowPassword = { showPassword = !showPassword },
-        onClickPasswordCancel = { password = "" }
+        onClickPasswordCancel = { password = "" },
+        onClickSignup = navController::navigateToSignup
     )
 }
 
@@ -105,7 +111,8 @@ internal fun LoginScreen(
     onPasswordChange: (String) -> Unit,
     onClickUserIdCancel: () -> Unit,
     onClickShowPassword: () -> Unit,
-    onClickPasswordCancel: () -> Unit
+    onClickPasswordCancel: () -> Unit,
+    onClickSignup: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -210,6 +217,7 @@ internal fun LoginScreen(
         Spacer(modifier = modifier.height(40.dp))
 
         ToongetherButton(
+            contentPadding = PaddingValues(vertical = 12.dp),
             modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
@@ -227,13 +235,60 @@ internal fun LoginScreen(
 
         Spacer(modifier = modifier.height(16.dp))
 
-        /*Text(
-            modifier = modifier.align(Alignment.CenterHorizontally),
-            text = "비밀번호가 기억나지 않나요?",
-            fontWeight = FontWeight.Normal,
-            fontFamily = pretendard,
-            color = Gray60,
-            fontSize = 14.sp
-        )*/
+        Row(
+            modifier = modifier
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                modifier = modifier,
+                text = "비밀번호 찾기",
+                fontWeight = FontWeight.Normal,
+                fontFamily = pretendard,
+                color = Gray60,
+                fontSize = 14.sp
+            )
+
+            Text(
+                modifier = modifier.padding(horizontal = 5.dp),
+                text = "|",
+                fontWeight = FontWeight.Normal,
+                fontFamily = pretendard,
+                color = Gray60,
+                fontSize = 14.sp
+            )
+
+
+            Text(
+                modifier = modifier,
+                text = "아이디 찾기",
+                fontWeight = FontWeight.Normal,
+                fontFamily = pretendard,
+                color = Gray60,
+                fontSize = 14.sp
+            )
+
+            Text(
+                modifier = modifier.padding(horizontal = 5.dp),
+                text = "|",
+                fontWeight = FontWeight.Normal,
+                fontFamily = pretendard,
+                color = Gray60,
+                fontSize = 14.sp
+            )
+
+            Text(
+                modifier = modifier
+                    .clickable(
+                        interactionSource = NoRippleInteractionSource(),
+                        indication = null,
+                        onClick = onClickSignup
+                    ),
+                text = "회원가입",
+                fontWeight = FontWeight.Normal,
+                fontFamily = pretendard,
+                color = Gray60,
+                fontSize = 14.sp
+            )
+        }
     }
 }
