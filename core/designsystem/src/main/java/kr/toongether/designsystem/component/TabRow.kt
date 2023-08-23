@@ -91,7 +91,6 @@ fun ToongetherScrollableTabRow(
     }
 }
 
-
 @Composable
 fun ToongetherScrollableTabRow(
     selectedTabIndex: Int,
@@ -142,7 +141,7 @@ fun ToongetherScrollableTabRow(
             val tabConstraints = constraints.copy(
                 minWidth = minTabWidth,
                 minHeight = layoutHeight,
-                maxHeight = layoutHeight,
+                maxHeight = layoutHeight
             )
             val tabPlaceables = tabMeasurables
                 .map { it.measure(tabConstraints) }

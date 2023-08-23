@@ -1,7 +1,7 @@
 package kr.toongether.model
 
 enum class ComicGenre(val title: String) {
-        PRE_RELEASE("All"),
+    PRE_RELEASE("All"),
     EMPTY1("월"),
     EMPTY2("화"),
     EMPTY3("수"),
