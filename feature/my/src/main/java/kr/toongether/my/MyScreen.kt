@@ -7,24 +7,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.model.ComicGenre
 
 @Composable
 internal fun MyRoute(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 //    navController: NavController
 ) {
     MyScreen(
-        modifier = modifier,
+        modifier = modifier
     )
 }
 
 @Composable
 internal fun MyScreen(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = modifier
