@@ -1,14 +1,8 @@
 package kr.toongether.model
 
 enum class ComicGenre(val title: String) {
-    PRE_RELEASE("All"),
-    EMPTY1("월"),
-    EMPTY2("화"),
-    EMPTY3("수"),
-    EMPTY4("목"),
-    EMPTY5("금"),
-    EMPTY6("토"),
-    EMPTY7("일")
-//    EMPTY1("최근 본 웹툰"),
-//    EMPTY2("좋아하는 웹툰"),
+    EMPTY1("전체"),
+    EMPTY2("인기 급상승"),
+    EMPTY3("주간 인기웹툰"),
+    EMPTY4("월간 인기웹툰")
 }
