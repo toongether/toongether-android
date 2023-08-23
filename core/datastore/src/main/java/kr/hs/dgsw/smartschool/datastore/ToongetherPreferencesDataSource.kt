@@ -20,7 +20,7 @@ class ToongetherPreferencesDataSource @Inject constructor(
 
     suspend fun setToken(accessToken: String, refreshToken: String) {
         tokenPreferences.updateData {
-            it.copy { 
+            it.copy {
                 this.accessToken = accessToken
                 this.refreshToken = refreshToken
             }

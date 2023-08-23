@@ -21,5 +21,4 @@ class TokenPreferencesSerializer @Inject constructor() : Serializer<TokenPrefere
 
     override suspend fun writeTo(t: TokenPreferences, output: OutputStream) =
         t.writeTo(output)
-
 }

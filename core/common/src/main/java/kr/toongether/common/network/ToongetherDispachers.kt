@@ -9,5 +9,5 @@ annotation class Dispatcher(val toongetherDispatcher: ToongetherDispatcher)
 enum class ToongetherDispatcher {
     Default,
     IO,
-    Main,
+    Main
 }

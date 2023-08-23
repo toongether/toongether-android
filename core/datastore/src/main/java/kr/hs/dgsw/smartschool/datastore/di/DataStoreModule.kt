@@ -27,11 +27,11 @@ object DataStoreModule {
         @ApplicationContext context: Context,
         @Dispatcher(ToongetherDispatcher.IO) ioDispatcher: CoroutineDispatcher,
         @ApplicationScope scope: CoroutineScope,
-        preferencesSerializer: TokenPreferencesSerializer,
+        preferencesSerializer: TokenPreferencesSerializer
     ): DataStore<TokenPreferences> =
         DataStoreFactory.create(
             serializer = preferencesSerializer,
-            scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
+            scope = CoroutineScope(scope.coroutineContext + ioDispatcher)
         ) {
             context.dataStoreFile("preferences.pb")
         }
