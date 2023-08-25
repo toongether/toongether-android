@@ -4,7 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ComicListResponse(
+data class ComicResponse(
+    @SerialName("title")
+    val title: String,
+    @SerialName("thumbnail")
+    val thumbnail: String,
     @SerialName("imageURL")
     val imageUrl: List<String>,
     @SerialName("width")
