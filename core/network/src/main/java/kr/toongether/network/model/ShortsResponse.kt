@@ -1,5 +1,6 @@
 package kr.toongether.network.model
 
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -18,11 +19,11 @@ data class ShortsResponse(
     @SerialName("likeCount")
     val likeCount: Int,
     @SerialName("author")
-    val author: AuthorResponse,
+    val author: NetworkAuthor,
     @SerialName("createdDate")
-    val createdDate: String,
+    val createdDate: LocalDateTime,
     @SerialName("hasMorePage")
-    val hasMorePage: Int,
+    val hasMorePage: Boolean,
     @SerialName("currentPage")
     val currentPage: Int,
 )
