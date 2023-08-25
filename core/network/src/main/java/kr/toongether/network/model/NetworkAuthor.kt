@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AuthorResponse(
+data class NetworkAuthor(
     @SerialName("id")
     val id: Long,
     @SerialName("name")
