@@ -1,6 +1,7 @@
 package kr.toongether.model
 
-import java.time.LocalDateTime
+import kotlinx.datetime.LocalDateTime
+
 
 data class Comic(
     val title: String,

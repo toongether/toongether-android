@@ -1,5 +1,6 @@
 package kr.toongether.network.model
 
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,6 +12,8 @@ data class ComicResponse(
     val thumbnail: String,
     @SerialName("imageURL")
     val imageUrl: List<String>,
+    @SerialName("createdDate")
+    val createdDate: LocalDateTime,
     @SerialName("width")
     val width: Int,
     @SerialName("height")
