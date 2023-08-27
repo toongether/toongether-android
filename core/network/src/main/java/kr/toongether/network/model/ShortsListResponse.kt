@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ShortsResponse(
+data class ShortsListResponse(
     @SerialName("id")
     val id: Long,
     @SerialName("title")

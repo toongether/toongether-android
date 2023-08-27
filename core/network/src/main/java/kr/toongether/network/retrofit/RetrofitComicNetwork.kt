@@ -2,11 +2,11 @@ package kr.toongether.network.retrofit
 
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.model.ComicResponse
-import kr.toongether.network.model.EpisodeResponse
+import kr.toongether.network.model.SeriesResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
-import kr.toongether.network.model.SeriesResponse
-import kr.toongether.network.model.ShortsResponse
+import kr.toongether.network.model.SeriesListResponse
+import kr.toongether.network.model.ShortsListResponse
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,7 +18,7 @@ private interface RetrofitComicNetworkApi {
     @GET("comic/shorts/list")
     suspend fun getShortsList(
         @Query("page") page: Int,
-    ): List<ShortsResponse>
+    ): List<ShortsListResponse>
 
     @GET("comic/shorts/{id}/episode")
     suspend fun getShortsEpisode(
@@ -30,12 +30,12 @@ private interface RetrofitComicNetworkApi {
         @Query("dayOfWeek") dayOfWeek: NetworkDayOfWeek,
         @Query("cycle") cycle: NetworkCycle,
         @Query("page") page: Int,
-    ): List<SeriesResponse>
+    ): List<SeriesListResponse>
 
     @GET("comic/series/{id}/episode")
     suspend fun getSeries(
         @Path("id") id: Long
-    ): EpisodeResponse
+    ): SeriesResponse
 
     @GET("comic/series/{seriesId}/episode/{episodeId}")
     suspend fun getSeriesEpisode(
@@ -50,7 +50,7 @@ class RetrofitComicNetwork @Inject constructor(
 ) : ComicNetworkDataSource {
     private val comicApi = retrofit.create(RetrofitComicNetworkApi::class.java)
 
-    override suspend fun getShortsList(page: Int): List<ShortsResponse> =
+    override suspend fun getShortsList(page: Int): List<ShortsListResponse> =
         comicApi.getShortsList(page)
 
     override suspend fun getShortsEpisode(id: Long): ComicResponse =
@@ -60,10 +60,10 @@ class RetrofitComicNetwork @Inject constructor(
         dayOfWeek: NetworkDayOfWeek,
         cycle: NetworkCycle,
         page: Int
-    ): List<SeriesResponse> =
+    ): List<SeriesListResponse> =
         comicApi.getSeriesList(dayOfWeek, cycle, page)
 
-    override suspend fun getSeries(id: Long): EpisodeResponse =
+    override suspend fun getSeries(id: Long): SeriesResponse =
         comicApi.getSeries(id)
 
     override suspend fun getSeriesEpisode(seriesId: Long, episodeId: Long): ComicResponse =
