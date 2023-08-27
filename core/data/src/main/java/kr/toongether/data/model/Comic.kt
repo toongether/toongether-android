@@ -1,9 +1,9 @@
 package kr.toongether.data.model
 
 import kr.toongether.model.ComicList
-import kr.toongether.network.model.ComicListResponse
+import kr.toongether.network.model.ComicResponse
 
-fun ComicListResponse.asModel(): ComicList = ComicList(
+fun ComicResponse.asModel(): ComicList = ComicList(
     imageUrl = imageUrl,
     width = width,
     height = height,
