@@ -1,11 +1,9 @@
 package kr.toongether.data.model
 
-import kr.toongether.model.CheckEmail
 import kr.toongether.model.Email
 import kr.toongether.model.Login
 import kr.toongether.model.Signup
 import kr.toongether.model.Token
-import kr.toongether.network.model.CheckEmailRequest
 import kr.toongether.network.model.EmailRequest
 import kr.toongether.network.model.LoginRequest
 import kr.toongether.network.model.SignupRequest
@@ -31,8 +29,4 @@ fun Signup.asRequest() = SignupRequest(
 
 fun Email.asRequest() = EmailRequest(
     email = email
-)
-
-fun CheckEmail.asRequest() = CheckEmailRequest(
-    code = code
 )
