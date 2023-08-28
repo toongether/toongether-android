@@ -1,6 +1,8 @@
 package kr.toongether.data
 
 import kr.toongether.model.Comic
+import kr.toongether.model.Cycle
+import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesList
 import kr.toongether.model.ShortsList
@@ -17,8 +19,8 @@ interface ComicRepository {
     ): Comic
 
     suspend fun getSeriesList(
-        dayOfWeek: NetworkDayOfWeek,
-        cycle: NetworkCycle,
+        dayOfWeek: DayOfWeek,
+        cycle: Cycle,
         page: Int,
     ): List<SeriesList>
 

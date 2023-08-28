@@ -1,13 +1,13 @@
 package kr.toongether.domain
 
-import kr.toongether.data.repository.ComicRepository
-import kr.toongether.model.Shorts
+import kr.toongether.data.ComicRepository
+import kr.toongether.model.ShortsList
 import javax.inject.Inject
 
 class GetShortsListUseCase @Inject constructor(
-    private val comicRepository: ComicRepository
+    private val repository: ComicRepository
 ) {
-    suspend operator fun invoke(): Result<List<Shorts>> = kotlin.runCatching {
-        comicRepository.getShortsList()
+    suspend operator fun invoke(page: Int): Result<List<ShortsList>> = kotlin.runCatching {
+        repository.getShortsList(page = page)
     }
 }

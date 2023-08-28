@@ -2,13 +2,14 @@ package kr.toongether.data.repository
 
 import kr.toongether.data.ComicRepository
 import kr.toongether.data.model.asModel
+import kr.toongether.data.model.asRequest
 import kr.toongether.model.Comic
+import kr.toongether.model.Cycle
+import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesList
 import kr.toongether.model.ShortsList
 import kr.toongether.network.datasource.ComicNetworkDataSource
-import kr.toongether.network.model.NetworkCycle
-import kr.toongether.network.model.NetworkDayOfWeek
 import javax.inject.Inject
 
 internal class ComicRepositoryImpl @Inject constructor(
@@ -21,13 +22,13 @@ internal class ComicRepositoryImpl @Inject constructor(
         network.getShortsEpisode(id).asModel()
 
     override suspend fun getSeriesList(
-        dayOfWeek: NetworkDayOfWeek,
-        cycle: NetworkCycle,
+        dayOfWeek: DayOfWeek,
+        cycle: Cycle,
         page: Int
     ): List<SeriesList> =
         network.getSeriesList(
-            dayOfWeek = dayOfWeek,
-            cycle = cycle,
+            dayOfWeek = dayOfWeek.asRequest(),
+            cycle = cycle.asRequest(),
             page = page,
         ).map { it.asModel() }
 

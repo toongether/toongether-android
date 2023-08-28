@@ -11,5 +11,14 @@ fun NetworkDayOfWeek.asModel(): DayOfWeek = when (this) {
     NetworkDayOfWeek.FRIDAY -> DayOfWeek.FRIDAY
     NetworkDayOfWeek.SATURDAY -> DayOfWeek.SATURDAY
     NetworkDayOfWeek.SUNDAY -> DayOfWeek.SUNDAY
-    else -> DayOfWeek.ALL
+}
+
+fun DayOfWeek.asRequest(): NetworkDayOfWeek = when (this) {
+    DayOfWeek.MONDAY -> NetworkDayOfWeek.MONDAY
+    DayOfWeek.TUESDAY -> NetworkDayOfWeek.TUESDAY
+    DayOfWeek.WEDNESDAY -> NetworkDayOfWeek.WEDNESDAY
+    DayOfWeek.THURSDAY -> NetworkDayOfWeek.THURSDAY
+    DayOfWeek.FRIDAY -> NetworkDayOfWeek.FRIDAY
+    DayOfWeek.SATURDAY -> NetworkDayOfWeek.SATURDAY
+    DayOfWeek.SUNDAY -> NetworkDayOfWeek.SUNDAY
 }

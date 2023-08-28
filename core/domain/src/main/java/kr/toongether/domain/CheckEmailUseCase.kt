@@ -1,13 +1,18 @@
 package kr.toongether.domain
 
-import kr.toongether.data.repository.AuthRepository
-import kr.toongether.model.CheckEmail
+import kr.toongether.data.UserRepository
 import javax.inject.Inject
 
 class CheckEmailUseCase @Inject constructor(
-    private val authRepository: AuthRepository
+    private val repository: UserRepository
 ) {
-    suspend operator fun invoke(checkEmail: CheckEmail): Result<Boolean> = kotlin.runCatching {
-        authRepository.checkEmail(checkEmail)
+    suspend operator fun invoke(
+        email: String,
+        code: String
+    ): Result<Boolean> = kotlin.runCatching {
+        repository.checkEmail(
+            email = email,
+            code = code
+        )
     }
 }
