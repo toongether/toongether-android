@@ -1,5 +1,6 @@
 package kr.toongether.network.retrofit
 
+import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.model.ComicResponse
 import kr.toongether.network.model.SeriesResponse
@@ -45,28 +46,36 @@ private interface RetrofitComicNetworkApi {
 }
 
 @Singleton
-class RetrofitComicNetwork @Inject constructor(
+internal class RetrofitComicNetwork @Inject constructor(
     retrofit: Retrofit
 ) : ComicNetworkDataSource {
     private val comicApi = retrofit.create(RetrofitComicNetworkApi::class.java)
 
-    override suspend fun getShortsList(page: Int): List<ShortsListResponse> =
+    override suspend fun getShortsList(page: Int): List<ShortsListResponse> = networkHandler {
         comicApi.getShortsList(page)
+    }
 
-    override suspend fun getShortsEpisode(id: Long): ComicResponse =
+    override suspend fun getShortsEpisode(id: Long): ComicResponse = networkHandler {
         comicApi.getShortsEpisode(id)
+    }
 
     override suspend fun getSeriesList(
         dayOfWeek: NetworkDayOfWeek,
         cycle: NetworkCycle,
         page: Int
-    ): List<SeriesListResponse> =
+    ): List<SeriesListResponse> = networkHandler {
         comicApi.getSeriesList(dayOfWeek, cycle, page)
+    }
 
-    override suspend fun getSeries(id: Long): SeriesResponse =
+    override suspend fun getSeries(id: Long): SeriesResponse = networkHandler {
         comicApi.getSeries(id)
+    }
 
-    override suspend fun getSeriesEpisode(seriesId: Long, episodeId: Long): ComicResponse =
+    override suspend fun getSeriesEpisode(
+        seriesId: Long,
+        episodeId: Long
+    ): ComicResponse = networkHandler {
         comicApi.getSeriesEpisode(seriesId, episodeId)
+    }
 
 }

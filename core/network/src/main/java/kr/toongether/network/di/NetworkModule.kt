@@ -54,7 +54,7 @@ object NetworkModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataSourceModule {
+internal interface DataSourceModule {
     @Singleton
     @Binds
     fun bindsComicNetworkDataSource(

@@ -1,5 +1,6 @@
 package kr.toongether.network.retrofit
 
+import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.UserNetworkDataSource
 import kr.toongether.network.model.EmailRequest
 import kr.toongether.network.model.LoginRequest
@@ -45,23 +46,28 @@ private interface RetrofitUserNetworkApi {
 
 
 @Singleton
-class RetrofitUserNetwork @Inject constructor(
+internal class RetrofitUserNetwork @Inject constructor(
     retrofit: Retrofit
 ) : UserNetworkDataSource {
     private val userApi = retrofit.create(RetrofitUserNetworkApi::class.java)
 
-    override suspend fun signup(signupRequest: SignupRequest) =
+    override suspend fun signup(signupRequest: SignupRequest) = networkHandler {
         userApi.signup(signupRequest)
+    }
 
-    override suspend fun login(loginRequest: LoginRequest): TokenResponse =
+    override suspend fun login(loginRequest: LoginRequest): TokenResponse = networkHandler {
         userApi.login(loginRequest)
+    }
 
-    override suspend fun sendEmail(emailRequest: EmailRequest) =
+    override suspend fun sendEmail(emailRequest: EmailRequest) = networkHandler {
         userApi.sendEmail(emailRequest)
+    }
 
-    override suspend fun checkEmail(email: String, code: String): Boolean =
+    override suspend fun checkEmail(email: String, code: String): Boolean = networkHandler {
         userApi.checkEmail(email, code)
+    }
 
-    override suspend fun getUser(id: Long): UserResponse =
+    override suspend fun getUser(id: Long): UserResponse = networkHandler {
         userApi.getUser(id)
+    }
 }
