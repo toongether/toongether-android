@@ -6,12 +6,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.model.Shorts
+import kr.toongether.model.ShortsList
 
 fun LazyListScope.shortsCardItems(
-    items: List<Shorts>,
+    items: List<ShortsList>,
     modifier: Modifier = Modifier,
-    onItemClick: (shorts: Shorts) -> Unit
+    onItemClick: (shorts: ShortsList) -> Unit
 ) = items(
     items = items,
     key = { it.id },
@@ -24,8 +24,9 @@ fun LazyListScope.shortsCardItems(
                 ) { onItemClick(shorts) },
             thumbnail = shorts.thumbnail,
             title = shorts.title,
-            writer = shorts.writer,
-            createdDate = shorts.createdDate
+            writer = shorts.author.name,
+            createdDate = shorts.createdDate,
+            profileImage = shorts.author.profileImage,
         )
     }
 )

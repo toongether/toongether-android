@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import kotlinx.datetime.LocalDateTime
+import kr.toongether.common.toRelativeDateTime
 import kr.toongether.designsystem.theme.Gray
 import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
@@ -29,61 +31,71 @@ import kr.toongether.designsystem.theme.pretendard
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ShortsCard(
+    profileImage: String,
     thumbnail: String,
     title: String,
     writer: String,
-    createdDate: String,
+    createdDate: LocalDateTime,
     modifier: Modifier = Modifier
 ) {
-    Row(
+    Column(
         modifier = modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(horizontal = 12.dp)
+            .fillMaxWidth(),
     ) {
-        GlideImage(
-            modifier = modifier
-                .size(160.dp, 100.dp)
-                .clip(Shape.medium),
-            model = thumbnail,
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
-
-        Spacer(modifier = modifier.width(8.dp))
-
         Box(
             modifier = modifier
-                .fillMaxSize()
-                .padding(vertical = 2.dp)
+                .fillMaxWidth()
         ) {
-            Column(
-                modifier = modifier.align(Alignment.TopStart)
+            Row(
+                modifier = modifier
+                    .align(Alignment.CenterStart)
             ) {
-                Text(
-                    text = title,
-                    fontFamily = pretendard,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
+                Spacer(modifier = modifier.width(12.dp))
+
+                GlideImage(
+                    model = profileImage,
+                    contentDescription = null
                 )
-                Text(
-                    text = writer,
-                    fontFamily = pretendard,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.White
-                )
+
+                Spacer(modifier = modifier.width(8.dp))
+
+                Column {
+                    Text(
+                        text = writer,
+                        fontFamily = pretendard,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.White
+                    )
+
+                    Text(
+                        text = title,
+                        fontFamily = pretendard,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.White
+                    )
+                }
             }
 
             Text(
-                modifier = modifier.align(Alignment.BottomStart),
-                text = createdDate,
+                modifier = modifier
+                    .align(Alignment.CenterEnd),
+                text = createdDate.toRelativeDateTime(),
                 fontFamily = pretendard,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = Gray
+                color = Color.White
             )
         }
+        
+        Spacer(modifier = modifier.height(8.dp))
+
+        GlideImage(
+            modifier = modifier.fillMaxWidth(),
+            model = thumbnail,
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth
+        )
     }
 }
