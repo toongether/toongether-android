@@ -9,4 +9,5 @@ android {
 
 dependencies {
     implementation(libs.retrofit.core)
+    implementation(libs.kotlinx.datetime)
 }
