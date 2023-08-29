@@ -13,4 +13,5 @@ dependencies {
     implementation(project(":core:network"))
 
     implementation(libs.kotlinx.datetime)
+    implementation(libs.androidx.paging.runtime)
 }

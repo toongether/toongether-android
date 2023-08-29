@@ -1,5 +1,7 @@
 package kr.toongether.data
 
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import kr.toongether.model.Comic
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
@@ -32,4 +34,6 @@ interface ComicRepository {
         seriesId: Long,
         episodeId: Long,
     ): Comic
+
+    fun getPagingShorts(): Flow<PagingData<ShortsList>>
 }

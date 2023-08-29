@@ -1,5 +1,11 @@
 package kr.toongether.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kr.toongether.data.ComicRepository
 import kr.toongether.data.model.asModel
 import kr.toongether.data.model.asRequest
@@ -10,6 +16,7 @@ import kr.toongether.model.Series
 import kr.toongether.model.SeriesList
 import kr.toongether.model.ShortsList
 import kr.toongether.network.datasource.ComicNetworkDataSource
+import kr.toongether.data.paging.ShortsPagingDataSource
 import javax.inject.Inject
 
 internal class ComicRepositoryImpl @Inject constructor(
@@ -37,5 +44,15 @@ internal class ComicRepositoryImpl @Inject constructor(
 
     override suspend fun getSeriesEpisode(seriesId: Long, episodeId: Long): Comic =
         network.getSeriesEpisode(seriesId, episodeId).asModel()
+
+    override fun getPagingShorts(): Flow<PagingData<ShortsList>> =
+        Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = { ShortsPagingDataSource(network) }
+        ).flow.map {
+            it.map { pagingData ->
+                pagingData.asModel()
+            }
+        }
 
 }
