@@ -9,7 +9,6 @@ import javax.inject.Inject
 class GetPagingShortsUseCase @Inject constructor(
     private val repository: ComicRepository
 ) {
-    operator fun invoke(): Result<Flow<PagingData<ShortsList>>> = kotlin.runCatching {
+    operator fun invoke(): Flow<PagingData<ShortsList>> =
         repository.getPagingShorts()
-    }
 }
