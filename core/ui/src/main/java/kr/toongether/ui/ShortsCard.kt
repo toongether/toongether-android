@@ -1,5 +1,6 @@
 package kr.toongether.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,11 +33,12 @@ import kr.toongether.designsystem.theme.pretendard
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ShortsCard(
-    profileImage: String,
+    profileImage: String?,
     thumbnail: String,
     title: String,
     writer: String,
     createdDate: LocalDateTime,
+
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -52,10 +55,19 @@ fun ShortsCard(
             ) {
                 Spacer(modifier = modifier.width(12.dp))
 
-                GlideImage(
-                    model = profileImage,
-                    contentDescription = null
-                )
+                if (profileImage.isNullOrBlank()) {
+                    Image(
+                        modifier = modifier.size(35.dp),
+                        painter = painterResource(id = kr.toongether.designsystem.R.drawable.ic_default_profile),
+                        contentDescription = null
+                    )
+                } else {
+                    GlideImage(
+                        modifier = modifier.size(35.dp),
+                        model = profileImage,
+                        contentDescription = null
+                    )
+                }
 
                 Spacer(modifier = modifier.width(8.dp))
 
@@ -85,10 +97,10 @@ fun ShortsCard(
                 fontFamily = pretendard,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.White
+                color = Gray
             )
         }
-        
+
         Spacer(modifier = modifier.height(8.dp))
 
         GlideImage(
