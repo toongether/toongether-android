@@ -12,7 +12,8 @@ fun LocalDateTime.toRelativeDateTime(): String {
     else if (this.monthNumber < today.monthNumber) "${today.monthNumber - this.monthNumber}달 전"
     else if (this.dayOfMonth < today.dayOfMonth) "${today.dayOfMonth - this.dayOfMonth}일 전"
     else if (this.hour < today.hour) {
-        if (this.minute > today.minute) "${60 - abs(this.minute - today.minute)}분 전"
+        if (today.hour - this.hour < 1 && this.minute > today.minute)
+            "${60 - abs(this.minute - today.minute)}분 전"
         else "${today.hour - this.hour}시간 전"
     }
     else "방금 전"

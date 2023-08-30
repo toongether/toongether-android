@@ -38,7 +38,6 @@ fun ShortsCard(
     title: String,
     writer: String,
     createdDate: LocalDateTime,
-
     modifier: Modifier = Modifier
 ) {
     Column(
