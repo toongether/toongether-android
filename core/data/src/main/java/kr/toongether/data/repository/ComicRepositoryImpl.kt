@@ -1,17 +1,58 @@
 package kr.toongether.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kr.toongether.data.ComicRepository
 import kr.toongether.data.model.asModel
-import kr.toongether.model.ComicList
+import kr.toongether.data.model.asRequest
+import kr.toongether.data.paging.ShortsPagingDataSource
+import kr.toongether.model.Comic
+import kr.toongether.model.Cycle
+import kr.toongether.model.DayOfWeek
+import kr.toongether.model.Series
+import kr.toongether.model.SeriesList
 import kr.toongether.model.Shorts
-import kr.toongether.network.ToongetherNetworkDataSource
+import kr.toongether.model.ShortsList
+import kr.toongether.network.datasource.ComicNetworkDataSource
 import javax.inject.Inject
 
-class ComicRepositoryImpl @Inject constructor(
-    private val network: ToongetherNetworkDataSource
+internal class ComicRepositoryImpl @Inject constructor(
+    private val network: ComicNetworkDataSource
 ) : ComicRepository {
-    override suspend fun getShortsList(): List<Shorts> =
-        network.getShortsList().map { it.asModel() }
+    override suspend fun getShortsList(page: Int): ShortsList =
+        network.getShortsList(page).asModel()
 
-    override suspend fun getComicList(id: Long): ComicList =
-        network.getComicList(id).asModel()
+    override suspend fun getShortsEpisode(id: Long): Comic =
+        network.getShortsEpisode(id).asModel()
+
+    override suspend fun getSeriesList(
+        dayOfWeek: DayOfWeek,
+        cycle: Cycle,
+        page: Int
+    ): List<SeriesList> =
+        network.getSeriesList(
+            dayOfWeek = dayOfWeek.asRequest(),
+            cycle = cycle.asRequest(),
+            page = page
+        ).map { it.asModel() }
+
+    override suspend fun getSeries(id: Long): Series =
+        network.getSeries(id).asModel()
+
+    override suspend fun getSeriesEpisode(seriesId: Long, episodeId: Long): Comic =
+        network.getSeriesEpisode(seriesId, episodeId).asModel()
+
+    override fun getPagingShorts(): Flow<PagingData<Shorts>> =
+        Pager(
+            config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+            pagingSourceFactory = { ShortsPagingDataSource(network) }
+        ).flow.map {
+            it.map { pagingData ->
+                pagingData.asModel()
+            }
+        }
 }

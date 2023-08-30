@@ -1,47 +1,43 @@
 package kr.toongether.shorts
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kr.toongether.designsystem.component.ToongetherScrollableTabRow
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.model.ComicGenre
-import kr.toongether.shorts.genre.prerelease.PreReleaseScreen
+import kr.toongether.model.Shorts
+import kr.toongether.ui.shortsCardItems
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ShortsRoute(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: ShortsViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState()
-    val coroutineScope = rememberCoroutineScope()
+    val shortsList = viewModel.getPagingShorts().collectAsLazyPagingItems()
+//    val state by viewModel.collectAsState()
 
     ShortsScreen(
         modifier = modifier,
-        pagerState = pagerState,
-        coroutineScope = coroutineScope,
-        navController = navController
+        shortsList = shortsList,
+        onItemClick = { navController.popBackStack() }
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ShortsScreen(
     modifier: Modifier = Modifier,
-    pagerState: PagerState,
-    coroutineScope: CoroutineScope,
-    navController: NavController
+    shortsList: LazyPagingItems<Shorts>,
+    onItemClick: (Shorts) -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -57,28 +53,16 @@ internal fun ShortsScreen(
                 subTitle = "최신순"
             )
 
-            ToongetherScrollableTabRow(
-                modifier = modifier,
-                tabs = ComicGenre.values().toList().map { it.title },
-//                selectedTabIndex = pagerState.currentPage,
-                selectedTabIndex = 0,
-                onTabClick = { tabIndex ->
-                    coroutineScope.launch {
-//                        pagerState.animateScrollToPage(tabIndex)
-                        pagerState.animateScrollToPage(0)
-                    }
-                }
-            )
-            PreReleaseScreen(navController = navController)
-//            HorizontalPager(
-//                modifier = modifier.fillMaxSize(),
-//                pageCount = ComicGenre.values().size,
-//                state = pagerState
-//            ) { page ->
-//                when (page) {
-//                    0 -> PreReleaseScreen(navController = navController)
-//                }
-//            }
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                shortsCardItems(
+                    items = shortsList,
+                    onItemClick = onItemClick
+                )
+            }
         }
     }
 }

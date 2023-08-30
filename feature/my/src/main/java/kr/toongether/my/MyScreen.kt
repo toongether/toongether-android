@@ -12,11 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.login.navigation.navigateToLogin
-import kr.toongether.model.MyGenre
 
 @Composable
 internal fun MyRoute(
@@ -60,13 +58,13 @@ internal fun MyScreen(
                         )
                 )
 
-                ToongetherScrollableTabRow(
-                    tabs = MyGenre.values().toList().map { it.title },
-//                selectedTabIndex = pagerState.currentPage,
-                    selectedTabIndex = 0,
-                    onTabClick = { tabIndex ->
-                    }
-                )
+//                ToongetherScrollableTabRow(
+//                    tabs = MyGenre.values().toList().map { it.title },
+// //                selectedTabIndex = pagerState.currentPage,
+//                    selectedTabIndex = 0,
+//                    onTabClick = { tabIndex ->
+//                    }
+//                )
             }
         }
     }

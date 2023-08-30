@@ -119,7 +119,7 @@ fun CheckEmailRoute(
         },
         keyboardController = keyboardController,
         timer = timer,
-        onClickCheckButton = viewModel::checkEmail,
+        onClickCheckButton = { viewModel.checkEmail(email, it) },
         onClickRefresh = {
             countDown.cancel()
             countDown.start()

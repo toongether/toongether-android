@@ -15,6 +15,9 @@ dependencies {
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:model"))
+    implementation(project(":core:common"))
 
     implementation(libs.glide.compose)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.androidx.paging.compose)
 }

@@ -1,5 +1,6 @@
 package kr.toongether.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -9,10 +10,16 @@ data class ShortsResponse(
     val id: Long,
     @SerialName("title")
     val title: String,
-    @SerialName("writer")
-    val writer: String,
+    @SerialName("genre")
+    val genre: String,
     @SerialName("thumbnail")
     val thumbnail: String,
+    @SerialName("commentCount")
+    val commentCount: Int,
+    @SerialName("likeCount")
+    val likeCount: Int,
+    @SerialName("author")
+    val author: NetworkAuthor,
     @SerialName("createdDate")
-    val createdDate: String
+    val createdDate: Instant
 )

@@ -15,7 +15,7 @@ import kr.toongether.model.Shorts
 const val ComicRoute = "comic_route/{id}/{title}/{writer}"
 
 fun NavController.navigateToComic(shorts: Shorts, navOptions: NavOptions? = null) {
-    this.navigate("comic_route/${shorts.id}/${shorts.title}/${shorts.writer}", navOptions)
+    this.navigate("comic_route/${shorts.id}/${shorts.title}/${shorts.author.name}", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
