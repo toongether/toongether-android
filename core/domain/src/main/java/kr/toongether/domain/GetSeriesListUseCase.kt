@@ -13,7 +13,7 @@ class GetSeriesListUseCase @Inject constructor(
         dayOfWeek: DayOfWeek,
         cycle: Cycle,
         page: Int
-    ): Result<List<SeriesList>> = kotlin.runCatching {
+    ): Result<SeriesList> = kotlin.runCatching {
         repository.getSeriesList(
             dayOfWeek = dayOfWeek,
             cycle = cycle,
