@@ -13,7 +13,7 @@ fun ShortsListResponse.asModel(): ShortsList = ShortsList(
     currentPage = currentPage
 )
 
-fun ShortsResponse.asModel() : Shorts = Shorts(
+fun ShortsResponse.asModel(): Shorts = Shorts(
     id = id,
     title = title,
     genre = genre,
@@ -21,5 +21,5 @@ fun ShortsResponse.asModel() : Shorts = Shorts(
     commentCount = commentCount,
     likeCount = likeCount,
     author = author.asModel(),
-    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault())
 )

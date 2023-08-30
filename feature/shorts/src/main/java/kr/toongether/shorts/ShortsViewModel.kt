@@ -14,12 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShortsViewModel @Inject constructor(
-    private val getPagingShortsUseCase: GetPagingShortsUseCase,
+    private val getPagingShortsUseCase: GetPagingShortsUseCase
 ) : ContainerHost<ShortsState, ShortsSideEffect>, ViewModel() {
 
     override val container = container<ShortsState, ShortsSideEffect>(ShortsState())
 
     fun getPagingShorts(): Flow<PagingData<Shorts>> =
         getPagingShortsUseCase.invoke().cachedIn(viewModelScope)
-
 }

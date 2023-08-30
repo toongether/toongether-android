@@ -7,5 +7,5 @@ enum class NetworkDayOfWeek {
     THURSDAY,
     FRIDAY,
     SATURDAY,
-    SUNDAY,
+    SUNDAY
 }

@@ -10,5 +10,5 @@ data class SeriesResponse(
     @SerialName("author")
     val author: NetworkAuthor,
     @SerialName("episodeList")
-    val episodeList: List<NetworkEpisode>,
+    val episodeList: List<NetworkEpisode>
 )

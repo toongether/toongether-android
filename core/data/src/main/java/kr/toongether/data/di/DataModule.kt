@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.toongether.data.ComicRepository
-import kr.toongether.data.repository.ComicRepositoryImpl
 import kr.toongether.data.UserRepository
+import kr.toongether.data.repository.ComicRepositoryImpl
 import kr.toongether.data.repository.UserRepositoryImpl
 
 @Module

@@ -9,15 +9,15 @@ import kotlinx.coroutines.flow.map
 import kr.toongether.data.ComicRepository
 import kr.toongether.data.model.asModel
 import kr.toongether.data.model.asRequest
+import kr.toongether.data.paging.ShortsPagingDataSource
 import kr.toongether.model.Comic
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesList
+import kr.toongether.model.Shorts
 import kr.toongether.model.ShortsList
 import kr.toongether.network.datasource.ComicNetworkDataSource
-import kr.toongether.data.paging.ShortsPagingDataSource
-import kr.toongether.model.Shorts
 import javax.inject.Inject
 
 internal class ComicRepositoryImpl @Inject constructor(
@@ -37,7 +37,7 @@ internal class ComicRepositoryImpl @Inject constructor(
         network.getSeriesList(
             dayOfWeek = dayOfWeek.asRequest(),
             cycle = cycle.asRequest(),
-            page = page,
+            page = page
         ).map { it.asModel() }
 
     override suspend fun getSeries(id: Long): Series =
@@ -49,11 +49,10 @@ internal class ComicRepositoryImpl @Inject constructor(
     override fun getPagingShorts(): Flow<PagingData<Shorts>> =
         Pager(
             config = PagingConfig(pageSize = 10, enablePlaceholders = false),
-            pagingSourceFactory = { ShortsPagingDataSource(network) },
+            pagingSourceFactory = { ShortsPagingDataSource(network) }
         ).flow.map {
             it.map { pagingData ->
                 pagingData.asModel()
             }
         }
-
 }

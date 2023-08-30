@@ -11,7 +11,6 @@ import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
 import kr.toongether.comic.ComicRoute
 import kr.toongether.model.Shorts
-import kr.toongether.model.ShortsList
 
 const val ComicRoute = "comic_route/{id}/{title}/{writer}"
 

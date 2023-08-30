@@ -11,5 +11,5 @@ fun ComicResponse.asModel(): Comic = Comic(
     width = width,
     height = height,
     lastHeight = lastHeight,
-    endIndex = endIndex,
+    endIndex = endIndex
 )

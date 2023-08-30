@@ -35,15 +35,14 @@ private interface RetrofitUserNetworkApi {
     @GET("email/check")
     suspend fun checkEmail(
         @Query("email") email: String,
-        @Query("code") code: String,
+        @Query("code") code: String
     ): Boolean
 
     @GET("user/info/{id}")
     suspend fun getUser(
-        @Path("id") id: Long,
+        @Path("id") id: Long
     ): UserResponse
 }
-
 
 @Singleton
 internal class RetrofitUserNetwork @Inject constructor(

@@ -12,12 +12,12 @@ class GetSeriesListUseCase @Inject constructor(
     suspend operator fun invoke(
         dayOfWeek: DayOfWeek,
         cycle: Cycle,
-        page: Int,
+        page: Int
     ): Result<List<SeriesList>> = kotlin.runCatching {
         repository.getSeriesList(
             dayOfWeek = dayOfWeek,
             cycle = cycle,
-            page = page,
+            page = page
         )
     }
 }

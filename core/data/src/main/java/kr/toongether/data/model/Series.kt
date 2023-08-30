@@ -8,7 +8,7 @@ import kr.toongether.network.model.SeriesResponse
 fun SeriesResponse.asModel(): Series = Series(
     titleInfo = titleInfo.asModel(),
     author = author.asModel(),
-    episodeList = episodeList.map { it.asModel() },
+    episodeList = episodeList.map { it.asModel() }
 )
 
 fun SeriesListResponse.asModel(): SeriesList = SeriesList(
@@ -21,5 +21,5 @@ fun SeriesListResponse.asModel(): SeriesList = SeriesList(
     author = author.asModel(),
     createdDate = createdDate,
     hasMorePage = hasMorePage,
-    currentPage = currentPage,
+    currentPage = currentPage
 )

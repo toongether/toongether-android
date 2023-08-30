@@ -4,5 +4,5 @@ data class TitleInfo(
     val color: String,
     val titleWidth: Float,
     val titleImage: String,
-    val thumbnailImage: String,
+    val thumbnailImage: String
 )

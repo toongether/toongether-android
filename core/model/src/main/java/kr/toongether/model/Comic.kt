@@ -2,7 +2,6 @@ package kr.toongether.model
 
 import kotlinx.datetime.LocalDateTime
 
-
 data class Comic(
     val title: String,
     val thumbnail: String,
@@ -11,5 +10,5 @@ data class Comic(
     val width: Int,
     val height: Int,
     val lastHeight: Int,
-    val endIndex: Int,
+    val endIndex: Int
 )

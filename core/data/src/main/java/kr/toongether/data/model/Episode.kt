@@ -7,5 +7,5 @@ fun NetworkEpisode.asModel(): Episode = Episode(
     id = id,
     title = title,
     thumbnail = thumbnail,
-    createdDate = createdDate,
+    createdDate = createdDate
 )

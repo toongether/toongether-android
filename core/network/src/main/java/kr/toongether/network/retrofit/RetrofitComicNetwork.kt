@@ -3,10 +3,10 @@ package kr.toongether.network.retrofit
 import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.model.ComicResponse
-import kr.toongether.network.model.SeriesResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
 import kr.toongether.network.model.SeriesListResponse
+import kr.toongether.network.model.SeriesResponse
 import kr.toongether.network.model.ShortsListResponse
 import retrofit2.Retrofit
 import retrofit2.http.GET
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 private interface RetrofitComicNetworkApi {
     @GET("comic/shorts/list")
     suspend fun getShortsList(
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): ShortsListResponse
 
     @GET("comic/shorts/{id}/episode")
@@ -30,7 +30,7 @@ private interface RetrofitComicNetworkApi {
     suspend fun getSeriesList(
         @Query("dayOfWeek") dayOfWeek: NetworkDayOfWeek,
         @Query("cycle") cycle: NetworkCycle,
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): List<SeriesListResponse>
 
     @GET("comic/series/{id}/episode")
@@ -41,7 +41,7 @@ private interface RetrofitComicNetworkApi {
     @GET("comic/series/{seriesId}/episode/{episodeId}")
     suspend fun getSeriesEpisode(
         @Path("seriesId") seriesId: Long,
-        @Path("episodeId") episodeId: Long,
+        @Path("episodeId") episodeId: Long
     ): ComicResponse
 }
 
@@ -77,5 +77,4 @@ internal class RetrofitComicNetwork @Inject constructor(
     ): ComicResponse = networkHandler {
         comicApi.getSeriesEpisode(seriesId, episodeId)
     }
-
 }

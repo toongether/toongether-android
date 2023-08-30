@@ -12,5 +12,5 @@ data class SeriesList(
     val author: Author,
     val createdDate: LocalDateTime,
     val hasMorePage: Boolean,
-    val currentPage: Int,
+    val currentPage: Int
 )

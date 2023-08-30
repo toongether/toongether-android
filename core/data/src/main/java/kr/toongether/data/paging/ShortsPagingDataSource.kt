@@ -3,8 +3,8 @@ package kr.toongether.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import kr.toongether.network.datasource.ComicNetworkDataSource
-import kr.toongether.network.model.ShortsListResponse
 import kr.toongether.network.model.ShortsResponse
+import java.io.IOException
 
 internal class ShortsPagingDataSource(
     private val network: ComicNetworkDataSource
@@ -19,6 +19,8 @@ internal class ShortsPagingDataSource(
                 prevKey = null,
                 nextKey = if (response.shortsResponse.isEmpty()) null else page.plus(1)
             )
+        } catch (e: IOException) {
+            LoadResult.Error(e)
         } catch (e: Exception) {
             LoadResult.Error(e)
         }

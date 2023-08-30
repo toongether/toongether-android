@@ -21,5 +21,5 @@ data class ShortsResponse(
     @SerialName("author")
     val author: NetworkAuthor,
     @SerialName("createdDate")
-    val createdDate: Instant,
+    val createdDate: Instant
 )

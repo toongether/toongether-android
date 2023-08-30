@@ -9,5 +9,5 @@ fun UserResponse.asModel(): User = User(
     password = password,
     email = email,
     name = name,
-    profileImage = profileImage,
+    profileImage = profileImage
 )

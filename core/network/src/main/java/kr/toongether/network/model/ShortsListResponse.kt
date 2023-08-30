@@ -1,6 +1,5 @@
 package kr.toongether.network.model
 
-import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,5 +10,5 @@ data class ShortsListResponse(
     @SerialName("hasMorePage")
     val hasMorePage: Boolean,
     @SerialName("currentPage")
-    val currentPage: Int,
+    val currentPage: Int
 )

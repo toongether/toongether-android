@@ -13,5 +13,5 @@ data class NetworkEpisode(
     @SerialName("thumbnail")
     val thumbnail: String,
     @SerialName("createdDate")
-    val createdDate: LocalDateTime,
+    val createdDate: LocalDateTime
 )

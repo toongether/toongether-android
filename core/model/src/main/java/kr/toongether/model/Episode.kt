@@ -6,5 +6,5 @@ data class Episode(
     val id: Long,
     val title: String,
     val thumbnail: String,
-    val createdDate: LocalDateTime,
+    val createdDate: LocalDateTime
 )

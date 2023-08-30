@@ -12,5 +12,5 @@ data class NetworkTitleInfo(
     @SerialName("titleImage")
     val titleImage: String,
     @SerialName("backgroundImage")
-    val thumbnailImage: String,
+    val thumbnailImage: String
 )

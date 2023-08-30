@@ -37,7 +37,7 @@ internal fun ShortsRoute(
 internal fun ShortsScreen(
     modifier: Modifier = Modifier,
     shortsList: LazyPagingItems<Shorts>,
-    onItemClick: (Shorts) -> Unit,
+    onItemClick: (Shorts) -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -50,7 +50,7 @@ internal fun ShortsScreen(
         ) {
             ToongetherTopAppBar(
                 title = "단편 웹툰",
-                subTitle = "최신순",
+                subTitle = "최신순"
             )
 
             LazyColumn(

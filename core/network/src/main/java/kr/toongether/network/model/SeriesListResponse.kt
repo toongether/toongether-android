@@ -25,5 +25,5 @@ data class SeriesListResponse(
     @SerialName("hasMorePage")
     val hasMorePage: Boolean,
     @SerialName("currentPage")
-    val currentPage: Int,
+    val currentPage: Int
 )

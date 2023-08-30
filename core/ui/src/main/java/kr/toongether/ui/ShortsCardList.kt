@@ -27,7 +27,7 @@ fun LazyListScope.shortsCardItems(
             title = shorts.title,
             writer = shorts.author.name,
             createdDate = shorts.createdDate,
-            profileImage = shorts.author.profileImage,
+            profileImage = shorts.author.profileImage
         )
     }
 )

@@ -6,5 +6,5 @@ import kr.toongether.network.model.NetworkAuthor
 fun NetworkAuthor.asModel(): Author = Author(
     id = id,
     name = name,
-    profileImage = profileImage,
+    profileImage = profileImage
 )

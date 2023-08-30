@@ -1,15 +1,15 @@
 package kr.toongether.network.datasource
 
 import kr.toongether.network.model.ComicResponse
-import kr.toongether.network.model.SeriesResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
 import kr.toongether.network.model.SeriesListResponse
+import kr.toongether.network.model.SeriesResponse
 import kr.toongether.network.model.ShortsListResponse
 
 interface ComicNetworkDataSource {
     suspend fun getShortsList(
-        page: Int,
+        page: Int
     ): ShortsListResponse
 
     suspend fun getShortsEpisode(
@@ -19,7 +19,7 @@ interface ComicNetworkDataSource {
     suspend fun getSeriesList(
         dayOfWeek: NetworkDayOfWeek,
         cycle: NetworkCycle,
-        page: Int,
+        page: Int
     ): List<SeriesListResponse>
 
     suspend fun getSeries(
@@ -28,6 +28,6 @@ interface ComicNetworkDataSource {
 
     suspend fun getSeriesEpisode(
         seriesId: Long,
-        episodeId: Long,
+        episodeId: Long
     ): ComicResponse
 }

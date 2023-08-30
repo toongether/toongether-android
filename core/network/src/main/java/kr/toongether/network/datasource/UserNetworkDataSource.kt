@@ -21,10 +21,10 @@ interface UserNetworkDataSource {
 
     suspend fun checkEmail(
         email: String,
-        code: String,
+        code: String
     ): Boolean
 
     suspend fun getUser(
-        id: Long,
+        id: Long
     ): UserResponse
 }

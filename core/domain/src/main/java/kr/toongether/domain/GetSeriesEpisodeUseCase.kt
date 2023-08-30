@@ -8,7 +8,8 @@ class GetSeriesEpisodeUseCase @Inject constructor(
     private val repository: ComicRepository
 ) {
     suspend operator fun invoke(
-        seriesId: Long, episodeId: Long
+        seriesId: Long,
+        episodeId: Long
     ): Result<Comic> = kotlin.runCatching {
         repository.getSeriesEpisode(
             seriesId = seriesId,
