@@ -17,8 +17,8 @@ interface ComicNetworkDataSource {
     ): ComicResponse
 
     suspend fun getSeriesList(
-        dayOfWeek: NetworkDayOfWeek,
-        cycle: NetworkCycle,
+        dayOfWeek: NetworkDayOfWeek?,
+        cycle: NetworkCycle?,
         page: Int
     ): SeriesListResponse
 

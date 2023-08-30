@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kr.toongether.model.Comic
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
+import kr.toongether.model.Series
 import kr.toongether.model.SeriesEpisode
 import kr.toongether.model.SeriesList
 import kr.toongether.model.Shorts
@@ -20,8 +21,8 @@ interface ComicRepository {
     ): Comic
 
     suspend fun getSeriesList(
-        dayOfWeek: DayOfWeek,
-        cycle: Cycle,
+        dayOfWeek: DayOfWeek?,
+        cycle: Cycle?,
         page: Int
     ): SeriesList
 
@@ -35,4 +36,6 @@ interface ComicRepository {
     ): Comic
 
     fun getPagingShorts(): Flow<PagingData<Shorts>>
+
+    fun getPagingSeries(cycle: Cycle?, dayOfWeek: DayOfWeek?): Flow<PagingData<Series>>
 }

@@ -28,8 +28,8 @@ private interface RetrofitComicNetworkApi {
 
     @GET("comic/series/list")
     suspend fun getSeriesList(
-        @Query("dayOfWeek") dayOfWeek: NetworkDayOfWeek,
-        @Query("cycle") cycle: NetworkCycle,
+        @Query("dayOfWeek") dayOfWeek: NetworkDayOfWeek?,
+        @Query("cycle") cycle: NetworkCycle?,
         @Query("page") page: Int
     ): SeriesListResponse
 
@@ -60,8 +60,8 @@ internal class RetrofitComicNetwork @Inject constructor(
     }
 
     override suspend fun getSeriesList(
-        dayOfWeek: NetworkDayOfWeek,
-        cycle: NetworkCycle,
+        dayOfWeek: NetworkDayOfWeek?,
+        cycle: NetworkCycle?,
         page: Int
     ): SeriesListResponse = networkHandler {
         comicApi.getSeriesList(dayOfWeek, cycle, page)
