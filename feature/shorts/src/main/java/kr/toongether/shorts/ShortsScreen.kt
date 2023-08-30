@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.model.ShortsList
+import kr.toongether.model.Shorts
 import kr.toongether.ui.shortsCardItems
 
 @Composable
@@ -24,6 +24,7 @@ internal fun ShortsRoute(
     viewModel: ShortsViewModel = hiltViewModel()
 ) {
     val shortsList = viewModel.getPagingShorts().collectAsLazyPagingItems()
+//    val state by viewModel.collectAsState()
 
     ShortsScreen(
         modifier = modifier,
@@ -35,8 +36,8 @@ internal fun ShortsRoute(
 @Composable
 internal fun ShortsScreen(
     modifier: Modifier = Modifier,
-    shortsList: LazyPagingItems<ShortsList>,
-    onItemClick: (ShortsList) -> Unit,
+    shortsList: LazyPagingItems<Shorts>,
+    onItemClick: (Shorts) -> Unit,
 ) {
     Surface(
         modifier = modifier

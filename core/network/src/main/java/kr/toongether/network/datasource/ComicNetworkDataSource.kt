@@ -10,7 +10,7 @@ import kr.toongether.network.model.ShortsListResponse
 interface ComicNetworkDataSource {
     suspend fun getShortsList(
         page: Int,
-    ): List<ShortsListResponse>
+    ): ShortsListResponse
 
     suspend fun getShortsEpisode(
         id: Long

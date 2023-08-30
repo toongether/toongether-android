@@ -5,7 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.toongether.domain.CheckEmailUseCase
 import kr.toongether.domain.SendEmailUseCase
 import kr.toongether.domain.SignupUseCase
-import kr.toongether.model.CheckEmail
 import kr.toongether.model.Email
 import kr.toongether.model.Signup
 import org.orbitmvi.orbit.ContainerHost
@@ -50,13 +49,13 @@ class SignupViewModel @Inject constructor(
             }
     }
 
-    fun checkEmail(code: String) = intent {
+    fun checkEmail(email: String, code: String) = intent {
         reduce {
             state.copy(
                 isLoading = true
             )
         }
-        checkEmailUseCase.invoke(CheckEmail(code))
+        checkEmailUseCase.invoke(email = email, code = code)
             .onSuccess {
                 if (it) postSideEffect(SignupSideEffect.NavigateToInputPassword)
                 reduce {

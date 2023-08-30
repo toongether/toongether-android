@@ -2,7 +2,7 @@ package kr.toongether.comic
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kr.toongether.domain.GetComicListUseCase
+import kr.toongether.domain.GetShortsEpisodeUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicViewModel @Inject constructor(
-    private val getComicListUseCase: GetComicListUseCase
+    private val getShortsEpisodeUseCase: GetShortsEpisodeUseCase
 ) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
 
     override val container = container<ComicState, ComicSideEffect>(ComicState())
@@ -25,12 +25,12 @@ class ComicViewModel @Inject constructor(
         reduce {
             state.copy(isLoading = true)
         }
-        getComicListUseCase.invoke(id)
+        getShortsEpisodeUseCase.invoke(id)
             .onSuccess {
                 reduce {
                     state.copy(
                         isLoading = false,
-                        comicList = it
+                        comic = it
                     )
                 }
             }.onFailure {

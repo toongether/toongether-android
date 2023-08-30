@@ -122,8 +122,8 @@ internal fun ComicScreen(
 
     with(LocalDensity.current) {
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp.toPx()
-        minHeight = (screenWidth * comicState.comicList.height / comicState.comicList.width).toDp() - 5.dp
-        lastHeight = comicState.comicList.lastHeight.toDp()
+        minHeight = (screenWidth * comicState.comic.height / comicState.comic.width).toDp() - 5.dp
+        lastHeight = comicState.comic.lastHeight.toDp()
     }
 
     Surface(
@@ -153,11 +153,11 @@ internal fun ComicScreen(
                     state = lazyListState
                 ) {
                     itemsIndexed(
-                        items = comicState.comicList.imageUrl
+                        items = comicState.comic.imageUrl
                     ) { index, imageUrl ->
-                        if (index < comicState.comicList.endIndex) {
+                        if (index < comicState.comic.endIndex) {
                             ComicItem(height = minHeight, imageUrl = imageUrl)
-                        } else if (index == comicState.comicList.endIndex) {
+                        } else if (index == comicState.comic.endIndex) {
                             ComicItem(height = lastHeight, imageUrl = imageUrl)
                         }
                         recomposition.invoke()

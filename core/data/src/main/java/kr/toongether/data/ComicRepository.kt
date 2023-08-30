@@ -7,6 +7,7 @@ import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesList
+import kr.toongether.model.Shorts
 import kr.toongether.model.ShortsList
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
@@ -14,7 +15,7 @@ import kr.toongether.network.model.NetworkDayOfWeek
 interface ComicRepository {
     suspend fun getShortsList(
         page: Int,
-    ): List<ShortsList>
+    ): ShortsList
 
     suspend fun getShortsEpisode(
         id: Long
@@ -35,5 +36,5 @@ interface ComicRepository {
         episodeId: Long,
     ): Comic
 
-    fun getPagingShorts(): Flow<PagingData<ShortsList>>
+    fun getPagingShorts(): Flow<PagingData<Shorts>>
 }

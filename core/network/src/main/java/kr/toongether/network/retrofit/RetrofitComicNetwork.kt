@@ -19,7 +19,7 @@ private interface RetrofitComicNetworkApi {
     @GET("comic/shorts/list")
     suspend fun getShortsList(
         @Query("page") page: Int,
-    ): List<ShortsListResponse>
+    ): ShortsListResponse
 
     @GET("comic/shorts/{id}/episode")
     suspend fun getShortsEpisode(
@@ -51,7 +51,7 @@ internal class RetrofitComicNetwork @Inject constructor(
 ) : ComicNetworkDataSource {
     private val comicApi = retrofit.create(RetrofitComicNetworkApi::class.java)
 
-    override suspend fun getShortsList(page: Int): List<ShortsListResponse> = networkHandler {
+    override suspend fun getShortsList(page: Int): ShortsListResponse = networkHandler {
         comicApi.getShortsList(page)
     }
 
