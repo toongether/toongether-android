@@ -1,16 +1,13 @@
 package kr.toongether.series
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.Tab
-import androidx.compose.material.Text
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,16 +16,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kr.toongether.designsystem.component.ToongetherScrollableTabRow
+import kr.toongether.designsystem.component.ToongetherTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.designsystem.theme.Gray60
-import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
@@ -78,6 +75,9 @@ internal fun SerialScreen(
     onTabClick: (tabIndex: Int) -> Unit,
     onComicClick: (Series) -> Unit,
 ) {
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current.density
+
     Surface(
         modifier = modifier
             .fillMaxSize(),
@@ -95,15 +95,25 @@ internal fun SerialScreen(
                     title = "연재 웹툰",
                 )
 
-                ToongetherScrollableTabRow(
-                    modifier = modifier.fillMaxWidth(),
-                    tabs = listOf("All", "월", "화", "수", "목", "금", "토", "일"),
-                    selectedTabIndex = selectedIndex,
-                    onTabClick = onTabClick
-                )
+                if (configuration.screenWidthDp < 412) {
+                    ToongetherScrollableTabRow(
+                        modifier = modifier.fillMaxWidth(),
+                        tabs = listOf("전체", "월", "화", "수", "목", "금", "토", "일"),
+                        selectedTabIndex = selectedIndex,
+                        onTabClick = onTabClick
+                    )
+                } else {
+                    ToongetherTabRow(
+                        modifier = modifier.fillMaxWidth(),
+                        tabs = listOf("전체", "월", "화", "수", "목", "금", "토", "일"),
+                        selectedTabIndex = selectedIndex,
+                        onTabClick = onTabClick
+                    )
+                }
 
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(120.dp),
+                    columns = if (configuration.screenWidthDp < 400)
+                        GridCells.Fixed(3) else GridCells.Adaptive(120.dp),
                     contentPadding = PaddingValues(
                         horizontal = 8.dp,
                         vertical = 10.dp
