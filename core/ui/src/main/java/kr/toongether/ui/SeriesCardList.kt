@@ -24,7 +24,7 @@ fun LazyGridScope.seriesCardItems(
             titleImage = items[index]!!.titleInfo.titleImage,
             thumbnailImage = items[index]!!.titleInfo.thumbnailImage,
             backgroundColor = items[index]!!.titleInfo.color,
-            titleWidth = items[index]!!.titleInfo.titleWidth,
+            titleWidth = items[index]!!.titleInfo.titleWidth
         )
     }
 )

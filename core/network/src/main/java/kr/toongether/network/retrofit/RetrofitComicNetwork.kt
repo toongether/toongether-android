@@ -5,8 +5,8 @@ import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.model.ComicResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
-import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.SeriesEpisodeResponse
+import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.ShortsListResponse
 import retrofit2.Retrofit
 import retrofit2.http.GET

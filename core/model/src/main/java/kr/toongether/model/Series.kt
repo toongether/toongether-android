@@ -10,5 +10,5 @@ data class Series(
     val cycle: Cycle,
     val genre: String,
     val author: Author,
-    val createdDate: LocalDateTime,
+    val createdDate: LocalDateTime
 )

@@ -179,7 +179,7 @@ private fun ToongetherTabRow(
                         minWidth = 50,
                         maxWidth = tabWidth,
                         minHeight = tabRowHeight,
-                        maxHeight = tabRowHeight,
+                        maxHeight = tabRowHeight
                     )
                 )
             }

@@ -1,14 +1,11 @@
 package kr.toongether.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,9 +33,8 @@ fun SeriesCard(
     titleImage: String,
     thumbnailImage: String,
     backgroundColor: String,
-    titleWidth: Float,
+    titleWidth: Float
 ) {
-
     var width by remember { mutableStateOf(1.dp) }
     val localDensity = LocalDensity.current
 
@@ -71,7 +67,7 @@ fun SeriesCard(
                     brush = Brush.verticalGradient(
                         listOf(
                             Color.Transparent,
-                            Color(backgroundColor.toColorInt()),
+                            Color(backgroundColor.toColorInt())
                         )
                     )
                 )
