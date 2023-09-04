@@ -9,11 +9,13 @@ import kotlinx.coroutines.flow.map
 import kr.toongether.data.ComicRepository
 import kr.toongether.data.model.asModel
 import kr.toongether.data.model.asRequest
+import kr.toongether.data.paging.SeriesPagingDataSource
 import kr.toongether.data.paging.ShortsPagingDataSource
 import kr.toongether.model.Comic
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
+import kr.toongether.model.SeriesEpisode
 import kr.toongether.model.SeriesList
 import kr.toongether.model.Shorts
 import kr.toongether.model.ShortsList
@@ -30,17 +32,17 @@ internal class ComicRepositoryImpl @Inject constructor(
         network.getShortsEpisode(id).asModel()
 
     override suspend fun getSeriesList(
-        dayOfWeek: DayOfWeek,
-        cycle: Cycle,
+        dayOfWeek: DayOfWeek?,
+        cycle: Cycle?,
         page: Int
-    ): List<SeriesList> =
+    ): SeriesList =
         network.getSeriesList(
-            dayOfWeek = dayOfWeek.asRequest(),
-            cycle = cycle.asRequest(),
+            dayOfWeek = dayOfWeek?.asRequest(),
+            cycle = cycle?.asRequest(),
             page = page
-        ).map { it.asModel() }
+        ).asModel()
 
-    override suspend fun getSeries(id: Long): Series =
+    override suspend fun getSeries(id: Long): SeriesEpisode =
         network.getSeries(id).asModel()
 
     override suspend fun getSeriesEpisode(seriesId: Long, episodeId: Long): Comic =
@@ -50,6 +52,22 @@ internal class ComicRepositoryImpl @Inject constructor(
         Pager(
             config = PagingConfig(pageSize = 10, enablePlaceholders = false),
             pagingSourceFactory = { ShortsPagingDataSource(network) }
+        ).flow.map {
+            it.map { pagingData ->
+                pagingData.asModel()
+            }
+        }
+
+    override fun getPagingSeries(cycle: Cycle?, dayOfWeek: DayOfWeek?): Flow<PagingData<Series>> =
+        Pager(
+            config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+            pagingSourceFactory = {
+                SeriesPagingDataSource(
+                    network = network,
+                    cycle = cycle?.asRequest(),
+                    dayOfWeek = dayOfWeek?.asRequest()
+                )
+            }
         ).flow.map {
             it.map { pagingData ->
                 pagingData.asModel()

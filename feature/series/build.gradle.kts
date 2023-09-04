@@ -6,3 +6,10 @@ plugins {
 android {
     namespace = "kr.toongether.series"
 }
+
+dependencies {
+    implementation(project(":feature:comic"))
+    implementation(project(":core:common"))
+
+    implementation(libs.androidx.paging.compose)
+}
