@@ -20,6 +20,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
@@ -44,6 +45,52 @@ import kr.toongether.designsystem.component.TabRowDefaults.tabIndicatorOffset
 import kr.toongether.designsystem.theme.DarkGray
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
+
+@Composable
+fun ToongetherTabRow(
+    modifier: Modifier = Modifier,
+    tabs: List<String>,
+    selectedTabIndex: Int,
+    onTabClick: (tabIndex: Int) -> Unit
+) {
+    ToongetherTabRow(
+        modifier = modifier,
+        selectedTabIndex = selectedTabIndex,
+        contentColor = Color.Transparent,
+        containerColor = Color.Black,
+        divider = {
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = DarkGray
+            )
+        },
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                modifier = modifier
+                    .tabIndicatorOffset(tabPositions[selectedTabIndex])
+                    .padding(horizontal = 10.dp)
+                    .height(3.dp),
+                color = Color.White
+            )
+        }
+    ) {
+        tabs.forEachIndexed { tabIndex, tab ->
+            Tab(
+                selected = selectedTabIndex == tabIndex,
+                onClick = { onTabClick(tabIndex) },
+                text = {
+                    Text(
+                        text = tab,
+                        fontSize = 16.sp,
+                        fontFamily = pretendard,
+                        fontWeight = if (selectedTabIndex == tabIndex) FontWeight.Bold else FontWeight.Normal,
+                        color = if (selectedTabIndex == tabIndex) Color.White else Gray60
+                    )
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun ToongetherScrollableTabRow(
@@ -92,7 +139,77 @@ fun ToongetherScrollableTabRow(
 }
 
 @Composable
-fun ToongetherScrollableTabRow(
+private fun ToongetherTabRow(
+    selectedTabIndex: Int,
+    modifier: Modifier = Modifier,
+    containerColor: Color = TabRowDefaults.containerColor,
+    contentColor: Color = TabRowDefaults.contentColor,
+    indicator: @Composable (tabPositions: List<TabPosition>) -> Unit = @Composable { tabPositions ->
+        if (selectedTabIndex < tabPositions.size) {
+            TabRowDefaults.Indicator(
+                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex])
+            )
+        }
+    },
+    divider: @Composable () -> Unit = @Composable {
+        Divider()
+    },
+    tabs: @Composable () -> Unit
+) {
+    Surface(
+        modifier = modifier.selectableGroup(),
+        color = containerColor,
+        contentColor = contentColor
+    ) {
+        SubcomposeLayout(Modifier.fillMaxWidth()) { constraints ->
+            val tabRowWidth = constraints.maxWidth
+            val tabMeasurables = subcompose(TabSlots.Tabs, tabs)
+            val tabCount = tabMeasurables.size
+            var tabWidth = 0
+            if (tabCount > 0) {
+                tabWidth = (tabRowWidth / tabCount)
+            }
+            val tabRowHeight = tabMeasurables.fold(initial = 0) { max, curr ->
+                maxOf(curr.maxIntrinsicHeight(tabWidth), max)
+            }
+
+            val tabPlaceables = tabMeasurables.map {
+                it.measure(
+                    constraints.copy(
+                        minWidth = 50,
+                        maxWidth = tabWidth,
+                        minHeight = tabRowHeight,
+                        maxHeight = tabRowHeight,
+                    )
+                )
+            }
+
+            val tabPositions = List(tabCount) { index ->
+                TabPosition(tabWidth.toDp() * index, tabWidth.toDp())
+            }
+
+            layout(tabRowWidth, tabRowHeight) {
+                tabPlaceables.forEachIndexed { index, placeable ->
+                    placeable.placeRelative(index * tabWidth, 0)
+                }
+
+                subcompose(TabSlots.Divider, divider).forEach {
+                    val placeable = it.measure(constraints.copy(minHeight = 0))
+                    placeable.placeRelative(0, tabRowHeight - placeable.height)
+                }
+
+                subcompose(TabSlots.Indicator) {
+                    indicator(tabPositions)
+                }.forEach {
+                    it.measure(Constraints.fixed(tabRowWidth, tabRowHeight)).placeRelative(0, 0)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ToongetherScrollableTabRow(
     selectedTabIndex: Int,
     modifier: Modifier = Modifier,
     containerColor: Color = TabRowDefaults.containerColor,
@@ -104,7 +221,7 @@ fun ToongetherScrollableTabRow(
         )
     },
     divider: @Composable () -> Unit = @Composable {
-        androidx.compose.material3.Divider()
+        Divider()
     },
     tabs: @Composable () -> Unit
 ) {
@@ -306,7 +423,7 @@ private class ScrollableTabData(
     }
 }
 
-private val ScrollableTabRowMinimumTabWidth = 0.dp
+private val ScrollableTabRowMinimumTabWidth = 50.dp
 
 private val ScrollableTabRowPadding = 0.dp
 
