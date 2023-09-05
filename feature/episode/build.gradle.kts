@@ -10,6 +10,8 @@ android {
 dependencies {
     implementation(project(":feature:comic"))
     implementation(project(":core:common"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.paging.compose)
+    implementation(libs.coil.compose)
 }

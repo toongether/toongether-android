@@ -10,6 +10,7 @@ import kr.toongether.comic.navigation.comicScreen
 import kr.toongether.community.navigation.communityScreen
 import kr.toongether.episode.navigatoin.EpisodeRoute
 import kr.toongether.episode.navigatoin.episodeScreen
+import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.homeScreen
 import kr.toongether.login.navigation.loginScreen
 import kr.toongether.my.navigation.myScreen
@@ -23,7 +24,7 @@ import kr.toongether.signup.navigation.signupScreen
 fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = EpisodeRoute
+    startDestination: String = HomeRoute
 ) {
     val navController = appState.navController
 
@@ -33,7 +34,7 @@ fun ToongetherNavHost(
         modifier = modifier
     ) {
         homeScreen()
-        seriesScreen()
+        seriesScreen(navController)
         shortsScreen(navController)
         communityScreen()
         myScreen(navController)

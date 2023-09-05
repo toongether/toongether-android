@@ -19,18 +19,21 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
+import kr.toongether.episode.navigatoin.navigateToEpisode
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.ui.seriesCardItems
 
 @Composable
-internal fun SerialRoute(
+internal fun SeriesRoute(
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: SeriesViewModel = hiltViewModel()
 ) {
@@ -53,7 +56,7 @@ internal fun SerialRoute(
         }
     }
 
-    SerialScreen(
+    SeriesScreen(
         modifier = modifier,
         seriesList = seriesList,
         selectedIndex = selectedIndex,
@@ -61,12 +64,12 @@ internal fun SerialRoute(
             selectedIndex = it
             dayOfWeek = selectedDayOfWeek(it)
         },
-        onComicClick = { }
+        onComicClick = { navController.navigateToEpisode(id = it.id) }
     )
 }
 
 @Composable
-internal fun SerialScreen(
+internal fun SeriesScreen(
     modifier: Modifier = Modifier,
     seriesList: LazyPagingItems<Series>,
     selectedIndex: Int,

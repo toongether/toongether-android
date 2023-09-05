@@ -10,6 +10,7 @@ android {
 dependencies {
     implementation(project(":feature:comic"))
     implementation(project(":core:common"))
+    implementation(project(":feature:episode"))
 
     implementation(libs.androidx.paging.compose)
 }
