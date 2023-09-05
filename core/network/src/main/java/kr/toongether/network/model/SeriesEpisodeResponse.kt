@@ -5,6 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SeriesEpisodeResponse(
+    @SerialName("cycle")
+    val cycle: NetworkCycle,
+    @SerialName("dayOfWeek")
+    val dayOfWeek: NetworkDayOfWeek,
+    @SerialName("genre")
+    val genre: String,
     @SerialName("titleMaker")
     val titleInfo: NetworkTitleInfo,
     @SerialName("author")

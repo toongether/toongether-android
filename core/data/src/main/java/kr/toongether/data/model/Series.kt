@@ -10,9 +10,12 @@ import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.SeriesResponse
 
 fun SeriesEpisodeResponse.asModel(): SeriesEpisode = SeriesEpisode(
+    cycle = cycle.asModel(),
+    dayOfWeek = dayOfWeek.asModel(),
     titleInfo = titleInfo.asModel(),
     author = author.asModel(),
-    episodeList = episodeList.map { it.asModel() }
+    episodeList = episodeList.map { it.asModel() },
+    genre = genre
 )
 
 fun SeriesListResponse.asModel(): SeriesList = SeriesList(
