@@ -22,11 +22,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import androidx.core.graphics.toColorInt
+import coil.compose.AsyncImage
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import kr.toongether.designsystem.theme.Shape
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun SeriesCard(
     modifier: Modifier = Modifier,
@@ -43,7 +43,7 @@ fun SeriesCard(
             .padding(4.dp)
             .clip(Shape.medium)
     ) {
-        GlideImage(
+        AsyncImage(
             modifier = modifier
                 .fillMaxWidth()
                 .onGloballyPositioned {
@@ -79,7 +79,7 @@ fun SeriesCard(
                 .height(63.dp)
                 .align(Alignment.BottomCenter)
         ) {
-            GlideImage(
+            AsyncImage(
                 modifier = modifier
                     .width(titleWidth.dp)
                     .align(Alignment.Center),

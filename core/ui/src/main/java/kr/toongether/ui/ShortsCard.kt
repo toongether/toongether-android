@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import kotlinx.datetime.LocalDateTime
@@ -26,7 +27,6 @@ import kr.toongether.common.toRelativeDateTime
 import kr.toongether.designsystem.theme.Gray
 import kr.toongether.designsystem.theme.pretendard
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ShortsCard(
     profileImage: String?,
@@ -57,7 +57,7 @@ fun ShortsCard(
                         contentDescription = null
                     )
                 } else {
-                    GlideImage(
+                    AsyncImage(
                         modifier = modifier.size(35.dp),
                         model = profileImage,
                         contentDescription = null
@@ -98,7 +98,7 @@ fun ShortsCard(
 
         Spacer(modifier = modifier.height(8.dp))
 
-        GlideImage(
+        AsyncImage(
             modifier = modifier.fillMaxWidth(),
             model = thumbnail,
             contentDescription = null,
