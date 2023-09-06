@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -16,6 +17,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.model.Shorts
 import kr.toongether.ui.shortsCardItems
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 internal fun ShortsRoute(
@@ -23,12 +25,11 @@ internal fun ShortsRoute(
     navController: NavController,
     viewModel: ShortsViewModel = hiltViewModel()
 ) {
-    val shortsList = viewModel.getPagingShorts().collectAsLazyPagingItems()
-//    val state by viewModel.collectAsState()
+    val state by viewModel.collectAsState()
 
     ShortsScreen(
         modifier = modifier,
-        shortsList = shortsList,
+        shortsList = state.shortsList.collectAsLazyPagingItems(),
         onItemClick = { navController.popBackStack() }
     )
 }
