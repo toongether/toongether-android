@@ -44,11 +44,7 @@ fun TitleImageCard(
     var width by remember { mutableStateOf(1.dp) }
     val localDensity = LocalDensity.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
-
+    Column {
         Box(
             modifier = modifier
                 .padding(4.dp)
@@ -106,7 +102,7 @@ fun TitleImageCard(
                     contentDescription = null,
                     contentScale = ContentScale.FillWidth
                 )
-                
+
                 Spacer(modifier = modifier.height(14.dp))
 
                 Text(
