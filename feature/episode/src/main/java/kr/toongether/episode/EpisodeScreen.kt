@@ -1,13 +1,18 @@
 package kr.toongether.episode
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -16,6 +21,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -50,7 +58,7 @@ internal fun EpisodeRoute(
                 author = state.seriesEpisode.author.name
             )
         },
-        onClickBack = navController::popBackStack
+        onClickBack = navController::popBackStack,
     )
 }
 
@@ -61,49 +69,46 @@ private fun EpisodeScreen(
     onItemClick: (Episode) -> Unit,
     onClickBack: () -> Unit,
 ) {
-
     Surface(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .navigationBarsPadding(),
         color = Color.Black
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Box {
-                TitleImageCard(
-                    thumbnailImage = episodeState.seriesEpisode.titleInfo.thumbnailImage,
-                    titleImage = episodeState.seriesEpisode.titleInfo.titleImage,
-                    titleWidth = episodeState.seriesEpisode.titleInfo.titleWidth,
-                    author = episodeState.seriesEpisode.author.name,
-                    dayOfWeek = episodeState.seriesEpisode.dayOfWeek.title,
-                    cycle = episodeState.seriesEpisode.cycle.title,
-                    genre = episodeState.seriesEpisode.genre
-                )
-
-                IconButton(
-                    modifier = modifier.padding(top = 30.dp, start = 8.dp),
-                    onClick = onClickBack
-                ) {
-                    Icon(
-                        modifier = modifier.size(20.dp),
-                        imageVector = ToongetherIcons.Back,
-                        contentDescription = null,
-                        tint = Color.White
+            item {
+                Box(modifier.padding(bottom = 20.dp)) {
+                    TitleImageCard(
+                        thumbnailImage = episodeState.seriesEpisode.titleInfo.thumbnailImage,
+                        titleImage = episodeState.seriesEpisode.titleInfo.titleImage,
+                        titleWidth = episodeState.seriesEpisode.titleInfo.titleWidth,
+                        author = episodeState.seriesEpisode.author.name,
+                        dayOfWeek = episodeState.seriesEpisode.dayOfWeek.title,
+                        cycle = episodeState.seriesEpisode.cycle.title,
+                        genre = episodeState.seriesEpisode.genre
                     )
+
+                    IconButton(
+                        modifier = modifier.padding(top = 30.dp, start = 8.dp),
+                        onClick = onClickBack
+                    ) {
+                        Icon(
+                            modifier = modifier.size(20.dp),
+                            imageVector = ToongetherIcons.Back,
+                            contentDescription = null,
+                            tint = Color.White
+                        )
+                    }
                 }
             }
-
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(vertical = 20.dp, horizontal = 12.dp)
-            ) {
-                seriesCardItems(
-                    items = episodeState.seriesEpisode,
-                    onItemClick = onItemClick
-                )
-            }
+            seriesCardItems(
+                modifier = modifier.padding(horizontal = 12.dp),
+                items = episodeState.seriesEpisode,
+                onItemClick = onItemClick
+            )
         }
+
     }
 }
