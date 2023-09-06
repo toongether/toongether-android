@@ -25,7 +25,7 @@ internal class SeriesPagingDataSource(
             LoadResult.Page(
                 data = response.seriesResponse,
                 prevKey = null,
-                nextKey = if (response.seriesResponse.isEmpty()) null else page.plus(1)
+                nextKey = if (response.hasMorePage) page.plus(1) else null
             )
         } catch (e: IOException) {
             LoadResult.Error(e)
