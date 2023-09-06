@@ -35,8 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import coil.compose.AsyncImage
 import kr.toongether.designsystem.component.ToongetherScrollbar
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.icon.ToongetherIcons
@@ -207,7 +206,6 @@ internal fun ComicScreen(
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun ComicItem(
     modifier: Modifier = Modifier,
@@ -220,7 +218,7 @@ private fun ComicItem(
             .defaultMinSize(minHeight = height)
             .background(Color.Black)
     ) {
-        GlideImage(
+        AsyncImage(
             modifier = modifier
                 .fillMaxWidth(),
             model = imageUrl,

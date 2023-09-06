@@ -8,6 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.glide.compose)
+    implementation(libs.coil.compose)
     implementation(libs.kotlinx.datetime)
 }
