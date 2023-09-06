@@ -1,11 +1,9 @@
 package kr.toongether.episode
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -16,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import kr.toongether.comic.navigation.navigateToComic
+import kr.toongether.model.Episode
 import kr.toongether.ui.TitleImageCard
 import kr.toongether.ui.seriesCardItems
 import org.orbitmvi.orbit.compose.collectAsState
@@ -35,14 +35,22 @@ internal fun EpisodeRoute(
 
     EpisodeScreen(
         modifier = modifier,
-        episodeState = state
+        episodeState = state,
+        onItemClick = {
+            navController.navigateToComic(
+                seriesId = id,
+                episodeId = it.id,
+                author = state.seriesEpisode.author.name
+            )
+        }
     )
 }
 
 @Composable
 private fun EpisodeScreen(
     modifier: Modifier = Modifier,
-    episodeState: EpisodeState
+    episodeState: EpisodeState,
+    onItemClick: (Episode) -> Unit,
 ) {
 
     Surface(
@@ -70,9 +78,7 @@ private fun EpisodeScreen(
             ) {
                 seriesCardItems(
                     items = episodeState.seriesEpisode,
-                    onItemClick = {
-
-                    }
+                    onItemClick = onItemClick
                 )
             }
         }

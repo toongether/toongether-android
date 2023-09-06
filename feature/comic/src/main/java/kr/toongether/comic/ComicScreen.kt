@@ -49,8 +49,8 @@ import kotlin.concurrent.timer
 
 @Composable
 internal fun ComicRoute(
-    id: Long,
-    title: String,
+    episodeId: Long,
+    seriesId: Long? = null,
     writer: String,
     navController: NavController,
     modifier: Modifier = Modifier,
@@ -83,15 +83,15 @@ internal fun ComicRoute(
         }
     }
 
-    LaunchedEffect(true) {
-        viewModel.getComicList(id)
+    LaunchedEffect(Unit) {
+        if (seriesId == null) viewModel.getComic(episodeId)
+        else viewModel.getComic(seriesId = seriesId, episodeId = episodeId)
         showTabs()
     }
 
     ComicScreen(
         modifier = modifier,
         lazyListState = lazyListState,
-        title = title,
         writer = writer,
         onClickBack = navController::popBackStack,
         comicState = comicState,
@@ -99,8 +99,8 @@ internal fun ComicRoute(
         isShowTabs = isShowTabs || isTopOrBottom,
         recomposition = {
             isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
-                lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                lazyListState.layoutInfo.totalItemsCount - 1
+                    lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    lazyListState.layoutInfo.totalItemsCount - 1
         }
     )
 }
@@ -109,7 +109,6 @@ internal fun ComicRoute(
 internal fun ComicScreen(
     modifier: Modifier = Modifier,
     lazyListState: LazyListState,
-    title: String,
     writer: String,
     onClickBack: () -> Unit,
     comicState: ComicState,
@@ -175,7 +174,7 @@ internal fun ComicScreen(
                         .height(90.dp)
                         .background(TransparentBlack)
                         .statusBarsPadding(),
-                    title = title,
+                    title = comicState.comic.title,
                     subTitle = writer,
                     navigationIcon = ToongetherIcons.Back,
                     onNavigationClick = onClickBack,

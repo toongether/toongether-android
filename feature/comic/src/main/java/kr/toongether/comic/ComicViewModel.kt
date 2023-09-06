@@ -1,7 +1,9 @@
 package kr.toongether.comic
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kr.toongether.domain.GetSeriesEpisodeUseCase
 import kr.toongether.domain.GetShortsEpisodeUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -12,16 +14,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicViewModel @Inject constructor(
-    private val getShortsEpisodeUseCase: GetShortsEpisodeUseCase
+    private val getShortsEpisodeUseCase: GetShortsEpisodeUseCase,
+    private val getSeriesEpisodeUseCase: GetSeriesEpisodeUseCase,
 ) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
 
     override val container = container<ComicState, ComicSideEffect>(ComicState())
 
-    init {
-//        getComicList(id)
-    }
-
-    fun getComicList(id: Long) = intent {
+    fun getComic(id: Long) = intent {
         reduce {
             state.copy(isLoading = true)
         }
@@ -42,5 +41,30 @@ class ComicViewModel @Inject constructor(
                     )
                 }
             }
+    }
+
+    fun getComic(seriesId: Long, episodeId: Long) = intent {
+        reduce {
+            state.copy(isLoading = true)
+        }
+        getSeriesEpisodeUseCase.invoke(
+            seriesId = seriesId,
+            episodeId = episodeId
+        ).onSuccess {
+            reduce {
+                state.copy(
+                    isLoading = false,
+                    comic = it
+                )
+            }
+        }.onFailure {
+            postSideEffect(ComicSideEffect.Toast(it.message!!))
+            reduce {
+                state.copy(
+                    error = it,
+                    isLoading = false
+                )
+            }
+        }
     }
 }

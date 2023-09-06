@@ -10,12 +10,20 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
 import kr.toongether.comic.ComicRoute
-import kr.toongether.model.Shorts
 
-const val ComicRoute = "comic_route/{id}/{title}/{writer}"
+const val ComicRoute = "comic_route/{seriesId}/{episodeId}/{author}"
 
-fun NavController.navigateToComic(shorts: Shorts, navOptions: NavOptions? = null) {
-    this.navigate("comic_route/${shorts.id}/${shorts.title}/${shorts.author.name}", navOptions)
+fun NavController.navigateToComic(shortsId: Long, author: String, navOptions: NavOptions? = null) {
+    this.navigate("comic_route/${null}/${shortsId}/${author}", navOptions)
+}
+
+fun NavController.navigateToComic(
+    seriesId: Long,
+    episodeId: Long,
+    author: String,
+    navOptions: NavOptions? = null
+) {
+    this.navigate("comic_route/${seriesId}/${episodeId}/${author}", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -23,22 +31,28 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
     composable(
         route = ComicRoute,
         arguments = listOf(
-            navArgument("id") { type = NavType.LongType },
-            navArgument("title") { type = NavType.StringType },
-            navArgument("writer") { type = NavType.StringType }
+            navArgument("seriesId") { type = NavType.LongType },
+            navArgument("episodeId") { type = NavType.LongType },
+            navArgument("author") { type = NavType.StringType }
         ),
         enterTransition = {
-            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(durationMillis = 400))
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Left,
+                animationSpec = tween(durationMillis = 400)
+            )
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(durationMillis = 400))
+            slideOutOfContainer(
+                AnimatedContentScope.SlideDirection.Right,
+                animationSpec = tween(durationMillis = 400)
+            )
         }
     ) {
         ComicRoute(
             navController = navController,
-            id = it.arguments?.getLong("id") ?: 0L,
-            title = it.arguments?.getString("title") ?: "",
-            writer = it.arguments?.getString("writer") ?: ""
+            seriesId = it.arguments?.getLong("seriesId"),
+            episodeId = it.arguments?.getLong("episodeId") ?: 0L,
+            writer = it.arguments?.getString("author") ?: ""
         )
     }
 }
