@@ -1,18 +1,12 @@
 package kr.toongether.episode
 
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -21,9 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -58,7 +49,7 @@ internal fun EpisodeRoute(
                 author = state.seriesEpisode.author.name
             )
         },
-        onClickBack = navController::popBackStack,
+        onClickBack = navController::popBackStack
     )
 }
 
@@ -67,7 +58,7 @@ private fun EpisodeScreen(
     modifier: Modifier = Modifier,
     episodeState: EpisodeState,
     onItemClick: (Episode) -> Unit,
-    onClickBack: () -> Unit,
+    onClickBack: () -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -76,7 +67,7 @@ private fun EpisodeScreen(
         color = Color.Black
     ) {
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
                 Box(modifier.padding(bottom = 20.dp)) {
@@ -109,6 +100,5 @@ private fun EpisodeScreen(
                 onItemClick = onItemClick
             )
         }
-
     }
 }

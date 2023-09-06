@@ -1,6 +1,5 @@
 package kr.toongether.comic
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.toongether.domain.GetSeriesEpisodeUseCase
@@ -15,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ComicViewModel @Inject constructor(
     private val getShortsEpisodeUseCase: GetShortsEpisodeUseCase,
-    private val getSeriesEpisodeUseCase: GetSeriesEpisodeUseCase,
+    private val getSeriesEpisodeUseCase: GetSeriesEpisodeUseCase
 ) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
 
     override val container = container<ComicState, ComicSideEffect>(ComicState())

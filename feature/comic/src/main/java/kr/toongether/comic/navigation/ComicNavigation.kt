@@ -14,7 +14,7 @@ import kr.toongether.comic.ComicRoute
 const val ComicRoute = "comic_route/{seriesId}/{episodeId}/{author}"
 
 fun NavController.navigateToComic(shortsId: Long, author: String, navOptions: NavOptions? = null) {
-    this.navigate("comic_route/${null}/${shortsId}/${author}", navOptions)
+    this.navigate("comic_route/${null}/$shortsId/$author", navOptions)
 }
 
 fun NavController.navigateToComic(
@@ -23,7 +23,7 @@ fun NavController.navigateToComic(
     author: String,
     navOptions: NavOptions? = null
 ) {
-    this.navigate("comic_route/${seriesId}/${episodeId}/${author}", navOptions)
+    this.navigate("comic_route/$seriesId/$episodeId/$author", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)

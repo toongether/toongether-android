@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,7 +38,7 @@ fun TitleImageCard(
     author: String,
     cycle: String,
     genre: String,
-    dayOfWeek: String,
+    dayOfWeek: String
 ) {
     var width by remember { mutableStateOf(1.dp) }
     val localDensity = LocalDensity.current

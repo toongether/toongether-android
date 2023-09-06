@@ -25,7 +25,6 @@ import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.episode.navigatoin.navigateToEpisode
-import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.ui.seriesCardItems

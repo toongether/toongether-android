@@ -4,7 +4,6 @@ import kr.toongether.model.Author
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.SeriesEpisode
-import kr.toongether.model.SeriesList
 import kr.toongether.model.TitleInfo
 
 data class EpisodeState(
@@ -15,7 +14,7 @@ data class EpisodeState(
             color = "#000000",
             titleWidth = 0f,
             titleImage = "",
-            thumbnailImage = "",
+            thumbnailImage = ""
         ),
         author = Author(
             id = 0,

@@ -84,8 +84,11 @@ internal fun ComicRoute(
     }
 
     LaunchedEffect(Unit) {
-        if (seriesId == null) viewModel.getComic(episodeId)
-        else viewModel.getComic(seriesId = seriesId, episodeId = episodeId)
+        if (seriesId == null) {
+            viewModel.getComic(episodeId)
+        } else {
+            viewModel.getComic(seriesId = seriesId, episodeId = episodeId)
+        }
         showTabs()
     }
 
@@ -99,8 +102,8 @@ internal fun ComicRoute(
         isShowTabs = isShowTabs || isTopOrBottom,
         recomposition = {
             isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
-                    lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                    lazyListState.layoutInfo.totalItemsCount - 1
+                lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                lazyListState.layoutInfo.totalItemsCount - 1
         }
     )
 }
