@@ -1,9 +1,11 @@
 package kr.toongether.series
 
-import kr.toongether.model.SeriesList
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import kr.toongether.model.Series
 
 data class SeriesState(
-    val seriesList: SeriesList = SeriesList(emptyList(), false, 1),
+    val seriesList: Flow<PagingData<Series>>,
     val isLoading: Boolean = false
 )
 

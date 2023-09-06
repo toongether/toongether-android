@@ -1,9 +1,11 @@
 package kr.toongether.shorts
 
-import kr.toongether.model.ShortsList
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import kr.toongether.model.Shorts
 
 data class ShortsState(
-    val shortsList: ShortsList = ShortsList(emptyList(), false, 1),
+    val shortsList: Flow<PagingData<Shorts>>,
     val isLoading: Boolean = false
 )
 

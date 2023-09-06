@@ -1,7 +1,9 @@
 package kr.toongether.series
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kr.toongether.domain.GetPagingSeriesUseCase
@@ -17,11 +19,12 @@ class SeriesViewModel @Inject constructor(
     private val getPagingSeriesUseCase: GetPagingSeriesUseCase
 ) : ContainerHost<SeriesState, SeriesSideEffect>, ViewModel() {
 
-    override val container = container<SeriesState, SeriesSideEffect>(SeriesState())
+    override val container =
+        container<SeriesState, SeriesSideEffect>(SeriesState(getPagingSeries(null, null)))
 
-    fun getPagingShorts(dayOfWeek: DayOfWeek?, cycle: Cycle?): Flow<PagingData<Series>> =
+    fun getPagingSeries(dayOfWeek: DayOfWeek?, cycle: Cycle?): Flow<PagingData<Series>> =
         getPagingSeriesUseCase.invoke(
             dayOfWeek = dayOfWeek,
             cycle = cycle
-        )
+        ).cachedIn(viewModelScope)
 }

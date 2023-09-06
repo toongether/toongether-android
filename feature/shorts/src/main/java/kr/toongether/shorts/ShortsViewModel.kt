@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kr.toongether.domain.GetPagingShortsUseCase
 import kr.toongether.model.Shorts
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
@@ -17,8 +19,15 @@ class ShortsViewModel @Inject constructor(
     private val getPagingShortsUseCase: GetPagingShortsUseCase
 ) : ContainerHost<ShortsState, ShortsSideEffect>, ViewModel() {
 
-    override val container = container<ShortsState, ShortsSideEffect>(ShortsState())
+    override val container =
+        container<ShortsState, ShortsSideEffect>(ShortsState(getPagingShortsUseCase.invoke()))
 
-    fun getPagingShorts(): Flow<PagingData<Shorts>> =
-        getPagingShortsUseCase.invoke().cachedIn(viewModelScope)
+    fun getPagingShorts() = intent {
+        reduce {
+            state.copy(
+                shortsList = getPagingShortsUseCase.invoke()
+            )
+        }
+    }
+
 }

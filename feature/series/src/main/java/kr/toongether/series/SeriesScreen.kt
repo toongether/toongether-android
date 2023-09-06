@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -30,6 +29,7 @@ import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.ui.seriesCardItems
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 internal fun SeriesRoute(
@@ -38,9 +38,9 @@ internal fun SeriesRoute(
     viewModel: SeriesViewModel = hiltViewModel()
 ) {
     var dayOfWeek: DayOfWeek? by remember { mutableStateOf(null) }
-    var cycle: Cycle? by remember { mutableStateOf(null) }
-    val seriesList =
-        viewModel.getPagingShorts(dayOfWeek, cycle).collectAsLazyPagingItems()
+//    var cycle: Cycle? by remember { mutableStateOf(null) }
+
+    val state by viewModel.collectAsState()
 
     var selectedIndex by remember { mutableStateOf(0) }
     val selectedDayOfWeek = { tabIndex: Int ->
@@ -58,7 +58,7 @@ internal fun SeriesRoute(
 
     SeriesScreen(
         modifier = modifier,
-        seriesList = seriesList,
+        seriesList = state.seriesList.collectAsLazyPagingItems(),
         selectedIndex = selectedIndex,
         onTabClick = {
             selectedIndex = it
@@ -77,7 +77,6 @@ internal fun SeriesScreen(
     onComicClick: (Series) -> Unit
 ) {
     val configuration = LocalConfiguration.current
-    val density = LocalDensity.current.density
 
     Surface(
         modifier = modifier
