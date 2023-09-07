@@ -34,7 +34,6 @@ fun ToongetherNavHost(
         homeScreen()
         seriesScreen(navController)
         shortsScreen(navController)
-        communityScreen()
         myScreen(navController)
         comicScreen(navController)
         loginScreen(navController)

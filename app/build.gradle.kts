@@ -40,7 +40,6 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:series"))
     implementation(project(":feature:shorts"))
-    implementation(project(":feature:community"))
     implementation(project(":feature:my"))
     implementation(project(":feature:comic"))
     implementation(project(":feature:auth:login"))
