@@ -30,6 +30,7 @@ import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import kr.toongether.ui.seriesCardItems
 import org.orbitmvi.orbit.compose.collectAsState
+import java.time.LocalDate
 
 @Composable
 internal fun SeriesRoute(
@@ -37,16 +38,7 @@ internal fun SeriesRoute(
     modifier: Modifier = Modifier,
     viewModel: SeriesViewModel = hiltViewModel()
 ) {
-    var dayOfWeek: DayOfWeek? by remember { mutableStateOf(null) }
-//    var cycle: Cycle? by remember { mutableStateOf(null) }
-
-    val state by viewModel.collectAsState()
-
-    LaunchedEffect(dayOfWeek) {
-        viewModel.getPagingSeries(dayOfWeek = dayOfWeek)
-    }
-
-    var selectedIndex by remember { mutableStateOf(0) }
+    val today by remember { mutableStateOf(LocalDate.now().dayOfWeek.value) }
     val selectedDayOfWeek = { tabIndex: Int ->
         when (tabIndex) {
             1 -> DayOfWeek.MONDAY
@@ -59,6 +51,19 @@ internal fun SeriesRoute(
             else -> null
         }
     }
+
+    var dayOfWeek: DayOfWeek? by remember {
+        mutableStateOf(selectedDayOfWeek(today))
+    }
+//    var cycle: Cycle? by remember { mutableStateOf(null) }
+
+    val state by viewModel.collectAsState()
+
+    LaunchedEffect(dayOfWeek) {
+        viewModel.getPagingSeries(dayOfWeek = dayOfWeek)
+    }
+
+    var selectedIndex by remember { mutableStateOf(today) }
 
     SeriesScreen(
         modifier = modifier,
