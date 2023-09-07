@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import kr.toongether.android.R
 import kr.toongether.designsystem.icon.ToongetherIcons
-import kr.toongether.designsystem.icon.icons.Community
 import kr.toongether.designsystem.icon.icons.Home
 import kr.toongether.designsystem.icon.icons.My
 import kr.toongether.designsystem.icon.icons.Series

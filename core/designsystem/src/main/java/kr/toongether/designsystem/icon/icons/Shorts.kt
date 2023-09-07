@@ -17,12 +17,23 @@ public val ToongetherIcons.Shorts: ImageVector
         if (_shorts != null) {
             return _shorts!!
         }
-        _shorts = Builder(name = "단편1 1", defaultWidth = 24.0.dp, defaultHeight = 24.0.dp,
-            viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
+        _shorts = Builder(
+            name = "단편1 1",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f
+        ).apply {
             group {
-                path(fill = SolidColor(Color(0xFF737373)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+                path(
+                    fill = SolidColor(Color(0xFF737373)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
+                    pathFillType = EvenOdd
+                ) {
                     moveTo(2.8572f, 5.0003f)
                     curveTo(2.8572f, 3.8168f, 3.8165f, 2.8574f, 5.0f, 2.8574f)
                     verticalLineTo(21.1431f)

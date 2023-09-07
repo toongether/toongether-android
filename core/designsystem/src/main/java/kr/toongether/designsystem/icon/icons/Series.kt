@@ -19,13 +19,20 @@ public val ToongetherIcons.Series: ImageVector
             return _series!!
         }
         _series = Builder(
-            name = "연재1 2", defaultWidth = 24.0.dp, defaultHeight = 24.0.dp,
-            viewportWidth = 24.0f, viewportHeight = 24.0f
+            name = "연재1 2",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f
         ).apply {
             group {
                 path(
-                    fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    fill = SolidColor(Color(0xFF787878)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
                     pathFillType = NonZero
                 ) {
                     moveTo(7.0f, 3.3574f)
@@ -38,8 +45,12 @@ public val ToongetherIcons.Series: ImageVector
                     close()
                 }
                 path(
-                    fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    fill = SolidColor(Color(0xFF787878)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
                     pathFillType = NonZero
                 ) {
                     moveTo(17.7143f, 3.3574f)
@@ -52,8 +63,12 @@ public val ToongetherIcons.Series: ImageVector
                     close()
                 }
                 path(
-                    fill = SolidColor(Color(0xFF787878)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    fill = SolidColor(Color(0xFF787878)),
+                    stroke = null,
+                    strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt,
+                    strokeLineJoin = Miter,
+                    strokeLineMiter = 4.0f,
                     pathFillType = EvenOdd
                 ) {
                     moveTo(2.8572f, 6.5716f)

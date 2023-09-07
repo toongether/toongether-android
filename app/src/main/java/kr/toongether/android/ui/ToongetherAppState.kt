@@ -12,7 +12,6 @@ import androidx.navigation.navOptions
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kr.toongether.android.navigation.NavigationDestination
 import kr.toongether.community.navigation.CommunityRoute
-import kr.toongether.community.navigation.navigateToCommunity
 import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.navigateToHome
 import kr.toongether.my.navigation.MyRoute
