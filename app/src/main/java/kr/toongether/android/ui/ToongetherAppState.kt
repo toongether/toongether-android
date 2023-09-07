@@ -11,8 +11,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kr.toongether.android.navigation.NavigationDestination
-import kr.toongether.community.navigation.CommunityRoute
-import kr.toongether.community.navigation.navigateToCommunity
 import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.navigateToHome
 import kr.toongether.my.navigation.MyRoute
@@ -44,7 +42,7 @@ class ToongetherAppState(
 
     val isShowBottomBar: Boolean
         @Composable get() = when (currentDestination?.route) {
-            HomeRoute, SeriesRoute, ShortsRoute, CommunityRoute, MyRoute -> true
+            HomeRoute, SeriesRoute, ShortsRoute, MyRoute -> true
             else -> false
         }
 
@@ -61,7 +59,6 @@ class ToongetherAppState(
             NavigationDestination.HOME -> navController.navigateToHome(navOptions)
             NavigationDestination.SERIES -> navController.navigateToSeries(navOptions)
             NavigationDestination.SHORTS -> navController.navigateToShorts(navOptions)
-            NavigationDestination.COMMUNITY -> navController.navigateToCommunity(navOptions)
             NavigationDestination.MY -> navController.navigateToMy(navOptions)
         }
     }
