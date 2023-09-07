@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +41,10 @@ internal fun SeriesRoute(
 //    var cycle: Cycle? by remember { mutableStateOf(null) }
 
     val state by viewModel.collectAsState()
+
+    LaunchedEffect(dayOfWeek) {
+        viewModel.getPagingSeries(dayOfWeek = dayOfWeek)
+    }
 
     var selectedIndex by remember { mutableStateOf(0) }
     val selectedDayOfWeek = { tabIndex: Int ->

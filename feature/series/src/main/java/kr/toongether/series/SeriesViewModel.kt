@@ -11,6 +11,8 @@ import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
@@ -20,11 +22,20 @@ class SeriesViewModel @Inject constructor(
 ) : ContainerHost<SeriesState, SeriesSideEffect>, ViewModel() {
 
     override val container =
-        container<SeriesState, SeriesSideEffect>(SeriesState(getPagingSeries(null, null)))
+        container<SeriesState, SeriesSideEffect>(
+            SeriesState(
+                getPagingSeriesUseCase.invoke(
+                    null,
+                    null
+                )
+            )
+        )
 
-    fun getPagingSeries(dayOfWeek: DayOfWeek?, cycle: Cycle?): Flow<PagingData<Series>> =
-        getPagingSeriesUseCase.invoke(
-            dayOfWeek = dayOfWeek,
-            cycle = cycle
-        ).cachedIn(viewModelScope)
+    fun getPagingSeries(dayOfWeek: DayOfWeek? = null, cycle: Cycle? = null) = intent {
+        reduce {
+            state.copy(
+                seriesList = getPagingSeriesUseCase.invoke(dayOfWeek = dayOfWeek, cycle = cycle)
+            )
+        }
+    }
 }
