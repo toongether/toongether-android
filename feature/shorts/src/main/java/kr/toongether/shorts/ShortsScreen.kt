@@ -57,7 +57,7 @@ internal fun ShortsScreen(
             LazyColumn(
                 modifier = modifier
                     .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 shortsCardItems(
                     items = shortsList,
