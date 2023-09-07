@@ -61,7 +61,6 @@ class ToongetherAppState(
             NavigationDestination.HOME -> navController.navigateToHome(navOptions)
             NavigationDestination.SERIES -> navController.navigateToSeries(navOptions)
             NavigationDestination.SHORTS -> navController.navigateToShorts(navOptions)
-            NavigationDestination.COMMUNITY -> navController.navigateToCommunity(navOptions)
             NavigationDestination.MY -> navController.navigateToMy(navOptions)
         }
     }

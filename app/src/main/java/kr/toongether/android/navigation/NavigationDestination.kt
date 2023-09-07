@@ -26,10 +26,6 @@ enum class NavigationDestination(
         icon = ToongetherIcons.Shorts,
         iconTextId = R.string.shorts
     ),
-    COMMUNITY(
-        icon = ToongetherIcons.Community,
-        iconTextId = R.string.community
-    ),
     MY(
         icon = ToongetherIcons.My,
         iconTextId = R.string.my
