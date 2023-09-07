@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import kotlinx.datetime.LocalDateTime
 import kr.toongether.common.toRelativeDateTime
-import kr.toongether.designsystem.theme.Gray
 import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
 
