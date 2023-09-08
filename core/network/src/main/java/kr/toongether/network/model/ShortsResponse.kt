@@ -14,6 +14,8 @@ data class ShortsResponse(
     val genre: String,
     @SerialName("thumbnail")
     val thumbnail: String,
+    @SerialName("likeCount")
+    val likeCount: Int,
     @SerialName("commentCount")
     val commentCount: Int,
     @SerialName("author")

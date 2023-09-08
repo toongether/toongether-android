@@ -19,7 +19,7 @@ fun ShortsResponse.asModel(): Shorts = Shorts(
     genre = genre,
     thumbnail = thumbnail,
     commentCount = commentCount,
-    likeCount = 0,
+    likeCount = likeCount,
     author = author.asModel(),
     createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault())
 )
