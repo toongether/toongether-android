@@ -13,4 +13,5 @@ dependencies {
     implementation(project(":feature:episode"))
 
     implementation(libs.androidx.paging.compose)
+    implementation(libs.accompanist.pager)
 }

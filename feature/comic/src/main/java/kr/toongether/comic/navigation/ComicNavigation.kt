@@ -41,6 +41,7 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
                 animationSpec = tween(durationMillis = 400)
             )
         },
+
         exitTransition = {
             slideOutOfContainer(
                 AnimatedContentScope.SlideDirection.Right,

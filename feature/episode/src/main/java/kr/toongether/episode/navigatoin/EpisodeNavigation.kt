@@ -23,10 +23,22 @@ fun NavGraphBuilder.episodeScreen(navController: NavController) {
         route = EpisodeRoute,
         arguments = listOf(navArgument("id") { type = NavType.LongType }),
         enterTransition = {
-            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(durationMillis = 400))
+            when (initialState.destination.route) {
+                "series_route" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(durationMillis = 400))
+            when (targetState.destination.route) {
+                "series_route" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         }
     ) {
         EpisodeRoute(
