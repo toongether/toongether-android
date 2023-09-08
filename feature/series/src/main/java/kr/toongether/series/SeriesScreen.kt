@@ -57,7 +57,7 @@ internal fun SeriesRoute(
         }.collectAsLazyPagingItems(),
         onTabClick = {
             coroutineScope.launch {
-                pagerState.animateScrollToPage(it)
+                pagerState.scrollToPage(it)
             }
         },
         onComicClick = { navController.navigateToEpisode(id = it.id) },
