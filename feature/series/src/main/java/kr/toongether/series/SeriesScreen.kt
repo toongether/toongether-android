@@ -10,8 +10,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,7 +45,7 @@ internal fun SeriesRoute(
 
     SeriesScreen(
         modifier = modifier,
-        seriesList =  when (pagerState.currentPage) {
+        seriesList = when (pagerState.currentPage) {
             0 -> state.mondaySeries
             1 -> state.tuesdaySeries
             2 -> state.wednesdaySeries
@@ -74,7 +72,7 @@ internal fun SeriesScreen(
     seriesList: LazyPagingItems<Series>,
     onTabClick: (tabIndex: Int) -> Unit,
     onComicClick: (Series) -> Unit,
-    pagerState: PagerState,
+    pagerState: PagerState
 ) {
     val configuration = LocalConfiguration.current
 
@@ -133,7 +131,6 @@ internal fun SeriesScreen(
                         )
                     }
                 }
-
             }
         }
     }

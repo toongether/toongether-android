@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.toongether.domain.GetPagingSeriesUseCase
-import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -28,11 +27,11 @@ class SeriesViewModel @Inject constructor(
                 getPagingSeriesUseCase.invoke(null, DayOfWeek.THURSDAY).cachedIn(viewModelScope),
                 getPagingSeriesUseCase.invoke(null, DayOfWeek.FRIDAY).cachedIn(viewModelScope),
                 getPagingSeriesUseCase.invoke(null, DayOfWeek.SATURDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope),
+                getPagingSeriesUseCase.invoke(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope)
             )
         )
 
-    fun fetchPagingSeries(dayOfWeek: DayOfWeek? = null, cycle: Cycle? = null) = intent {
+    fun fetchPagingSeries(dayOfWeek: DayOfWeek? = null /* cycle: Cycle? = null*/) = intent {
         when (dayOfWeek) {
             DayOfWeek.MONDAY -> reduce {
                 state.copy(

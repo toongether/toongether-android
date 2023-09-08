@@ -9,7 +9,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
-import kr.toongether.comic.navigation.ComicRoute
 import kr.toongether.episode.EpisodeRoute
 
 const val EpisodeRoute = "episode_route/{id}"
