@@ -49,7 +49,7 @@ import kotlin.concurrent.timer
 @Composable
 internal fun ComicRoute(
     episodeId: Long,
-    seriesId: Long? = null,
+    seriesId: Long,
     writer: String,
     navController: NavController,
     modifier: Modifier = Modifier,
@@ -83,7 +83,7 @@ internal fun ComicRoute(
     }
 
     LaunchedEffect(Unit) {
-        if (seriesId == null) {
+        if (seriesId == -1L) {
             viewModel.getComic(episodeId)
         } else {
             viewModel.getComic(seriesId = seriesId, episodeId = episodeId)

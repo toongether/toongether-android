@@ -14,10 +14,14 @@ data class ShortsResponse(
     val genre: String,
     @SerialName("thumbnail")
     val thumbnail: String,
+    @SerialName("likeCount")
+    val likeCount: Int,
     @SerialName("commentCount")
     val commentCount: Int,
     @SerialName("author")
     val author: NetworkAuthor,
     @SerialName("createdDate")
-    val createdDate: Instant
+    val createdDate: Instant,
+    @SerialName("liked")
+    val isLiked: Boolean
 )

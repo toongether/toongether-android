@@ -10,5 +10,6 @@ data class Shorts(
     val commentCount: Int,
     val likeCount: Int,
     val author: Author,
-    val createdDate: LocalDateTime
+    val createdDate: LocalDateTime,
+    val isLiked: Boolean
 )

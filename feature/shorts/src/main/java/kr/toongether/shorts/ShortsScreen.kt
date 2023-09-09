@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.model.Shorts
 import kr.toongether.ui.shortsCardItems
@@ -30,7 +31,7 @@ internal fun ShortsRoute(
     ShortsScreen(
         modifier = modifier,
         shortsList = state.shortsList.collectAsLazyPagingItems(),
-        onItemClick = { navController.popBackStack() }
+        onItemClick = { navController.navigateToComic(shortsId = it.id, author = it.author.name) }
     )
 }
 
@@ -50,8 +51,7 @@ internal fun ShortsScreen(
                 .fillMaxSize()
         ) {
             ToongetherTopAppBar(
-                title = "단편 웹툰",
-                subTitle = "최신순"
+                title = "단편 웹툰"
             )
 
             LazyColumn(
@@ -61,7 +61,9 @@ internal fun ShortsScreen(
             ) {
                 shortsCardItems(
                     items = shortsList,
-                    onItemClick = onItemClick
+                    onItemClick = onItemClick,
+                    onClickLike = {},
+                    onClickComment = {}
                 )
             }
         }

@@ -12,7 +12,9 @@ import kr.toongether.model.Shorts
 fun LazyListScope.shortsCardItems(
     items: LazyPagingItems<Shorts>,
     modifier: Modifier = Modifier,
-    onItemClick: (shorts: Shorts) -> Unit
+    onItemClick: (shorts: Shorts) -> Unit,
+    onClickComment: () -> Unit,
+    onClickLike: () -> Unit
 ) = items(
     items = items,
     key = { it.id },
@@ -27,7 +29,12 @@ fun LazyListScope.shortsCardItems(
             title = shorts.title,
             writer = shorts.author.name,
             createdDate = shorts.createdDate,
-            profileImage = shorts.author.profileImage
+            profileImage = shorts.author.profileImage,
+            commentCount = shorts.commentCount,
+            isLiked = shorts.isLiked,
+            likeCount = shorts.likeCount,
+            onClickComment = onClickComment,
+            onClickLike = onClickLike
         )
     }
 )

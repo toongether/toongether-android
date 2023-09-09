@@ -2,6 +2,7 @@ package kr.toongether.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,8 +33,13 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import kotlinx.datetime.LocalDateTime
 import kr.toongether.common.toRelativeDateTime
+import kr.toongether.designsystem.icon.ToongetherIcons
+import kr.toongether.designsystem.icon.icons.FilledHeart
+import kr.toongether.designsystem.icon.icons.Message
+import kr.toongether.designsystem.icon.icons.OutlinedHeart
 import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.designsystem.utils.NoRippleInteractionSource
 
 @Composable
 fun ShortsCard(
@@ -41,7 +48,12 @@ fun ShortsCard(
     title: String,
     writer: String,
     createdDate: LocalDateTime,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isLiked: Boolean,
+    likeCount: Int,
+    commentCount: Int,
+    onClickLike: () -> Unit,
+    onClickComment: () -> Unit
 ) {
     var width by remember { mutableStateOf(1.dp) }
     val localDensity = LocalDensity.current
@@ -122,6 +134,56 @@ fun ShortsCard(
                     fontFamily = pretendard,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+
+                Spacer(modifier = modifier.weight(1f))
+
+                Icon(
+                    modifier = modifier
+                        .size(20.dp)
+                        .clickable(
+                            interactionSource = NoRippleInteractionSource(),
+                            indication = null,
+                            onClick = onClickLike
+                        ),
+                    imageVector = if (isLiked) ToongetherIcons.OutlinedHeart else ToongetherIcons.FilledHeart,
+                    contentDescription = null,
+                    tint = Color.White
+                )
+
+                Spacer(modifier = modifier.width(5.dp))
+
+                Text(
+                    text = "$likeCount",
+                    fontFamily = pretendard,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White
+                )
+
+                Spacer(modifier = modifier.width(8.dp))
+
+                Icon(
+                    modifier = modifier
+                        .size(20.dp)
+                        .clickable(
+                            interactionSource = NoRippleInteractionSource(),
+                            indication = null,
+                            onClick = onClickComment
+                        ),
+                    imageVector = ToongetherIcons.Message,
+                    contentDescription = null,
+                    tint = Color.White
+                )
+
+                Spacer(modifier = modifier.width(5.dp))
+
+                Text(
+                    text = "$commentCount",
+                    fontFamily = pretendard,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
                     color = Color.White
                 )
             }
