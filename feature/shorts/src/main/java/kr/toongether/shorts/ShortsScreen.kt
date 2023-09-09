@@ -51,7 +51,6 @@ internal fun ShortsScreen(
         ) {
             ToongetherTopAppBar(
                 title = "단편 웹툰",
-                subTitle = "최신순"
             )
 
             LazyColumn(
@@ -61,7 +60,9 @@ internal fun ShortsScreen(
             ) {
                 shortsCardItems(
                     items = shortsList,
-                    onItemClick = onItemClick
+                    onItemClick = onItemClick,
+                    onClickLike = {},
+                    onClickComment = {}
                 )
             }
         }
