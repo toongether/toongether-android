@@ -1,6 +1,8 @@
 package kr.toongether.shorts
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.toongether.domain.GetPagingShortsUseCase
 import org.orbitmvi.orbit.ContainerHost
@@ -15,12 +17,16 @@ class ShortsViewModel @Inject constructor(
 ) : ContainerHost<ShortsState, ShortsSideEffect>, ViewModel() {
 
     override val container =
-        container<ShortsState, ShortsSideEffect>(ShortsState(getPagingShortsUseCase.invoke()))
+        container<ShortsState, ShortsSideEffect>(
+            ShortsState(
+                getPagingShortsUseCase.invoke().cachedIn(viewModelScope)
+            )
+        )
 
     fun getPagingShorts() = intent {
         reduce {
             state.copy(
-                shortsList = getPagingShortsUseCase.invoke()
+                shortsList = getPagingShortsUseCase.invoke().cachedIn(viewModelScope)
             )
         }
     }
