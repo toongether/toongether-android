@@ -23,5 +23,5 @@ data class ShortsResponse(
     @SerialName("createdDate")
     val createdDate: Instant,
     @SerialName("liked")
-    val isLiked: Boolean,
+    val isLiked: Boolean
 )

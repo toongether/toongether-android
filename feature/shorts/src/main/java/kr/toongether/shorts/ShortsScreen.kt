@@ -50,7 +50,7 @@ internal fun ShortsScreen(
                 .fillMaxSize()
         ) {
             ToongetherTopAppBar(
-                title = "단편 웹툰",
+                title = "단편 웹툰"
             )
 
             LazyColumn(

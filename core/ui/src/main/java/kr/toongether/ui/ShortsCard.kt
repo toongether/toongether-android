@@ -53,7 +53,7 @@ fun ShortsCard(
     likeCount: Int,
     commentCount: Int,
     onClickLike: () -> Unit,
-    onClickComment: () -> Unit,
+    onClickComment: () -> Unit
 ) {
     var width by remember { mutableStateOf(1.dp) }
     val localDensity = LocalDensity.current
@@ -136,7 +136,7 @@ fun ShortsCard(
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White
                 )
-                
+
                 Spacer(modifier = modifier.weight(1f))
 
                 Icon(
@@ -151,7 +151,7 @@ fun ShortsCard(
                     contentDescription = null,
                     tint = Color.White
                 )
-                
+
                 Spacer(modifier = modifier.width(5.dp))
 
                 Text(

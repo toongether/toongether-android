@@ -16,11 +16,19 @@ public val ToongetherIcons.OutlinedHeart: ImageVector
             return _heart!!
         }
         _heart = ImageVector.Builder(
-            name = "Heart", defaultWidth = 20.0.dp, defaultHeight = 20.0.dp,
-            viewportWidth = 20.0f, viewportHeight = 20.0f
+            name = "Heart",
+            defaultWidth = 20.0.dp,
+            defaultHeight = 20.0.dp,
+            viewportWidth = 20.0f,
+            viewportHeight = 20.0f
         ).apply {
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                strokeLineCap = StrokeCap.Butt, strokeLineJoin = StrokeJoin.Miter, strokeLineMiter = 4.0f,
+            path(
+                fill = SolidColor(Color(0xFFffffff)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 4.0f,
                 pathFillType = PathFillType.NonZero
             ) {
                 moveTo(9.9998f, 18.0413f)

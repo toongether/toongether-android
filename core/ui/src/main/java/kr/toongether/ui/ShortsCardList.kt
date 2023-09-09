@@ -34,7 +34,7 @@ fun LazyListScope.shortsCardItems(
             isLiked = shorts.isLiked,
             likeCount = shorts.likeCount,
             onClickComment = onClickComment,
-            onClickLike = onClickLike,
+            onClickLike = onClickLike
         )
     }
 )

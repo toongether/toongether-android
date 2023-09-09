@@ -16,11 +16,22 @@ public val ToongetherIcons.Message: ImageVector
         if (_message != null) {
             return _message!!
         }
-        _message = Builder(name = "Message-2", defaultWidth = 20.0.dp, defaultHeight = 20.0.dp,
-                viewportWidth = 20.0f, viewportHeight = 20.0f).apply {
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _message = Builder(
+            name = "Message-2",
+            defaultWidth = 20.0.dp,
+            defaultHeight = 20.0.dp,
+            viewportWidth = 20.0f,
+            viewportHeight = 20.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFffffff)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(13.3332f, 18.5999f)
                 curveTo(13.0498f, 18.5999f, 12.7665f, 18.5166f, 12.5248f, 18.3582f)
                 lineTo(8.9748f, 15.9915f)
@@ -54,7 +65,7 @@ public val ToongetherIcons.Message: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _message!!
     }
 

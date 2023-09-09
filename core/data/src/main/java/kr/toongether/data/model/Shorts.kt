@@ -22,5 +22,5 @@ fun ShortsResponse.asModel(): Shorts = Shorts(
     likeCount = likeCount,
     author = author.asModel(),
     createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
-    isLiked = isLiked,
+    isLiked = isLiked
 )
