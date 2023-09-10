@@ -10,5 +10,10 @@ data class Comic(
     val width: Int,
     val height: Int,
     val lastHeight: Int,
-    val endIndex: Int
+    val endIndex: Int,
+    val beforeEpisode: Long,
+    val nextEpisode: Long,
+    val likeCount: Int,
+    val commentCount: Int,
+    val liked: Boolean,
 )

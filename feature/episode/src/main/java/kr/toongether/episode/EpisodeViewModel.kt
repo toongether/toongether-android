@@ -28,7 +28,7 @@ class EpisodeViewModel @Inject constructor(
             .onSuccess {
                 reduce {
                     state.copy(
-                        seriesEpisode = it,
+                        seriesEpisodeList = it,
                         isLoading = false
                     )
                 }

@@ -3,13 +3,13 @@ package kr.toongether.data.model
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.Series
-import kr.toongether.model.SeriesEpisode
+import kr.toongether.model.SeriesEpisodeList
 import kr.toongether.model.SeriesList
 import kr.toongether.network.model.SeriesEpisodeListResponse
 import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.SeriesResponse
 
-fun SeriesEpisodeListResponse.asModel(): SeriesEpisode = SeriesEpisode(
+fun SeriesEpisodeListResponse.asModel(): SeriesEpisodeList = SeriesEpisodeList(
     cycle = cycle.asModel(),
     dayOfWeek = dayOfWeek.asModel(),
     titleInfo = titleMaker.asModel(),

@@ -46,7 +46,7 @@ internal fun EpisodeRoute(
             navController.navigateToComic(
                 seriesId = id,
                 episodeId = it.id,
-                author = state.seriesEpisode.author.name
+                author = state.seriesEpisodeList.author.name
             )
         },
         onClickBack = navController::popBackStack
@@ -72,13 +72,13 @@ private fun EpisodeScreen(
             item {
                 Box(modifier.padding(bottom = 20.dp)) {
                     TitleImageCard(
-                        thumbnailImage = episodeState.seriesEpisode.titleInfo.thumbnailImage,
-                        titleImage = episodeState.seriesEpisode.titleInfo.titleImage,
-                        titleWidth = episodeState.seriesEpisode.titleInfo.titleWidth,
-                        author = episodeState.seriesEpisode.author.name,
-                        dayOfWeek = episodeState.seriesEpisode.dayOfWeek.title,
-                        cycle = episodeState.seriesEpisode.cycle.title,
-                        genre = episodeState.seriesEpisode.genre
+                        thumbnailImage = episodeState.seriesEpisodeList.titleInfo.thumbnailImage,
+                        titleImage = episodeState.seriesEpisodeList.titleInfo.titleImage,
+                        titleWidth = episodeState.seriesEpisodeList.titleInfo.titleWidth,
+                        author = episodeState.seriesEpisodeList.author.name,
+                        dayOfWeek = episodeState.seriesEpisodeList.dayOfWeek.title,
+                        cycle = episodeState.seriesEpisodeList.cycle.title,
+                        genre = episodeState.seriesEpisodeList.genre
                     )
 
                     IconButton(
@@ -96,7 +96,7 @@ private fun EpisodeScreen(
             }
             seriesCardItems(
                 modifier = modifier.padding(horizontal = 12.dp),
-                items = episodeState.seriesEpisode,
+                items = episodeState.seriesEpisodeList,
                 onItemClick = onItemClick
             )
         }
