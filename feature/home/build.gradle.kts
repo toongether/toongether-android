@@ -6,3 +6,8 @@ plugins {
 android {
     namespace = "kr.toongether.home"
 }
+
+dependencies {
+
+    implementation(project(":core:designsystem"))
+}
