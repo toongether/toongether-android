@@ -11,7 +11,7 @@ data class SeriesResponse(
     @SerialName("title")
     val title: String,
     @SerialName("titleMaker")
-    val titleInfo: NetworkTitleInfo,
+    val titleInfo: TitleMakerResponse,
     @SerialName("dayOfWeek")
     val dayOfWeek: NetworkDayOfWeek,
     @SerialName("cycle")

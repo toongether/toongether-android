@@ -21,5 +21,15 @@ data class ComicResponse(
     @SerialName("lastHeight")
     val lastHeight: Int,
     @SerialName("endIndex")
-    val endIndex: Int
+    val endIndex: Int,
+    @SerialName("beforeEpisode")
+    val beforeEpisode: Long,
+    @SerialName("nextEpisode")
+    val nextEpisode: Long,
+    @SerialName("likeCount")
+    val likeCount: Int,
+    @SerialName("commentCount")
+    val commentCount: Int,
+    @SerialName("liked")
+    val liked: Boolean,
 )

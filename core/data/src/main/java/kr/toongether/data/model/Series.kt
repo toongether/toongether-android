@@ -5,14 +5,14 @@ import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesEpisode
 import kr.toongether.model.SeriesList
-import kr.toongether.network.model.SeriesEpisodeResponse
+import kr.toongether.network.model.SeriesEpisodeListResponse
 import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.SeriesResponse
 
-fun SeriesEpisodeResponse.asModel(): SeriesEpisode = SeriesEpisode(
+fun SeriesEpisodeListResponse.asModel(): SeriesEpisode = SeriesEpisode(
     cycle = cycle.asModel(),
     dayOfWeek = dayOfWeek.asModel(),
-    titleInfo = titleInfo.asModel(),
+    titleInfo = titleMaker.asModel(),
     author = author.asModel(),
     episodeList = episodeList.map { it.asModel() },
     genre = genre

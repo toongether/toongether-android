@@ -5,7 +5,7 @@ import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.model.ComicResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
-import kr.toongether.network.model.SeriesEpisodeResponse
+import kr.toongether.network.model.SeriesEpisodeListResponse
 import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.ShortsListResponse
 import retrofit2.Retrofit
@@ -36,7 +36,7 @@ private interface RetrofitComicNetworkApi {
     @GET("comic/series/{id}/episode")
     suspend fun getSeries(
         @Path("id") id: Long
-    ): SeriesEpisodeResponse
+    ): SeriesEpisodeListResponse
 
     @GET("comic/series/{seriesId}/episode/{episodeId}")
     suspend fun getSeriesEpisode(
@@ -67,7 +67,7 @@ internal class RetrofitComicNetwork @Inject constructor(
         comicApi.getSeriesList(dayOfWeek, cycle, page)
     }
 
-    override suspend fun getSeries(id: Long): SeriesEpisodeResponse = networkHandler {
+    override suspend fun getSeries(id: Long): SeriesEpisodeListResponse = networkHandler {
         comicApi.getSeries(id)
     }
 

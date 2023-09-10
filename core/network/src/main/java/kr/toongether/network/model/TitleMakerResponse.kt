@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NetworkTitleInfo(
+data class TitleMakerResponse(
     @SerialName("color")
     val color: String,
     @SerialName("titleWidth")

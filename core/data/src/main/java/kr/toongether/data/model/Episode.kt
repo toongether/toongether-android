@@ -3,9 +3,9 @@ package kr.toongether.data.model
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.Episode
-import kr.toongether.network.model.NetworkEpisode
+import kr.toongether.network.model.EpisodeResponse
 
-fun NetworkEpisode.asModel(): Episode = Episode(
+fun EpisodeResponse.asModel(): Episode = Episode(
     id = id,
     title = title,
     thumbnail = thumbnail,
