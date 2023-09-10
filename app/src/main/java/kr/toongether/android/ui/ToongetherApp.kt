@@ -26,7 +26,6 @@ import kr.toongether.designsystem.component.ToongetherNavigationBarItem
 import kr.toongether.designsystem.theme.Gray
 import kr.toongether.designsystem.theme.pretendard
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToongetherApp(
     appState: ToongetherAppState = rememberToongetherAppState()
@@ -49,7 +48,7 @@ fun ToongetherApp(
                 Modifier
                     .fillMaxSize()
                     .background(Color.Black)
-                    .padding(paddingValues)
+                    .padding(bottom = paddingValues.calculateBottomPadding())
             } else {
                 Modifier
                     .fillMaxSize()
