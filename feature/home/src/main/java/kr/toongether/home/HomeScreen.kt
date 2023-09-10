@@ -6,10 +6,8 @@ import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,17 +15,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,24 +35,21 @@ import kr.toongether.designsystem.icon.icons.Check
 import kr.toongether.designsystem.icon.icons.Clock
 import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.icon.icons.Toongether
-import kr.toongether.designsystem.theme.Black10
 import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Gray50
-import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
-import kr.toongether.designsystem.utils.NoRippleInteractionSource
 
 @Composable
 internal fun HomeRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current,
+    context: Context = LocalContext.current
 ) {
     val scrollState = rememberScrollState()
 
     HomeScreen(
         modifier = modifier,
         context = context,
-        scrollState = scrollState,
+        scrollState = scrollState
     )
 }
 
@@ -65,9 +57,8 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
     context: Context,
-    scrollState: ScrollState,
+    scrollState: ScrollState
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -186,7 +177,7 @@ internal fun HomeScreen(
             icon = ToongetherIcons.Check,
             iconTint = Blue60,
             text = "개발 완료",
-            textColor = Blue60,
+            textColor = Blue60
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -196,7 +187,7 @@ internal fun HomeScreen(
             icon = ToongetherIcons.Check,
             iconTint = Blue60,
             text = "개발 완료",
-            textColor = Blue60,
+            textColor = Blue60
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -206,7 +197,7 @@ internal fun HomeScreen(
             icon = ToongetherIcons.Check,
             iconTint = Blue60,
             text = "개발 완료",
-            textColor = Blue60,
+            textColor = Blue60
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -216,7 +207,7 @@ internal fun HomeScreen(
             icon = ToongetherIcons.Check,
             iconTint = Blue60,
             text = "개발 완료",
-            textColor = Blue60,
+            textColor = Blue60
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -224,7 +215,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "웹툰 회차별 댓글",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -232,7 +223,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "웹툰 검색 및 필터링",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -240,7 +231,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "웹툰 이어보기",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -248,7 +239,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "작가 개인 페이지",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -256,7 +247,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "홈 화면",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -264,7 +255,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "커뮤니티 서비스",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -272,7 +263,7 @@ internal fun HomeScreen(
         ToongetherCard(
             title = "라이트 모드",
             icon = ToongetherIcons.Clock,
-            text = "개발 중",
+            text = "개발 중"
         )
 
         Spacer(modifier = modifier.height(20.dp))

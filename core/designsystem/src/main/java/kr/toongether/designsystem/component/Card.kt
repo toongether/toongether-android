@@ -32,7 +32,7 @@ fun ToongetherCard(
     textColor: Color = Gray50,
     icon: ImageVector,
     iconTint: Color = Gray50,
-    onClick: (() -> Unit)? = null,
+    onClick: (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
