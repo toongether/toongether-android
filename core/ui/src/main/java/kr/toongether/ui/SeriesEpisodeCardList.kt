@@ -14,7 +14,7 @@ fun LazyListScope.seriesCardItems(
     onItemClick: (episode: Episode) -> Unit
 ) = items(
     items = items.episodeList,
-    key = { it.id },
+    key = { it.episodeId },
     itemContent = { episode ->
         EpisodeCard(
             modifier = modifier

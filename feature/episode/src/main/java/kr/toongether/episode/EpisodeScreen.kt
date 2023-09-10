@@ -45,7 +45,7 @@ internal fun EpisodeRoute(
         onItemClick = {
             navController.navigateToComic(
                 seriesId = id,
-                episodeId = it.id,
+                episodeId = it.episodeId,
                 author = state.seriesEpisodeList.author.name
             )
         },

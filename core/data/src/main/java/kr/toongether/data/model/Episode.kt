@@ -6,8 +6,12 @@ import kr.toongether.model.Episode
 import kr.toongether.network.model.EpisodeResponse
 
 fun EpisodeResponse.asModel(): Episode = Episode(
-    id = id,
+    episodeNumber = episodeNumber,
+    episodeId = episodeId,
     title = title,
     thumbnail = thumbnail,
-    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault())
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
+    commentCount = commentCount,
+    likeCount = likeCount,
+    liked = liked,
 )
