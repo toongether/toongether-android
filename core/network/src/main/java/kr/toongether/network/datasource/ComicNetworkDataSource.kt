@@ -13,7 +13,7 @@ interface ComicNetworkDataSource {
     ): ShortsListResponse
 
     suspend fun getShortsEpisode(
-        id: Long
+        shortsId: Long
     ): ComicResponse
 
     suspend fun getSeriesList(
@@ -23,7 +23,7 @@ interface ComicNetworkDataSource {
     ): SeriesListResponse
 
     suspend fun getSeries(
-        id: Long
+        seriesId: Long
     ): SeriesEpisodeListResponse
 
     suspend fun getSeriesEpisode(

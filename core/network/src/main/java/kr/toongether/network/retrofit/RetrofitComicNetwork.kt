@@ -21,9 +21,9 @@ private interface RetrofitComicNetworkApi {
         @Query("page") page: Int
     ): ShortsListResponse
 
-    @GET("comic/shorts/{id}/episode")
+    @GET("comic/shorts/{shortsId}")
     suspend fun getShortsEpisode(
-        @Path("id") id: Long
+        @Path("shortsId") shortsId: Long
     ): ComicResponse
 
     @GET("comic/series/list")
@@ -33,12 +33,12 @@ private interface RetrofitComicNetworkApi {
         @Query("page") page: Int
     ): SeriesListResponse
 
-    @GET("comic/series/{id}/episode")
+    @GET("comic/series/episode/{seriesId}")
     suspend fun getSeries(
-        @Path("id") id: Long
+        @Path("seriesId") seriesId: Long
     ): SeriesEpisodeListResponse
 
-    @GET("comic/series/{seriesId}/episode/{episodeId}")
+    @GET("comic/series/episode/{seriesId}/{episodeId}")
     suspend fun getSeriesEpisode(
         @Path("seriesId") seriesId: Long,
         @Path("episodeId") episodeId: Long
@@ -55,8 +55,8 @@ internal class RetrofitComicNetwork @Inject constructor(
         comicApi.getShortsList(page)
     }
 
-    override suspend fun getShortsEpisode(id: Long): ComicResponse = networkHandler {
-        comicApi.getShortsEpisode(id)
+    override suspend fun getShortsEpisode(shortsId: Long): ComicResponse = networkHandler {
+        comicApi.getShortsEpisode(shortsId)
     }
 
     override suspend fun getSeriesList(
@@ -67,8 +67,8 @@ internal class RetrofitComicNetwork @Inject constructor(
         comicApi.getSeriesList(dayOfWeek, cycle, page)
     }
 
-    override suspend fun getSeries(id: Long): SeriesEpisodeListResponse = networkHandler {
-        comicApi.getSeries(id)
+    override suspend fun getSeries(seriesId: Long): SeriesEpisodeListResponse = networkHandler {
+        comicApi.getSeries(seriesId)
     }
 
     override suspend fun getSeriesEpisode(

@@ -23,9 +23,9 @@ data class ComicResponse(
     @SerialName("endIndex")
     val endIndex: Int,
     @SerialName("beforeEpisode")
-    val beforeEpisode: Long,
+    val beforeEpisode: Long?,
     @SerialName("nextEpisode")
-    val nextEpisode: Long,
+    val nextEpisode: Long?,
     @SerialName("likeCount")
     val likeCount: Int,
     @SerialName("commentCount")
