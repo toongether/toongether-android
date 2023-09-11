@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -32,6 +33,7 @@ import kr.toongether.episode.navigatoin.navigateToEpisode
 import kr.toongether.model.Series
 import kr.toongether.ui.seriesCardItems
 import org.orbitmvi.orbit.compose.collectAsState
+import java.time.LocalDate
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -41,7 +43,7 @@ internal fun SeriesRoute(
     viewModel: SeriesViewModel = hiltViewModel()
 ) {
     val state by viewModel.collectAsState()
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(initialPage = LocalDate.now().dayOfWeek.value)
     val coroutineScope = rememberCoroutineScope()
 
     SeriesScreen(
@@ -117,6 +119,7 @@ internal fun SeriesScreen(
                     state = pagerState
                 ) {
                     LazyVerticalGrid(
+                        modifier = modifier.fillMaxSize(),
                         columns = if (configuration.screenWidthDp < 400) {
                             GridCells.Fixed(3)
                         } else {
