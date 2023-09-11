@@ -5,21 +5,19 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ShortsResponse(
-    @SerialName("id")
-    val id: Long,
+data class EpisodeResponse(
+    @SerialName("episodeNumber")
+    val episodeNumber: Int,
+    @SerialName("episodeId")
+    val episodeId: Long,
     @SerialName("title")
     val title: String,
-    @SerialName("genre")
-    val genre: String,
     @SerialName("thumbnail")
     val thumbnail: String,
     @SerialName("likeCount")
     val likeCount: Int,
     @SerialName("commentCount")
     val commentCount: Int,
-    @SerialName("author")
-    val author: NetworkAuthor,
     @SerialName("createdDate")
     val createdDate: Instant,
     @SerialName("liked")

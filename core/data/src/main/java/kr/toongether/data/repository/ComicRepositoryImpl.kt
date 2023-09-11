@@ -15,7 +15,7 @@ import kr.toongether.model.Comic
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
-import kr.toongether.model.SeriesEpisode
+import kr.toongether.model.SeriesEpisodeList
 import kr.toongether.model.SeriesList
 import kr.toongether.model.Shorts
 import kr.toongether.model.ShortsList
@@ -42,7 +42,7 @@ internal class ComicRepositoryImpl @Inject constructor(
             page = page
         ).asModel()
 
-    override suspend fun getSeries(id: Long): SeriesEpisode =
+    override suspend fun getSeries(id: Long): SeriesEpisodeList =
         network.getSeries(id).asModel()
 
     override suspend fun getSeriesEpisode(seriesId: Long, episodeId: Long): Comic =

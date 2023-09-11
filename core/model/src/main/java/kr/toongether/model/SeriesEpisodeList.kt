@@ -1,6 +1,6 @@
 package kr.toongether.model
 
-data class SeriesEpisode(
+data class SeriesEpisodeList(
     val cycle: Cycle,
     val dayOfWeek: DayOfWeek,
     val genre: String,

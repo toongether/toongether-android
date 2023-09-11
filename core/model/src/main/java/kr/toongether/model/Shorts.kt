@@ -11,5 +11,5 @@ data class Shorts(
     val likeCount: Int,
     val author: Author,
     val createdDate: LocalDateTime,
-    val isLiked: Boolean
+    val liked: Boolean
 )

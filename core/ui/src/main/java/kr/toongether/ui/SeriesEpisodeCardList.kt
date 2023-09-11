@@ -6,15 +6,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.model.Episode
-import kr.toongether.model.SeriesEpisode
+import kr.toongether.model.SeriesEpisodeList
 
 fun LazyListScope.seriesCardItems(
-    items: SeriesEpisode,
+    items: SeriesEpisodeList,
     modifier: Modifier = Modifier,
     onItemClick: (episode: Episode) -> Unit
 ) = items(
     items = items.episodeList,
-    key = { it.id },
+    key = { it.episodeId },
     itemContent = { episode ->
         EpisodeCard(
             modifier = modifier

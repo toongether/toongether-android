@@ -14,7 +14,12 @@ data class ComicState(
         width = 0,
         height = 0,
         lastHeight = 0,
-        endIndex = 0
+        endIndex = 0,
+        beforeEpisode = 0L,
+        nextEpisode = 0L,
+        likeCount = 0,
+        commentCount = 0,
+        liked = false
     ),
     val error: Throwable? = null,
     val isLoading: Boolean = false

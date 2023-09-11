@@ -3,11 +3,11 @@ package kr.toongether.episode
 import kr.toongether.model.Author
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
-import kr.toongether.model.SeriesEpisode
+import kr.toongether.model.SeriesEpisodeList
 import kr.toongether.model.TitleInfo
 
 data class EpisodeState(
-    val seriesEpisode: SeriesEpisode = SeriesEpisode(
+    val seriesEpisodeList: SeriesEpisodeList = SeriesEpisodeList(
         cycle = Cycle.WEEKLY,
         dayOfWeek = DayOfWeek.SUNDAY,
         titleInfo = TitleInfo(
