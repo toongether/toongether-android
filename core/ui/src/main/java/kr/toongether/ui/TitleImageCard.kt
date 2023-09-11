@@ -89,9 +89,11 @@ fun TitleImageCard(
                     text = "$author 작가의",
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     color = Color.White
                 )
+
+                Spacer(modifier = modifier.height(6.dp))
 
                 AsyncImage(
                     modifier = modifier
@@ -102,14 +104,14 @@ fun TitleImageCard(
                     contentScale = ContentScale.FillWidth
                 )
 
-                Spacer(modifier = modifier.height(14.dp))
+                Spacer(modifier = modifier.height(6.dp))
 
                 Text(
                     modifier = modifier.align(Alignment.CenterHorizontally),
                     text = "$genre · $dayOfWeek $cycle",
                     fontFamily = pretendard,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
                     color = Color.White
                 )
             }

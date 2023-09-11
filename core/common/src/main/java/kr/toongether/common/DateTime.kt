@@ -26,4 +26,4 @@ fun LocalDateTime.toRelativeDateTime(): String {
 }
 
 fun LocalDateTime.toSimpleDate(): String =
-    "${year}년 ${monthNumber}월 ${dayOfMonth}일"
+    "$year.$monthNumber.$dayOfMonth"
