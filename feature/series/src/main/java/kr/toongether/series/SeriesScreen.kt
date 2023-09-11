@@ -48,13 +48,13 @@ internal fun SeriesRoute(
     SeriesScreen(
         modifier = modifier,
         seriesList = when (pagerState.currentPage) {
-            0 -> state.mondaySeries
-            1 -> state.tuesdaySeries
-            2 -> state.wednesdaySeries
-            3 -> state.thursdaySeries
-            4 -> state.fridaySeries
-            5 -> state.saturdaySeries
-            6 -> state.sundaySeries
+            1 -> state.mondaySeries
+            2 -> state.tuesdaySeries
+            3 -> state.wednesdaySeries
+            4 -> state.thursdaySeries
+            5 -> state.fridaySeries
+            6 -> state.saturdaySeries
+            7 -> state.sundaySeries
             else -> state.allSeries
         }.collectAsLazyPagingItems(),
         onTabClick = {
