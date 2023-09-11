@@ -1,11 +1,8 @@
 package kr.toongether.ui
 
-import android.widget.Space
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,7 +36,7 @@ fun EpisodeCard(
     title: String,
     createdDate: LocalDateTime,
     likeCount: Int,
-    commentCount: Int,
+    commentCount: Int
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -106,7 +103,7 @@ fun EpisodeCard(
                     modifier = Modifier.size(14.dp),
                     imageVector = ToongetherIcons.FilledMessage,
                     contentDescription = null,
-                    tint = Gray,
+                    tint = Gray
                 )
 
                 Spacer(modifier = Modifier.width(3.dp))
