@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import kr.toongether.designsystem.icon.ToongetherIcons
 
-public val ToongetherIcons.Message: ImageVector
+public val ToongetherIcons.OutlinedMessage: ImageVector
     get() {
         if (_message != null) {
             return _message!!
