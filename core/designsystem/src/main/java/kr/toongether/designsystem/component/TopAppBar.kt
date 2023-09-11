@@ -37,13 +37,12 @@ fun ToongetherTopAppBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
             .background(backgroundColor)
             .padding(12.dp)
     ) {
         Row(
             modifier = modifier
-                .align(Alignment.Center)
+                .align(Alignment.CenterStart)
                 .wrapContentSize()
         ) {
             Text(
@@ -75,7 +74,8 @@ fun ToongetherTopAppBar(
             Icon(
                 imageVector = actionIcon,
                 contentDescription = actionIconContentDescription,
-                modifier = modifier.size(20.dp)
+                modifier = modifier.size(20.dp),
+                tint = Color.White
             )
         }
     }

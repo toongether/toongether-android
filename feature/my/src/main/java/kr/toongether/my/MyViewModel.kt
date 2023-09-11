@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(
-    private val toongetherPreferences: ToongetherPreferencesDataSource
+    toongetherPreferences: ToongetherPreferencesDataSource
 ) : ViewModel() {
 
     val tokenState = toongetherPreferences.tokenData.stateIn(
