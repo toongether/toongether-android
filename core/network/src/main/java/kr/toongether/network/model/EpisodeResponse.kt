@@ -21,5 +21,5 @@ data class EpisodeResponse(
     @SerialName("createdDate")
     val createdDate: Instant,
     @SerialName("liked")
-    val liked: Boolean,
+    val liked: Boolean
 )

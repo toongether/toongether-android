@@ -13,5 +13,5 @@ fun EpisodeResponse.asModel(): Episode = Episode(
     createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
     commentCount = commentCount,
     likeCount = likeCount,
-    liked = liked,
+    liked = liked
 )

@@ -31,5 +31,5 @@ data class ComicResponse(
     @SerialName("commentCount")
     val commentCount: Int,
     @SerialName("liked")
-    val liked: Boolean,
+    val liked: Boolean
 )

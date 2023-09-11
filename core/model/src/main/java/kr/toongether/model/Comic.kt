@@ -15,5 +15,5 @@ data class Comic(
     val nextEpisode: Long?,
     val likeCount: Int,
     val commentCount: Int,
-    val liked: Boolean,
+    val liked: Boolean
 )

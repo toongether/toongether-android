@@ -18,5 +18,5 @@ fun ComicResponse.asModel(): Comic = Comic(
     nextEpisode = nextEpisode,
     likeCount = likeCount,
     commentCount = commentCount,
-    liked = liked,
+    liked = liked
 )
