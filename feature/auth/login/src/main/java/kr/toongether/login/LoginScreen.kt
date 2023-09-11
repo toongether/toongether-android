@@ -77,6 +77,7 @@ internal fun LoginRoute(
                 Toast.makeText(context, it.text, Toast.LENGTH_SHORT).show()
                 Log.d("ERROR", "LoginRoute: ${state.error?.message}")
             }
+            is LoginSideEffect.NavigateToMy -> navController.popBackStack()
         }
     }
 

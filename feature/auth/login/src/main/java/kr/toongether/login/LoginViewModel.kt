@@ -2,6 +2,7 @@ package kr.toongether.login
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
 import kr.toongether.domain.LoginUseCase
 import kr.toongether.model.Login
 import org.orbitmvi.orbit.ContainerHost
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val toongetherPreferences: ToongetherPreferencesDataSource
 ) : ContainerHost<LoginState, LoginSideEffect>, ViewModel() {
 
     override val container = container<LoginState, LoginSideEffect>(LoginState())
@@ -32,10 +34,14 @@ class LoginViewModel @Inject constructor(
         ).onSuccess {
             reduce {
                 state.copy(
-                    token = it,
                     isLoading = false
                 )
             }
+            toongetherPreferences.setToken(
+                accessToken = it.accessToken,
+                refreshToken = it.refreshToken
+            )
+            postSideEffect(LoginSideEffect.NavigateToMy)
         }.onFailure {
             postSideEffect(LoginSideEffect.Toast(it.message!!))
             reduce {
