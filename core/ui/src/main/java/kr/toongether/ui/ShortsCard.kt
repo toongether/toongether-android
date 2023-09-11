@@ -35,7 +35,7 @@ import kotlinx.datetime.LocalDateTime
 import kr.toongether.common.toRelativeDateTime
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.FilledHeart
-import kr.toongether.designsystem.icon.icons.Message
+import kr.toongether.designsystem.icon.icons.OutlinedMessage
 import kr.toongether.designsystem.icon.icons.OutlinedHeart
 import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
@@ -172,7 +172,7 @@ fun ShortsCard(
                             indication = null,
                             onClick = onClickComment
                         ),
-                    imageVector = ToongetherIcons.Message,
+                    imageVector = ToongetherIcons.OutlinedMessage,
                     contentDescription = null,
                     tint = Color.White
                 )

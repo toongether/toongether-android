@@ -17,10 +17,10 @@ public val ToongetherIcons.FilledMessage: ImageVector
         }
         _message = ImageVector.Builder(
             name = "FilledMessage",
-            defaultWidth = 20.0.dp,
-            defaultHeight = 20.0.dp,
-            viewportWidth = 20.0f,
-            viewportHeight = 20.0f
+            defaultWidth = 14.dp,
+            defaultHeight = 14.dp,
+            viewportWidth = 14f,
+            viewportHeight = 14f
         ).apply {
             path(
                 fill = SolidColor(Color(0xFF787878)),
