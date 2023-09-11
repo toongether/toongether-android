@@ -1,8 +1,11 @@
 package kr.toongether.episode
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,6 +24,7 @@ import androidx.navigation.NavController
 import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
+import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.model.Episode
 import kr.toongether.ui.TitleImageCard
 import kr.toongether.ui.seriesCardItems
@@ -79,6 +83,13 @@ private fun EpisodeScreen(
                         dayOfWeek = episodeState.seriesEpisodeList.dayOfWeek.title,
                         cycle = episodeState.seriesEpisodeList.cycle.title,
                         genre = episodeState.seriesEpisodeList.genre
+                    )
+
+                    Box(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(80.dp)
+                            .background(TransparentBlack)
                     )
 
                     IconButton(
