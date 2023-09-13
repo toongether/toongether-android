@@ -9,6 +9,8 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
+import kr.toongether.network.interceptor.AuthAuthenticator
+import kr.toongether.network.interceptor.AuthInterceptor
 import kr.toongether.network.retrofit.RetrofitComicNetwork
 import kr.toongether.network.retrofit.RetrofitUserNetwork
 import okhttp3.Call
@@ -18,18 +20,23 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-private const val ToongetherUrl = "http://api.toongether.kr:8080/"
+private const val ToongetherUrl = "https://api.toongether.kr:8080/"
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
     @Singleton
     @Provides
-    fun providesOkHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
+    fun providesOkHttpCallFactory(
+        interceptor: AuthInterceptor,
+        authenticator: AuthAuthenticator
+    ): Call.Factory = OkHttpClient.Builder()
         .addInterceptor(
             HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
         )
+        .addInterceptor(interceptor)
+        .authenticator(authenticator)
         .build()
 
     @Provides

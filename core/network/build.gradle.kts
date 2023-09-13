@@ -16,4 +16,6 @@ dependencies {
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.kotlinx.datetime)
     implementation(project(":core:common"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:model"))
 }
