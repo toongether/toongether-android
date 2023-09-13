@@ -121,7 +121,7 @@ internal fun HomeScreen(
                 context.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://about.toongether.kr")
+                        Uri.parse("https://go.toongether.kr/about")
                     )
                 )
             }
@@ -137,7 +137,7 @@ internal fun HomeScreen(
                 context.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://toongether.kr")
+                        Uri.parse("https://go.toongether.kr/try")
                     )
                 )
             }
@@ -153,7 +153,7 @@ internal fun HomeScreen(
                 context.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://feedback.toongether.kr")
+                        Uri.parse("https://go.toongether.kr/feedback")
                     )
                 )
             }

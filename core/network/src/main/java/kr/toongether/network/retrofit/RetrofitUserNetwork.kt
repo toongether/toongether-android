@@ -11,7 +11,6 @@ import retrofit2.Retrofit
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,10 +37,8 @@ private interface RetrofitUserNetworkApi {
         @Query("code") code: String
     ): Boolean
 
-    @GET("user/info/{id}")
-    suspend fun getUser(
-        @Path("id") id: Long
-    ): UserResponse
+    @GET("user/info")
+    suspend fun getUser(): UserResponse
 }
 
 @Singleton
@@ -66,7 +63,7 @@ internal class RetrofitUserNetwork @Inject constructor(
         userApi.checkEmail(email, code)
     }
 
-    override suspend fun getUser(id: Long): UserResponse = networkHandler {
-        userApi.getUser(id)
+    override suspend fun getUser(): UserResponse = networkHandler {
+        userApi.getUser()
     }
 }

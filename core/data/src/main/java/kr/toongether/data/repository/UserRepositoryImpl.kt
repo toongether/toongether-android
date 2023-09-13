@@ -26,6 +26,6 @@ internal class UserRepositoryImpl @Inject constructor(
     override suspend fun checkEmail(email: String, code: String): Boolean =
         network.checkEmail(email, code)
 
-    override suspend fun getUser(id: Long): User =
-        network.getUser(id).asModel()
+    override suspend fun getUser(): User =
+        network.getUser().asModel()
 }

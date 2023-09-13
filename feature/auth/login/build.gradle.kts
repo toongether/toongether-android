@@ -10,4 +10,5 @@ android {
 dependencies {
     implementation(libs.androidx.compose.material.icons)
     implementation(project(":feature:auth:signup"))
+    implementation(project(":core:datastore"))
 }

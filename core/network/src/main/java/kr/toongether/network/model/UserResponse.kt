@@ -9,12 +9,10 @@ data class UserResponse(
     val id: Long,
     @SerialName("userId")
     val userId: String,
-    @SerialName("password")
-    val password: String,
     @SerialName("email")
     val email: String,
     @SerialName("name")
     val name: String,
     @SerialName("profileImage")
-    val profileImage: String
+    val profileImage: String?
 )

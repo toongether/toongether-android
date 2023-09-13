@@ -11,6 +11,7 @@ import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.homeScreen
 import kr.toongether.login.navigation.loginScreen
 import kr.toongether.my.navigation.myScreen
+import kr.toongether.my.navigation.settingScreen
 import kr.toongether.series.navigation.seriesScreen
 import kr.toongether.shorts.navigation.shortsScreen
 import kr.toongether.signup.navigation.signupScreen
@@ -37,5 +38,6 @@ fun ToongetherNavHost(
         loginScreen(navController)
         signupScreen(navController)
         episodeScreen(navController)
+        settingScreen(navController)
     }
 }

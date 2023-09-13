@@ -1,6 +1,7 @@
 package kr.toongether.designsystem.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kr.toongether.designsystem.icon.ToongetherIcons
+import kr.toongether.designsystem.icon.icons.Back
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 
@@ -37,13 +40,12 @@ fun ToongetherTopAppBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
             .background(backgroundColor)
             .padding(12.dp)
     ) {
         Row(
             modifier = modifier
-                .align(Alignment.Center)
+                .align(Alignment.CenterStart)
                 .wrapContentSize()
         ) {
             Text(
@@ -75,7 +77,8 @@ fun ToongetherTopAppBar(
             Icon(
                 imageVector = actionIcon,
                 contentDescription = actionIconContentDescription,
-                modifier = modifier.size(20.dp)
+                modifier = modifier.size(20.dp),
+                tint = Color.White
             )
         }
     }
@@ -226,5 +229,43 @@ fun ToongetherTopAppBar(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun ToongetherTopAppBarWithBack(
+    modifier: Modifier = Modifier,
+    title: String,
+    backgroundColor: Color = Color.Black,
+    onClickBack: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+            .background(backgroundColor)
+            .padding(horizontal = 5.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            modifier = modifier.clickable(
+                interactionSource = NoRippleInteractionSource(),
+                indication = null,
+                onClick = onClickBack
+            ),
+            imageVector = ToongetherIcons.Back,
+            contentDescription = null,
+            tint = Color.White
+        )
+
+        Spacer(modifier = modifier.size(20.dp))
+
+        Text(
+            text = title,
+            fontFamily = pretendard,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.White,
+            fontSize = 20.sp
+        )
     }
 }
