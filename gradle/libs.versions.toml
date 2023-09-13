@@ -40,7 +40,7 @@ kotlinxDatetime = "0.4.0"
 paging = "3.1.1"
 pagingCompose = "1.0.0-alpha16"
 coil = "2.4.0"
-accompanistPager = "0.28.0"
+accompanist = "0.27.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -94,7 +94,8 @@ androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", 
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingCompose" }
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
+accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanist" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
