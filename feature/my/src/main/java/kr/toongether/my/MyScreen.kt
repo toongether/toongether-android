@@ -29,6 +29,7 @@ import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.login.navigation.navigateToLogin
+import kr.toongether.my.navigation.navigateToSetting
 
 @Composable
 internal fun MyRoute(
@@ -36,13 +37,13 @@ internal fun MyRoute(
     navController: NavController,
     viewModel: MyViewModel = hiltViewModel()
 ) {
-    val tokenState by viewModel.tokenState.collectAsState()
+    val accessToken by viewModel.accessToken.collectAsState()
 
     MyScreen(
         modifier = modifier,
         onClickLogin = navController::navigateToLogin,
-        isLogin = tokenState.accessToken.isNotBlank(),
-        onClickSetting = {  },
+        isLogin = accessToken.isNotBlank(),
+        onClickSetting = navController::navigateToSetting,
     )
 }
 
