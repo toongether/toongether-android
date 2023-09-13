@@ -1,6 +1,5 @@
 package kr.toongether.series
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -47,7 +46,7 @@ import java.time.LocalDate
 internal fun SeriesRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: SeriesViewModel = hiltViewModel(),
+    viewModel: SeriesViewModel = hiltViewModel()
 ) {
     val state by viewModel.collectAsState()
     val pagerState = rememberPagerState(initialPage = LocalDate.now().dayOfWeek.value)
@@ -100,7 +99,7 @@ internal fun SeriesScreen(
     onComicClick: (Series) -> Unit,
     pagerState: PagerState,
     onRefresh: () -> Unit,
-    swipeRefreshState: SwipeRefreshState,
+    swipeRefreshState: SwipeRefreshState
 ) {
     val configuration = LocalConfiguration.current
 

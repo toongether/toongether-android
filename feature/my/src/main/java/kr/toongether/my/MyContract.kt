@@ -10,7 +10,7 @@ data class MyState(
         name = "",
         profileImage = ""
     ),
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = false
 )
 
 sealed class MySideEffect {

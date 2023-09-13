@@ -37,7 +37,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 internal fun MyRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: MyViewModel = hiltViewModel(),
+    viewModel: MyViewModel = hiltViewModel()
 ) {
     val accessToken by viewModel.accessToken.collectAsState()
     val state by viewModel.collectAsState()
@@ -72,7 +72,7 @@ internal fun MyScreen(
     onClickSetting: () -> Unit,
     isLogin: Boolean,
     userName: String,
-    isLoading: Boolean,
+    isLoading: Boolean
 ) {
     if (isLoading) {
         LoadingScreen()

@@ -51,7 +51,7 @@ internal fun ShortsScreen(
     shortsList: LazyPagingItems<Shorts>,
     onItemClick: (Shorts) -> Unit,
     onRefresh: () -> Unit,
-    swipeRefreshState: SwipeRefreshState,
+    swipeRefreshState: SwipeRefreshState
 ) {
     Surface(
         modifier = modifier
