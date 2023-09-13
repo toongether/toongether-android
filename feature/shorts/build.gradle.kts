@@ -12,4 +12,5 @@ dependencies {
     implementation(project(":core:common"))
 
     implementation(libs.androidx.paging.compose)
+    implementation(libs.accompanist.swiperefresh)
 }

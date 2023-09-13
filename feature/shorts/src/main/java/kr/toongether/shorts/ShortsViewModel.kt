@@ -23,7 +23,7 @@ class ShortsViewModel @Inject constructor(
             )
         )
 
-    fun getPagingShorts() = intent {
+    fun fetchPagingShorts() = intent {
         reduce {
             state.copy(
                 shortsList = getPagingShortsUseCase.invoke().cachedIn(viewModelScope)
