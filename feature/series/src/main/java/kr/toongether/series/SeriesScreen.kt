@@ -18,18 +18,25 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.SwipeRefreshState
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.episode.navigatoin.navigateToEpisode
+import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
+import kr.toongether.ui.LoadingScreen
 import kr.toongether.ui.seriesCardItems
 import org.orbitmvi.orbit.compose.collectAsState
 import java.time.LocalDate
@@ -44,6 +51,20 @@ internal fun SeriesRoute(
     val state by viewModel.collectAsState()
     val pagerState = rememberPagerState(initialPage = LocalDate.now().dayOfWeek.value)
     val coroutineScope = rememberCoroutineScope()
+
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isLoading)
+    val pageToDayOfWeek = { page: Int ->
+        when (page) {
+            1 -> DayOfWeek.MONDAY
+            2 -> DayOfWeek.TUESDAY
+            3 -> DayOfWeek.WEDNESDAY
+            4 -> DayOfWeek.THURSDAY
+            5 -> DayOfWeek.FRIDAY
+            6 -> DayOfWeek.SATURDAY
+            7 -> DayOfWeek.SUNDAY
+            else -> null
+        }
+    }
 
     SeriesScreen(
         modifier = modifier,
@@ -63,7 +84,9 @@ internal fun SeriesRoute(
             }
         },
         onComicClick = { navController.navigateToEpisode(id = it.id) },
-        pagerState = pagerState
+        pagerState = pagerState,
+        onRefresh = { viewModel.fetchPagingSeries(pageToDayOfWeek(pagerState.currentPage)) },
+        swipeRefreshState = swipeRefreshState
     )
 }
 
@@ -74,7 +97,9 @@ internal fun SeriesScreen(
     seriesList: LazyPagingItems<Series>,
     onTabClick: (tabIndex: Int) -> Unit,
     onComicClick: (Series) -> Unit,
-    pagerState: PagerState
+    pagerState: PagerState,
+    onRefresh: () -> Unit,
+    swipeRefreshState: SwipeRefreshState
 ) {
     val configuration = LocalConfiguration.current
 
@@ -117,22 +142,45 @@ internal fun SeriesScreen(
                     count = 8,
                     state = pagerState
                 ) {
-                    LazyVerticalGrid(
-                        modifier = modifier.fillMaxSize(),
-                        columns = if (configuration.screenWidthDp < 400) {
-                            GridCells.Fixed(3)
-                        } else {
-                            GridCells.Adaptive(120.dp)
-                        },
-                        contentPadding = PaddingValues(
-                            horizontal = 8.dp,
-                            vertical = 10.dp
-                        )
-                    ) {
-                        seriesCardItems(
-                            items = seriesList,
-                            onItemClick = onComicClick
-                        )
+                    when (seriesList.loadState.refresh) {
+                        is LoadState.Loading -> {
+                            LoadingScreen()
+                        }
+                        is LoadState.Error -> {
+                            // TODO : Error 처리
+                        }
+                        else -> {
+                            SwipeRefresh(
+                                state = swipeRefreshState,
+                                onRefresh = onRefresh,
+                                indicator = { state, refreshTrigger ->
+                                    SwipeRefreshIndicator(
+                                        state = state,
+                                        refreshTriggerDistance = refreshTrigger,
+                                        backgroundColor = Color.Black,
+                                        contentColor = Color.White
+                                    )
+                                }
+                            ) {
+                                LazyVerticalGrid(
+                                    modifier = modifier.fillMaxSize(),
+                                    columns = if (configuration.screenWidthDp < 400) {
+                                        GridCells.Fixed(3)
+                                    } else {
+                                        GridCells.Adaptive(120.dp)
+                                    },
+                                    contentPadding = PaddingValues(
+                                        horizontal = 8.dp,
+                                        vertical = 10.dp
+                                    )
+                                ) {
+                                    seriesCardItems(
+                                        items = seriesList,
+                                        onItemClick = onComicClick
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }

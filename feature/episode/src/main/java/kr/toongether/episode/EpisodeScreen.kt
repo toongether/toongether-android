@@ -26,6 +26,7 @@ import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
 import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.model.Episode
+import kr.toongether.ui.LoadingScreen
 import kr.toongether.ui.TitleImageCard
 import kr.toongether.ui.seriesCardItems
 import org.orbitmvi.orbit.compose.collectAsState
@@ -53,7 +54,8 @@ internal fun EpisodeRoute(
                 author = state.seriesEpisodeList.author.name
             )
         },
-        onClickBack = navController::popBackStack
+        onClickBack = navController::popBackStack,
+        isLoading = state.isLoading
     )
 }
 
@@ -62,54 +64,59 @@ private fun EpisodeScreen(
     modifier: Modifier = Modifier,
     episodeState: EpisodeState,
     onItemClick: (Episode) -> Unit,
-    onClickBack: () -> Unit
+    onClickBack: () -> Unit,
+    isLoading: Boolean
 ) {
-    Surface(
-        modifier = modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        color = Color.Black
-    ) {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+    if (isLoading) {
+        LoadingScreen()
+    } else {
+        Surface(
+            modifier = modifier
+                .fillMaxSize()
+                .navigationBarsPadding(),
+            color = Color.Black
         ) {
-            item {
-                Box(modifier.padding(bottom = 20.dp)) {
-                    TitleImageCard(
-                        thumbnailImage = episodeState.seriesEpisodeList.titleInfo.thumbnailImage,
-                        titleImage = episodeState.seriesEpisodeList.titleInfo.titleImage,
-                        titleWidth = episodeState.seriesEpisodeList.titleInfo.titleWidth,
-                        author = episodeState.seriesEpisodeList.author.name,
-                        dayOfWeek = episodeState.seriesEpisodeList.dayOfWeek.title,
-                        cycle = episodeState.seriesEpisodeList.cycle.title,
-                        genre = episodeState.seriesEpisodeList.genre
-                    )
-
-                    Box(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .height(80.dp)
-                            .background(TransparentBlack)
-                    )
-
-                    IconButton(
-                        modifier = modifier.padding(top = 30.dp, start = 8.dp),
-                        onClick = onClickBack
-                    ) {
-                        Icon(
-                            modifier = modifier.size(20.dp),
-                            imageVector = ToongetherIcons.Back,
-                            contentDescription = null,
-                            tint = Color.White
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                item {
+                    Box(modifier.padding(bottom = 20.dp)) {
+                        TitleImageCard(
+                            thumbnailImage = episodeState.seriesEpisodeList.titleInfo.thumbnailImage,
+                            titleImage = episodeState.seriesEpisodeList.titleInfo.titleImage,
+                            titleWidth = episodeState.seriesEpisodeList.titleInfo.titleWidth,
+                            author = episodeState.seriesEpisodeList.author.name,
+                            dayOfWeek = episodeState.seriesEpisodeList.dayOfWeek.title,
+                            cycle = episodeState.seriesEpisodeList.cycle.title,
+                            genre = episodeState.seriesEpisodeList.genre
                         )
+
+                        Box(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .height(80.dp)
+                                .background(TransparentBlack)
+                        )
+
+                        IconButton(
+                            modifier = modifier.padding(top = 30.dp, start = 8.dp),
+                            onClick = onClickBack
+                        ) {
+                            Icon(
+                                modifier = modifier.size(20.dp),
+                                imageVector = ToongetherIcons.Back,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                        }
                     }
                 }
+                seriesCardItems(
+                    modifier = modifier.padding(horizontal = 12.dp),
+                    items = episodeState.seriesEpisodeList,
+                    onItemClick = onItemClick
+                )
             }
-            seriesCardItems(
-                modifier = modifier.padding(horizontal = 12.dp),
-                items = episodeState.seriesEpisodeList,
-                onItemClick = onItemClick
-            )
         }
     }
 }

@@ -29,6 +29,7 @@ import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.login.navigation.navigateToLogin
 import kr.toongether.my.navigation.navigateToSetting
+import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -59,7 +60,8 @@ internal fun MyRoute(
         onClickLogin = navController::navigateToLogin,
         isLogin = accessToken.isNotBlank(),
         onClickSetting = navController::navigateToSetting,
-        userName = state.userInfo.name
+        userName = state.userInfo.name,
+        isLoading = state.isLoading
     )
 }
 
@@ -69,57 +71,61 @@ internal fun MyScreen(
     onClickLogin: () -> Unit,
     onClickSetting: () -> Unit,
     isLogin: Boolean,
-    userName: String
+    userName: String,
+    isLoading: Boolean
 ) {
-    if (isLogin.not()) {
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .background(Color.Black)
-                .statusBarsPadding()
-        ) {
-            ToongetherTopAppBar(
-                title = "로그인이 필요해요",
-                actionIcon = ToongetherIcons.Setting,
-                actionIconContentDescription = null,
-                onActionClick = onClickSetting
-            )
-
-            ToongetherButton(
-                modifier = modifier.align(Alignment.Center),
-                onClick = onClickLogin,
-                contentPadding = PaddingValues(horizontal = 48.dp, vertical = 12.dp),
-                color = Color.White,
-                shape = Shape.medium
+    if (isLoading) {
+        LoadingScreen()
+    } else {
+        if (isLogin.not()) {
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .statusBarsPadding()
             ) {
-                Text(
-                    text = "로그인하기",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                    fontFamily = pretendard,
-                    color = Color.Black
+                ToongetherTopAppBar(
+                    title = "로그인이 필요해요",
+                    actionIcon = ToongetherIcons.Setting,
+                    actionIconContentDescription = null,
+                    onActionClick = onClickSetting
+                )
+                ToongetherButton(
+                    modifier = modifier.align(Alignment.Center),
+                    onClick = onClickLogin,
+                    contentPadding = PaddingValues(horizontal = 48.dp, vertical = 12.dp),
+                    color = Color.White,
+                    shape = Shape.medium
+                ) {
+                    Text(
+                        text = "로그인하기",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        fontFamily = pretendard,
+                        color = Color.Black
+                    )
+                }
+            }
+        } else {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .statusBarsPadding()
+            ) {
+                ToongetherTopAppBar(
+                    title = "$userName 독자님",
+                    actionIcon = ToongetherIcons.Setting,
+                    actionIconContentDescription = null,
+                    onActionClick = onClickSetting
+                )
+
+                ToongetherScrollableTabRow(
+                    tabs = listOf("최근 본 웹툰"),
+                    selectedTabIndex = 0,
+                    onTabClick = { }
                 )
             }
-        }
-    } else {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(Color.Black)
-                .statusBarsPadding()
-        ) {
-            ToongetherTopAppBar(
-                title = "$userName 독자님",
-                actionIcon = ToongetherIcons.Setting,
-                actionIconContentDescription = null,
-                onActionClick = onClickSetting
-            )
-
-            ToongetherScrollableTabRow(
-                tabs = listOf("최근 본 웹툰"),
-                selectedTabIndex = 0,
-                onTabClick = { }
-            )
         }
     }
 }

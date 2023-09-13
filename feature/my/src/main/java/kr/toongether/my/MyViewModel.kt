@@ -35,15 +35,26 @@ class MyViewModel @Inject constructor(
     }
 
     fun getUser() = intent {
+        reduce {
+            state.copy(
+                isLoading = true
+            )
+        }
         getUserUseCase.invoke()
             .onSuccess {
                 reduce {
                     state.copy(
-                        userInfo = it
+                        userInfo = it,
+                        isLoading = false
                     )
                 }
             }.onFailure {
                 postSideEffect(MySideEffect.Toast(it.message!!))
+                reduce {
+                    state.copy(
+                        isLoading = false
+                    )
+                }
             }
     }
 }

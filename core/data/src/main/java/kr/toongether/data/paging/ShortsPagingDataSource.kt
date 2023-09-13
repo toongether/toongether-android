@@ -17,7 +17,7 @@ internal class ShortsPagingDataSource(
             LoadResult.Page(
                 data = response.shortsResponse,
                 prevKey = null,
-                nextKey = if (response.shortsResponse.isEmpty()) null else page.plus(1)
+                nextKey = if (response.hasMorePage) page.plus(1) else null
             )
         } catch (e: IOException) {
             LoadResult.Error(e)
