@@ -37,10 +37,8 @@ class LoginViewModel @Inject constructor(
                     isLoading = false
                 )
             }
-            toongetherPreferences.setToken(
-                accessToken = it.accessToken,
-                refreshToken = it.refreshToken
-            )
+            toongetherPreferences.saveAccessToken(it.accessToken)
+            toongetherPreferences.saveRefreshToken(it.refreshToken)
             postSideEffect(LoginSideEffect.NavigateToMy)
         }.onFailure {
             postSideEffect(LoginSideEffect.Toast(it.message!!))
