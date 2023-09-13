@@ -57,7 +57,7 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
     context: Context,
-    scrollState: ScrollState,
+    scrollState: ScrollState
 ) {
     Column(
         modifier = modifier
@@ -274,7 +274,7 @@ internal fun HomeScreen(
             fontSize = 8.sp,
             fontFamily = pretendard,
             fontWeight = FontWeight.SemiBold,
-            color = Gray50,
+            color = Gray50
         )
 
         Spacer(modifier = modifier.height(20.dp))

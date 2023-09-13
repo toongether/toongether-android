@@ -2,7 +2,6 @@ package kr.toongether.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,7 +35,7 @@ fun ToongetherTopAppBar(
     actionIconContentDescription: String? = null,
     modifier: Modifier = Modifier,
     onActionClick: () -> Unit,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -91,7 +90,7 @@ fun ToongetherTopAppBar(
     subTitle: String? = null,
     modifier: Modifier = Modifier,
     contentColor: Color = Color.White,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -137,7 +136,7 @@ fun ToongetherTopAppBar(
     subTitle: String? = null,
     modifier: Modifier = Modifier,
     contentColor: Color = Color.White,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -179,7 +178,7 @@ fun ToongetherTopAppBar(
     modifier: Modifier = Modifier,
     onNavigationClick: () -> Unit,
     contentColor: Color = Color.White,
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     Box(
         modifier = modifier
@@ -238,7 +237,7 @@ fun ToongetherTopAppBarWithBack(
     modifier: Modifier = Modifier,
     title: String,
     backgroundColor: Color = Color.Black,
-    onClickBack: () -> Unit,
+    onClickBack: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -248,7 +247,6 @@ fun ToongetherTopAppBarWithBack(
             .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         Icon(
             modifier = modifier.clickable(
                 interactionSource = NoRippleInteractionSource(),
@@ -270,5 +268,4 @@ fun ToongetherTopAppBarWithBack(
             fontSize = 20.sp
         )
     }
-
 }

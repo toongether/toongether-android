@@ -11,7 +11,6 @@ import retrofit2.Retrofit
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,8 +38,7 @@ private interface RetrofitUserNetworkApi {
     ): Boolean
 
     @GET("user/info")
-    suspend fun getUser(
-    ): UserResponse
+    suspend fun getUser(): UserResponse
 }
 
 @Singleton

@@ -8,9 +8,9 @@ data class MyState(
         userId = "",
         email = "",
         name = "",
-        profileImage = "",
+        profileImage = ""
     ),
-    val isLogin: Boolean = false,
+    val isLogin: Boolean = false
 )
 
 sealed class MySideEffect {

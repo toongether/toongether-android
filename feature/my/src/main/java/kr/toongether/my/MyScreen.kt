@@ -2,13 +2,11 @@ package kr.toongether.my
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,11 +24,9 @@ import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.icon.ToongetherIcons
-import kr.toongether.designsystem.icon.icons.Series
 import kr.toongether.designsystem.icon.icons.Setting
 import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
-import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.login.navigation.navigateToLogin
 import kr.toongether.my.navigation.navigateToSetting
 import org.orbitmvi.orbit.compose.collectAsState
@@ -73,20 +69,20 @@ internal fun MyScreen(
     onClickLogin: () -> Unit,
     onClickSetting: () -> Unit,
     isLogin: Boolean,
-    userName: String,
+    userName: String
 ) {
     if (isLogin.not()) {
         Box(
             modifier = modifier
                 .fillMaxSize()
                 .background(Color.Black)
-                .statusBarsPadding(),
+                .statusBarsPadding()
         ) {
             ToongetherTopAppBar(
                 title = "로그인이 필요해요",
                 actionIcon = ToongetherIcons.Setting,
                 actionIconContentDescription = null,
-                onActionClick = onClickSetting,
+                onActionClick = onClickSetting
             )
 
             ToongetherButton(
@@ -116,13 +112,13 @@ internal fun MyScreen(
                 title = "$userName 독자님",
                 actionIcon = ToongetherIcons.Setting,
                 actionIconContentDescription = null,
-                onActionClick = onClickSetting,
+                onActionClick = onClickSetting
             )
 
             ToongetherScrollableTabRow(
                 tabs = listOf("최근 본 웹툰"),
                 selectedTabIndex = 0,
-                onTabClick = {  }
+                onTabClick = { }
             )
         }
     }

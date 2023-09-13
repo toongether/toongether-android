@@ -24,6 +24,5 @@ interface UserRepository {
         code: String
     ): Boolean
 
-    suspend fun getUser(
-    ): User
+    suspend fun getUser(): User
 }
