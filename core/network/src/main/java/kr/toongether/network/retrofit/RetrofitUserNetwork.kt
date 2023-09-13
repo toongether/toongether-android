@@ -38,9 +38,8 @@ private interface RetrofitUserNetworkApi {
         @Query("code") code: String
     ): Boolean
 
-    @GET("user/info/{id}")
+    @GET("user/info")
     suspend fun getUser(
-        @Path("id") id: Long
     ): UserResponse
 }
 
@@ -66,7 +65,7 @@ internal class RetrofitUserNetwork @Inject constructor(
         userApi.checkEmail(email, code)
     }
 
-    override suspend fun getUser(id: Long): UserResponse = networkHandler {
-        userApi.getUser(id)
+    override suspend fun getUser(): UserResponse = networkHandler {
+        userApi.getUser()
     }
 }

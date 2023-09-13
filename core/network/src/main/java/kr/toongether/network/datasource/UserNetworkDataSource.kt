@@ -25,6 +25,5 @@ interface UserNetworkDataSource {
     ): Boolean
 
     suspend fun getUser(
-        id: Long
     ): UserResponse
 }

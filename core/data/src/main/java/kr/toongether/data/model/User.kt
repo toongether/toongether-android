@@ -6,8 +6,7 @@ import kr.toongether.network.model.UserResponse
 fun UserResponse.asModel(): User = User(
     id = id,
     userId = userId,
-    password = password,
     email = email,
     name = name,
-    profileImage = profileImage
+    profileImage = profileImage ?: ""
 )

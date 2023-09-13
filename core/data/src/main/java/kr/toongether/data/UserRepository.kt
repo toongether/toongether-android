@@ -25,6 +25,5 @@ interface UserRepository {
     ): Boolean
 
     suspend fun getUser(
-        id: Long
     ): User
 }
