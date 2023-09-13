@@ -147,7 +147,7 @@ fun ShortsCard(
                             indication = null,
                             onClick = onClickLike
                         ),
-                    imageVector = if (isLiked) ToongetherIcons.OutlinedHeart else ToongetherIcons.FilledHeart,
+                    imageVector = if (isLiked.not()) ToongetherIcons.OutlinedHeart else ToongetherIcons.FilledHeart,
                     contentDescription = null,
                     tint = Color.White
                 )
