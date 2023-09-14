@@ -11,19 +11,18 @@ import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
 import kr.toongether.comic.ComicRoute
 
-const val ComicRoute = "comic_route/{seriesId}/{episodeId}/{author}"
+const val ComicRoute = "comic_route/{seriesId}/{episodeId}"
 
-fun NavController.navigateToComic(shortsId: Long, author: String, navOptions: NavOptions? = null) {
-    this.navigate("comic_route/-1/$shortsId/$author", navOptions)
+fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null) {
+    this.navigate("comic_route/-1/$shortsId", navOptions)
 }
 
 fun NavController.navigateToComic(
     seriesId: Long,
     episodeId: Long,
-    author: String,
     navOptions: NavOptions? = null
 ) {
-    this.navigate("comic_route/$seriesId/$episodeId/$author", navOptions)
+    this.navigate("comic_route/$seriesId/$episodeId", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -33,7 +32,6 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         arguments = listOf(
             navArgument("seriesId") { type = NavType.LongType },
             navArgument("episodeId") { type = NavType.LongType },
-            navArgument("author") { type = NavType.StringType }
         ),
         enterTransition = {
             slideIntoContainer(

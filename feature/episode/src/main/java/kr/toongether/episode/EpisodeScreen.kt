@@ -51,7 +51,6 @@ internal fun EpisodeRoute(
             navController.navigateToComic(
                 seriesId = id,
                 episodeId = it.episodeNumber.toLong(),
-                author = state.seriesEpisodeList.author.name
             )
         },
         onClickBack = navController::popBackStack,

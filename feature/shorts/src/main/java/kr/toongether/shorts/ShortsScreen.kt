@@ -39,7 +39,7 @@ internal fun ShortsRoute(
     ShortsScreen(
         modifier = modifier,
         shortsList = state.shortsList.collectAsLazyPagingItems(),
-        onItemClick = { navController.navigateToComic(shortsId = it.id, author = it.author.name) },
+        onItemClick = { navController.navigateToComic(shortsId = it.id) },
         onRefresh = viewModel::fetchPagingShorts,
         swipeRefreshState = swipeRefreshState
     )
