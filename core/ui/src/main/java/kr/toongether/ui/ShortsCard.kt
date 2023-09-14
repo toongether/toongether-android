@@ -161,7 +161,7 @@ fun ShortsCard(
                     fontWeight = FontWeight.Medium,
                     color = Color.White
                 )
-
+                /*
                 Spacer(modifier = modifier.width(8.dp))
 
                 Icon(
@@ -185,7 +185,7 @@ fun ShortsCard(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color.White
-                )
+                )*/
             }
         }
     }

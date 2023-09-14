@@ -263,7 +263,7 @@ internal fun ComicScreen(
                         fontWeight = FontWeight.Normal,
                         color = Color.White
                     )
-
+                    /*
                     Spacer(modifier = modifier.width(20.dp))
 
                     Icon(
@@ -287,7 +287,7 @@ internal fun ComicScreen(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
                         color = Color.White
-                    )
+                    ) */
 
                     Spacer(modifier = modifier.weight(1f))
 

@@ -96,7 +96,7 @@ fun EpisodeCard(
                     fontWeight = FontWeight.Normal,
                     color = Gray
                 )
-
+                /*
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Icon(
@@ -114,7 +114,7 @@ fun EpisodeCard(
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Normal,
                     color = Gray
-                )
+                )*/
             }
         }
     }
