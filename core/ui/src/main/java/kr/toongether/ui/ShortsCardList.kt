@@ -13,7 +13,7 @@ fun LazyListScope.shortsCardItems(
     items: LazyPagingItems<Shorts>,
     modifier: Modifier = Modifier,
     onItemClick: (shorts: Shorts) -> Unit,
-    onClickComment: () -> Unit,
+    /* onClickComment: () -> Unit, */
     onClickLike: () -> Unit
 ) = items(
     items = items,
@@ -30,10 +30,10 @@ fun LazyListScope.shortsCardItems(
             writer = shorts.author.name,
             createdDate = shorts.createdDate,
             profileImage = shorts.author.profileImage,
-            commentCount = shorts.commentCount,
+            /* commentCount = shorts.commentCount, */
             isLiked = shorts.liked,
             likeCount = shorts.likeCount,
-            onClickComment = onClickComment,
+            /* nClickComment = onClickComment, */
             onClickLike = onClickLike
         )
     }

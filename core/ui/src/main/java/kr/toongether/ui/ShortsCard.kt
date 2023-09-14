@@ -36,7 +36,6 @@ import kr.toongether.common.toRelativeDateTime
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.FilledHeart
 import kr.toongether.designsystem.icon.icons.OutlinedHeart
-import kr.toongether.designsystem.icon.icons.OutlinedMessage
 import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
@@ -51,9 +50,9 @@ fun ShortsCard(
     modifier: Modifier = Modifier,
     isLiked: Boolean,
     likeCount: Int,
-    commentCount: Int,
-    onClickLike: () -> Unit,
-    onClickComment: () -> Unit
+    /* commentCount: Int, */
+    onClickLike: () -> Unit
+    /* onClickComment: () -> Unit */
 ) {
     var width by remember { mutableStateOf(1.dp) }
     val localDensity = LocalDensity.current
@@ -161,7 +160,7 @@ fun ShortsCard(
                     fontWeight = FontWeight.Medium,
                     color = Color.White
                 )
-
+                /*
                 Spacer(modifier = modifier.width(8.dp))
 
                 Icon(
@@ -185,7 +184,7 @@ fun ShortsCard(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color.White
-                )
+                )*/
             }
         }
     }

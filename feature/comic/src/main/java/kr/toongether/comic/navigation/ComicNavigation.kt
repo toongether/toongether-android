@@ -11,19 +11,18 @@ import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
 import kr.toongether.comic.ComicRoute
 
-const val ComicRoute = "comic_route/{seriesId}/{episodeId}/{author}"
+const val ComicRoute = "comic_route/{seriesId}/{episodeId}"
 
-fun NavController.navigateToComic(shortsId: Long, author: String, navOptions: NavOptions? = null) {
-    this.navigate("comic_route/-1/$shortsId/$author", navOptions)
+fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null) {
+    this.navigate("comic_route/-1/$shortsId", navOptions)
 }
 
 fun NavController.navigateToComic(
     seriesId: Long,
     episodeId: Long,
-    author: String,
     navOptions: NavOptions? = null
 ) {
-    this.navigate("comic_route/$seriesId/$episodeId/$author", navOptions)
+    this.navigate("comic_route/$seriesId/$episodeId", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -32,28 +31,40 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         route = ComicRoute,
         arguments = listOf(
             navArgument("seriesId") { type = NavType.LongType },
-            navArgument("episodeId") { type = NavType.LongType },
-            navArgument("author") { type = NavType.StringType }
+            navArgument("episodeId") { type = NavType.LongType }
         ),
         enterTransition = {
-            slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (initialState.destination.route) {
+                "episode_route/{id}" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                "shorts_route" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         },
 
         exitTransition = {
-            slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (targetState.destination.route) {
+                "episode_route/{id}" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                "shorts_route" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         }
     ) {
         ComicRoute(
             navController = navController,
             seriesId = it.arguments?.getLong("seriesId") ?: 0L,
-            episodeId = it.arguments?.getLong("episodeId") ?: 0L,
-            writer = it.arguments?.getString("author") ?: ""
+            episodeId = it.arguments?.getLong("episodeId") ?: 0L
         )
     }
 }

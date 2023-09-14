@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -240,15 +241,16 @@ fun ToongetherTopAppBarWithBack(
     onClickBack: () -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(50.dp)
             .background(backgroundColor)
             .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Spacer(modifier = Modifier.width(10.dp))
         Icon(
-            modifier = modifier.clickable(
+            modifier = Modifier.clickable(
                 interactionSource = NoRippleInteractionSource(),
                 indication = null,
                 onClick = onClickBack
@@ -258,7 +260,7 @@ fun ToongetherTopAppBarWithBack(
             tint = Color.White
         )
 
-        Spacer(modifier = modifier.size(20.dp))
+        Spacer(modifier = Modifier.size(20.dp))
 
         Text(
             text = title,

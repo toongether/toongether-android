@@ -30,6 +30,6 @@ class AuthAuthenticator @Inject constructor(
 
     private fun newRequestWithToken(token: String, request: Request): Request =
         request.newBuilder()
-            .header(AUTHORIZATION, token)
+            .header(AUTHORIZATION, "Bearer $token")
             .build()
 }

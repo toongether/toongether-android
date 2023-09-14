@@ -29,7 +29,7 @@ class AuthInterceptor @Inject constructor(
         }
 
         val request = chain.request().newBuilder()
-            .header(AUTHORIZATION, "Bearer $token")
+            .apply { if (token.isNotBlank()) header(AUTHORIZATION, "Bearer $token") }
             .build()
 
         val response = chain.proceed(request)

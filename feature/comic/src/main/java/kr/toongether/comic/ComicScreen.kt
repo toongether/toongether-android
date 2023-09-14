@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +14,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,16 +38,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import coil.compose.AsyncImage
+import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.component.ToongetherScrollbar
-import kr.toongether.designsystem.component.ToongetherTopAppBar
+import kr.toongether.designsystem.component.ToongetherTopAppBarWithBack
 import kr.toongether.designsystem.icon.ToongetherIcons
-import kr.toongether.designsystem.icon.icons.Back
+import kr.toongether.designsystem.icon.icons.FilledHeart
+import kr.toongether.designsystem.icon.icons.LeftArrow
+import kr.toongether.designsystem.icon.icons.OutlinedHeart
+import kr.toongether.designsystem.icon.icons.RightArrow
+import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.TransparentBlack
+import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import org.orbitmvi.orbit.compose.collectAsState
 import java.time.LocalTime
@@ -50,7 +66,6 @@ import kotlin.concurrent.timer
 internal fun ComicRoute(
     episodeId: Long,
     seriesId: Long,
-    writer: String,
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: ComicViewModel = hiltViewModel()
@@ -94,7 +109,6 @@ internal fun ComicRoute(
     ComicScreen(
         modifier = modifier,
         lazyListState = lazyListState,
-        writer = writer,
         onClickBack = navController::popBackStack,
         comicState = comicState,
         onClick = ::showTabs,
@@ -103,7 +117,28 @@ internal fun ComicRoute(
             isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
                 lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
                 lazyListState.layoutInfo.totalItemsCount - 1
-        }
+        },
+        onClickLike = { },
+        /* onClickComment = { }, */
+        liked = comicState.comic.liked,
+        likeCount = comicState.comic.likeCount,
+        /* commentCount = comicState.comic.commentCount, */
+        onClickAfter = {
+            navController.navigateToComic(
+                seriesId = seriesId,
+                episodeId = comicState.comic.nextEpisode!!,
+                navOptions { this.popUpTo(kr.toongether.comic.navigation.ComicRoute) { inclusive = true } }
+            )
+        },
+        onClickBefore = {
+            navController.navigateToComic(
+                seriesId = seriesId,
+                episodeId = comicState.comic.beforeEpisode!!,
+                navOptions { this.popUpTo(kr.toongether.comic.navigation.ComicRoute) { inclusive = true } }
+            )
+        },
+        isNext = comicState.comic.nextEpisode != null,
+        isBefore = comicState.comic.beforeEpisode != null
     )
 }
 
@@ -111,12 +146,20 @@ internal fun ComicRoute(
 internal fun ComicScreen(
     modifier: Modifier = Modifier,
     lazyListState: LazyListState,
-    writer: String,
     onClickBack: () -> Unit,
     comicState: ComicState,
     onClick: () -> Unit,
     isShowTabs: Boolean,
-    recomposition: () -> Unit
+    recomposition: () -> Unit,
+    onClickLike: () -> Unit,
+    /* onClickComment: () -> Unit, */
+    liked: Boolean,
+    likeCount: Int,
+    /* commentCount: Int, */
+    onClickBefore: () -> Unit,
+    onClickAfter: () -> Unit,
+    isNext: Boolean,
+    isBefore: Boolean
 ) {
     val minHeight: Dp
     val lastHeight: Dp
@@ -143,8 +186,8 @@ internal fun ComicScreen(
         ) {
             ToongetherScrollbar(
                 modifier = modifier
-                    .padding(top = 90.dp, bottom = 35.dp)
-                    .navigationBarsPadding(),
+                    .padding(top = 50.dp, bottom = 35.dp)
+                    .systemBarsPadding(),
                 listState = lazyListState,
                 isShow = isShowTabs
             ) {
@@ -171,15 +214,12 @@ internal fun ComicScreen(
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
-                ToongetherTopAppBar(
+                ToongetherTopAppBarWithBack(
                     modifier = modifier
-                        .height(90.dp)
                         .background(TransparentBlack)
                         .statusBarsPadding(),
                     title = comicState.comic.title,
-                    subTitle = writer,
-                    navigationIcon = ToongetherIcons.Back,
-                    onNavigationClick = onClickBack,
+                    onClickBack = onClickBack,
                     backgroundColor = Color.Transparent
                 )
             }
@@ -189,17 +229,138 @@ internal fun ComicScreen(
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
-                Surface(
+                Row(
                     modifier = modifier
+                        .fillMaxWidth()
+                        .wrapContentSize()
                         .background(TransparentBlack)
-                        .navigationBarsPadding(),
-                    color = Color.Transparent
+                        .navigationBarsPadding()
+                        .padding(vertical = 8.dp)
                 ) {
-                    Spacer(
+                    Spacer(modifier = modifier.width(16.dp))
+
+                    Icon(
                         modifier = modifier
-                            .fillMaxWidth()
-                            .height(35.dp)
+                            .size(20.dp)
+                            .clickable(
+                                interactionSource = NoRippleInteractionSource(),
+                                indication = null,
+                                onClick = onClickLike
+                            ),
+                        imageVector = if (liked.not()) ToongetherIcons.OutlinedHeart else ToongetherIcons.FilledHeart,
+                        contentDescription = null,
+                        tint = if (liked.not()) Color.White else Red
                     )
+
+                    Spacer(modifier = modifier.width(5.dp))
+
+                    Text(
+                        text = "$likeCount",
+                        fontFamily = pretendard,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White
+                    )
+                    /*
+                    Spacer(modifier = modifier.width(20.dp))
+
+                    Icon(
+                        modifier = modifier
+                            .size(20.dp)
+                            .clickable(
+                                interactionSource = NoRippleInteractionSource(),
+                                indication = null,
+                                onClick = onClickComment
+                            ),
+                        imageVector = ToongetherIcons.OutlinedMessage,
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+
+                    Spacer(modifier = modifier.width(5.dp))
+
+                    Text(
+                        text = "$commentCount",
+                        fontFamily = pretendard,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White
+                    ) */
+
+                    Spacer(modifier = modifier.weight(1f))
+
+                    if (isBefore) {
+                        Row(
+                            modifier = modifier
+                                .clickable(
+                                    interactionSource = NoRippleInteractionSource(),
+                                    indication = null,
+                                    onClick = onClickBefore
+                                ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                modifier = modifier.size(8.dp, 13.dp),
+                                imageVector = ToongetherIcons.LeftArrow,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+
+                            Spacer(modifier = modifier.width(5.dp))
+
+                            Text(
+                                text = "이전 화",
+                                fontFamily = pretendard,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White
+                            )
+                        }
+                    }
+
+                    if (isNext && isBefore) {
+                        Spacer(modifier = modifier.width(12.dp))
+
+                        Text(
+                            text = "|",
+                            fontFamily = pretendard,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.White
+                        )
+
+                        Spacer(modifier = modifier.width(12.dp))
+                    }
+
+                    if (isNext) {
+                        Row(
+                            modifier = modifier
+                                .clickable(
+                                    interactionSource = NoRippleInteractionSource(),
+                                    indication = null,
+                                    onClick = onClickAfter
+                                ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "다음 화",
+                                fontFamily = pretendard,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White
+                            )
+
+                            Spacer(modifier = modifier.width(5.dp))
+
+                            Icon(
+                                modifier = modifier.size(8.dp, 13.dp),
+                                imageVector = ToongetherIcons.RightArrow,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                        }
+                    }
+                    Spacer(modifier = modifier.width(16.dp))
                 }
             }
         }
