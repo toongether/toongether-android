@@ -34,17 +34,31 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
             navArgument("episodeId") { type = NavType.LongType },
         ),
         enterTransition = {
-            slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (initialState.destination.route) {
+                "episode_route/{id}" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                "shorts_route" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         },
 
         exitTransition = {
-            slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (targetState.destination.route) {
+                "episode_route/{id}" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                "shorts_route" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         }
     ) {
         ComicRoute(

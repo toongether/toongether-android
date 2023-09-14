@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import coil.compose.AsyncImage
 import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.component.ToongetherScrollbar
@@ -58,6 +59,7 @@ import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
+import kr.toongether.model.Comic
 import org.orbitmvi.orbit.compose.collectAsState
 import java.time.LocalTime
 import kotlin.concurrent.timer
@@ -126,13 +128,15 @@ internal fun ComicRoute(
         onClickAfter = {
             navController.navigateToComic(
                 seriesId = seriesId,
-                episodeId = comicState.comic.nextEpisode!!
+                episodeId = comicState.comic.nextEpisode!!,
+                navOptions { this.popUpTo(kr.toongether.comic.navigation.ComicRoute) { inclusive = true } }
             )
         },
         onClickBefore = {
             navController.navigateToComic(
                 seriesId = seriesId,
-                episodeId = comicState.comic.beforeEpisode!!
+                episodeId = comicState.comic.beforeEpisode!!,
+                navOptions { this.popUpTo(kr.toongether.comic.navigation.ComicRoute) { inclusive = true } }
             )
         },
         isNext = comicState.comic.nextEpisode != null,
@@ -233,7 +237,7 @@ internal fun ComicScreen(
                         .wrapContentSize()
                         .background(TransparentBlack)
                         .navigationBarsPadding()
-                        .padding(top = 8.dp),
+                        .padding(vertical = 8.dp),
                 ) {
                     Spacer(modifier = modifier.width(16.dp))
 
@@ -255,8 +259,8 @@ internal fun ComicScreen(
                     Text(
                         text = "$likeCount",
                         fontFamily = pretendard,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
                         color = Color.White
                     )
 
@@ -280,8 +284,8 @@ internal fun ComicScreen(
                     Text(
                         text = "$commentCount",
                         fontFamily = pretendard,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
                         color = Color.White
                     )
 
