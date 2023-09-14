@@ -1,6 +1,5 @@
 package kr.toongether.network.interceptor
 
-import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -18,7 +17,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AuthInterceptor @Inject constructor(
-    private val toongetherPreferences: ToongetherPreferencesDataSource,
+    private val toongetherPreferences: ToongetherPreferencesDataSource
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val token: String = runBlocking {

@@ -24,7 +24,6 @@ import kotlinx.datetime.LocalDateTime
 import kr.toongether.common.toSimpleDate
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.FilledHeart
-import kr.toongether.designsystem.icon.icons.FilledMessage
 import kr.toongether.designsystem.theme.Gray
 import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
@@ -35,8 +34,8 @@ fun EpisodeCard(
     thumbnailImage: String,
     title: String,
     createdDate: LocalDateTime,
-    likeCount: Int,
-    commentCount: Int
+    likeCount: Int
+    /* commentCount: Int */
 ) {
     Row(
         modifier = modifier.fillMaxWidth()

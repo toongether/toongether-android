@@ -95,8 +95,8 @@ internal fun ShortsScreen(
                             shortsCardItems(
                                 items = shortsList,
                                 onItemClick = onItemClick,
-                                onClickLike = {},
-                                onClickComment = {}
+                                onClickLike = {}
+                                /* onClickComment = {} */
                             )
                         }
                     }

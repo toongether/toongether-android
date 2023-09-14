@@ -50,7 +50,7 @@ internal fun EpisodeRoute(
         onItemClick = {
             navController.navigateToComic(
                 seriesId = id,
-                episodeId = it.episodeNumber.toLong(),
+                episodeId = it.episodeNumber.toLong()
             )
         },
         onClickBack = navController::popBackStack,

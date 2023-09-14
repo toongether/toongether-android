@@ -53,13 +53,11 @@ import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.FilledHeart
 import kr.toongether.designsystem.icon.icons.LeftArrow
 import kr.toongether.designsystem.icon.icons.OutlinedHeart
-import kr.toongether.designsystem.icon.icons.OutlinedMessage
 import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.model.Comic
 import org.orbitmvi.orbit.compose.collectAsState
 import java.time.LocalTime
 import kotlin.concurrent.timer
@@ -70,7 +68,7 @@ internal fun ComicRoute(
     seriesId: Long,
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: ComicViewModel = hiltViewModel(),
+    viewModel: ComicViewModel = hiltViewModel()
 ) {
     val comicState by viewModel.collectAsState()
     val lazyListState = rememberLazyListState()
@@ -117,14 +115,14 @@ internal fun ComicRoute(
         isShowTabs = isShowTabs || isTopOrBottom,
         recomposition = {
             isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
-                    lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                    lazyListState.layoutInfo.totalItemsCount - 1
+                lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                lazyListState.layoutInfo.totalItemsCount - 1
         },
         onClickLike = { },
-        onClickComment = { },
+        /* onClickComment = { }, */
         liked = comicState.comic.liked,
         likeCount = comicState.comic.likeCount,
-        commentCount = comicState.comic.commentCount,
+        /* commentCount = comicState.comic.commentCount, */
         onClickAfter = {
             navController.navigateToComic(
                 seriesId = seriesId,
@@ -140,7 +138,7 @@ internal fun ComicRoute(
             )
         },
         isNext = comicState.comic.nextEpisode != null,
-        isBefore = comicState.comic.beforeEpisode != null,
+        isBefore = comicState.comic.beforeEpisode != null
     )
 }
 
@@ -154,14 +152,14 @@ internal fun ComicScreen(
     isShowTabs: Boolean,
     recomposition: () -> Unit,
     onClickLike: () -> Unit,
-    onClickComment: () -> Unit,
+    /* onClickComment: () -> Unit, */
     liked: Boolean,
     likeCount: Int,
-    commentCount: Int,
+    /* commentCount: Int, */
     onClickBefore: () -> Unit,
     onClickAfter: () -> Unit,
     isNext: Boolean,
-    isBefore: Boolean,
+    isBefore: Boolean
 ) {
     val minHeight: Dp
     val lastHeight: Dp
@@ -237,7 +235,7 @@ internal fun ComicScreen(
                         .wrapContentSize()
                         .background(TransparentBlack)
                         .navigationBarsPadding()
-                        .padding(vertical = 8.dp),
+                        .padding(vertical = 8.dp)
                 ) {
                     Spacer(modifier = modifier.width(16.dp))
 
@@ -301,7 +299,6 @@ internal fun ComicScreen(
                                 ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-
                             Icon(
                                 modifier = modifier.size(8.dp, 13.dp),
                                 imageVector = ToongetherIcons.LeftArrow,
@@ -318,7 +315,6 @@ internal fun ComicScreen(
                                 fontWeight = FontWeight.Medium,
                                 color = Color.White
                             )
-
                         }
                     }
 
@@ -375,7 +371,7 @@ internal fun ComicScreen(
 private fun ComicItem(
     modifier: Modifier = Modifier,
     height: Dp,
-    imageUrl: String,
+    imageUrl: String
 ) {
     Box(
         modifier = modifier
