@@ -1,5 +1,6 @@
 package kr.toongether.designsystem.component
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
@@ -27,6 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import kotlinx.coroutines.launch
@@ -39,7 +43,6 @@ import kotlin.math.floor
 fun ToongetherScrollbar(
     modifier: Modifier = Modifier,
     listState: LazyListState,
-    thumbMinHeight: Float = 0.1f,
     isShow: Boolean,
     content: @Composable () -> Unit
 ) {
@@ -48,7 +51,6 @@ fun ToongetherScrollbar(
         InternalToongetherScrollbar(
             modifier = modifier,
             listState = listState,
-            thumbMinHeight = thumbMinHeight,
             isShow = isShow
         )
     }
@@ -58,12 +60,15 @@ fun ToongetherScrollbar(
 internal fun InternalToongetherScrollbar(
     listState: LazyListState,
     modifier: Modifier = Modifier,
-    thumbMinHeight: Float = 0.1f,
     isShow: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
     var isSelected by remember { mutableStateOf(false) }
     var dragOffset by remember { mutableStateOf(0f) }
+
+    val configuration = LocalConfiguration.current
+
+    val thumbMinHeight = (45.0 / configuration.screenHeightDp).toFloat()
 
     val realFirstVisibleItem by remember {
         derivedStateOf {
@@ -175,13 +180,14 @@ internal fun InternalToongetherScrollbar(
             ) {
                 Box(
                     modifier = Modifier
+                        .size(28.dp, 40.dp)
                         .background(TransparentBlack80)
                         .constrainAs(box) {
                             end.linkTo(parent.end)
                         }
                 ) {
                     Icon(
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(horizontal = 8.23.dp, vertical = 8.dp),
                         imageVector = ToongetherIcons.ScrollIndicator,
                         contentDescription = null,
                         tint = Color.White

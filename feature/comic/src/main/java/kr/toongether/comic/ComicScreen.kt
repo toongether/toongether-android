@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -37,9 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import kr.toongether.designsystem.component.ToongetherScrollbar
-import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.designsystem.icon.ToongetherIcons
-import kr.toongether.designsystem.icon.icons.Back
+import kr.toongether.designsystem.component.ToongetherTopAppBarWithBack
 import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import org.orbitmvi.orbit.compose.collectAsState
@@ -50,7 +49,6 @@ import kotlin.concurrent.timer
 internal fun ComicRoute(
     episodeId: Long,
     seriesId: Long,
-    writer: String,
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: ComicViewModel = hiltViewModel()
@@ -94,7 +92,6 @@ internal fun ComicRoute(
     ComicScreen(
         modifier = modifier,
         lazyListState = lazyListState,
-        writer = writer,
         onClickBack = navController::popBackStack,
         comicState = comicState,
         onClick = ::showTabs,
@@ -111,7 +108,6 @@ internal fun ComicRoute(
 internal fun ComicScreen(
     modifier: Modifier = Modifier,
     lazyListState: LazyListState,
-    writer: String,
     onClickBack: () -> Unit,
     comicState: ComicState,
     onClick: () -> Unit,
@@ -143,8 +139,8 @@ internal fun ComicScreen(
         ) {
             ToongetherScrollbar(
                 modifier = modifier
-                    .padding(top = 90.dp, bottom = 35.dp)
-                    .navigationBarsPadding(),
+                    .padding(top = 50.dp, bottom = 35.dp)
+                    .systemBarsPadding(),
                 listState = lazyListState,
                 isShow = isShowTabs
             ) {
@@ -171,15 +167,12 @@ internal fun ComicScreen(
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
-                ToongetherTopAppBar(
+                ToongetherTopAppBarWithBack(
                     modifier = modifier
-                        .height(90.dp)
                         .background(TransparentBlack)
                         .statusBarsPadding(),
                     title = comicState.comic.title,
-                    subTitle = writer,
-                    navigationIcon = ToongetherIcons.Back,
-                    onNavigationClick = onClickBack,
+                    onClickBack = onClickBack,
                     backgroundColor = Color.Transparent
                 )
             }

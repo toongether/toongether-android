@@ -53,7 +53,6 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
             navController = navController,
             seriesId = it.arguments?.getLong("seriesId") ?: 0L,
             episodeId = it.arguments?.getLong("episodeId") ?: 0L,
-            writer = it.arguments?.getString("author") ?: ""
         )
     }
 }
