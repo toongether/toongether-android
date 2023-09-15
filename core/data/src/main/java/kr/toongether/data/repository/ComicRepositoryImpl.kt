@@ -73,4 +73,10 @@ internal class ComicRepositoryImpl @Inject constructor(
                 pagingData.asModel()
             }
         }
+
+    override suspend fun likeShorts(shortsId: Long): Boolean =
+        network.likeShorts(shortsId)
+
+    override suspend fun likeSeries(seriesId: Long): Boolean =
+        network.likeSeries(seriesId)
 }

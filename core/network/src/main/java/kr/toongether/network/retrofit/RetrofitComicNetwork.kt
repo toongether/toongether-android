@@ -10,6 +10,7 @@ import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.ShortsListResponse
 import retrofit2.Retrofit
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
@@ -43,6 +44,16 @@ private interface RetrofitComicNetworkApi {
         @Path("seriesId") seriesId: Long,
         @Path("episodeId") episodeId: Long
     ): ComicResponse
+
+    @POST("like/shorts/{shortsId}")
+    suspend fun likeShorts(
+        @Path("shortsId") shortsId: Long
+    ): Boolean
+
+    @POST("like/series/{seriesId}")
+    suspend fun likeSeries(
+        @Path("seriesId") seriesId: Long
+    ): Boolean
 }
 
 @Singleton
@@ -76,5 +87,13 @@ internal class RetrofitComicNetwork @Inject constructor(
         episodeId: Long
     ): ComicResponse = networkHandler {
         comicApi.getSeriesEpisode(seriesId, episodeId)
+    }
+
+    override suspend fun likeShorts(shortsId: Long): Boolean = networkHandler {
+        comicApi.likeShorts(shortsId)
+    }
+
+    override suspend fun likeSeries(seriesId: Long): Boolean = networkHandler {
+        comicApi.likeSeries(seriesId)
     }
 }

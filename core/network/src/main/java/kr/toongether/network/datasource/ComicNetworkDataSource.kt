@@ -30,4 +30,12 @@ interface ComicNetworkDataSource {
         seriesId: Long,
         episodeId: Long
     ): ComicResponse
+
+    suspend fun likeShorts(
+        shortsId: Long
+    ): Boolean
+
+    suspend fun likeSeries(
+        seriesId: Long
+    ): Boolean
 }
