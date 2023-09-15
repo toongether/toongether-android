@@ -58,7 +58,6 @@ import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 import java.time.LocalTime
 import kotlin.concurrent.timer
 
@@ -68,7 +67,7 @@ internal fun ComicRoute(
     seriesId: Long,
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: ComicViewModel = hiltViewModel(),
+    viewModel: ComicViewModel = hiltViewModel()
 ) {
     val comicState by viewModel.collectAsState()
     val lazyListState = rememberLazyListState()
@@ -115,8 +114,8 @@ internal fun ComicRoute(
         isShowTabs = isShowTabs || isTopOrBottom,
         recomposition = {
             isTopOrBottom = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index == 0 ||
-                    lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                    lazyListState.layoutInfo.totalItemsCount - 1
+                lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                lazyListState.layoutInfo.totalItemsCount - 1
         },
         onClickLike = {
             if (seriesId == -1L) {
@@ -173,7 +172,7 @@ internal fun ComicScreen(
     onClickBefore: () -> Unit,
     onClickAfter: () -> Unit,
     isNext: Boolean,
-    isBefore: Boolean,
+    isBefore: Boolean
 ) {
     val minHeight: Dp
     val lastHeight: Dp
@@ -385,7 +384,7 @@ internal fun ComicScreen(
 private fun ComicItem(
     modifier: Modifier = Modifier,
     height: Dp,
-    imageUrl: String,
+    imageUrl: String
 ) {
     Box(
         modifier = modifier

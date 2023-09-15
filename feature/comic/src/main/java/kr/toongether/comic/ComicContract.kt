@@ -25,7 +25,7 @@ data class ComicState(
     val error: Throwable? = null,
     val likeCount: Int = comic.likeCount,
     val liked: Boolean = comic.liked,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = false
 )
 
 sealed class ComicSideEffect {

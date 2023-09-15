@@ -18,7 +18,7 @@ class ComicViewModel @Inject constructor(
     private val getShortsEpisodeUseCase: GetShortsEpisodeUseCase,
     private val getSeriesEpisodeUseCase: GetSeriesEpisodeUseCase,
     private val likeShortsUseCase: LikeShortsUseCase,
-    private val likeSeriesUseCase: LikeSeriesUseCase,
+    private val likeSeriesUseCase: LikeSeriesUseCase
 ) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
 
     override val container = container<ComicState, ComicSideEffect>(ComicState())

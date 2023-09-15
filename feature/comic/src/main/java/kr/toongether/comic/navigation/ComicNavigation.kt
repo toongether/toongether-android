@@ -31,7 +31,7 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         route = ComicRoute,
         arguments = listOf(
             navArgument("seriesId") { type = NavType.LongType },
-            navArgument("episodeNumber") { type = NavType.LongType },
+            navArgument("episodeNumber") { type = NavType.LongType }
         ),
         enterTransition = {
             when (initialState.destination.route) {
@@ -64,7 +64,7 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         ComicRoute(
             navController = navController,
             seriesId = it.arguments?.getLong("seriesId") ?: 0L,
-            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L,
+            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L
         )
     }
 }

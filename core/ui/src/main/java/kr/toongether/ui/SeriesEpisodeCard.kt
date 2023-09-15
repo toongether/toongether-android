@@ -36,7 +36,7 @@ fun EpisodeCard(
     title: String,
     createdDate: LocalDateTime,
     likeCount: Int,
-    liked: Boolean,
+    liked: Boolean
     /* commentCount: Int */
 ) {
     Row(
