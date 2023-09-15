@@ -36,6 +36,7 @@ import kr.toongether.common.toRelativeDateTime
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.FilledHeart
 import kr.toongether.designsystem.icon.icons.OutlinedHeart
+import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
@@ -148,7 +149,7 @@ fun ShortsCard(
                         ),
                     imageVector = if (isLiked.not()) ToongetherIcons.OutlinedHeart else ToongetherIcons.FilledHeart,
                     contentDescription = null,
-                    tint = Color.White
+                    tint = if (isLiked.not()) Color.White else Red
                 )
 
                 Spacer(modifier = modifier.width(5.dp))

@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
 import kr.toongether.comic.ComicRoute
 
-const val ComicRoute = "comic_route/{seriesId}/{episodeId}"
+const val ComicRoute = "comic_route/{seriesId}/{episodeNumber}"
 
 fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null) {
     this.navigate("comic_route/-1/$shortsId", navOptions)
@@ -19,10 +19,10 @@ fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null
 
 fun NavController.navigateToComic(
     seriesId: Long,
-    episodeId: Long,
+    episodeNumber: Long,
     navOptions: NavOptions? = null
 ) {
-    this.navigate("comic_route/$seriesId/$episodeId", navOptions)
+    this.navigate("comic_route/$seriesId/$episodeNumber", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -31,7 +31,7 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         route = ComicRoute,
         arguments = listOf(
             navArgument("seriesId") { type = NavType.LongType },
-            navArgument("episodeId") { type = NavType.LongType }
+            navArgument("episodeNumber") { type = NavType.LongType },
         ),
         enterTransition = {
             when (initialState.destination.route) {
@@ -64,7 +64,7 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         ComicRoute(
             navController = navController,
             seriesId = it.arguments?.getLong("seriesId") ?: 0L,
-            episodeId = it.arguments?.getLong("episodeId") ?: 0L
+            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L,
         )
     }
 }
