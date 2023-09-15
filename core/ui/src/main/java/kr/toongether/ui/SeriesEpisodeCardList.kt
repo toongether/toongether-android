@@ -26,7 +26,8 @@ fun LazyListScope.seriesCardItems(
             thumbnailImage = episode.thumbnail,
             title = episode.title,
             createdDate = episode.createdDate,
-            likeCount = episode.likeCount
+            likeCount = episode.likeCount,
+            liked = episode.liked
             /* commentCount = episode.commentCount */
         )
     }

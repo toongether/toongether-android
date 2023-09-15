@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -64,7 +63,7 @@ import kotlin.concurrent.timer
 
 @Composable
 internal fun ComicRoute(
-    episodeId: Long,
+    episodeNumber: Long,
     seriesId: Long,
     navController: NavController,
     modifier: Modifier = Modifier,
@@ -99,9 +98,9 @@ internal fun ComicRoute(
 
     LaunchedEffect(Unit) {
         if (seriesId == -1L) {
-            viewModel.getComic(episodeId)
+            viewModel.getComic(episodeNumber)
         } else {
-            viewModel.getComic(seriesId = seriesId, episodeId = episodeId)
+            viewModel.getComic(seriesId = seriesId, episodeId = episodeNumber)
         }
         showTabs()
     }
@@ -118,23 +117,37 @@ internal fun ComicRoute(
                 lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
                 lazyListState.layoutInfo.totalItemsCount - 1
         },
-        onClickLike = { },
+        onClickLike = {
+            if (seriesId == -1L) {
+                viewModel.likeShorts(episodeNumber)
+            } else {
+                viewModel.likeSeries(comicState.comic.id)
+            }
+        },
         /* onClickComment = { }, */
-        liked = comicState.comic.liked,
-        likeCount = comicState.comic.likeCount,
+        liked = comicState.liked,
+        likeCount = comicState.likeCount,
         /* commentCount = comicState.comic.commentCount, */
         onClickAfter = {
             navController.navigateToComic(
                 seriesId = seriesId,
-                episodeId = comicState.comic.nextEpisode!!,
-                navOptions { this.popUpTo(kr.toongether.comic.navigation.ComicRoute) { inclusive = true } }
+                episodeNumber = comicState.comic.nextEpisode!!,
+                navOptions {
+                    this.popUpTo(kr.toongether.comic.navigation.ComicRoute) {
+                        inclusive = true
+                    }
+                }
             )
         },
         onClickBefore = {
             navController.navigateToComic(
                 seriesId = seriesId,
-                episodeId = comicState.comic.beforeEpisode!!,
-                navOptions { this.popUpTo(kr.toongether.comic.navigation.ComicRoute) { inclusive = true } }
+                episodeNumber = comicState.comic.beforeEpisode!!,
+                navOptions {
+                    this.popUpTo(kr.toongether.comic.navigation.ComicRoute) {
+                        inclusive = true
+                    }
+                }
             )
         },
         isNext = comicState.comic.nextEpisode != null,

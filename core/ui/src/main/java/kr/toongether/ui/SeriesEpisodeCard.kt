@@ -25,6 +25,7 @@ import kr.toongether.common.toSimpleDate
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.FilledHeart
 import kr.toongether.designsystem.theme.Gray
+import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
 
@@ -34,7 +35,8 @@ fun EpisodeCard(
     thumbnailImage: String,
     title: String,
     createdDate: LocalDateTime,
-    likeCount: Int
+    likeCount: Int,
+    liked: Boolean
     /* commentCount: Int */
 ) {
     Row(
@@ -83,7 +85,7 @@ fun EpisodeCard(
                     modifier = Modifier.size(14.dp),
                     imageVector = ToongetherIcons.FilledHeart,
                     contentDescription = null,
-                    tint = Gray
+                    tint = if (liked.not()) Gray else Red
                 )
 
                 Spacer(modifier = Modifier.width(3.dp))

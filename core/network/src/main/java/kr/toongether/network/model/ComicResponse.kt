@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ComicResponse(
+    @SerialName("id")
+    val id: Long,
     @SerialName("title")
     val title: String,
     @SerialName("thumbnail")

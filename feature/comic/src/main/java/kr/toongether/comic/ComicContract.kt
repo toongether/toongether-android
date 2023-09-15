@@ -7,6 +7,7 @@ import kr.toongether.model.Comic
 
 data class ComicState(
     val comic: Comic = Comic(
+        id = 0L,
         title = "",
         thumbnail = "",
         imageUrl = emptyList(),
@@ -22,6 +23,8 @@ data class ComicState(
         liked = false
     ),
     val error: Throwable? = null,
+    val likeCount: Int = comic.likeCount,
+    val liked: Boolean = comic.liked,
     val isLoading: Boolean = false
 )
 

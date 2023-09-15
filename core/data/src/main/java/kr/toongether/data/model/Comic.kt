@@ -6,6 +6,7 @@ import kr.toongether.model.Comic
 import kr.toongether.network.model.ComicResponse
 
 fun ComicResponse.asModel(): Comic = Comic(
+    id = id,
     title = title,
     thumbnail = thumbnail,
     imageUrl = imageUrl,
