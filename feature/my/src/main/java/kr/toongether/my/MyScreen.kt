@@ -120,11 +120,11 @@ internal fun MyScreen(
                     onActionClick = onClickSetting
                 )
 
-                ToongetherScrollableTabRow(
+                /* ToongetherScrollableTabRow(
                     tabs = listOf("최근 본 웹툰"),
                     selectedTabIndex = 0,
                     onTabClick = { }
-                )
+                ) */
             }
         }
     }

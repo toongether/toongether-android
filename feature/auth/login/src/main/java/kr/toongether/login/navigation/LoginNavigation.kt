@@ -20,16 +20,22 @@ fun NavGraphBuilder.loginScreen(navController: NavController) {
     composable(
         route = LoginRoute,
         enterTransition = {
-            slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (initialState.destination.route) {
+                "my_route" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         },
         exitTransition = {
-            slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (targetState.destination.route) {
+                "my_route" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         }
     ) {
         LoginRoute(navController = navController)
