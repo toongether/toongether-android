@@ -1,90 +1,129 @@
 package kr.toongether.my
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTopAppBar
+import kr.toongether.designsystem.icon.ToongetherIcons
+import kr.toongether.designsystem.icon.icons.Setting
+import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.login.navigation.navigateToLogin
+import kr.toongether.my.navigation.navigateToSetting
+import kr.toongether.ui.LoadingScreen
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun MyRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current
+    navController: NavController,
+    viewModel: MyViewModel = hiltViewModel()
 ) {
+    val accessToken by viewModel.accessToken.collectAsState()
+    val state by viewModel.collectAsState()
+
+    viewModel.collectSideEffect {
+        when (it) {
+            is MySideEffect.Toast -> Log.d("TOAST", it.text)
+            else -> {}
+        }
+    }
+
+    LaunchedEffect(accessToken) {
+        if (accessToken.isNotBlank()) {
+            viewModel.getUser()
+        }
+    }
+
     MyScreen(
         modifier = modifier,
-        context = context
+        onClickLogin = navController::navigateToLogin,
+        isLogin = accessToken.isNotBlank(),
+        onClickSetting = navController::navigateToSetting,
+        userName = state.userInfo.name,
+        isLoading = state.isLoading
     )
 }
 
 @Composable
 internal fun MyScreen(
     modifier: Modifier = Modifier,
-    context: Context
+    onClickLogin: () -> Unit,
+    onClickSetting: () -> Unit,
+    isLogin: Boolean,
+    userName: String,
+    isLoading: Boolean
 ) {
-    Surface(
-        modifier = modifier
-            .fillMaxSize(),
-        color = Color.Black
-    ) {
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-        ) {
-            ToongetherTopAppBar(
-                title = "마이 페이지",
-                subTitle = "준비 중"
-            )
-
-            Column(
+    if (isLoading) {
+        LoadingScreen()
+    } else {
+        if (isLogin.not()) {
+            Box(
                 modifier = modifier
-                    .align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .statusBarsPadding()
             ) {
-                Text(
-                    text = "아직 사용할 수 없어요.",
-                    fontFamily = pretendard,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                    color = Color.White
+                ToongetherTopAppBar(
+                    title = "로그인이 필요해요",
+                    actionIcon = ToongetherIcons.Setting,
+                    actionIconContentDescription = null,
+                    onActionClick = onClickSetting
                 )
-
-                Spacer(modifier = modifier.size(10.dp))
-
                 ToongetherButton(
-                    onClick = {
-                        context.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://toongether.kr/beta")
-                            )
-                        )
-                    }
+                    modifier = modifier.align(Alignment.Center),
+                    onClick = onClickLogin,
+                    contentPadding = PaddingValues(horizontal = 48.dp, vertical = 12.dp),
+                    color = Color.White,
+                    shape = Shape.medium
                 ) {
                     Text(
-                        text = "자세히 알아보기",
-                        fontFamily = pretendard,
+                        text = "로그인하기",
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
+                        fontFamily = pretendard,
                         color = Color.Black
                     )
                 }
+            }
+        } else {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .statusBarsPadding()
+            ) {
+                ToongetherTopAppBar(
+                    title = "$userName 독자님",
+                    actionIcon = ToongetherIcons.Setting,
+                    actionIconContentDescription = null,
+                    onActionClick = onClickSetting
+                )
+
+                /* ToongetherScrollableTabRow(
+                    tabs = listOf("최근 본 웹툰"),
+                    selectedTabIndex = 0,
+                    onTabClick = { }
+                ) */
             }
         }
     }

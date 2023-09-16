@@ -53,5 +53,13 @@ gradlePlugin {
             id = "toongether.kotlin.code"
             implementationClass = "KotlinCodeConventionPlugin"
         }
+        register("") {
+            id = "toongether.kotlin.code"
+            implementationClass = "KotlinCodeConventionPlugin"
+        }
+        register("androidFeature") {
+            id = "toongether.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
     }
 }

@@ -2,7 +2,10 @@ package kr.toongether.comic
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kr.toongether.domain.GetComicListUseCase
+import kr.toongether.domain.GetSeriesEpisodeUseCase
+import kr.toongether.domain.GetShortsEpisodeUseCase
+import kr.toongether.domain.LikeSeriesUseCase
+import kr.toongether.domain.LikeShortsUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -12,35 +15,89 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicViewModel @Inject constructor(
-    private val getComicListUseCase: GetComicListUseCase
+    private val getShortsEpisodeUseCase: GetShortsEpisodeUseCase,
+    private val getSeriesEpisodeUseCase: GetSeriesEpisodeUseCase,
+    private val likeShortsUseCase: LikeShortsUseCase,
+    private val likeSeriesUseCase: LikeSeriesUseCase
 ) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
 
     override val container = container<ComicState, ComicSideEffect>(ComicState())
 
-    init {
-//        getComicList(id)
-    }
-
-    fun getComicList(id: Long) = intent {
+    fun getComic(id: Long) = intent {
         reduce {
             state.copy(isLoading = true)
         }
-        getComicListUseCase.invoke(id)
+        getShortsEpisodeUseCase.invoke(id)
             .onSuccess {
                 reduce {
                     state.copy(
                         isLoading = false,
-                        comicList = it
+                        comic = it,
+                        liked = it.liked,
+                        likeCount = it.likeCount
                     )
                 }
             }.onFailure {
-                postSideEffect(ComicSideEffect.Toast("서버 연결에 실패했습니다."))
+                postSideEffect(ComicSideEffect.Toast(it.message!!))
                 reduce {
                     state.copy(
                         error = it,
                         isLoading = false
                     )
                 }
+            }
+    }
+
+    fun getComic(seriesId: Long, episodeId: Long) = intent {
+        reduce {
+            state.copy(isLoading = true)
+        }
+        getSeriesEpisodeUseCase.invoke(
+            seriesId = seriesId,
+            episodeId = episodeId
+        ).onSuccess {
+            reduce {
+                state.copy(
+                    isLoading = false,
+                    comic = it,
+                    liked = it.liked,
+                    likeCount = it.likeCount
+                )
+            }
+        }.onFailure {
+            postSideEffect(ComicSideEffect.Toast(it.message!!))
+            reduce {
+                state.copy(
+                    error = it,
+                    isLoading = false
+                )
+            }
+        }
+    }
+
+    fun likeShorts(shortsId: Long) = intent {
+        likeShortsUseCase.invoke(shortsId)
+            .onSuccess {
+                if (it) {
+                    reduce { state.copy(likeCount = state.likeCount + 1, liked = true) }
+                } else {
+                    reduce { state.copy(likeCount = state.likeCount - 1, liked = false) }
+                }
+            }.onFailure {
+                postSideEffect(ComicSideEffect.Toast(it.message!!))
+            }
+    }
+
+    fun likeSeries(seriesId: Long) = intent {
+        likeSeriesUseCase.invoke(seriesId)
+            .onSuccess {
+                if (it) {
+                    reduce { state.copy(likeCount = state.likeCount + 1, liked = true) }
+                } else {
+                    reduce { state.copy(likeCount = state.likeCount - 1, liked = false) }
+                }
+            }.onFailure {
+                postSideEffect(ComicSideEffect.Toast(it.message!!))
             }
     }
 }

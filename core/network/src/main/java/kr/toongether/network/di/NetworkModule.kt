@@ -1,42 +1,73 @@
 package kr.toongether.network.di
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kr.toongether.network.ToongetherNetworkDataSource
-import kr.toongether.network.retrofit.RetrofitToongetherNetwork
+import kotlinx.serialization.json.Json
+import kr.toongether.network.datasource.ComicNetworkDataSource
+import kr.toongether.network.datasource.UserNetworkDataSource
+import kr.toongether.network.interceptor.AuthInterceptor
+import kr.toongether.network.retrofit.RetrofitComicNetwork
+import kr.toongether.network.retrofit.RetrofitUserNetwork
 import okhttp3.Call
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Retrofit
 import javax.inject.Singleton
+
+private const val ToongetherUrl = "https://api.toongether.kr:8080/"
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
     @Singleton
     @Provides
-    fun providesOkHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
+    fun providesOkHttpCallFactory(
+        authInterceptor: AuthInterceptor
+    ): Call.Factory = OkHttpClient.Builder()
         .addInterceptor(
             HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
         )
+        .addInterceptor(authInterceptor)
         .build()
+
+    @Provides
+    @Singleton
+    fun providesNetworkJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
 
     @Singleton
     @Provides
-    fun providesGsonConverterFactory(): GsonConverterFactory =
-        GsonConverterFactory.create()
+    fun providesRetrofitToongetherNetwork(
+        networkJson: Json,
+        okHttpCallFactory: Call.Factory
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(ToongetherUrl)
+        .callFactory(okHttpCallFactory)
+        .addConverterFactory(
+            networkJson.asConverterFactory("application/json".toMediaType())
+        )
+        .build()
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataSourceModule {
+internal interface DataSourceModule {
     @Singleton
     @Binds
-    fun bindsToongetherNetworkDataSource(
-        retrofitToongetherNetwork: RetrofitToongetherNetwork
-    ): ToongetherNetworkDataSource
+    fun bindsComicNetworkDataSource(
+        retrofitComicNetwork: RetrofitComicNetwork
+    ): ComicNetworkDataSource
+
+    @Singleton
+    @Binds
+    fun bindsUserNetworkDataSource(
+        retrofitUserNetwork: RetrofitUserNetwork
+    ): UserNetworkDataSource
 }

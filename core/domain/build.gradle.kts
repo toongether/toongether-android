@@ -1,7 +1,6 @@
 plugins {
     id("toongether.android.library")
     id("toongether.android.hilt")
-    id("toongether.kotlin.code")
 }
 
 android {
@@ -9,10 +8,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.paging.common)
 
     implementation(project(":core:model"))
     implementation(project(":core:data"))
-
-    implementation(libs.core.ktx)
-    testImplementation(libs.junit)
 }

@@ -2,16 +2,19 @@ package kr.toongether.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.items
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.model.Shorts
 
 fun LazyListScope.shortsCardItems(
-    items: List<Shorts>,
+    items: LazyPagingItems<Shorts>,
     modifier: Modifier = Modifier,
-    onItemClick: (shorts: Shorts) -> Unit
+    onItemClick: (shorts: Shorts) -> Unit,
+    /* onClickComment: () -> Unit, */
+    onClickLike: () -> Unit
 ) = items(
     items = items,
     key = { it.id },
@@ -21,11 +24,17 @@ fun LazyListScope.shortsCardItems(
                 .clickable(
                     interactionSource = remember { NoRippleInteractionSource() },
                     indication = null
-                ) { onItemClick(shorts) },
-            thumbnail = shorts.thumbnail,
+                ) { onItemClick(shorts!!) },
+            thumbnail = shorts!!.thumbnail,
             title = shorts.title,
-            writer = shorts.writer,
-            createdDate = shorts.createdDate
+            writer = shorts.author.name,
+            createdDate = shorts.createdDate,
+            profileImage = shorts.author.profileImage,
+            /* commentCount = shorts.commentCount, */
+            isLiked = shorts.liked,
+            likeCount = shorts.likeCount,
+            /* nClickComment = onClickComment, */
+            onClickLike = onClickLike
         )
     }
 )

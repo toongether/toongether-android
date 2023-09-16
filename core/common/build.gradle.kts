@@ -5,5 +5,9 @@ plugins {
 
 android {
     namespace = "kr.toongether.common"
+}
 
+dependencies {
+    implementation(libs.retrofit.core)
+    implementation(libs.kotlinx.datetime)
 }

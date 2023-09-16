@@ -1,12 +1,23 @@
 package kr.toongether.data.model
 
-import kr.toongether.model.ComicList
-import kr.toongether.network.model.ComicListResponse
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kr.toongether.model.Comic
+import kr.toongether.network.model.ComicResponse
 
-fun ComicListResponse.asModel(): ComicList = ComicList(
+fun ComicResponse.asModel(): Comic = Comic(
+    id = id,
+    title = title,
+    thumbnail = thumbnail,
     imageUrl = imageUrl,
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
     width = width,
     height = height,
     lastHeight = lastHeight,
-    endIndex = endIndex
+    endIndex = endIndex,
+    beforeEpisode = beforeEpisode,
+    nextEpisode = nextEpisode,
+    likeCount = likeCount,
+    commentCount = commentCount,
+    liked = liked
 )
