@@ -27,7 +27,7 @@ internal fun NavController.navigateToCheckEmail(
     name: String,
     userId: String,
     email: String,
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = null
 ) {
     this.navigate("check_email_route/$name/$userId/$email", navOptions)
 }
@@ -37,7 +37,7 @@ internal fun NavController.navigateToInputPassword(
     userId: String,
     email: String,
     code: String,
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = null
 ) {
     this.navigate("input_password_route/$name/$userId/$email/$code", navOptions)
 }

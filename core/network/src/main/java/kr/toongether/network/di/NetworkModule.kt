@@ -7,7 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
 import kr.toongether.network.interceptor.AuthInterceptor
@@ -55,7 +54,6 @@ object NetworkModule {
             networkJson.asConverterFactory("application/json".toMediaType())
         )
         .build()
-
 }
 
 @Module

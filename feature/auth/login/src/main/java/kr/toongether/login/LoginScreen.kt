@@ -53,7 +53,6 @@ import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.signup.navigation.navigateToAgree
-import kr.toongether.signup.navigation.navigateToSignup
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 

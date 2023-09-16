@@ -33,7 +33,7 @@ import kr.toongether.signup.navigation.navigateToSignup
 @Composable
 internal fun AgreeRoute(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    navController: NavController
 ) {
     val context = LocalContext.current
 
@@ -66,7 +66,7 @@ private fun AgreeScreen(
     onClickBack: () -> Unit,
     onClickInfo: () -> Unit,
     onClickPrivacy: () -> Unit,
-    onClickButton: () -> Unit,
+    onClickButton: () -> Unit
 ) {
     Box(
         modifier
@@ -74,7 +74,6 @@ private fun AgreeScreen(
             .statusBarsPadding()
             .background(Color.Black)
     ) {
-
     }
     Column {
         Spacer(modifier = modifier.statusBarsPadding())
@@ -126,8 +125,10 @@ private fun AgreeScreen(
             onClick = onClickButton
         )
 
-        Spacer(modifier = modifier
-            .navigationBarsPadding()
-            .padding(bottom = 12.dp))
+        Spacer(
+            modifier = modifier
+                .navigationBarsPadding()
+                .padding(bottom = 12.dp)
+        )
     }
 }

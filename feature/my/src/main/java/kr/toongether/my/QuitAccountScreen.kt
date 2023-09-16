@@ -38,7 +38,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 internal fun QuitAccountRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: MyViewModel = hiltViewModel(),
+    viewModel: MyViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
 
@@ -65,7 +65,7 @@ internal fun QuitAccountRoute(
                 )
             )
         },
-        onClickButton = viewModel::deleteUser,
+        onClickButton = viewModel::deleteUser
     )
 }
 
@@ -74,7 +74,7 @@ private fun QuitAccountScreen(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     onClickQuitInfo: () -> Unit,
-    onClickButton: () -> Unit,
+    onClickButton: () -> Unit
 ) {
     Box(
         modifier
@@ -82,7 +82,6 @@ private fun QuitAccountScreen(
             .statusBarsPadding()
             .background(Color.Black)
     ) {
-
     }
     Column {
         Spacer(modifier = modifier.statusBarsPadding())
@@ -125,9 +124,11 @@ private fun QuitAccountScreen(
             color = Red,
             onClick = onClickButton
         )
-        
-        Spacer(modifier = modifier
-            .navigationBarsPadding()
-            .padding(bottom = 12.dp))
+
+        Spacer(
+            modifier = modifier
+                .navigationBarsPadding()
+                .padding(bottom = 12.dp)
+        )
     }
 }

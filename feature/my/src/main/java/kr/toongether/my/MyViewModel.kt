@@ -19,7 +19,7 @@ import javax.inject.Inject
 class MyViewModel @Inject constructor(
     private val toongetherPreferences: ToongetherPreferencesDataSource,
     private val getUserUseCase: GetUserUseCase,
-    private val deleteUserUseCase: DeleteUserUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase
 ) : ContainerHost<MyState, MySideEffect>, ViewModel() {
 
     override val container = container<MyState, MySideEffect>(MyState())
