@@ -16,4 +16,5 @@ data class MyState(
 sealed class MySideEffect {
     data class Toast(val text: String) : MySideEffect()
     object NavigateToLogin : MySideEffect()
+    object NavigateToMy : MySideEffect()
 }

@@ -15,32 +15,44 @@ import androidx.compose.material.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kr.toongether.designsystem.component.ToongetherButton
+import androidx.navigation.navOptions
 import kr.toongether.designsystem.component.ToongetherCard
 import kr.toongether.designsystem.component.ToongetherLargeButton
-import kr.toongether.designsystem.component.ToongetherTopAppBarWithBack
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
 import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.pretendard
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
+import kr.toongether.my.navigation.navigateToMy
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun QuitAccountRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
+    viewModel: MyViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+
+    viewModel.collectSideEffect {
+        if (it is MySideEffect.NavigateToMy) {
+            navController.navigateToMy(
+                navOptions {
+                    this.popUpTo(kr.toongether.my.navigation.MyRoute) {
+                        inclusive = true
+                    }
+                }
+            )
+        }
+    }
 
     QuitAccountScreen(
         modifier = modifier,
@@ -53,7 +65,7 @@ internal fun QuitAccountRoute(
                 )
             )
         },
-        onClickButton = { },
+        onClickButton = viewModel::deleteUser,
     )
 }
 
@@ -114,6 +126,8 @@ private fun QuitAccountScreen(
             onClick = onClickButton
         )
         
-        Spacer(modifier = modifier.navigationBarsPadding().padding(bottom = 12.dp))
+        Spacer(modifier = modifier
+            .navigationBarsPadding()
+            .padding(bottom = 12.dp))
     }
 }

@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
+import kr.toongether.domain.DeleteUserUseCase
 import kr.toongether.domain.GetUserUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
     private val toongetherPreferences: ToongetherPreferencesDataSource,
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase,
 ) : ContainerHost<MyState, MySideEffect>, ViewModel() {
 
     override val container = container<MyState, MySideEffect>(MyState())
@@ -55,6 +57,16 @@ class MyViewModel @Inject constructor(
                         isLoading = false
                     )
                 }
+            }
+    }
+
+    fun deleteUser() = intent {
+        deleteUserUseCase.invoke()
+            .onSuccess {
+                postSideEffect(MySideEffect.NavigateToMy)
+                deleteToken()
+            }.onFailure {
+                postSideEffect(MySideEffect.Toast(it.message!!))
             }
     }
 }

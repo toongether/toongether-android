@@ -25,4 +25,6 @@ interface UserNetworkDataSource {
     ): Boolean
 
     suspend fun getUser(): UserResponse
+
+    suspend fun deleteUser()
 }

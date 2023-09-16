@@ -9,6 +9,7 @@ import kr.toongether.network.model.TokenResponse
 import kr.toongether.network.model.UserResponse
 import retrofit2.Retrofit
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -39,6 +40,9 @@ private interface RetrofitUserNetworkApi {
 
     @GET("user/info")
     suspend fun getUser(): UserResponse
+
+    @DELETE("user/delete")
+    suspend fun deleteUser()
 }
 
 @Singleton
@@ -65,5 +69,9 @@ internal class RetrofitUserNetwork @Inject constructor(
 
     override suspend fun getUser(): UserResponse = networkHandler {
         userApi.getUser()
+    }
+
+    override suspend fun deleteUser() = networkHandler {
+        userApi.deleteUser()
     }
 }
