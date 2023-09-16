@@ -1,9 +1,12 @@
 package kr.toongether.designsystem.icon.icons
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathFillType.Companion.EvenOdd
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
@@ -27,54 +30,39 @@ public val ToongetherIcons.Shorts: ImageVector
             group {
                 path(
                     fill = SolidColor(Color(0xFF737373)),
+                    fillAlpha = 1.0f,
                     stroke = null,
-                    strokeLineWidth = 0.0f,
+                    strokeAlpha = 1.0f,
+                    strokeLineWidth = 1.0f,
                     strokeLineCap = Butt,
                     strokeLineJoin = Miter,
-                    strokeLineMiter = 4.0f,
+                    strokeLineMiter = 1.0f,
                     pathFillType = EvenOdd
                 ) {
-                    moveTo(2.8572f, 5.0003f)
-                    curveTo(2.8572f, 3.8168f, 3.8165f, 2.8574f, 5.0f, 2.8574f)
-                    verticalLineTo(21.1431f)
-                    curveTo(3.8165f, 21.1431f, 2.8572f, 20.1837f, 2.8572f, 19.0003f)
-                    verticalLineTo(5.0003f)
+                    moveTo(3f, 5.10938f)
+                    curveTo(3f, 3.9444f, 3.9444f, 3f, 5.1094f, 3f)
+                    verticalLineTo(21f)
+                    curveTo(3.9444f, 21f, 3f, 20.0556f, 3f, 18.8906f)
+                    verticalLineTo(5.10938f)
                     close()
-                    moveTo(6.1429f, 21.1431f)
-                    verticalLineTo(2.8574f)
-                    horizontalLineTo(19.0f)
-                    curveTo(20.1834f, 2.8574f, 21.1429f, 3.8168f, 21.1429f, 5.0003f)
-                    verticalLineTo(19.0003f)
-                    curveTo(21.1429f, 20.1837f, 20.1834f, 21.1431f, 19.0f, 21.1431f)
-                    horizontalLineTo(6.1429f)
+                    moveTo(6.23438f, 21f)
+                    verticalLineTo(3f)
+                    horizontalLineTo(18.8906f)
+                    curveTo(20.0556f, 3f, 21f, 3.9444f, 21f, 5.1094f)
+                    verticalLineTo(18.8906f)
+                    curveTo(21f, 20.0556f, 20.0556f, 21f, 18.8906f, 21f)
+                    horizontalLineTo(6.23438f)
                     close()
-                    moveTo(13.9629f, 8.1774f)
-                    horizontalLineTo(8.6929f)
-                    verticalLineTo(12.5374f)
-                    horizontalLineTo(14.1529f)
-                    verticalLineTo(11.8674f)
-                    horizontalLineTo(10.7829f)
-                    verticalLineTo(8.8374f)
-                    horizontalLineTo(13.9629f)
-                    verticalLineTo(8.1774f)
-                    close()
-                    moveTo(17.7429f, 10.8774f)
-                    verticalLineTo(10.1674f)
-                    horizontalLineTo(16.7429f)
-                    verticalLineTo(8.0874f)
-                    horizontalLineTo(14.7429f)
-                    verticalLineTo(13.4074f)
-                    horizontalLineTo(16.7429f)
-                    verticalLineTo(10.8774f)
-                    horizontalLineTo(17.7429f)
-                    close()
-                    moveTo(11.2129f, 13.1974f)
-                    horizontalLineTo(8.9729f)
-                    verticalLineTo(15.9374f)
-                    horizontalLineTo(16.9329f)
-                    verticalLineTo(15.2774f)
-                    horizontalLineTo(11.2129f)
-                    verticalLineTo(13.1974f)
+                    moveTo(13.6172f, 9.15488f)
+                    curveTo(14.0374f, 8.5932f, 14.7113f, 8.2272f, 15.4643f, 8.2272f)
+                    curveTo(16.7415f, 8.2272f, 17.7773f, 9.2672f, 17.7773f, 10.5527f)
+                    curveTo(17.7773f, 11.0477f, 17.6983f, 11.5054f, 17.561f, 11.9297f)
+                    curveTo(16.9037f, 14.0098f, 14.8777f, 15.2537f, 13.8751f, 15.5948f)
+                    curveTo(13.7337f, 15.6447f, 13.5007f, 15.6447f, 13.3593f, 15.5948f)
+                    curveTo(12.3567f, 15.2537f, 10.3307f, 14.0098f, 9.6734f, 11.9297f)
+                    curveTo(9.5361f, 11.5054f, 9.457f, 11.0477f, 9.457f, 10.5527f)
+                    curveTo(9.457f, 9.2672f, 10.4929f, 8.2272f, 11.7701f, 8.2272f)
+                    curveTo(12.5231f, 8.2272f, 13.197f, 8.5932f, 13.6172f, 9.1549f)
                     close()
                 }
             }
