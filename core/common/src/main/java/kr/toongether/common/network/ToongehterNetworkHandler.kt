@@ -21,6 +21,9 @@ suspend inline fun <T> networkHandler(
             500, 501, 502, 503 -> {
                 throw RuntimeException(InternalServerExceptionMessage)
             }
+            401, 403, 407 -> {
+                throw RuntimeException(TokenExpiredExceptionMessage)
+            }
             else -> {
                 throw RuntimeException(message)
             }
@@ -34,3 +37,4 @@ suspend inline fun <T> networkHandler(
 
 const val NetworkExceptionMessage = "네트워크 연결을 확인해주세요."
 const val InternalServerExceptionMessage = "서버 연결에 실패했어요.."
+const val TokenExpiredExceptionMessage = "다시 로그인해주세요."

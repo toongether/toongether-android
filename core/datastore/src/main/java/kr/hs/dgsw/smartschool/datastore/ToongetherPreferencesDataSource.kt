@@ -11,7 +11,8 @@ class ToongetherPreferencesDataSource @Inject constructor(
 ) {
     val accessToken = tokenPreferences.data.map { it.accessToken }
     val refreshToken = tokenPreferences.data.map { it.refreshToken }
-
+    val id = tokenPreferences.data.map { it.id }
+    val pw = tokenPreferences.data.map { it.pw }
     suspend fun saveAccessToken(token: String) {
         tokenPreferences.updateData {
             it.copy {

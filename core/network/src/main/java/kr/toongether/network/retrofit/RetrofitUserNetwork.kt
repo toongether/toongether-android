@@ -1,9 +1,16 @@
 package kr.toongether.network.retrofit
 
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialFormat
+import kotlinx.serialization.SerializationStrategy
+import kotlinx.serialization.StringFormat
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.json.JsonPrimitive
 import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.UserNetworkDataSource
 import kr.toongether.network.model.EmailRequest
 import kr.toongether.network.model.LoginRequest
+import kr.toongether.network.model.RefreshTokenRequest
 import kr.toongether.network.model.SignupRequest
 import kr.toongether.network.model.TokenResponse
 import kr.toongether.network.model.UserResponse
@@ -19,23 +26,23 @@ import javax.inject.Singleton
 private interface RetrofitUserNetworkApi {
     @POST("user/signup")
     suspend fun signup(
-        @Body signupRequest: SignupRequest
+        @Body signupRequest: SignupRequest,
     )
 
     @POST("user/login")
     suspend fun login(
-        @Body loginRequest: LoginRequest
+        @Body loginRequest: LoginRequest,
     ): TokenResponse
 
     @POST("email/send")
     suspend fun sendEmail(
-        @Body emailRequest: EmailRequest
+        @Body emailRequest: EmailRequest,
     )
 
     @GET("email/check")
     suspend fun checkEmail(
         @Query("email") email: String,
-        @Query("code") code: String
+        @Query("code") code: String,
     ): Boolean
 
     @GET("user/info")
@@ -43,11 +50,16 @@ private interface RetrofitUserNetworkApi {
 
     @DELETE("user/delete")
     suspend fun deleteUser()
+
+    @POST("user/refresh")
+    suspend fun refreshToken(
+        @Body refreshTokenRequest: RefreshTokenRequest,
+    ): JsonPrimitive
 }
 
 @Singleton
 internal class RetrofitUserNetwork @Inject constructor(
-    retrofit: Retrofit
+    retrofit: Retrofit,
 ) : UserNetworkDataSource {
     private val userApi = retrofit.create(RetrofitUserNetworkApi::class.java)
 
@@ -73,5 +85,11 @@ internal class RetrofitUserNetwork @Inject constructor(
 
     override suspend fun deleteUser() = networkHandler {
         userApi.deleteUser()
+    }
+
+    override suspend fun refreshToken(
+        refreshTokenRequest: RefreshTokenRequest,
+    ): JsonPrimitive = networkHandler {
+        userApi.refreshToken(refreshTokenRequest)
     }
 }
