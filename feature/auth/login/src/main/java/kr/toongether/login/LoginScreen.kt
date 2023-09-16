@@ -52,7 +52,7 @@ import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.signup.navigation.navigateToSignup
+import kr.toongether.signup.navigation.navigateToAgree
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -94,7 +94,7 @@ internal fun LoginRoute(
         onUserIdChange = { userId = it },
         onClickShowPassword = { showPassword = !showPassword },
         onClickPasswordCancel = { password = "" },
-        onClickSignup = navController::navigateToSignup
+        onClickSignup = navController::navigateToAgree
     )
 }
 
@@ -132,7 +132,7 @@ internal fun LoginScreen(
             )
         }
 
-        Spacer(modifier = modifier.height(20.dp))
+        Spacer(modifier = modifier.height(16.dp))
 
         Text(
             modifier = modifier.padding(horizontal = 16.dp),
@@ -169,7 +169,7 @@ internal fun LoginScreen(
             }
         )
 
-        Spacer(modifier = modifier.height(20.dp))
+        Spacer(modifier = modifier.height(16.dp))
 
         ToongetherTextField(
             modifier = modifier
@@ -242,37 +242,10 @@ internal fun LoginScreen(
         ) {
             Text(
                 modifier = modifier,
-                text = "비밀번호 찾기",
+                text = "툰게더가 처음이신가요? ",
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendard,
-                color = Gray60,
-                fontSize = 14.sp
-            )
-
-            Text(
-                modifier = modifier.padding(horizontal = 5.dp),
-                text = "|",
-                fontWeight = FontWeight.Normal,
-                fontFamily = pretendard,
-                color = Gray60,
-                fontSize = 14.sp
-            )
-
-            Text(
-                modifier = modifier,
-                text = "아이디 찾기",
-                fontWeight = FontWeight.Normal,
-                fontFamily = pretendard,
-                color = Gray60,
-                fontSize = 14.sp
-            )
-
-            Text(
-                modifier = modifier.padding(horizontal = 5.dp),
-                text = "|",
-                fontWeight = FontWeight.Normal,
-                fontFamily = pretendard,
-                color = Gray60,
+                color = Color.White,
                 fontSize = 14.sp
             )
 
@@ -284,9 +257,9 @@ internal fun LoginScreen(
                         onClick = onClickSignup
                     ),
                 text = "회원가입",
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.SemiBold,
                 fontFamily = pretendard,
-                color = Gray60,
+                color = Blue60,
                 fontSize = 14.sp
             )
         }

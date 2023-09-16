@@ -1,7 +1,9 @@
 package kr.toongether.network.datasource
 
+import kotlinx.serialization.json.JsonPrimitive
 import kr.toongether.network.model.EmailRequest
 import kr.toongether.network.model.LoginRequest
+import kr.toongether.network.model.RefreshTokenRequest
 import kr.toongether.network.model.SignupRequest
 import kr.toongether.network.model.TokenResponse
 import kr.toongether.network.model.UserResponse
@@ -25,4 +27,10 @@ interface UserNetworkDataSource {
     ): Boolean
 
     suspend fun getUser(): UserResponse
+
+    suspend fun deleteUser()
+
+    suspend fun refreshToken(
+        refreshTokenRequest: RefreshTokenRequest
+    ): JsonPrimitive
 }

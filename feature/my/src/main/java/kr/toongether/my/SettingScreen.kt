@@ -23,6 +23,7 @@ import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.theme.Red
 import kr.toongether.login.navigation.navigateToLogin
+import kr.toongether.my.navigation.navigateToQuitAccount
 
 @Composable
 internal fun SettingRoute(
@@ -49,7 +50,7 @@ internal fun SettingRoute(
             viewModel.deleteToken()
             navController.popBackStack()
         },
-        onClickQuit = { /* TODO : 회원 탈퇴 구현하기 */ },
+        onClickQuit = navController::navigateToQuitAccount,
         onClickLogin = navController::navigateToLogin
     )
 }
@@ -80,7 +81,8 @@ private fun SettingScreen(
         ToongetherCard(
             title = "개인정보 처리방침",
             icon = ToongetherIcons.RightArrow,
-            onClick = onClickPrivacy
+            onClick = onClickPrivacy,
+            iconTint = Color.White
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -89,7 +91,8 @@ private fun SettingScreen(
             ToongetherCard(
                 title = "로그아웃",
                 icon = ToongetherIcons.RightArrow,
-                onClick = onClickLogout
+                onClick = onClickLogout,
+                iconTint = Color.White
             )
 
             Spacer(modifier = modifier.height(8.dp))
@@ -98,13 +101,15 @@ private fun SettingScreen(
                 title = "회원탈퇴",
                 titleColor = Red,
                 icon = ToongetherIcons.RightArrow,
-                onClick = onClickQuit
+                onClick = onClickQuit,
+                iconTint = Color.White
             )
         } else {
             ToongetherCard(
                 title = "로그인",
                 icon = ToongetherIcons.RightArrow,
-                onClick = onClickLogin
+                onClick = onClickLogin,
+                iconTint = Color.White
             )
         }
     }

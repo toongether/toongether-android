@@ -9,7 +9,6 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
-import kr.toongether.network.interceptor.AuthAuthenticator
 import kr.toongether.network.interceptor.AuthInterceptor
 import kr.toongether.network.retrofit.RetrofitComicNetwork
 import kr.toongether.network.retrofit.RetrofitUserNetwork
@@ -28,15 +27,13 @@ object NetworkModule {
     @Singleton
     @Provides
     fun providesOkHttpCallFactory(
-        interceptor: AuthInterceptor,
-        authenticator: AuthAuthenticator
+        authInterceptor: AuthInterceptor
     ): Call.Factory = OkHttpClient.Builder()
         .addInterceptor(
             HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
         )
-        .addInterceptor(interceptor)
-        .authenticator(authenticator)
+        .addInterceptor(authInterceptor)
         .build()
 
     @Provides

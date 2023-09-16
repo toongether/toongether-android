@@ -9,6 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
+import kr.toongether.signup.AgreeRoute
 import kr.toongether.signup.CheckEmailRoute
 import kr.toongether.signup.InputPasswordRoute
 import kr.toongether.signup.SignupRoute
@@ -16,6 +17,7 @@ import kr.toongether.signup.SignupRoute
 const val SignupRoute = "signup_route"
 const val CheckEmailRoute = "check_email_route/{name}/{userId}/{email}"
 const val InputPasswordRoute = "input_password_route/{name}/{userId}/{email}/{code}"
+const val AgreeRoute = "agree_route"
 
 fun NavController.navigateToSignup(navOptions: NavOptions? = null) {
     this.navigate(SignupRoute, navOptions)
@@ -40,9 +42,35 @@ internal fun NavController.navigateToInputPassword(
     this.navigate("input_password_route/$name/$userId/$email/$code", navOptions)
 }
 
+fun NavController.navigateToAgree(navOptions: NavOptions? = null) {
+    this.navigate(AgreeRoute, navOptions)
+}
+
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.signupScreen(navController: NavController) {
-    composable(route = SignupRoute) {
+    composable(
+        route = SignupRoute,
+        enterTransition = {
+            when (initialState.destination.route) {
+                AgreeRoute -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+
+                else -> null
+            }
+        },
+        exitTransition = {
+            when (targetState.destination.route) {
+                AgreeRoute -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+
+                else -> null
+            }
+        }
+    ) {
         SignupRoute(navController = navController)
     }
     composable(
@@ -100,5 +128,30 @@ fun NavGraphBuilder.signupScreen(navController: NavController) {
             email = it.arguments?.getString("email") ?: "",
             code = it.arguments?.getString("code") ?: ""
         )
+    }
+    composable(
+        route = AgreeRoute,
+        enterTransition = {
+            when (initialState.destination.route) {
+                "login_route" -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+
+                else -> null
+            }
+        },
+        exitTransition = {
+            when (targetState.destination.route) {
+                "login_route" -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+
+                else -> null
+            }
+        }
+    ) {
+        AgreeRoute(navController = navController)
     }
 }

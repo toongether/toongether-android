@@ -28,4 +28,7 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUser(): User =
         network.getUser().asModel()
+
+    override suspend fun deleteUser() =
+        network.deleteUser()
 }

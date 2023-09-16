@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
-import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Setting
@@ -120,11 +119,11 @@ internal fun MyScreen(
                     onActionClick = onClickSetting
                 )
 
-                ToongetherScrollableTabRow(
+                /* ToongetherScrollableTabRow(
                     tabs = listOf("최근 본 웹툰"),
                     selectedTabIndex = 0,
                     onTabClick = { }
-                )
+                ) */
             }
         }
     }

@@ -8,10 +8,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import com.google.accompanist.navigation.animation.composable
 import kr.toongether.my.MyRoute
+import kr.toongether.my.QuitAccountRoute
 import kr.toongether.my.SettingRoute
 
 const val MyRoute = "my_route"
 const val SettingRoute = "setting_route"
+internal const val QuitAccountRoute = "quit_account_route"
 
 fun NavController.navigateToMy(navOptions: NavOptions? = null) {
     this.navigate(MyRoute, navOptions)
@@ -28,23 +30,57 @@ fun NavController.navigateToSetting(navOptions: NavOptions? = null) {
     this.navigate(SettingRoute, navOptions)
 }
 
+internal fun NavController.navigateToQuitAccount(navOptions: NavOptions? = null) {
+    this.navigate(QuitAccountRoute, navOptions)
+}
+
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.settingScreen(navController: NavController) {
     composable(
         route = SettingRoute,
         enterTransition = {
-            slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (initialState.destination.route) {
+                MyRoute -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         },
         exitTransition = {
-            slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(durationMillis = 400)
-            )
+            when (targetState.destination.route) {
+                MyRoute -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
         }
     ) {
         SettingRoute(navController = navController)
+    }
+
+    composable(
+        route = QuitAccountRoute,
+        enterTransition = {
+            when (initialState.destination.route) {
+                SettingRoute -> slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
+        },
+        exitTransition = {
+            when (targetState.destination.route) {
+                SettingRoute -> slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(durationMillis = 400)
+                )
+                else -> null
+            }
+        }
+    ) {
+        QuitAccountRoute(navController = navController)
     }
 }
