@@ -11,4 +11,6 @@ sealed class SignupSideEffect {
     object NavigateToCheckEmail : SignupSideEffect()
     object NavigateToInputPassword : SignupSideEffect()
     object NavigateToMy : SignupSideEffect()
+    object SuccessCheckDuplicateUser : SignupSideEffect()
+    object SuccessCheckDuplicateEmail : SignupSideEffect()
 }

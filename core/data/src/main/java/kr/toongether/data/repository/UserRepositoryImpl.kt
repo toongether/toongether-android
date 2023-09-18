@@ -31,4 +31,10 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override suspend fun deleteUser() =
         network.deleteUser()
+
+    override suspend fun checkDuplicateUser(userId: String): Boolean =
+        network.checkDuplicateUser(userId)
+
+    override suspend fun checkDuplicateEmail(email: String): Boolean =
+        network.checkDuplicateEmail(email)
 }

@@ -3,6 +3,7 @@ package kr.toongether.login.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -16,12 +17,15 @@ fun NavController.navigateToLogin(navOptions: NavOptions? = null) {
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.loginScreen(navController: NavController) {
+fun NavGraphBuilder.loginScreen(
+    navController: NavController,
+    alert: (@Composable () -> Unit) -> Unit
+) {
     composable(
         route = LoginRoute,
         enterTransition = {
             when (initialState.destination.route) {
-                "my_route" -> slideIntoContainer(
+                "my_route", "comic_route/{seriesId}/{episodeNumber}", "setting_route" -> slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
@@ -30,7 +34,7 @@ fun NavGraphBuilder.loginScreen(navController: NavController) {
         },
         exitTransition = {
             when (targetState.destination.route) {
-                "my_route" -> slideOutOfContainer(
+                "my_route", "comic_route/{seriesId}/{episodeNumber}", "setting_route" -> slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
@@ -38,6 +42,6 @@ fun NavGraphBuilder.loginScreen(navController: NavController) {
             }
         }
     ) {
-        LoginRoute(navController = navController)
+        LoginRoute(navController = navController, alert = alert)
     }
 }

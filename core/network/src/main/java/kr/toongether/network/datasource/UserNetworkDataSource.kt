@@ -33,4 +33,12 @@ interface UserNetworkDataSource {
     suspend fun refreshToken(
         refreshTokenRequest: RefreshTokenRequest
     ): JsonPrimitive
+
+    suspend fun checkDuplicateUser(
+        userId: String
+    ): Boolean
+
+    suspend fun checkDuplicateEmail(
+        email: String
+    ): Boolean
 }

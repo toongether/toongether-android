@@ -39,7 +39,6 @@ import kr.toongether.model.Series
 import kr.toongether.ui.LoadingScreen
 import kr.toongether.ui.seriesCardItems
 import org.orbitmvi.orbit.compose.collectAsState
-import java.time.LocalDate
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -49,7 +48,7 @@ internal fun SeriesRoute(
     viewModel: SeriesViewModel = hiltViewModel()
 ) {
     val state by viewModel.collectAsState()
-    val pagerState = rememberPagerState(initialPage = LocalDate.now().dayOfWeek.value)
+    val pagerState = rememberPagerState(/* initialPage = LocalDate.now().dayOfWeek.value */)
     val coroutineScope = rememberCoroutineScope()
 
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isLoading)
