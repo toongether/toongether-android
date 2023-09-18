@@ -79,8 +79,6 @@ fun SignupRoute(
 ) {
     val signupState by viewModel.collectAsState()
 
-    val context = LocalContext.current
-
     var isShowId by remember { mutableStateOf(false) }
     var isShowEmail by remember { mutableStateOf(false) }
     var isShowAlert by remember { mutableStateOf(false) }
@@ -179,7 +177,7 @@ fun SignupRoute(
                 }
             } else if (email.isBlank()
                 || (email.matches(
-                    "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}\$".toRegex()
+                    "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$".toRegex()
                 ).not())
             ) {
                 keyboardController.hide()
@@ -395,7 +393,7 @@ internal fun SignupScreen(
                     .padding(horizontal = 16.dp),
                 onClick = { onClickEmailButton(email) },
                 color = if (userId.isNotBlank() && nickname.isNotBlank() && email.isNotBlank() &&
-                    email.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}\$".toRegex())
+                    email.matches("^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$".toRegex())
                 ) Blue60 else Blue80
             ) {
                 Text(

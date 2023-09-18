@@ -53,6 +53,7 @@ import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.ui.AlertScreen
 import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -66,10 +67,12 @@ fun InputPasswordRoute(
     userId: String,
     email: String,
     code: String,
-    viewModel: SignupViewModel = hiltViewModel()
+    viewModel: SignupViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit,
 ) {
     val state by viewModel.collectAsState()
-    val context = LocalContext.current
+
+    var isShowAlert by remember { mutableStateOf(false) }
 
     var password by remember { mutableStateOf("") }
     var passwordCheck by remember { mutableStateOf("") }
@@ -87,7 +90,21 @@ fun InputPasswordRoute(
                 inclusive = false
             )
 
-            is SignupSideEffect.Toast -> context.shortToast(it.text)
+            is SignupSideEffect.Toast -> {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            }
+
             else -> {}
         }
     }
@@ -104,13 +121,44 @@ fun InputPasswordRoute(
         onClickPasswordCheckCancel = { passwordCheck = "" },
         state = state,
         onClickSignupButton = {
-            viewModel.signup(
-                name = name,
-                userId = userId,
-                email = email,
-                code = code,
-                password = it
-            )
+            if (password.length < 8) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "비밀번호를 8자 이상 입력해주세요.",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else if (
+                password.matches("^(?=.*[A-Za-z])(?=.*\\d)([A-Za-z\\d@#\$%^&+=!]+){8,}\$".toRegex())
+                    .not()
+            ) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "영문이나 숫자, 특수문자로만 입력해주세요",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else {
+                viewModel.signup(
+                    name = name,
+                    userId = userId,
+                    email = email,
+                    code = code,
+                    password = it
+                )
+            }
         },
         onClickShowPassword = { showPassword = !showPassword },
         onClickShowPasswordCheck = { showPasswordCheck = !showPasswordCheck },
@@ -138,7 +186,7 @@ internal fun InputPasswordScreen(
     onClickShowPasswordCheck: () -> Unit,
     showPassword: Boolean,
     showPasswordCheck: Boolean,
-    onClickNext: () -> Unit
+    onClickNext: () -> Unit,
 ) {
     Box(
         modifier
@@ -279,7 +327,11 @@ internal fun InputPasswordScreen(
                 .padding(bottom = 24.dp)
                 .padding(horizontal = 16.dp),
             onClick = { onClickSignupButton(password) },
-            color = if (password.isBlank() || password != passwordCheck) Blue80 else Blue60
+            color = if (
+                password.isBlank() || password.length < 8 || password != passwordCheck
+                || password.matches("^(?=.*[A-Za-z])(?=.*\\d)([A-Za-z\\d@#\$%^&+=!]+){8,}\$".toRegex())
+                    .not()
+            ) Blue80 else Blue60
         ) {
             Text(
                 text = "완료",
