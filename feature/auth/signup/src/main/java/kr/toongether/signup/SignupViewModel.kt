@@ -2,6 +2,8 @@ package kr.toongether.signup
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kr.toongether.domain.CheckDuplicateEmailUseCase
+import kr.toongether.domain.CheckDuplicateUserUseCase
 import kr.toongether.domain.CheckEmailUseCase
 import kr.toongether.domain.SendEmailUseCase
 import kr.toongether.domain.SignupUseCase
@@ -18,7 +20,9 @@ import javax.inject.Inject
 class SignupViewModel @Inject constructor(
     private val signupUseCase: SignupUseCase,
     private val checkEmailUseCase: CheckEmailUseCase,
-    private val sendEmailUseCase: SendEmailUseCase
+    private val sendEmailUseCase: SendEmailUseCase,
+    private val checkDuplicateEmailUseCase: CheckDuplicateEmailUseCase,
+    private val checkDuplicateUserUseCase: CheckDuplicateUserUseCase,
 ) : ContainerHost<SignupState, SignupSideEffect>, ViewModel() {
 
     override val container = container<SignupState, SignupSideEffect>(SignupState())
@@ -113,5 +117,39 @@ class SignupViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun checkDuplicateUser(userId: String) = intent {
+        reduce { state.copy(isLoading = true) }
+        checkDuplicateUserUseCase(userId)
+            .onSuccess {
+                if (it) {
+                    postSideEffect(SignupSideEffect.SuccessCheckDuplicateUser)
+                    reduce { state.copy(isLoading = false) }
+                } else {
+                    postSideEffect(SignupSideEffect.Toast("중복된 아이디에요."))
+                    reduce { state.copy(isLoading = false) }
+                }
+            }.onFailure {
+                postSideEffect(SignupSideEffect.Toast(it.message!!))
+                reduce { state.copy(isLoading = false) }
+            }
+    }
+
+    fun checkDuplicateEmail(email: String) = intent {
+        reduce { state.copy(isLoading = true) }
+        checkDuplicateEmailUseCase(email)
+            .onSuccess {
+                if (it) {
+                    postSideEffect(SignupSideEffect.SuccessCheckDuplicateEmail)
+                    reduce { state.copy(isLoading = false) }
+                } else {
+                    postSideEffect(SignupSideEffect.Toast("중복된 이메일이에요."))
+                    reduce { state.copy(isLoading = false) }
+                }
+            }.onFailure {
+                postSideEffect(SignupSideEffect.Toast(it.message!!))
+                reduce { state.copy(isLoading = false) }
+            }
     }
 }

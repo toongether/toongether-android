@@ -50,6 +50,16 @@ private interface RetrofitUserNetworkApi {
     suspend fun refreshToken(
         @Body refreshTokenRequest: RefreshTokenRequest
     ): JsonPrimitive
+
+    @GET("user/validate")
+    suspend fun checkDuplicateUser(
+        @Query("userId") userId: String
+    ): Boolean
+
+    @GET("email/validate")
+    suspend fun checkDuplicateEmail(
+        @Query("email") email: String
+    ): Boolean
 }
 
 @Singleton
@@ -86,5 +96,13 @@ internal class RetrofitUserNetwork @Inject constructor(
         refreshTokenRequest: RefreshTokenRequest
     ): JsonPrimitive = networkHandler {
         userApi.refreshToken(refreshTokenRequest)
+    }
+
+    override suspend fun checkDuplicateUser(userId: String): Boolean = networkHandler {
+        userApi.checkDuplicateUser(userId)
+    }
+
+    override suspend fun checkDuplicateEmail(email: String): Boolean = networkHandler {
+        userApi.checkDuplicateEmail(email)
     }
 }
