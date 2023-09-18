@@ -1,7 +1,13 @@
 package kr.toongether.signup
 
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,6 +24,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,6 +52,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import kr.toongether.common.shortToast
+import kr.toongether.designsystem.component.ToongetherAlert
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
 import kr.toongether.designsystem.icon.ToongetherIcons
@@ -52,8 +61,10 @@ import kr.toongether.designsystem.icon.icons.Cancel
 import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
+import kr.toongether.designsystem.theme.TransparentBlack30
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToCheckEmail
+import kr.toongether.ui.AlertScreen
 import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -63,7 +74,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 fun SignupRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: SignupViewModel = hiltViewModel()
+    viewModel: SignupViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit,
 ) {
     val signupState by viewModel.collectAsState()
 
@@ -71,6 +83,7 @@ fun SignupRoute(
 
     var isShowId by remember { mutableStateOf(false) }
     var isShowEmail by remember { mutableStateOf(false) }
+    var isShowAlert by remember { mutableStateOf(false) }
 
     var nickname by remember { mutableStateOf("") }
     var userId by remember { mutableStateOf("") }
@@ -78,6 +91,33 @@ fun SignupRoute(
 
     val keyboardController = LocalSoftwareKeyboardController.current!!
     val focusManager = LocalFocusManager.current
+
+    viewModel.collectSideEffect {
+        when (it) {
+            is SignupSideEffect.SuccessCheckDuplicateUser -> isShowEmail = true
+            is SignupSideEffect.SuccessCheckDuplicateEmail -> viewModel.sendEmail(email)
+            is SignupSideEffect.NavigateToCheckEmail -> navController.navigateToCheckEmail(
+                email = email,
+                name = nickname,
+                userId = userId
+            )
+            is SignupSideEffect.Toast -> {
+                isShowAlert = true
+                keyboardController.hide()
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            }
+            else -> {}
+        }
+    }
 
     LaunchedEffect(Unit) {
         focusManager.moveFocus(FocusDirection.Enter)
@@ -91,18 +131,6 @@ fun SignupRoute(
     LaunchedEffect(isShowEmail) {
         delay(timeMillis = 10)
         focusManager.moveFocus(FocusDirection.Up)
-    }
-
-    viewModel.collectSideEffect {
-        when (it) {
-            is SignupSideEffect.NavigateToCheckEmail -> navController.navigateToCheckEmail(
-                email = email,
-                name = nickname,
-                userId = userId
-            )
-            is SignupSideEffect.Toast -> context.shortToast(it.text)
-            else -> {}
-        }
     }
 
     SignupScreen(
@@ -120,10 +148,101 @@ fun SignupRoute(
         onClickEmailCancel = { email = "" },
         onClickNicknameCancel = { nickname = "" },
         keyboardController = keyboardController,
-        onClickEmailButton = viewModel::sendEmail,
-        showId = { isShowId = true },
-        showEmail = { isShowEmail = true },
-        signupState = signupState
+        onClickEmailButton = {
+            if (userId.isBlank() || (userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())).not()
+                || (userId.length in 1..15).not()
+            ) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "아이디를 확인해주세요",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else if (nickname.isBlank() || (nickname.length in 1..15).not()) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "닉네임을 확인해주세요.",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else if (email.isBlank()
+                || (email.matches(
+                    "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}\$".toRegex()
+                ).not())
+            ) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "이메일을 확인해주세요.",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else viewModel.checkDuplicateEmail(it)
+        },
+        showId = {
+            if ((nickname.length in 1..15).not()) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "닉네임는 1자에서 15자 사이로 \n입력 가능해요.",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else isShowId = true
+
+        },
+        showEmail = {
+            if ((userId.length in 1..15).not()) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "아이디는 1자에서 15자 사이로 \n입력할 수 있어요.",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else if ((userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())).not()) {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "아이디는 영문이나 숫자로만 \n입력할 수 있어요.",
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            } else viewModel.checkDuplicateUser(userId)
+        },
+        signupState = signupState,
     )
 }
 
@@ -146,8 +265,8 @@ internal fun SignupScreen(
     keyboardController: SoftwareKeyboardController,
     onClickEmailButton: (String) -> Unit,
     showEmail: () -> Unit,
-    showId: () -> Unit,
-    signupState: SignupState
+    showId: () -> @Composable Unit,
+    signupState: SignupState,
 ) {
     Box(
         modifier
@@ -275,7 +394,9 @@ internal fun SignupScreen(
                     .padding(bottom = 24.dp)
                     .padding(horizontal = 16.dp),
                 onClick = { onClickEmailButton(email) },
-                color = if (userId.isNotBlank() && nickname.isNotBlank() && email.isNotBlank()) Blue60 else Blue80
+                color = if (userId.isNotBlank() && nickname.isNotBlank() && email.isNotBlank() &&
+                    email.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}\$".toRegex())
+                ) Blue60 else Blue80
             ) {
                 Text(
                     text = "이메일 인증하기",
@@ -296,7 +417,12 @@ internal fun SignupScreen(
                         .navigationBarsPadding()
                         .imePadding(),
                     onClick = if (isShowId.not()) showId else showEmail,
-                    color = Blue60,
+                    color = if (isShowId) {
+                        if (userId.length in 1..15 && userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())) Blue60
+                        else Blue80
+                    } else {
+                        if (nickname.length in 1..15) Blue60 else Blue80
+                    },
                     shape = RoundedCornerShape(0)
                 ) {
                     Text(

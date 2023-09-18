@@ -1,6 +1,9 @@
 package kr.toongether.android.ui
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -11,6 +14,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kr.toongether.android.navigation.NavigationDestination
+import kr.toongether.designsystem.component.ToongetherAlert
 import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.navigateToHome
 import kr.toongether.my.navigation.MyRoute
@@ -32,7 +36,7 @@ fun rememberToongetherAppState(
 
 @Stable
 class ToongetherAppState(
-    val navController: NavHostController
+    val navController: NavHostController,
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController

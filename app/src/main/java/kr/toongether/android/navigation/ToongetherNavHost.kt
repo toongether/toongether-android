@@ -1,6 +1,7 @@
 package kr.toongether.android.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -21,7 +22,8 @@ import kr.toongether.signup.navigation.signupScreen
 fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = HomeRoute
+    startDestination: String = HomeRoute,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val navController = appState.navController
 
@@ -36,7 +38,10 @@ fun ToongetherNavHost(
         myScreen(navController)
         comicScreen(navController)
         loginScreen(navController)
-        signupScreen(navController)
+        signupScreen(
+            navController = navController,
+            alert = alert
+        )
         episodeScreen(navController)
         settingScreen(navController)
     }
