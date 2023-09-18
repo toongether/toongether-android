@@ -3,6 +3,7 @@ package kr.toongether.comic.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -20,13 +21,16 @@ fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null
 fun NavController.navigateToComic(
     seriesId: Long,
     episodeNumber: Long,
-    navOptions: NavOptions? = null
+    navOptions: NavOptions? = null,
 ) {
     this.navigate("comic_route/$seriesId/$episodeNumber", navOptions)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.comicScreen(navController: NavController) {
+fun NavGraphBuilder.comicScreen(
+    navController: NavController,
+    alert: (@Composable () -> Unit) -> Unit,
+) {
     composable(
         route = ComicRoute,
         arguments = listOf(
@@ -39,10 +43,12 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 "shorts_route" -> slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 else -> null
             }
         },
@@ -53,10 +59,12 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 "shorts_route" -> slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 else -> null
             }
         }
@@ -64,7 +72,8 @@ fun NavGraphBuilder.comicScreen(navController: NavController) {
         ComicRoute(
             navController = navController,
             seriesId = it.arguments?.getLong("seriesId") ?: 0L,
-            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L
+            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L,
+            alert = alert
         )
     }
 }

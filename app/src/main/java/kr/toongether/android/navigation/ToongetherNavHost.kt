@@ -36,7 +36,7 @@ fun ToongetherNavHost(
         seriesScreen(navController)
         shortsScreen(navController)
         myScreen(navController)
-        comicScreen(navController)
+        comicScreen(navController = navController, alert = alert)
         loginScreen(navController = navController, alert = alert)
         signupScreen(navController = navController, alert = alert)
         episodeScreen(navController)

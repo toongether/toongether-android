@@ -26,7 +26,7 @@ fun NavGraphBuilder.loginScreen(
         route = LoginRoute,
         enterTransition = {
             when (initialState.destination.route) {
-                "my_route" -> slideIntoContainer(
+                "my_route", "comic_route/{seriesId}/{episodeNumber}", "setting_route" -> slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
@@ -35,7 +35,7 @@ fun NavGraphBuilder.loginScreen(
         },
         exitTransition = {
             when (targetState.destination.route) {
-                "my_route" -> slideOutOfContainer(
+                "my_route", "comic_route/{seriesId}/{episodeNumber}", "setting_route" -> slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
