@@ -12,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -19,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.DarkGray
-import kr.toongether.designsystem.theme.Gray50
 import kr.toongether.designsystem.theme.Gray80
 import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.pretendard
@@ -47,10 +47,13 @@ fun ToongetherAlert(
             fontSize = 16.sp
         )
 
+        Spacer(modifier = Modifier.height(12.dp))
+
         Button(
             onClick = onClickButton,
             colors = ButtonDefaults.buttonColors(buttonColor),
             modifier = Modifier.fillMaxWidth(),
+            shape = Shape.medium,
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             Text(
@@ -95,6 +98,7 @@ fun ToongetherAlert(
             onClick = onClickFirstButton,
             colors = ButtonDefaults.buttonColors(firstButtonColor),
             modifier = Modifier.fillMaxWidth(),
+            shape = Shape.medium,
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             Text(
@@ -112,6 +116,7 @@ fun ToongetherAlert(
             onClick = onClickSecondButton,
             colors = ButtonDefaults.buttonColors(DarkGray),
             modifier = Modifier.fillMaxWidth(),
+            shape = Shape.medium,
             contentPadding = PaddingValues(vertical = 8.dp),
             border = BorderStroke(1.dp, Gray80)
         ) {
