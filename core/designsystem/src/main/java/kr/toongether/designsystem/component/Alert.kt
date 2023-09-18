@@ -12,7 +12,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -91,7 +90,7 @@ fun ToongetherAlert(
             color = textColor,
             fontSize = 16.sp
         )
-        
+
         Spacer(modifier = Modifier.height(12.dp))
 
         Button(

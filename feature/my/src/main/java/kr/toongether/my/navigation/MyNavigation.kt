@@ -38,7 +38,7 @@ internal fun NavController.navigateToQuitAccount(navOptions: NavOptions? = null)
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.settingScreen(
     navController: NavController,
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     composable(
         route = SettingRoute,

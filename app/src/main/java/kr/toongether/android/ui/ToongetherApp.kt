@@ -1,6 +1,5 @@
 package kr.toongether.android.ui
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,18 +25,15 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import kr.toongether.android.navigation.NavigationDestination
 import kr.toongether.android.navigation.ToongetherNavHost
-import kr.toongether.designsystem.component.ToongetherAlert
 import kr.toongether.designsystem.component.ToongetherNavigationBar
 import kr.toongether.designsystem.component.ToongetherNavigationBarItem
 import kr.toongether.designsystem.theme.Gray
-import kr.toongether.designsystem.theme.TransparentBlack30
 import kr.toongether.designsystem.theme.pretendard
 
 @Composable
 fun ToongetherApp(
-    appState: ToongetherAppState = rememberToongetherAppState(),
+    appState: ToongetherAppState = rememberToongetherAppState()
 ) {
-    var isShowAlert by remember { mutableStateOf(false) }
     var alert: (@Composable () -> Unit) by remember { mutableStateOf({}) }
 
     Box {
@@ -69,7 +64,7 @@ fun ToongetherApp(
             ) {
                 ToongetherNavHost(
                     appState = appState,
-                    alert = { alert = it },
+                    alert = { alert = it }
                 )
             }
         }
@@ -84,7 +79,7 @@ private fun ToongetherBottomBar(
     onNavigateToDestination: (NavigationDestination) -> Unit,
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier,
-    isShowBottomBar: Boolean,
+    isShowBottomBar: Boolean
 ) {
     ToongetherNavigationBar(
         modifier = if (isShowBottomBar) {

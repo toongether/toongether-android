@@ -1,13 +1,7 @@
 package kr.toongether.signup
 
-import android.util.Log
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -24,8 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +31,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -51,8 +42,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
-import kr.toongether.common.shortToast
-import kr.toongether.designsystem.component.ToongetherAlert
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
 import kr.toongether.designsystem.icon.ToongetherIcons
@@ -61,7 +50,6 @@ import kr.toongether.designsystem.icon.icons.Cancel
 import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
-import kr.toongether.designsystem.theme.TransparentBlack30
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToCheckEmail
 import kr.toongether.ui.AlertScreen
@@ -75,7 +63,7 @@ fun SignupRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: SignupViewModel = hiltViewModel(),
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val signupState by viewModel.collectAsState()
 
@@ -147,8 +135,8 @@ fun SignupRoute(
         onClickNicknameCancel = { nickname = "" },
         keyboardController = keyboardController,
         onClickEmailButton = {
-            if (userId.isBlank() || (userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())).not()
-                || (userId.length in 1..15).not()
+            if (userId.isBlank() || (userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())).not() ||
+                (userId.length in 1..15).not()
             ) {
                 keyboardController.hide()
                 isShowAlert = true
@@ -175,10 +163,12 @@ fun SignupRoute(
                         keyboardController.show()
                     }
                 }
-            } else if (email.isBlank()
-                || (email.matches(
-                    "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$".toRegex()
-                ).not())
+            } else if (email.isBlank() ||
+                (
+                    email.matches(
+                            "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$".toRegex()
+                        ).not()
+                    )
             ) {
                 keyboardController.hide()
                 isShowAlert = true
@@ -192,7 +182,9 @@ fun SignupRoute(
                         keyboardController.show()
                     }
                 }
-            } else viewModel.checkDuplicateEmail(it)
+            } else {
+                viewModel.checkDuplicateEmail(it)
+            }
         },
         showId = {
             if ((nickname.length in 1..15).not()) {
@@ -208,8 +200,9 @@ fun SignupRoute(
                         keyboardController.show()
                     }
                 }
-            } else isShowId = true
-
+            } else {
+                isShowId = true
+            }
         },
         showEmail = {
             if ((userId.length in 1..15).not()) {
@@ -238,9 +231,11 @@ fun SignupRoute(
                         keyboardController.show()
                     }
                 }
-            } else viewModel.checkDuplicateUser(userId)
+            } else {
+                viewModel.checkDuplicateUser(userId)
+            }
         },
-        signupState = signupState,
+        signupState = signupState
     )
 }
 
@@ -264,7 +259,7 @@ internal fun SignupScreen(
     onClickEmailButton: (String) -> Unit,
     showEmail: () -> Unit,
     showId: () -> @Composable Unit,
-    signupState: SignupState,
+    signupState: SignupState
 ) {
     Box(
         modifier
@@ -394,7 +389,11 @@ internal fun SignupScreen(
                 onClick = { onClickEmailButton(email) },
                 color = if (userId.isNotBlank() && nickname.isNotBlank() && email.isNotBlank() &&
                     email.matches("^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$".toRegex())
-                ) Blue60 else Blue80
+                ) {
+                    Blue60
+                } else {
+                    Blue80
+                }
             ) {
                 Text(
                     text = "이메일 인증하기",
@@ -416,8 +415,11 @@ internal fun SignupScreen(
                         .imePadding(),
                     onClick = if (isShowId.not()) showId else showEmail,
                     color = if (isShowId) {
-                        if (userId.length in 1..15 && userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())) Blue60
-                        else Blue80
+                        if (userId.length in 1..15 && userId.matches("^[a-zA-Z](?:[a-zA-Z\\d]{0,14})?$".toRegex())) {
+                            Blue60
+                        } else {
+                            Blue80
+                        }
                     } else {
                         if (nickname.length in 1..15) Blue60 else Blue80
                     },

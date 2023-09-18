@@ -31,7 +31,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
@@ -43,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kr.toongether.common.shortToast
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
 import kr.toongether.designsystem.icon.ToongetherIcons
@@ -68,7 +66,7 @@ fun InputPasswordRoute(
     email: String,
     code: String,
     viewModel: SignupViewModel = hiltViewModel(),
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val state by viewModel.collectAsState()
 
@@ -186,7 +184,7 @@ internal fun InputPasswordScreen(
     onClickShowPasswordCheck: () -> Unit,
     showPassword: Boolean,
     showPasswordCheck: Boolean,
-    onClickNext: () -> Unit,
+    onClickNext: () -> Unit
 ) {
     Box(
         modifier
@@ -328,10 +326,14 @@ internal fun InputPasswordScreen(
                 .padding(horizontal = 16.dp),
             onClick = { onClickSignupButton(password) },
             color = if (
-                password.isBlank() || password.length < 8 || password != passwordCheck
-                || password.matches("^(?=.*[A-Za-z])(?=.*\\d)([A-Za-z\\d@#\$%^&+=!]+){8,}\$".toRegex())
+                password.isBlank() || password.length < 8 || password != passwordCheck ||
+                password.matches("^(?=.*[A-Za-z])(?=.*\\d)([A-Za-z\\d@#\$%^&+=!]+){8,}\$".toRegex())
                     .not()
-            ) Blue80 else Blue60
+            ) {
+                Blue80
+            } else {
+                Blue60
+            }
         ) {
             Text(
                 text = "완료",

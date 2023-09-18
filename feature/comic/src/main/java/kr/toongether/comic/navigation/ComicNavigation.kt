@@ -21,7 +21,7 @@ fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null
 fun NavController.navigateToComic(
     seriesId: Long,
     episodeNumber: Long,
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = null
 ) {
     this.navigate("comic_route/$seriesId/$episodeNumber", navOptions)
 }
@@ -29,7 +29,7 @@ fun NavController.navigateToComic(
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.comicScreen(
     navController: NavController,
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     composable(
         route = ComicRoute,

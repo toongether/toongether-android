@@ -1,8 +1,6 @@
 package kr.toongether.comic
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import coil.network.HttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.toongether.domain.GetSeriesEpisodeUseCase
 import kr.toongether.domain.GetShortsEpisodeUseCase
@@ -85,8 +83,11 @@ class ComicViewModel @Inject constructor(
                     postSideEffect(ComicSideEffect.LoginToast)
                 }
             }.onFailure {
-                if (it.message.toString().contains("400")) postSideEffect(ComicSideEffect.LoginToast)
-                else postSideEffect(ComicSideEffect.Toast(it.message!!))
+                if (it.message.toString().contains("400")) {
+                    postSideEffect(ComicSideEffect.LoginToast)
+                } else {
+                    postSideEffect(ComicSideEffect.Toast(it.message!!))
+                }
             }
     }
 
@@ -97,11 +98,13 @@ class ComicViewModel @Inject constructor(
                     reduce { state.copy(likeCount = state.likeCount + 1, liked = true) }
                 } else {
                     reduce { state.copy(likeCount = state.likeCount - 1, liked = false) }
-
                 }
             }.onFailure {
-                if (it.message.toString().contains("400")) postSideEffect(ComicSideEffect.LoginToast)
-                else postSideEffect(ComicSideEffect.Toast(it.message!!))
+                if (it.message.toString().contains("400")) {
+                    postSideEffect(ComicSideEffect.LoginToast)
+                } else {
+                    postSideEffect(ComicSideEffect.Toast(it.message!!))
+                }
             }
     }
 }

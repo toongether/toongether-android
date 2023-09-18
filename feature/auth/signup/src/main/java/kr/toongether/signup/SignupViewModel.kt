@@ -22,7 +22,7 @@ class SignupViewModel @Inject constructor(
     private val checkEmailUseCase: CheckEmailUseCase,
     private val sendEmailUseCase: SendEmailUseCase,
     private val checkDuplicateEmailUseCase: CheckDuplicateEmailUseCase,
-    private val checkDuplicateUserUseCase: CheckDuplicateUserUseCase,
+    private val checkDuplicateUserUseCase: CheckDuplicateUserUseCase
 ) : ContainerHost<SignupState, SignupSideEffect>, ViewModel() {
 
     override val container = container<SignupState, SignupSideEffect>(SignupState())
@@ -61,8 +61,11 @@ class SignupViewModel @Inject constructor(
         }
         checkEmailUseCase.invoke(email = email, code = code)
             .onSuccess {
-                if (it) postSideEffect(SignupSideEffect.NavigateToInputPassword)
-                else postSideEffect(SignupSideEffect.Toast("인증번호가 일치하지 않아요."))
+                if (it) {
+                    postSideEffect(SignupSideEffect.NavigateToInputPassword)
+                } else {
+                    postSideEffect(SignupSideEffect.Toast("인증번호가 일치하지 않아요."))
+                }
                 reduce { state.copy(isLoading = false) }
             }
             .onFailure {

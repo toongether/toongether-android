@@ -3,7 +3,6 @@ package kr.toongether.signup.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -29,7 +28,7 @@ internal fun NavController.navigateToCheckEmail(
     name: String,
     userId: String,
     email: String,
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = null
 ) {
     this.navigate("check_email_route/$name/$userId/$email", navOptions)
 }
@@ -39,7 +38,7 @@ internal fun NavController.navigateToInputPassword(
     userId: String,
     email: String,
     code: String,
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = null
 ) {
     this.navigate("input_password_route/$name/$userId/$email/$code", navOptions)
 }
@@ -51,7 +50,7 @@ fun NavController.navigateToAgree(navOptions: NavOptions? = null) {
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.signupScreen(
     navController: NavController,
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     composable(
         route = SignupRoute,

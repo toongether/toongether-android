@@ -70,7 +70,7 @@ internal fun ComicRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: ComicViewModel = hiltViewModel(),
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val comicState by viewModel.collectAsState()
     val lazyListState = rememberLazyListState()

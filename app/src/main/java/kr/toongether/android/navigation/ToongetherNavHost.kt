@@ -1,7 +1,6 @@
 package kr.toongether.android.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -23,7 +22,7 @@ fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
     startDestination: String = HomeRoute,
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val navController = appState.navController
 
