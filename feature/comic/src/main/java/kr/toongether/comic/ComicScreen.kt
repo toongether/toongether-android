@@ -57,7 +57,9 @@ import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.TransparentBlack
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
+import kr.toongether.ui.AlertScreen
 import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 import java.time.LocalTime
 import kotlin.concurrent.timer
 
@@ -67,14 +69,50 @@ internal fun ComicRoute(
     seriesId: Long,
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: ComicViewModel = hiltViewModel()
+    viewModel: ComicViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val comicState by viewModel.collectAsState()
     val lazyListState = rememberLazyListState()
 
+    var isShowAlert by remember { mutableStateOf(false) }
+
     var isShowTabs by remember { mutableStateOf(true) }
     var toggledTime: LocalTime? by remember { mutableStateOf(null) }
     var isTopOrBottom by remember { mutableStateOf(true) }
+
+    viewModel.collectSideEffect {
+        when (it) {
+            is ComicSideEffect.Toast -> {
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                    }
+                }
+            }
+            is ComicSideEffect.LoginToast -> {
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = "로그인이 필요해요.",
+                        firstButtonText = "로그인",
+                        onClickFirstButton = {
+                            isShowAlert = false
+                            navController.navigate("login_route")
+                        },
+                        secondButtonText = "취소",
+                        onClickSecondButton = { isShowAlert = false }
+                    )
+                }
+            }
+        }
+    }
 
     fun showTabs() {
         if (toggledTime != null) {

@@ -29,7 +29,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
@@ -40,7 +39,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kr.toongether.common.shortToast
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
 import kr.toongether.designsystem.icon.ToongetherIcons
@@ -50,6 +48,7 @@ import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToInputPassword
+import kr.toongether.ui.AlertScreen
 import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -62,10 +61,12 @@ fun CheckEmailRoute(
     email: String,
     name: String,
     userId: String,
-    viewModel: SignupViewModel = hiltViewModel()
+    viewModel: SignupViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit
 ) {
-    val context = LocalContext.current
     val state by viewModel.collectAsState()
+
+    var isShowAlert by remember { mutableStateOf(false) }
 
     val keyboardController = LocalSoftwareKeyboardController.current!!
     val focusManager = LocalFocusManager.current
@@ -100,7 +101,20 @@ fun CheckEmailRoute(
                     userId = userId
                 )
             }
-            is SignupSideEffect.Toast -> context.shortToast(it.text)
+            is SignupSideEffect.Toast -> {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            }
             else -> {}
         }
     }
@@ -179,7 +193,7 @@ internal fun CheckEmailScreen(
                         .fillMaxWidth(),
                     text = code,
                     onTextChange = onTextChange,
-                    placeholder = "000000",
+                    placeholder = "인증번호 6자리",
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number,
                         imeAction = ImeAction.Done

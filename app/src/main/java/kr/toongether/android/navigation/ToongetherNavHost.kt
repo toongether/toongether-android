@@ -21,7 +21,8 @@ import kr.toongether.signup.navigation.signupScreen
 fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = HomeRoute
+    startDestination: String = HomeRoute,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val navController = appState.navController
 
@@ -34,10 +35,10 @@ fun ToongetherNavHost(
         seriesScreen(navController)
         shortsScreen(navController)
         myScreen(navController)
-        comicScreen(navController)
-        loginScreen(navController)
-        signupScreen(navController)
+        comicScreen(navController = navController, alert = alert)
+        loginScreen(navController = navController, alert = alert)
+        signupScreen(navController = navController, alert = alert)
         episodeScreen(navController)
-        settingScreen(navController)
+        settingScreen(navController = navController, alert = alert)
     }
 }

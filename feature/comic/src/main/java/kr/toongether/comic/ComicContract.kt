@@ -30,4 +30,5 @@ data class ComicState(
 
 sealed class ComicSideEffect {
     data class Toast(val text: String) : ComicSideEffect()
+    object LoginToast : ComicSideEffect()
 }

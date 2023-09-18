@@ -6,6 +6,8 @@ complexity:
     active: false
   CyclomaticComplexMethod:
     threshold: 30
+  ComplexCondition:
+    threshold: 10
 
 style:
   MagicNumber:

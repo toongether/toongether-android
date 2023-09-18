@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -24,15 +27,19 @@ import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.theme.Red
 import kr.toongether.login.navigation.navigateToLogin
 import kr.toongether.my.navigation.navigateToQuitAccount
+import kr.toongether.ui.AlertScreen
 
 @Composable
 internal fun SettingRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: MyViewModel = hiltViewModel()
+    viewModel: MyViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val context = LocalContext.current
     val accessToken by viewModel.accessToken.collectAsState()
+
+    var isShowAlert by remember { mutableStateOf(false) }
 
     SettingScreen(
         modifier = modifier,
@@ -47,8 +54,21 @@ internal fun SettingRoute(
         },
         isLogin = accessToken.isNotBlank(),
         onClickLogout = {
-            viewModel.deleteToken()
-            navController.popBackStack()
+            isShowAlert = true
+            alert {
+                AlertScreen(
+                    isShowAlert = isShowAlert,
+                    text = "로그아웃 하시겠어요?",
+                    firstButtonText = "로그아웃",
+                    onClickFirstButton = {
+                        isShowAlert = false
+                        viewModel.deleteToken()
+                        navController.popBackStack()
+                    },
+                    secondButtonText = "취소",
+                    onClickSecondButton = { isShowAlert = false }
+                )
+            }
         },
         onClickQuit = navController::navigateToQuitAccount,
         onClickLogin = navController::navigateToLogin

@@ -15,6 +15,10 @@ import androidx.compose.material.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -32,25 +36,43 @@ import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.theme.Red
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.my.navigation.navigateToMy
+import kr.toongether.ui.AlertScreen
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun QuitAccountRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: MyViewModel = hiltViewModel()
+    viewModel: MyViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val context = LocalContext.current
+    var isShowAlert by remember { mutableStateOf(false) }
 
     viewModel.collectSideEffect {
-        if (it is MySideEffect.NavigateToMy) {
-            navController.navigateToMy(
-                navOptions {
-                    this.popUpTo(kr.toongether.my.navigation.MyRoute) {
-                        inclusive = true
+        when (it) {
+            is MySideEffect.NavigateToMy -> {
+                navController.navigateToMy(
+                    navOptions {
+                        this.popUpTo(kr.toongether.my.navigation.MyRoute) {
+                            inclusive = true
+                        }
+                    }
+                )
+            }
+            is MySideEffect.Toast -> {
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
                     }
                 }
-            )
+            }
+            else -> {}
         }
     }
 
@@ -65,7 +87,23 @@ internal fun QuitAccountRoute(
                 )
             )
         },
-        onClickButton = viewModel::deleteUser
+        onClickButton = {
+            isShowAlert = true
+            alert {
+                AlertScreen(
+                    isShowAlert = isShowAlert,
+                    text = "정말 탈퇴하실간가요?",
+                    firstButtonText = "탈퇴하기",
+                    firstButtonColor = Red,
+                    onClickFirstButton = {
+                        isShowAlert = false
+                        viewModel.deleteUser()
+                    },
+                    secondButtonText = "취소",
+                    onClickSecondButton = { isShowAlert = false }
+                )
+            }
+        }
     )
 }
 

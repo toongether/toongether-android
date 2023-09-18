@@ -1,6 +1,7 @@
 package kr.toongether.android.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -29,33 +34,42 @@ import kr.toongether.designsystem.theme.pretendard
 fun ToongetherApp(
     appState: ToongetherAppState = rememberToongetherAppState()
 ) {
-    Scaffold(
-        containerColor = Color.Transparent,
-        bottomBar = {
-            if (appState.isShowBottomBar) {
-                ToongetherBottomBar(
-                    destinations = appState.navigationDestinations,
-                    onNavigateToDestination = appState::navigateToNavigationDestination,
-                    currentDestination = appState.currentDestination,
-                    isShowBottomBar = appState.isShowBottomBar
+    var alert: (@Composable () -> Unit) by remember { mutableStateOf({}) }
+
+    Box {
+        Scaffold(
+            containerColor = Color.Transparent,
+            bottomBar = {
+                if (appState.isShowBottomBar) {
+                    ToongetherBottomBar(
+                        destinations = appState.navigationDestinations,
+                        onNavigateToDestination = appState::navigateToNavigationDestination,
+                        currentDestination = appState.currentDestination,
+                        isShowBottomBar = appState.isShowBottomBar
+                    )
+                }
+            }
+        ) { paddingValues ->
+            Surface(
+                modifier = if (appState.isShowBottomBar) {
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.Black)
+                        .padding(bottom = paddingValues.calculateBottomPadding())
+                } else {
+                    Modifier
+                        .fillMaxSize()
+                },
+                color = Color.Black
+            ) {
+                ToongetherNavHost(
+                    appState = appState,
+                    alert = { alert = it }
                 )
             }
         }
-    ) { paddingValues ->
-        Surface(
-            modifier = if (appState.isShowBottomBar) {
-                Modifier
-                    .fillMaxSize()
-                    .background(Color.Black)
-                    .padding(bottom = paddingValues.calculateBottomPadding())
-            } else {
-                Modifier
-                    .fillMaxSize()
-            },
-            color = Color.Black
-        ) {
-            ToongetherNavHost(appState = appState)
-        }
+
+        alert.invoke()
     }
 }
 
