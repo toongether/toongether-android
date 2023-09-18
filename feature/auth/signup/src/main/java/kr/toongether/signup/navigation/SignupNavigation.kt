@@ -105,7 +105,8 @@ fun NavGraphBuilder.signupScreen(
             navController = navController,
             email = it.arguments?.getString("email") ?: "",
             name = it.arguments?.getString("name") ?: "",
-            userId = it.arguments?.getString("userId") ?: ""
+            userId = it.arguments?.getString("userId") ?: "",
+            alert = alert
         )
     }
     composable(

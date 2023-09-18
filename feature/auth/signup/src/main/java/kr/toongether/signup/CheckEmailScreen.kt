@@ -50,6 +50,7 @@ import kr.toongether.designsystem.theme.Blue80
 import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.signup.navigation.navigateToInputPassword
+import kr.toongether.ui.AlertScreen
 import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -62,10 +63,12 @@ fun CheckEmailRoute(
     email: String,
     name: String,
     userId: String,
-    viewModel: SignupViewModel = hiltViewModel()
+    viewModel: SignupViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit
 ) {
-    val context = LocalContext.current
     val state by viewModel.collectAsState()
+
+    var isShowAlert by remember { mutableStateOf(false) }
 
     val keyboardController = LocalSoftwareKeyboardController.current!!
     val focusManager = LocalFocusManager.current
@@ -100,7 +103,20 @@ fun CheckEmailRoute(
                     userId = userId
                 )
             }
-            is SignupSideEffect.Toast -> context.shortToast(it.text)
+            is SignupSideEffect.Toast -> {
+                keyboardController.hide()
+                isShowAlert = true
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
+            }
             else -> {}
         }
     }

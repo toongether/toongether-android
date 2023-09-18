@@ -62,21 +62,12 @@ class SignupViewModel @Inject constructor(
         checkEmailUseCase.invoke(email = email, code = code)
             .onSuccess {
                 if (it) postSideEffect(SignupSideEffect.NavigateToInputPassword)
-                reduce {
-                    state.copy(
-                        isEmailChecked = it,
-                        isLoading = false
-                    )
-                }
+                else postSideEffect(SignupSideEffect.Toast("인증번호가 일치하지 않아요."))
+                reduce { state.copy(isLoading = false) }
             }
             .onFailure {
                 postSideEffect(SignupSideEffect.Toast(it.message!!))
-                reduce {
-                    state.copy(
-                        isLoading = false,
-                        error = it
-                    )
-                }
+                reduce { state.copy(isLoading = false) }
             }
     }
 
