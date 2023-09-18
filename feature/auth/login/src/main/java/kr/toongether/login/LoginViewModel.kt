@@ -24,30 +24,19 @@ class LoginViewModel @Inject constructor(
         userId: String,
         password: String
     ) = intent {
-        reduce {
-            state.copy(
-                isLoading = true
-            )
-        }
-        loginUseCase.invoke(
+        reduce { state.copy(isLoading = true) }
+        loginUseCase(
             Login(userId, password)
         ).onSuccess {
-            reduce {
-                state.copy(
-                    isLoading = false
-                )
+            reduce { state.copy(isLoading = false) }
+            toongetherPreferences.apply {
+                saveAccessToken(it.accessToken)
+                saveRefreshToken(it.refreshToken)
             }
-            toongetherPreferences.saveAccessToken(it.accessToken)
-            toongetherPreferences.saveRefreshToken(it.refreshToken)
             postSideEffect(LoginSideEffect.NavigateToMy)
         }.onFailure {
             postSideEffect(LoginSideEffect.Toast(it.message!!))
-            reduce {
-                state.copy(
-                    error = it,
-                    isLoading = false
-                )
-            }
+            reduce { state.copy(isLoading = false) }
         }
     }
 }

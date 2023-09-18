@@ -18,7 +18,10 @@ fun NavController.navigateToLogin(navOptions: NavOptions? = null) {
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.loginScreen(navController: NavController) {
+fun NavGraphBuilder.loginScreen(
+    navController: NavController,
+    alert: (@Composable () -> Unit) -> Unit,
+) {
     composable(
         route = LoginRoute,
         enterTransition = {
@@ -40,6 +43,6 @@ fun NavGraphBuilder.loginScreen(navController: NavController) {
             }
         }
     ) {
-        LoginRoute(navController = navController)
+        LoginRoute(navController = navController, alert = alert)
     }
 }

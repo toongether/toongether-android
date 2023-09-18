@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
+import kr.toongether.designsystem.component.ToongetherLargeButton
 import kr.toongether.designsystem.component.ToongetherTextField
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
@@ -53,6 +55,8 @@ import kr.toongether.designsystem.theme.Gray60
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
 import kr.toongether.signup.navigation.navigateToAgree
+import kr.toongether.ui.AlertScreen
+import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -61,21 +65,32 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 internal fun LoginRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
+    alert: (@Composable () -> Unit) -> Unit,
 ) {
     var userId by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current!!
-    val context = LocalContext.current
 
     val state by viewModel.collectAsState()
+    var isShowAlert by remember { mutableStateOf(false) }
 
     viewModel.collectSideEffect {
         when (it) {
             is LoginSideEffect.Toast -> {
-                Toast.makeText(context, it.text, Toast.LENGTH_SHORT).show()
-                Log.d("ERROR", "LoginRoute: ${state.error?.message}")
+                isShowAlert = true
+                keyboardController.hide()
+                alert {
+                    AlertScreen(
+                        isShowAlert = isShowAlert,
+                        text = it.text,
+                        buttonText = "확인"
+                    ) {
+                        isShowAlert = false
+                        keyboardController.show()
+                    }
+                }
             }
             is LoginSideEffect.NavigateToMy -> navController.popBackStack()
         }
@@ -83,6 +98,7 @@ internal fun LoginRoute(
 
     LoginScreen(
         modifier = modifier,
+        state = state,
         onBackClick = navController::popBackStack,
         onClickLogin = viewModel::login,
         userId = userId,
@@ -102,6 +118,7 @@ internal fun LoginRoute(
 @Composable
 internal fun LoginScreen(
     modifier: Modifier = Modifier,
+    state: LoginState,
     userId: String,
     password: String,
     showPassword: Boolean,
@@ -115,81 +132,50 @@ internal fun LoginScreen(
     onClickPasswordCancel: () -> Unit,
     onClickSignup: () -> Unit
 ) {
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        Spacer(modifier = modifier.statusBarsPadding())
+        Column {
+            Spacer(modifier = modifier.statusBarsPadding())
 
-        IconButton(
-            onClick = onBackClick
-        ) {
-            Icon(
-                imageVector = ToongetherIcons.Back,
-                contentDescription = null,
-                tint = Color.White
-            )
-        }
-
-        Spacer(modifier = modifier.height(16.dp))
-
-        Text(
-            modifier = modifier.padding(horizontal = 16.dp),
-            text = "로그인해주세요",
-            color = Color.White,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = pretendard
-        )
-
-        Spacer(modifier = modifier.height(60.dp))
-
-        ToongetherTextField(
-            modifier = modifier.fillMaxWidth(),
-            text = userId,
-            onTextChange = onUserIdChange,
-            label = "아이디 또는 이메일",
-            placeholder = "toonie@toongether.kr",
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            trailingIcon = {
-                IconButton(
-                    modifier = modifier
-                        .padding(top = 10.dp, end = 10.dp)
-                        .size(24.dp),
-                    onClick = onClickUserIdCancel
-                ) {
-                    Icon(
-                        modifier = modifier.size(18.dp),
-                        imageVector = ToongetherIcons.Cancel,
-                        contentDescription = null,
-                        tint = Gray60
-                    )
-                }
+            IconButton(
+                onClick = onBackClick
+            ) {
+                Icon(
+                    imageVector = ToongetherIcons.Back,
+                    contentDescription = null,
+                    tint = Color.White
+                )
             }
-        )
 
-        Spacer(modifier = modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
-        ToongetherTextField(
-            modifier = modifier
-                .fillMaxWidth(),
-            text = password,
-            onTextChange = onPasswordChange,
-            label = "비밀번호",
-            placeholder = "••••••••",
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(onDone = { keyboardController.hide() }),
-            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                Row(
-                    modifier = modifier.padding(end = 10.dp)
-                ) {
+            Text(
+                modifier = modifier.padding(horizontal = 16.dp),
+                text = "로그인해주세요",
+                color = Color.White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pretendard
+            )
+
+            Spacer(modifier = modifier.height(60.dp))
+
+            ToongetherTextField(
+                modifier = modifier.fillMaxWidth(),
+                text = userId,
+                onTextChange = onUserIdChange,
+                label = "아이디 또는 이메일",
+                placeholder = "toonie@toongether.kr",
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                trailingIcon = {
                     IconButton(
                         modifier = modifier
                             .padding(top = 10.dp, end = 10.dp)
                             .size(24.dp),
-                        onClick = onClickPasswordCancel
+                        onClick = onClickUserIdCancel
                     ) {
                         Icon(
                             modifier = modifier.size(18.dp),
@@ -198,70 +184,98 @@ internal fun LoginScreen(
                             tint = Gray60
                         )
                     }
+                }
+            )
 
-                    IconButton(
-                        modifier = modifier
-                            .padding(top = 10.dp, end = 10.dp)
-                            .size(24.dp),
-                        onClick = onClickShowPassword
+            Spacer(modifier = modifier.height(16.dp))
+
+            ToongetherTextField(
+                modifier = modifier
+                    .fillMaxWidth(),
+                text = password,
+                onTextChange = onPasswordChange,
+                label = "비밀번호",
+                placeholder = "••••••••",
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { keyboardController.hide() }),
+                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    Row(
+                        modifier = modifier.padding(end = 10.dp)
                     ) {
-                        Icon(
-                            imageVector = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
-                            contentDescription = "Visibility",
-                            tint = Gray60
-                        )
+                        IconButton(
+                            modifier = modifier
+                                .padding(top = 10.dp, end = 10.dp)
+                                .size(24.dp),
+                            onClick = onClickPasswordCancel
+                        ) {
+                            Icon(
+                                modifier = modifier.size(18.dp),
+                                imageVector = ToongetherIcons.Cancel,
+                                contentDescription = null,
+                                tint = Gray60
+                            )
+                        }
+
+                        IconButton(
+                            modifier = modifier
+                                .padding(top = 10.dp, end = 10.dp)
+                                .size(24.dp),
+                            onClick = onClickShowPassword
+                        ) {
+                            Icon(
+                                imageVector = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                                contentDescription = "Visibility",
+                                tint = Gray60
+                            )
+                        }
                     }
                 }
-            }
-        )
-
-        Spacer(modifier = modifier.height(40.dp))
-
-        ToongetherButton(
-            contentPadding = PaddingValues(vertical = 12.dp),
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            onClick = { onClickLogin(userId, password) },
-            color = if (userId.isNotBlank() && password.isNotBlank()) Blue60 else Blue80
-        ) {
-            Text(
-                text = "로그인",
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = pretendard,
-                color = Color.White,
-                fontSize = 18.sp
-            )
-        }
-
-        Spacer(modifier = modifier.height(16.dp))
-
-        Row(
-            modifier = modifier
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(
-                modifier = modifier,
-                text = "툰게더가 처음이신가요? ",
-                fontWeight = FontWeight.Normal,
-                fontFamily = pretendard,
-                color = Color.White,
-                fontSize = 14.sp
             )
 
-            Text(
+            Spacer(modifier = modifier.height(40.dp))
+
+            ToongetherLargeButton(
                 modifier = modifier
-                    .clickable(
-                        interactionSource = NoRippleInteractionSource(),
-                        indication = null,
-                        onClick = onClickSignup
-                    ),
-                text = "회원가입",
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = pretendard,
-                color = Blue60,
-                fontSize = 14.sp
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                onClick = { onClickLogin(userId, password) },
+                color = if (userId.isNotBlank() && password.isNotBlank()) Blue60 else Blue80,
+                text = "로그인"
             )
+
+            Spacer(modifier = modifier.height(16.dp))
+
+            Row(
+                modifier = modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    modifier = modifier,
+                    text = "툰게더가 처음이신가요? ",
+                    fontWeight = FontWeight.Normal,
+                    fontFamily = pretendard,
+                    color = Color.White,
+                    fontSize = 14.sp
+                )
+
+                Text(
+                    modifier = modifier
+                        .clickable(
+                            interactionSource = NoRippleInteractionSource(),
+                            indication = null,
+                            onClick = onClickSignup
+                        ),
+                    text = "회원가입",
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = pretendard,
+                    color = Blue60,
+                    fontSize = 14.sp
+                )
+            }
+        }
+        if (state.isLoading) {
+            LoadingScreen()
         }
     }
 }
