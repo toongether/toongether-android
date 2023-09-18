@@ -49,7 +49,7 @@ internal fun SeriesRoute(
     viewModel: SeriesViewModel = hiltViewModel()
 ) {
     val state by viewModel.collectAsState()
-    val pagerState = rememberPagerState(initialPage = LocalDate.now().dayOfWeek.value)
+    val pagerState = rememberPagerState(/* initialPage = LocalDate.now().dayOfWeek.value */)
     val coroutineScope = rememberCoroutineScope()
 
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isLoading)
