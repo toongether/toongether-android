@@ -224,7 +224,7 @@ internal fun InputPasswordScreen(
                     .fillMaxWidth(),
                 text = password,
                 onTextChange = onPasswordChange,
-                placeholder = "example1234!",
+                placeholder = "••••••••",
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
                 label = "비밀번호",
@@ -271,7 +271,7 @@ internal fun InputPasswordScreen(
                 text = passwordCheck,
                 onTextChange = onPasswordCheckChange,
                 label = "비밀번호 확인",
-                placeholder = "example1234!",
+                placeholder = "••••••••",
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 visualTransformation = if (showPasswordCheck) {
                     VisualTransformation.None

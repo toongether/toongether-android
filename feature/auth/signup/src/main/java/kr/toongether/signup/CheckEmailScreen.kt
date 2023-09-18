@@ -195,7 +195,7 @@ internal fun CheckEmailScreen(
                         .fillMaxWidth(),
                     text = code,
                     onTextChange = onTextChange,
-                    placeholder = "000000",
+                    placeholder = "인증번호 6자리",
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number,
                         imeAction = ImeAction.Done

@@ -150,7 +150,7 @@ internal fun LoginScreen(
             text = userId,
             onTextChange = onUserIdChange,
             label = "아이디 또는 이메일",
-            placeholder = "example@toongether.kr",
+            placeholder = "toonie@toongether.kr",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             trailingIcon = {
                 IconButton(
@@ -177,7 +177,7 @@ internal fun LoginScreen(
             text = password,
             onTextChange = onPasswordChange,
             label = "비밀번호",
-            placeholder = "example1234!",
+            placeholder = "••••••••",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { keyboardController.hide() }),
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),

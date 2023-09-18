@@ -304,7 +304,7 @@ internal fun SignupScreen(
                     text = email,
                     onTextChange = onEmailChange,
                     label = "이메일",
-                    placeholder = "example@toongether.kr",
+                    placeholder = "toonie@toongether.kr",
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = { keyboardController.hide() }),
                     trailingIcon = {
@@ -334,7 +334,7 @@ internal fun SignupScreen(
                     text = userId,
                     onTextChange = onUserIdChange,
                     label = "아이디",
-                    placeholder = "example",
+                    placeholder = "toonie",
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     keyboardActions = KeyboardActions(onNext = { showEmail.invoke() }),
                     trailingIcon = {
@@ -363,7 +363,7 @@ internal fun SignupScreen(
                 text = nickname,
                 onTextChange = onNicknameChange,
                 label = "닉네임",
-                placeholder = "홍길동",
+                placeholder = "투니",
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(onNext = { showId.invoke() }),
                 trailingIcon = {
