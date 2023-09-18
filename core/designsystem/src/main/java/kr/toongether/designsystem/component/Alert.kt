@@ -92,7 +92,7 @@ fun ToongetherAlert(
             fontSize = 16.sp
         )
         
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Button(
             onClick = onClickFirstButton,
@@ -110,7 +110,7 @@ fun ToongetherAlert(
             )
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         Button(
             onClick = onClickSecondButton,

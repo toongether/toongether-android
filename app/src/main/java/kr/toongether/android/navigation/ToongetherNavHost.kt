@@ -23,7 +23,7 @@ fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
     startDestination: String = HomeRoute,
-    alert: (@Composable () -> Unit) -> Unit
+    alert: (@Composable () -> Unit) -> Unit,
 ) {
     val navController = appState.navController
 
@@ -37,15 +37,9 @@ fun ToongetherNavHost(
         shortsScreen(navController)
         myScreen(navController)
         comicScreen(navController)
-        loginScreen(
-            navController = navController,
-            alert = alert
-        )
-        signupScreen(
-            navController = navController,
-            alert = alert
-        )
+        loginScreen(navController = navController, alert = alert)
+        signupScreen(navController = navController, alert = alert)
         episodeScreen(navController)
-        settingScreen(navController)
+        settingScreen(navController = navController, alert = alert)
     }
 }

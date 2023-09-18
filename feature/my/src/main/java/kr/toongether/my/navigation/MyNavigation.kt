@@ -3,6 +3,7 @@ package kr.toongether.my.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -35,7 +36,10 @@ internal fun NavController.navigateToQuitAccount(navOptions: NavOptions? = null)
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.settingScreen(navController: NavController) {
+fun NavGraphBuilder.settingScreen(
+    navController: NavController,
+    alert: (@Composable () -> Unit) -> Unit,
+) {
     composable(
         route = SettingRoute,
         enterTransition = {
@@ -44,6 +48,7 @@ fun NavGraphBuilder.settingScreen(navController: NavController) {
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 else -> null
             }
         },
@@ -53,11 +58,12 @@ fun NavGraphBuilder.settingScreen(navController: NavController) {
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 else -> null
             }
         }
     ) {
-        SettingRoute(navController = navController)
+        SettingRoute(navController = navController, alert = alert)
     }
 
     composable(
@@ -68,6 +74,7 @@ fun NavGraphBuilder.settingScreen(navController: NavController) {
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 else -> null
             }
         },
@@ -77,10 +84,11 @@ fun NavGraphBuilder.settingScreen(navController: NavController) {
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
+
                 else -> null
             }
         }
     ) {
-        QuitAccountRoute(navController = navController)
+        QuitAccountRoute(navController = navController, alert = alert)
     }
 }
