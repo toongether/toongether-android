@@ -2,6 +2,7 @@ package kr.toongether.home
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Toongether
@@ -40,6 +43,8 @@ import kr.toongether.designsystem.theme.Gray50
 import kr.toongether.designsystem.theme.Shape
 import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.designsystem.utils.NoRippleInteractionSource
+import kr.toongether.episode.navigatoin.navigateToEpisode
 import kr.toongether.ui.LoadingScreen
 import kr.toongether.ui.SeriesCard
 import kr.toongether.ui.TitleImageCard
@@ -48,6 +53,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 @Composable
 internal fun HomeRoute(
     modifier: Modifier = Modifier,
+    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
@@ -56,7 +62,13 @@ internal fun HomeRoute(
     HomeScreen(
         modifier = modifier,
         state = state,
-        scrollState = scrollState
+        scrollState = scrollState,
+        onClickShorts = {
+            navController.navigateToComic(shortsId = it)
+        },
+        onClickSeries = {
+            navController.navigateToEpisode(id = it)
+        }
     )
 }
 
@@ -65,6 +77,8 @@ internal fun HomeScreen(
     modifier: Modifier = Modifier,
     state: HomeState,
     scrollState: ScrollState,
+    onClickShorts: (shortsId: Long) -> Unit,
+    onClickSeries: (seriesId: Long) -> Unit,
 ) {
     Box {
         Column(
@@ -107,73 +121,88 @@ internal fun HomeScreen(
                 )
             }
 
-            Spacer(modifier = modifier.height(10.dp))
+            Column(modifier = modifier.padding(horizontal = 12.dp)) {
+                Spacer(modifier = modifier.height(10.dp))
 
-            Text(
-                text = "인기 단편 웹툰",
-                fontFamily = pretendard,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp,
-                color = Color.White
-            )
-            Spacer(modifier = modifier.height(8.dp))
+                Text(
+                    text = "인기 단편 웹툰",
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+                Spacer(modifier = modifier.height(8.dp))
 
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(
-                    items = state.shortsList,
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ShortsItem(
-                        modifier = modifier,
-                        thumbnail = it.thumbnail,
-                        title = it.title,
-                    )
+                    items(
+                        items = state.shortsList,
+                    ) {
+                        ShortsItem(
+                            modifier = modifier
+                                .clickable(
+                                    interactionSource = NoRippleInteractionSource(),
+                                    indication = null,
+                                    onClick = { onClickShorts(it.id) }
+                                ),
+                            thumbnail = it.thumbnail,
+                            title = it.title,
+                        )
+                    }
                 }
-            }
 
-            Spacer(modifier = modifier.height(16.dp))
+                Spacer(modifier = modifier.height(16.dp))
 
-            Text(
-                text = "최신 연재 웹툰",
-                fontFamily = pretendard,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp,
-                color = Color.White
-            )
-            Spacer(modifier = modifier.height(8.dp))
+                Text(
+                    text = "최신 연재 웹툰",
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+                Spacer(modifier = modifier.height(8.dp))
 
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(
-                    items = state.seriesList,
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    SeriesItem(
-                        titleImage = it.titleInfo.titleImage,
-                        thumbnailImage = it.titleInfo.thumbnailImage,
-                        backgroundColor = it.titleInfo.color,
-                        titleWidth = it.titleInfo.titleWidth
-                    )
+                    items(
+                        items = state.seriesList,
+                    ) {
+                        SeriesItem(
+                            modifier = modifier
+                                .clickable(
+                                    interactionSource = NoRippleInteractionSource(),
+                                    indication = null,
+                                    onClick = { onClickSeries(it.id) }
+                                ),
+                            titleImage = it.titleInfo.titleImage,
+                            thumbnailImage = it.titleInfo.thumbnailImage,
+                            backgroundColor = it.titleInfo.color,
+                            titleWidth = it.titleInfo.titleWidth
+                        )
+                    }
                 }
+
+                Spacer(modifier = modifier.height(20.dp))
+
+                Text(
+                    modifier = modifier.align(Alignment.CenterHorizontally),
+                    text = "Copyright © 2023 Progress. All rights reserved.",
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 8.sp,
+                    color = Gray50
+                )
+
+                Spacer(modifier = modifier.height(20.dp))
             }
-
-            Spacer(modifier = modifier.height(20.dp))
-
-            Text(
-                modifier = modifier.align(Alignment.CenterHorizontally),
-                text = "Copyright © 2023 Progress. All rights reserved.",
-                fontFamily = pretendard,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 8.sp,
-                color = Gray50
-            )
-
-            Spacer(modifier = modifier.height(20.dp))
         }
 
         if (state.isLoading) {
-            LoadingScreen()
+            Box(modifier = modifier.fillMaxSize()) {
+                
+            }
         }
     }
 }

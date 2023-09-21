@@ -44,7 +44,7 @@ fun NavGraphBuilder.comicScreen(
                     animationSpec = tween(durationMillis = 400)
                 )
 
-                "shorts_route" -> slideIntoContainer(
+                "shorts_route", "home_route" -> slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
@@ -60,7 +60,7 @@ fun NavGraphBuilder.comicScreen(
                     animationSpec = tween(durationMillis = 400)
                 )
 
-                "shorts_route" -> slideOutOfContainer(
+                "shorts_route", "home_route" -> slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )

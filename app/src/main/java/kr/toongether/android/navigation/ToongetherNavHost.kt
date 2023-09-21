@@ -31,7 +31,7 @@ fun ToongetherNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        homeScreen()
+        homeScreen(navController)
         seriesScreen(navController)
         shortsScreen(navController)
         myScreen(navController)
