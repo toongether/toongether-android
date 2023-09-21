@@ -1,54 +1,61 @@
 package kr.toongether.home
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kr.toongether.designsystem.component.ToongetherCard
+import androidx.core.graphics.toColorInt
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.icon.ToongetherIcons
-import kr.toongether.designsystem.icon.icons.Check
-import kr.toongether.designsystem.icon.icons.Clock
-import kr.toongether.designsystem.icon.icons.RightArrow
 import kr.toongether.designsystem.icon.icons.Toongether
-import kr.toongether.designsystem.theme.Blue60
 import kr.toongether.designsystem.theme.Gray50
+import kr.toongether.designsystem.theme.Shape
+import kr.toongether.designsystem.theme.TransparentBlack80
 import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.ui.LoadingScreen
+import kr.toongether.ui.SeriesCard
+import kr.toongether.ui.TitleImageCard
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 internal fun HomeRoute(
     modifier: Modifier = Modifier,
-    context: Context = LocalContext.current
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
+    val state by viewModel.collectAsState()
 
     HomeScreen(
         modifier = modifier,
-        context = context,
+        state = state,
         scrollState = scrollState
     )
 }
@@ -56,227 +63,220 @@ internal fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    context: Context,
-    scrollState: ScrollState
+    state: HomeState,
+    scrollState: ScrollState,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .verticalScroll(scrollState)
-    ) {
+    Box {
         Column(
             modifier = modifier
-                .height(257.dp)
-                .fillMaxWidth()
-                .background(Brush.verticalGradient(listOf(Blue60, Color.Transparent)))
+                .fillMaxSize()
+                .verticalScroll(scrollState)
         ) {
-            ToongetherTopAppBar(
-                modifier = modifier.statusBarsPadding(),
-                titleIcon = ToongetherIcons.Toongether,
-                subTitle =
-                "프리 릴리즈",
-                backgroundColor = Color.Transparent
-            )
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
-            ) {
-                Text(
-                    modifier = modifier.align(Alignment.CenterStart),
-                    text = "툰게더,\n출시를 향하여!",
-                    fontFamily = pretendard,
-                    fontSize = 24.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold
-                )
+            Box {
+                if (state.titleBanner != null) {
+                    TitleImageCard(
+                        thumbnailImage = state.titleBanner.titleInfo.thumbnailImage,
+                        titleImage = state.titleBanner.titleInfo.titleImage,
+                        titleWidth = state.titleBanner.titleInfo.titleWidth,
+                        author = state.titleBanner.author.name,
+                        dayOfWeek = state.titleBanner.dayOfWeek.title,
+                        cycle = state.titleBanner.cycle.title,
+                        genre = state.titleBanner.genre
+                    )
 
-                Image(
+                    Box(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(95.dp)
+                            .background(
+                                Brush.verticalGradient(
+                                    listOf(
+                                        TransparentBlack80,
+                                        Color.Transparent
+                                    )
+                                )
+                            )
+                    )
+                }
+
+                ToongetherTopAppBar(
                     modifier = modifier
-                        .size(127.dp, 151.dp)
-                        .align(Alignment.CenterEnd),
-                    painter = painterResource(id = kr.toongether.designsystem.R.drawable.ic_tooie),
-                    contentDescription = null
+                        .statusBarsPadding(),
+                    titleIcon = ToongetherIcons.Toongether,
+                    backgroundColor = Color.Transparent
                 )
             }
+
+            Spacer(modifier = modifier.height(10.dp))
+
+            Text(
+                text = "인기 단편 웹툰",
+                fontFamily = pretendard,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+            Spacer(modifier = modifier.height(8.dp))
+
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(
+                    items = state.shortsList,
+                ) {
+                    ShortsItem(
+                        modifier = modifier,
+                        thumbnail = it.thumbnail,
+                        title = it.title,
+                    )
+                }
+            }
+
+            Spacer(modifier = modifier.height(16.dp))
+
+            Text(
+                text = "최신 연재 웹툰",
+                fontFamily = pretendard,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+            Spacer(modifier = modifier.height(8.dp))
+
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(
+                    items = state.seriesList,
+                ) {
+                    SeriesItem(
+                        titleImage = it.titleInfo.titleImage,
+                        thumbnailImage = it.titleInfo.thumbnailImage,
+                        backgroundColor = it.titleInfo.color,
+                        titleWidth = it.titleInfo.titleWidth
+                    )
+                }
+            }
+
+            Spacer(modifier = modifier.height(20.dp))
+
+            Text(
+                modifier = modifier.align(Alignment.CenterHorizontally),
+                text = "Copyright © 2023 Progress. All rights reserved.",
+                fontFamily = pretendard,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 8.sp,
+                color = Gray50
+            )
+
+            Spacer(modifier = modifier.height(20.dp))
         }
 
+        if (state.isLoading) {
+            LoadingScreen()
+        }
+    }
+}
+
+@Composable
+private fun ShortsItem(
+    modifier: Modifier = Modifier,
+    thumbnail: String,
+    title: String,
+) {
+    Box(
+        modifier = modifier
+            .width(200.dp)
+            .height(125.dp)
+            .clip(Shape.medium)
+    ) {
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = thumbnail,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(75.dp)
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            Color.Transparent,
+                            TransparentBlack80
+                        )
+                    )
+                )
+                .align(Alignment.BottomCenter)
+        )
         Text(
-            modifier = modifier.padding(start = 12.dp),
-            text = "Android v0.2",
-            fontSize = 12.sp,
+            modifier = modifier
+                .align(Alignment.BottomStart)
+                .fillMaxWidth()
+                .padding(bottom = 6.dp)
+                .padding(horizontal = 6.dp),
+            text = title,
             fontFamily = pretendard,
             fontWeight = FontWeight.SemiBold,
+            fontSize = 14.sp,
             color = Color.White
         )
+    }
+}
 
-        Spacer(modifier = modifier.height(4.dp))
+@Composable
+private fun SeriesItem(
+    modifier: Modifier = Modifier,
+    titleImage: String,
+    thumbnailImage: String,
+    backgroundColor: String,
+    titleWidth: Float,
+) {
+    Box(
+        modifier = modifier
+            .height(160.dp)
+            .width(120.dp)
+            .clip(Shape.medium)
+    ) {
+        AsyncImage(
+            modifier = modifier
+                .fillMaxSize()
+                .align(Alignment.BottomCenter),
+            model = thumbnailImage,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
 
-        ToongetherCard(
-            title = "툰게더에 대하여",
-            icon = ToongetherIcons.RightArrow,
-            iconTint = Color.White,
-            onClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://go.toongether.kr/about")
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(103.dp)
+                .align(Alignment.BottomCenter)
+                .background(
+                    brush = Brush.verticalGradient(
+                        listOf(
+                            Color.Transparent,
+                            Color(backgroundColor.toColorInt())
+                        )
                     )
                 )
-            }
         )
 
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "웹툰 업로드해보기",
-            icon = ToongetherIcons.RightArrow,
-            iconTint = Color.White,
-            onClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://go.toongether.kr/try")
-                    )
-                )
-            }
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "피드백하기",
-            icon = ToongetherIcons.RightArrow,
-            iconTint = Color.White,
-            onClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://go.toongether.kr/feedback")
-                    )
-                )
-            }
-        )
-
-        Spacer(modifier = modifier.height(20.dp))
-
-        Text(
-            modifier = modifier.padding(start = 12.dp),
-            text = "개발 진행 상황",
-            fontSize = 12.sp,
-            fontFamily = pretendard,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-
-        Spacer(modifier = modifier.height(4.dp))
-
-        ToongetherCard(
-            title = "단편 웹툰 열람",
-            icon = ToongetherIcons.Check,
-            iconTint = Blue60,
-            text = "개발 완료",
-            textColor = Blue60
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "연재 웹툰 열람",
-            icon = ToongetherIcons.Check,
-            iconTint = Blue60,
-            text = "개발 완료",
-            textColor = Blue60
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "로그인",
-            icon = ToongetherIcons.Check,
-            iconTint = Blue60,
-            text = "개발 완료",
-            textColor = Blue60
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "웹툰 회차별 공감",
-            icon = ToongetherIcons.Check,
-            iconTint = Blue60,
-            text = "개발 완료",
-            textColor = Blue60
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "웹툰 회차별 댓글",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "웹툰 검색 및 필터링",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "웹툰 이어보기",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "작가 개인 페이지",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "홈 화면",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "커뮤니티 서비스",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(8.dp))
-
-        ToongetherCard(
-            title = "라이트 모드",
-            icon = ToongetherIcons.Clock,
-            text = "개발 중"
-        )
-
-        Spacer(modifier = modifier.height(20.dp))
-
-        Text(
-            modifier = modifier.align(Alignment.CenterHorizontally),
-            text = "Copyright © 2023 Progress. All rights reserved.",
-            fontSize = 8.sp,
-            fontFamily = pretendard,
-            fontWeight = FontWeight.SemiBold,
-            color = Gray50
-        )
-
-        Spacer(modifier = modifier.height(20.dp))
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(63.dp)
+                .align(Alignment.BottomCenter)
+        ) {
+            AsyncImage(
+                modifier = modifier
+                    .width(titleWidth.dp)
+                    .align(Alignment.Center),
+                model = titleImage,
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth
+            )
+        }
     }
 }
