@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getSeriesUseCase: GetSeriesListUseCase,
-    private val getShortsListUseCase: GetShortsListUseCase,
+    private val getShortsListUseCase: GetShortsListUseCase
 ) : ContainerHost<HomeState, HomeSideEffect>, ViewModel() {
 
     override val container = container<HomeState, HomeSideEffect>(HomeState())

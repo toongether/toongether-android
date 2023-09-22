@@ -22,7 +22,7 @@ fun ToongetherNavHost(
     appState: ToongetherAppState,
     modifier: Modifier = Modifier,
     startDestination: String = HomeRoute,
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val navController = appState.navController
 

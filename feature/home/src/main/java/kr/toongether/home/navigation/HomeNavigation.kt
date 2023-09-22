@@ -17,7 +17,7 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.homeScreen(
     navController: NavController,
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     composable(route = HomeRoute) {
         HomeRoute(navController = navController, alert = alert)

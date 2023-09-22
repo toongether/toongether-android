@@ -54,7 +54,7 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel(),
-    alert: (@Composable () -> Unit) -> Unit,
+    alert: (@Composable () -> Unit) -> Unit
 ) {
     val scrollState = rememberScrollState()
     val state by viewModel.collectAsState()
@@ -65,7 +65,7 @@ internal fun HomeRoute(
                 Box(
                     modifier = modifier
                         .fillMaxSize()
-                        .background(Color.Black),
+                        .background(Color.Black)
                 ) {
                     Image(
                         modifier = modifier.align(Alignment.Center),
@@ -77,7 +77,6 @@ internal fun HomeRoute(
         }
     }
 
-
     HomeScreen(
         modifier = modifier,
         state = state,
@@ -87,7 +86,7 @@ internal fun HomeRoute(
         },
         onClickSeries = {
             navController.navigateToEpisode(id = it)
-        },
+        }
     )
 }
 
@@ -97,7 +96,7 @@ internal fun HomeScreen(
     state: HomeState,
     scrollState: ScrollState,
     onClickShorts: (shortsId: Long) -> Unit,
-    onClickSeries: (seriesId: Long) -> Unit,
+    onClickSeries: (seriesId: Long) -> Unit
 ) {
     Box {
         Column(
@@ -160,13 +159,13 @@ internal fun HomeScreen(
                 Spacer(modifier = modifier.height(8.dp))
 
                 LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
                         Spacer(modifier = modifier.width(4.dp))
                     }
                     items(
-                        items = state.shortsList,
+                        items = state.shortsList
                     ) {
                         ShortsItem(
                             modifier = modifier
@@ -176,7 +175,7 @@ internal fun HomeScreen(
                                     onClick = { onClickShorts(it.id) }
                                 ),
                             thumbnail = it.thumbnail,
-                            title = it.title,
+                            title = it.title
                         )
                     }
                     item {
@@ -197,13 +196,13 @@ internal fun HomeScreen(
                 Spacer(modifier = modifier.height(8.dp))
 
                 LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
                         Spacer(modifier = modifier.width(4.dp))
                     }
                     items(
-                        items = state.seriesList,
+                        items = state.seriesList
                     ) {
                         SeriesItem(
                             modifier = modifier
@@ -244,7 +243,7 @@ internal fun HomeScreen(
 private fun ShortsItem(
     modifier: Modifier = Modifier,
     thumbnail: String,
-    title: String,
+    title: String
 ) {
     Box(
         modifier = modifier
@@ -293,7 +292,7 @@ private fun SeriesItem(
     titleImage: String,
     thumbnailImage: String,
     backgroundColor: String,
-    titleWidth: Float,
+    titleWidth: Float
 ) {
     Box(
         modifier = modifier
