@@ -146,10 +146,11 @@ internal fun HomeScreen(
                 )
             }
 
-            Column(modifier = modifier.padding(horizontal = 12.dp)) {
+            Column {
                 Spacer(modifier = modifier.height(10.dp))
 
                 Text(
+                    modifier = modifier.padding(horizontal = 12.dp),
                     text = "인기 단편 웹툰",
                     fontFamily = pretendard,
                     fontWeight = FontWeight.SemiBold,
@@ -161,6 +162,9 @@ internal fun HomeScreen(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
+                    item {
+                        Spacer(modifier = modifier.width(4.dp))
+                    }
                     items(
                         items = state.shortsList,
                     ) {
@@ -175,11 +179,15 @@ internal fun HomeScreen(
                             title = it.title,
                         )
                     }
+                    item {
+                        Spacer(modifier = modifier.width(4.dp))
+                    }
                 }
 
                 Spacer(modifier = modifier.height(16.dp))
 
                 Text(
+                    modifier = modifier.padding(horizontal = 12.dp),
                     text = "최신 연재 웹툰",
                     fontFamily = pretendard,
                     fontWeight = FontWeight.SemiBold,
@@ -191,6 +199,9 @@ internal fun HomeScreen(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
+                    item {
+                        Spacer(modifier = modifier.width(4.dp))
+                    }
                     items(
                         items = state.seriesList,
                     ) {
@@ -206,6 +217,9 @@ internal fun HomeScreen(
                             backgroundColor = it.titleInfo.color,
                             titleWidth = it.titleInfo.titleWidth
                         )
+                    }
+                    item {
+                        Spacer(modifier = modifier.width(4.dp))
                     }
                 }
 
