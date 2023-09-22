@@ -1,6 +1,7 @@
 package kr.toongether.home.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -14,8 +15,11 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.homeScreen() {
+fun NavGraphBuilder.homeScreen(
+    navController: NavController,
+    alert: (@Composable () -> Unit) -> Unit
+) {
     composable(route = HomeRoute) {
-        HomeRoute()
+        HomeRoute(navController = navController, alert = alert)
     }
 }

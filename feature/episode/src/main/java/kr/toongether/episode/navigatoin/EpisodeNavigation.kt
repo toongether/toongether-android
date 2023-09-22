@@ -24,7 +24,7 @@ fun NavGraphBuilder.episodeScreen(navController: NavController) {
         arguments = listOf(navArgument("id") { type = NavType.LongType }),
         enterTransition = {
             when (initialState.destination.route) {
-                "series_route" -> slideIntoContainer(
+                "series_route", "home_route" -> slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
@@ -33,7 +33,7 @@ fun NavGraphBuilder.episodeScreen(navController: NavController) {
         },
         exitTransition = {
             when (targetState.destination.route) {
-                "series_route" -> slideOutOfContainer(
+                "series_route", "home_route" -> slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )

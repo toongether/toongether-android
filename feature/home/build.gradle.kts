@@ -10,4 +10,7 @@ android {
 dependencies {
 
     implementation(project(":core:designsystem"))
+    implementation(project(":feature:comic"))
+    implementation(project(":feature:episode"))
+    implementation(libs.coil.compose)
 }
