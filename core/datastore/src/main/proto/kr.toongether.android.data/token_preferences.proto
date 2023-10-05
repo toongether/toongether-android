@@ -6,4 +6,6 @@ option java_multiple_files = true;
 message TokenPreferences {
     string accessToken = 1;
     string refreshToken = 2;
+    string id = 3;
+    string pw = 4;
 }

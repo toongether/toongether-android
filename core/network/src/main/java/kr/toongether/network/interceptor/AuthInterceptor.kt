@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
+import kr.toongether.network.model.LoginRequest
 import kr.toongether.network.model.RefreshTokenRequest
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -41,6 +42,30 @@ class AuthInterceptor @Inject constructor(
                         .build()
 
                     response = chain.proceed(newRequest)
+
+                    if (response.code == 401) {
+                        response.close()
+
+                        runBlocking(Dispatchers.IO) {
+                            kotlin.runCatching {
+                                userNetworkDataSource.get().login(
+                                        LoginRequest(
+                                            userId = toongetherPreferences.id.first(),
+                                            password = toongetherPreferences.pw.first()
+                                        )
+                                    )
+                            }.onSuccess { token ->
+                                toongetherPreferences.saveAccessToken(token.accessToken)
+                                toongetherPreferences.saveRefreshToken(token.refreshToken)
+
+                                val secondRequest = chain.request().newBuilder()
+                                    .addHeader(AUTHORIZATION, "Bearer ${it.content}")
+                                    .build()
+
+                                response = chain.proceed(secondRequest)
+                            }
+                        }
+                    }
                 }
             }
         }
