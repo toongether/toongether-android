@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
             .onSuccess {
                 reduce {
                     state.copy(
-                        seriesList = it.seriesList,
+                        seriesList = it.seriesList.drop(1),
                         titleBanner = it.seriesList[0],
                         isLoading = false
                     )

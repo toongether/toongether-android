@@ -32,6 +32,8 @@ class LoginViewModel @Inject constructor(
             toongetherPreferences.apply {
                 saveAccessToken(it.accessToken)
                 saveRefreshToken(it.refreshToken)
+                saveId(userId)
+                savePassword(password)
             }
             postSideEffect(LoginSideEffect.NavigateToMy)
         }.onFailure {
