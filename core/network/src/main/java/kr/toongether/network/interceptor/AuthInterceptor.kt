@@ -49,11 +49,11 @@ class AuthInterceptor @Inject constructor(
                         runBlocking(Dispatchers.IO) {
                             kotlin.runCatching {
                                 userNetworkDataSource.get().login(
-                                        LoginRequest(
-                                            userId = toongetherPreferences.id.first(),
-                                            password = toongetherPreferences.pw.first()
-                                        )
+                                    LoginRequest(
+                                        userId = toongetherPreferences.id.first(),
+                                        password = toongetherPreferences.pw.first()
                                     )
+                                )
                             }.onSuccess { token ->
                                 toongetherPreferences.saveAccessToken(token.accessToken)
                                 toongetherPreferences.saveRefreshToken(token.refreshToken)
