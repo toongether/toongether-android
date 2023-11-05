@@ -20,14 +20,14 @@ class SeriesViewModel @Inject constructor(
     override val container =
         container<SeriesState, SeriesSideEffect>(
             SeriesState(
-                getPagingSeriesUseCase.invoke(null, null).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.MONDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.TUESDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.WEDNESDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.THURSDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.FRIDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.SATURDAY).cachedIn(viewModelScope),
-                getPagingSeriesUseCase.invoke(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope)
+                allSeries = getPagingSeriesUseCase.invoke(null, null).cachedIn(viewModelScope),
+                mondaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.MONDAY).cachedIn(viewModelScope),
+                tuesdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.TUESDAY).cachedIn(viewModelScope),
+                wednesdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.WEDNESDAY).cachedIn(viewModelScope),
+                thursdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.THURSDAY).cachedIn(viewModelScope),
+                fridaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.FRIDAY).cachedIn(viewModelScope),
+                saturdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.SATURDAY).cachedIn(viewModelScope),
+                sundaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope),
             )
         )
 
