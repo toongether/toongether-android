@@ -20,14 +20,14 @@ class SeriesViewModel @Inject constructor(
     override val container =
         container<SeriesState, SeriesSideEffect>(
             SeriesState(
-                allSeries = getPagingSeriesUseCase.invoke(null, null).cachedIn(viewModelScope),
-                mondaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.MONDAY).cachedIn(viewModelScope),
-                tuesdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.TUESDAY).cachedIn(viewModelScope),
-                wednesdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.WEDNESDAY).cachedIn(viewModelScope),
-                thursdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.THURSDAY).cachedIn(viewModelScope),
-                fridaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.FRIDAY).cachedIn(viewModelScope),
-                saturdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.SATURDAY).cachedIn(viewModelScope),
-                sundaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope),
+                allSeries = getPagingSeriesUseCase(null, null).cachedIn(viewModelScope),
+                mondaySeries = getPagingSeriesUseCase(null, DayOfWeek.MONDAY).cachedIn(viewModelScope),
+                tuesdaySeries = getPagingSeriesUseCase(null, DayOfWeek.TUESDAY).cachedIn(viewModelScope),
+                wednesdaySeries = getPagingSeriesUseCase(null, DayOfWeek.WEDNESDAY).cachedIn(viewModelScope),
+                thursdaySeries = getPagingSeriesUseCase(null, DayOfWeek.THURSDAY).cachedIn(viewModelScope),
+                fridaySeries = getPagingSeriesUseCase(null, DayOfWeek.FRIDAY).cachedIn(viewModelScope),
+                saturdaySeries = getPagingSeriesUseCase(null, DayOfWeek.SATURDAY).cachedIn(viewModelScope),
+                sundaySeries = getPagingSeriesUseCase(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope),
             )
         )
 
@@ -35,49 +35,49 @@ class SeriesViewModel @Inject constructor(
         when (dayOfWeek) {
             DayOfWeek.MONDAY -> reduce {
                 state.copy(
-                    mondaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.MONDAY)
+                    mondaySeries = getPagingSeriesUseCase(null, DayOfWeek.MONDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             DayOfWeek.TUESDAY -> reduce {
                 state.copy(
-                    tuesdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.TUESDAY)
+                    tuesdaySeries = getPagingSeriesUseCase(null, DayOfWeek.TUESDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             DayOfWeek.WEDNESDAY -> reduce {
                 state.copy(
-                    wednesdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.WEDNESDAY)
+                    wednesdaySeries = getPagingSeriesUseCase(null, DayOfWeek.WEDNESDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             DayOfWeek.THURSDAY -> reduce {
                 state.copy(
-                    thursdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.THURSDAY)
+                    thursdaySeries = getPagingSeriesUseCase(null, DayOfWeek.THURSDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             DayOfWeek.FRIDAY -> reduce {
                 state.copy(
-                    fridaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.FRIDAY)
+                    fridaySeries = getPagingSeriesUseCase(null, DayOfWeek.FRIDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             DayOfWeek.SATURDAY -> reduce {
                 state.copy(
-                    saturdaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.SATURDAY)
+                    saturdaySeries = getPagingSeriesUseCase(null, DayOfWeek.SATURDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             DayOfWeek.SUNDAY -> reduce {
                 state.copy(
-                    sundaySeries = getPagingSeriesUseCase.invoke(null, DayOfWeek.SUNDAY)
+                    sundaySeries = getPagingSeriesUseCase(null, DayOfWeek.SUNDAY)
                         .cachedIn(viewModelScope)
                 )
             }
             else -> reduce {
                 state.copy(
-                    allSeries = getPagingSeriesUseCase.invoke(null, null)
+                    allSeries = getPagingSeriesUseCase(null, null)
                         .cachedIn(viewModelScope)
                 )
             }

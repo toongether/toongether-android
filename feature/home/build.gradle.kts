@@ -13,4 +13,5 @@ dependencies {
     implementation(project(":feature:comic"))
     implementation(project(":feature:episode"))
     implementation(libs.coil.compose)
+    implementation(libs.lottie.compose)
 }

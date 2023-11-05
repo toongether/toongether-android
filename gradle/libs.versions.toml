@@ -41,6 +41,7 @@ paging = "3.1.1"
 pagingCompose = "1.0.0-alpha16"
 coil = "2.4.0"
 accompanist = "0.27.0"
+lottie = "6.1.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -96,6 +97,7 @@ androidx-paging-common = { group = "androidx.paging", name = "paging-common", ve
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
 accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanist" }
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie"}
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
