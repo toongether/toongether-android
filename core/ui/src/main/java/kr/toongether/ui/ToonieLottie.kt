@@ -16,7 +16,7 @@ import kr.toongether.designsystem.R
 @Composable
 fun ToonieRunningIndicator(
     isPlaying: Boolean,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.toonie_running_lottie))
     val progress by animateLottieCompositionAsState(

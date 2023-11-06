@@ -27,7 +27,7 @@ class SeriesViewModel @Inject constructor(
                 thursdaySeries = getPagingSeriesUseCase(null, DayOfWeek.THURSDAY).cachedIn(viewModelScope),
                 fridaySeries = getPagingSeriesUseCase(null, DayOfWeek.FRIDAY).cachedIn(viewModelScope),
                 saturdaySeries = getPagingSeriesUseCase(null, DayOfWeek.SATURDAY).cachedIn(viewModelScope),
-                sundaySeries = getPagingSeriesUseCase(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope),
+                sundaySeries = getPagingSeriesUseCase(null, DayOfWeek.SUNDAY).cachedIn(viewModelScope)
             )
         )
 

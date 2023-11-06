@@ -1,6 +1,5 @@
 package kr.toongether.designsystem.theme
 
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
 val Gray = Color(0xFF787878)

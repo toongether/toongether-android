@@ -16,7 +16,7 @@ import kr.toongether.ui.seriesCardItems
 internal fun TabScreen(
     modifier: Modifier = Modifier,
     seriesList: LazyPagingItems<Series>,
-    onComicClick: (Series) -> Unit,
+    onComicClick: (Series) -> Unit
 ) {
     val configuration = LocalConfiguration.current
 
@@ -33,11 +33,9 @@ internal fun TabScreen(
             vertical = 10.dp
         )
     ) {
-
         seriesCardItems(
             items = seriesList,
             onItemClick = onComicClick
         )
     }
-
 }

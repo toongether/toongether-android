@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -27,7 +24,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.toongether.designsystem.component.ToongetherScrollableTabRow
 import kr.toongether.designsystem.component.ToongetherTabRow
@@ -35,7 +31,6 @@ import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.theme.ToongetherColors
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.episode.navigatoin.navigateToEpisode
-import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
 import org.orbitmvi.orbit.compose.collectAsState
 
@@ -44,7 +39,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 internal fun SeriesRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: SeriesViewModel = hiltViewModel(),
+    viewModel: SeriesViewModel = hiltViewModel()
 ) {
     val state by viewModel.collectAsState()
     val pagerState = rememberPagerState(/* initialPage = LocalDate.now().dayOfWeek.value */)
@@ -69,7 +64,7 @@ internal fun SeriesRoute(
             }
         },
         onComicClick = { navController.navigateToEpisode(id = it.id) },
-        pagerState = pagerState,
+        pagerState = pagerState
     )
 }
 
@@ -87,7 +82,7 @@ internal fun SeriesScreen(
     sundaySeriesList: LazyPagingItems<Series>,
     onTabClick: (tabIndex: Int) -> Unit,
     onComicClick: (Series) -> Unit,
-    pagerState: PagerState,
+    pagerState: PagerState
 ) {
     val configuration = LocalConfiguration.current
 
@@ -95,7 +90,7 @@ internal fun SeriesScreen(
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding()
-            .background(ToongetherColors.Black),
+            .background(ToongetherColors.Black)
     ) {
         ToongetherTopAppBar(
             title = {
@@ -103,9 +98,9 @@ internal fun SeriesScreen(
                     text = "연재 웹툰",
                     fontFamily = pretendard,
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Bold
                 )
-            },
+            }
         )
 
         if (configuration.screenWidthDp < 412) {
@@ -129,7 +124,6 @@ internal fun SeriesScreen(
                 .background(ToongetherColors.Black)
                 .fillMaxSize()
         ) {
-
             HorizontalPager(
                 modifier = modifier.fillMaxSize(),
                 count = 8,
@@ -146,7 +140,7 @@ internal fun SeriesScreen(
                         7 -> sundaySeriesList
                         else -> allSeriesList
                     },
-                    onComicClick = onComicClick,
+                    onComicClick = onComicClick
                 )
             }
         }

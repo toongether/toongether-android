@@ -18,7 +18,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -32,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
-import kr.toongether.designsystem.icon.icons.Toongether
 import kr.toongether.designsystem.theme.ToongetherColors
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
@@ -281,7 +279,6 @@ fun ToongetherTopAppBarWithBack(
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToongetherTopAppBar(
@@ -306,6 +303,6 @@ fun ToongetherTopAppBar(
         ),
         navigationIcon = navigationIcon,
         actions = actions,
-        windowInsets = windowInsets,
+        windowInsets = windowInsets
     )
 }
