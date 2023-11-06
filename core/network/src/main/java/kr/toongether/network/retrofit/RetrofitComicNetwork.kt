@@ -3,6 +3,7 @@ package kr.toongether.network.retrofit
 import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.ComicNetworkDataSource
 import kr.toongether.network.model.ComicResponse
+import kr.toongether.network.model.ComicViewResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
 import kr.toongether.network.model.SeriesEpisodeListResponse
@@ -54,6 +55,10 @@ private interface RetrofitComicNetworkApi {
     suspend fun likeSeries(
         @Path("seriesId") seriesId: Long
     ): Boolean
+
+    @POST("home/get/comic")
+    suspend fun <T> getComicView(
+    ): List<ComicViewResponse<T>>
 }
 
 @Singleton
@@ -95,5 +100,9 @@ internal class RetrofitComicNetwork @Inject constructor(
 
     override suspend fun likeSeries(seriesId: Long): Boolean = networkHandler {
         comicApi.likeSeries(seriesId)
+    }
+
+    override suspend fun <T> getComicView(): List<ComicViewResponse<T>> = networkHandler {
+        comicApi.getComicView()
     }
 }

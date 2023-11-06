@@ -1,6 +1,7 @@
 package kr.toongether.network.datasource
 
 import kr.toongether.network.model.ComicResponse
+import kr.toongether.network.model.ComicViewResponse
 import kr.toongether.network.model.NetworkCycle
 import kr.toongether.network.model.NetworkDayOfWeek
 import kr.toongether.network.model.SeriesEpisodeListResponse
@@ -38,4 +39,7 @@ interface ComicNetworkDataSource {
     suspend fun likeSeries(
         seriesId: Long
     ): Boolean
+
+    suspend fun <T> getComicView(
+    ): List<ComicViewResponse<T>>
 }
