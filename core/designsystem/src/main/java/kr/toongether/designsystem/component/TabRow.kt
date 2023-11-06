@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
@@ -29,6 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
@@ -44,6 +47,7 @@ import kotlinx.coroutines.launch
 import kr.toongether.designsystem.component.TabRowDefaults.tabIndicatorOffset
 import kr.toongether.designsystem.theme.DarkGray
 import kr.toongether.designsystem.theme.Gray60
+import kr.toongether.designsystem.theme.ToongetherColors
 import kr.toongether.designsystem.theme.pretendard
 
 @Composable
@@ -57,11 +61,11 @@ fun ToongetherTabRow(
         modifier = modifier,
         selectedTabIndex = selectedTabIndex,
         contentColor = Color.Transparent,
-        containerColor = Color.Black,
+        containerColor = ToongetherColors.Black,
         divider = {
             Divider(
                 modifier = Modifier.fillMaxWidth(),
-                color = DarkGray
+                color = ToongetherColors.Gray20
             )
         },
         indicator = { tabPositions ->
@@ -69,8 +73,9 @@ fun ToongetherTabRow(
                 modifier = modifier
                     .tabIndicatorOffset(tabPositions[selectedTabIndex])
                     .padding(horizontal = 10.dp)
-                    .height(3.dp),
-                color = Color.White
+                    .height(3.dp)
+                    .clip(RoundedCornerShape(100)),
+                color = ToongetherColors.White
             )
         }
     ) {
@@ -83,8 +88,8 @@ fun ToongetherTabRow(
                         text = tab,
                         fontSize = 16.sp,
                         fontFamily = pretendard,
-                        fontWeight = if (selectedTabIndex == tabIndex) FontWeight.Bold else FontWeight.Normal,
-                        color = if (selectedTabIndex == tabIndex) Color.White else Gray60
+                        fontWeight = if (selectedTabIndex == tabIndex) FontWeight.Bold else FontWeight.Medium,
+                        color = if (selectedTabIndex == tabIndex) ToongetherColors.White else ToongetherColors.Gray50
                     )
                 }
             )
@@ -103,11 +108,11 @@ fun ToongetherScrollableTabRow(
         modifier = modifier,
         selectedTabIndex = selectedTabIndex,
         contentColor = Color.Transparent,
-        containerColor = Color.Black,
+        containerColor = ToongetherColors.Black,
         divider = {
             Divider(
                 modifier = Modifier.fillMaxWidth(),
-                color = DarkGray
+                color = ToongetherColors.Gray20
             )
         },
         indicator = { tabPositions ->
@@ -115,8 +120,9 @@ fun ToongetherScrollableTabRow(
                 modifier = modifier
                     .tabIndicatorOffset(tabPositions[selectedTabIndex])
                     .padding(horizontal = 10.dp)
-                    .height(3.dp),
-                color = Color.White
+                    .height(3.dp)
+                    .clip(RoundedCornerShape(100)),
+                color = ToongetherColors.White
             )
         }
     ) {
@@ -129,8 +135,8 @@ fun ToongetherScrollableTabRow(
                         text = tab,
                         fontSize = 16.sp,
                         fontFamily = pretendard,
-                        fontWeight = if (selectedTabIndex == tabIndex) FontWeight.Bold else FontWeight.Normal,
-                        color = if (selectedTabIndex == tabIndex) Color.White else Gray60
+                        fontWeight = if (selectedTabIndex == tabIndex) FontWeight.Bold else FontWeight.Medium,
+                        color = if (selectedTabIndex == tabIndex) ToongetherColors.White else ToongetherColors.Gray50
                     )
                 }
             )
