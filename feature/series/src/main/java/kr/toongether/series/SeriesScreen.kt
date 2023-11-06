@@ -51,22 +51,11 @@ internal fun SeriesRoute(
 
     val coroutineScope = rememberCoroutineScope()
 
-    val pageToDayOfWeek = { page: Int ->
-        when (page) {
-            1 -> DayOfWeek.MONDAY
-            2 -> DayOfWeek.TUESDAY
-            3 -> DayOfWeek.WEDNESDAY
-            4 -> DayOfWeek.THURSDAY
-            5 -> DayOfWeek.FRIDAY
-            6 -> DayOfWeek.SATURDAY
-            7 -> DayOfWeek.SUNDAY
-            else -> null
-        }
-    }
+    val allSeriesList = state.allSeries.collectAsLazyPagingItems()
 
     SeriesScreen(
         modifier = modifier,
-        allSeriesList = state.allSeries.collectAsLazyPagingItems(),
+        allSeriesList = allSeriesList,
         mondaySeriesList = state.mondaySeries.collectAsLazyPagingItems(),
         tuesdaySeriesList = state.tuesdaySeries.collectAsLazyPagingItems(),
         wednesdaySeriesList = state.wednesdaySeries.collectAsLazyPagingItems(),
@@ -81,11 +70,10 @@ internal fun SeriesRoute(
         },
         onComicClick = { navController.navigateToEpisode(id = it.id) },
         pagerState = pagerState,
-        onRefresh = { viewModel.fetchPagingSeries(pageToDayOfWeek(pagerState.currentPage)) }
     )
 }
 
-@OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class )
+@OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
 @Composable
 internal fun SeriesScreen(
     modifier: Modifier = Modifier,
@@ -100,7 +88,6 @@ internal fun SeriesScreen(
     onTabClick: (tabIndex: Int) -> Unit,
     onComicClick: (Series) -> Unit,
     pagerState: PagerState,
-    onRefresh: () -> Unit,
 ) {
     val configuration = LocalConfiguration.current
 
@@ -160,7 +147,6 @@ internal fun SeriesScreen(
                         else -> allSeriesList
                     },
                     onComicClick = onComicClick,
-                    onRefresh = onRefresh
                 )
             }
         }

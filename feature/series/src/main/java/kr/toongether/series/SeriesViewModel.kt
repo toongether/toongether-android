@@ -31,6 +31,8 @@ class SeriesViewModel @Inject constructor(
             )
         )
 
+    fun getAllSeries() = getPagingSeriesUseCase(null, null).cachedIn(viewModelScope)
+
     fun fetchPagingSeries(dayOfWeek: DayOfWeek? = null /* cycle: Cycle? = null*/) = intent {
         when (dayOfWeek) {
             DayOfWeek.MONDAY -> reduce {

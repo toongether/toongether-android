@@ -14,6 +14,7 @@ fun LazyGridScope.seriesCardItems(
     onItemClick: (series: Series) -> Unit
 ) = items(
     count = items.itemCount,
+    key = { items[it]!!.id },
     itemContent = { index ->
         SeriesCard(
             modifier = modifier
