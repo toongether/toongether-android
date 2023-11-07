@@ -1,12 +1,9 @@
 package kr.toongether.home
 
-import kr.toongether.model.Series
-import kr.toongether.model.Shorts
+import kr.toongether.model.ComicView
 
 data class HomeState(
-    val seriesList: List<Series> = emptyList(),
-    val shortsList: List<Shorts> = emptyList(),
-    val titleBanner: Series? = null,
+    val viewList: List<ComicView>,
     val isLoading: Boolean = false
 )
 

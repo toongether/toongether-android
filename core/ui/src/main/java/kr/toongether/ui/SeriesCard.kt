@@ -65,7 +65,7 @@ fun SeriesCard(
                     brush = Brush.verticalGradient(
                         listOf(
                             Color.Transparent,
-                            Color(backgroundColor.toColorInt())
+                            Color(backgroundColor.toColorInt()).copy(alpha = 0.9f)
                         )
                     )
                 )

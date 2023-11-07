@@ -1,7 +1,9 @@
 package kr.toongether.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kr.toongether.domain.GetComicViewUseCase
 import kr.toongether.domain.GetSeriesListUseCase
 import kr.toongether.domain.GetShortsListUseCase
 import org.orbitmvi.orbit.ContainerHost
@@ -13,45 +15,33 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getSeriesUseCase: GetSeriesListUseCase,
-    private val getShortsListUseCase: GetShortsListUseCase
+    private val getComicViewUseCase: GetComicViewUseCase
 ) : ContainerHost<HomeState, HomeSideEffect>, ViewModel() {
 
-    override val container = container<HomeState, HomeSideEffect>(HomeState())
+    override val container = container<HomeState, HomeSideEffect>(HomeState(emptyList()))
 
     init {
-        getSeries()
-        getShorts()
+        getComicView()
     }
 
-    fun getSeries() = intent {
-        reduce { state.copy(isLoading = true) }
-        getSeriesUseCase(null, null, 1)
+    fun getComicView() = intent {
+        reduce {
+            state.copy(
+                isLoading = true
+            )
+        }
+        getComicViewUseCase()
             .onSuccess {
+                Log.d("SUCCESS", it.toString())
                 reduce {
                     state.copy(
-                        seriesList = it.seriesList.drop(1),
-                        titleBanner = it.seriesList[0],
-                        isLoading = false
+                        isLoading = false,
+                        viewList = it,
                     )
                 }
             }.onFailure {
-                postSideEffect(HomeSideEffect.Toast(it.message!!))
+                Log.e("FAILURE", it.message.toString(), )
             }
-    }
 
-    fun getShorts() = intent {
-        reduce { state.copy(isLoading = true) }
-        getShortsListUseCase(1)
-            .onSuccess {
-                reduce {
-                    state.copy(
-                        shortsList = it.shortsList.sortedByDescending { it.likeCount },
-                        isLoading = false
-                    )
-                }
-            }.onFailure {
-                postSideEffect(HomeSideEffect.Toast(it.message!!))
-            }
     }
 }
