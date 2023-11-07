@@ -10,36 +10,36 @@ import kr.toongether.network.model.ShortsListResponse
 
 interface ComicNetworkDataSource {
     suspend fun getShortsList(
-        page: Int
+        page: Int,
     ): ShortsListResponse
 
     suspend fun getShortsEpisode(
-        shortsId: Long
+        shortsId: Long,
     ): ComicResponse
 
     suspend fun getSeriesList(
         dayOfWeek: NetworkDayOfWeek?,
         cycle: NetworkCycle?,
-        page: Int
+        page: Int,
     ): SeriesListResponse
 
     suspend fun getSeries(
-        seriesId: Long
+        seriesId: Long,
     ): SeriesEpisodeListResponse
 
     suspend fun getSeriesEpisode(
         seriesId: Long,
-        episodeId: Long
+        episodeId: Long,
     ): ComicResponse
 
     suspend fun likeShorts(
-        shortsId: Long
+        shortsId: Long,
     ): Boolean
 
     suspend fun likeSeries(
-        seriesId: Long
+        seriesId: Long,
     ): Boolean
 
-    suspend fun <T> getComicView(
-    ): List<ComicViewResponse<T>>
+    suspend fun getComicView(
+    ): List<ComicViewResponse>
 }

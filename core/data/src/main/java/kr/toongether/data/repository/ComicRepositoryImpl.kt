@@ -12,6 +12,7 @@ import kr.toongether.data.model.asRequest
 import kr.toongether.data.paging.SeriesPagingDataSource
 import kr.toongether.data.paging.ShortsPagingDataSource
 import kr.toongether.model.Comic
+import kr.toongether.model.ComicView
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
@@ -20,6 +21,7 @@ import kr.toongether.model.SeriesList
 import kr.toongether.model.Shorts
 import kr.toongether.model.ShortsList
 import kr.toongether.network.datasource.ComicNetworkDataSource
+import kr.toongether.network.model.SeriesResponse
 import javax.inject.Inject
 
 internal class ComicRepositoryImpl @Inject constructor(
@@ -79,4 +81,8 @@ internal class ComicRepositoryImpl @Inject constructor(
 
     override suspend fun likeSeries(seriesId: Long): Boolean =
         network.likeSeries(seriesId)
+
+    override suspend fun getComicView(): List<ComicView> =
+        network.getComicView().map { it.asModel() }
+
 }

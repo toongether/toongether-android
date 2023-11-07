@@ -19,7 +19,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-private const val ToongetherUrl = "https://api.toongether.kr:8080/"
+//private const val ToongetherUrl = "https://api.toongether.kr:8080/"
+private const val ToongetherUrl = "https://test.toongether.kr:8080/"
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -3,6 +3,7 @@ package kr.toongether.data
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kr.toongether.model.Comic
+import kr.toongether.model.ComicView
 import kr.toongether.model.Cycle
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Series
@@ -46,4 +47,7 @@ interface ComicRepository {
     suspend fun likeSeries(
         seriesId: Long
     ): Boolean
+
+    suspend fun getComicView(
+    ): List<ComicView>
 }

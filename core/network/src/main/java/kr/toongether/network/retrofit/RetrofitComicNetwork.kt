@@ -56,9 +56,9 @@ private interface RetrofitComicNetworkApi {
         @Path("seriesId") seriesId: Long
     ): Boolean
 
-    @POST("home/get/comic")
-    suspend fun <T> getComicView(
-    ): List<ComicViewResponse<T>>
+    @GET("home/get/comic")
+    suspend fun getComicView(
+    ): List<ComicViewResponse>
 }
 
 @Singleton
@@ -102,7 +102,7 @@ internal class RetrofitComicNetwork @Inject constructor(
         comicApi.likeSeries(seriesId)
     }
 
-    override suspend fun <T> getComicView(): List<ComicViewResponse<T>> = networkHandler {
+    override suspend fun getComicView(): List<ComicViewResponse> = networkHandler {
         comicApi.getComicView()
     }
 }
