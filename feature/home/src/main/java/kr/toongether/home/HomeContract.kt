@@ -1,8 +1,5 @@
 package kr.toongether.home
 
-import kr.toongether.model.Series
-import kr.toongether.model.Shorts
-
 data class HomeState(
     val seriesList: List<Series> = emptyList(),
     val shortsList: List<Shorts> = emptyList(),

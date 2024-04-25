@@ -5,12 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TitleMakerResponse(
-    @SerialName("color")
-    val color: String,
-    @SerialName("titleWidth")
-    val titleWidth: Float,
-    @SerialName("titleImage")
-    val titleImage: String,
-    @SerialName("backgroundImage")
-    val thumbnailImage: String
+    @SerialName("font") val font: String,
+    @SerialName("color") val color: String,
+    @SerialName("titleSvg") val titleSvg: String,
+    @SerialName("backgroundImage") val backgroundImage: String,
 )

@@ -3,7 +3,6 @@ package kr.toongether.domain
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kr.toongether.data.ComicRepository
-import kr.toongether.model.Shorts
 import javax.inject.Inject
 
 class GetPagingShortsUseCase @Inject constructor(

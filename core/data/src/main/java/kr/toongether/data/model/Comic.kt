@@ -2,8 +2,6 @@ package kr.toongether.data.model
 
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kr.toongether.model.Comic
-import kr.toongether.network.model.ComicResponse
 
 fun ComicResponse.asModel(): Comic = Comic(
     id = id,

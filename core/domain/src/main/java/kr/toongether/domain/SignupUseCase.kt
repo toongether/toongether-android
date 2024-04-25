@@ -1,7 +1,6 @@
 package kr.toongether.domain
 
 import kr.toongether.data.UserRepository
-import kr.toongether.model.Signup
 import javax.inject.Inject
 
 class SignupUseCase @Inject constructor(

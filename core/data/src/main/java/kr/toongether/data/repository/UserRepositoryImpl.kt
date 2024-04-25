@@ -3,11 +3,6 @@ package kr.toongether.data.repository
 import kr.toongether.data.UserRepository
 import kr.toongether.data.model.asModel
 import kr.toongether.data.model.asRequest
-import kr.toongether.model.Email
-import kr.toongether.model.Login
-import kr.toongether.model.Signup
-import kr.toongether.model.Token
-import kr.toongether.model.User
 import kr.toongether.network.datasource.UserNetworkDataSource
 import javax.inject.Inject
 

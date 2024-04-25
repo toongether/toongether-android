@@ -1,7 +1,7 @@
 package kr.toongether.model
 
 data class SeriesList(
-    val seriesList: List<Series>,
+    val series: List<Series>,
     val hasMorePage: Boolean,
-    val currentPage: Int
+    val currentPage: Int,
 )

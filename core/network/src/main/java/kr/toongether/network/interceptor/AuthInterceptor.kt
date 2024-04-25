@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
-import kr.toongether.network.model.LoginRequest
-import kr.toongether.network.model.RefreshTokenRequest
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

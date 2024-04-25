@@ -1,7 +1,6 @@
 package kr.toongether.domain
 
 import kr.toongether.data.ComicRepository
-import kr.toongether.model.SeriesEpisodeList
 import javax.inject.Inject
 
 class GetSeriesUseCase @Inject constructor(

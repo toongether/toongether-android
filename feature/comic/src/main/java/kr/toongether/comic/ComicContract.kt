@@ -3,7 +3,6 @@ package kr.toongether.comic
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kr.toongether.model.Comic
 
 data class ComicState(
     val comic: Comic = Comic(

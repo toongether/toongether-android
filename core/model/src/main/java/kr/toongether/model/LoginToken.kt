@@ -1,6 +1,6 @@
 package kr.toongether.model
 
-data class Token(
+data class LoginToken(
     val accessToken: String,
-    val refreshToken: String
+    val refreshToken: String,
 )

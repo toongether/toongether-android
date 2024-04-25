@@ -5,10 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkAuthor(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("name")
-    val name: String,
-    @SerialName("profileImage")
-    val profileImage: String?
+    @SerialName("id") val id: Long,
+    @SerialName("name") val name: String,
+    @SerialName("profileImage") val profileImage: String,
 )

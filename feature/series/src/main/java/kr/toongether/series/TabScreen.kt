@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import kr.toongether.model.Series
 import kr.toongether.ui.seriesCardItems
 
 @Composable

@@ -2,12 +2,11 @@ package kr.toongether.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kr.toongether.network.datasource.ComicNetworkDataSource
-import kr.toongether.network.model.ShortsResponse
+import kr.toongether.network.datasource.ShortsNetworkDataSource
 import java.io.IOException
 
 internal class ShortsPagingDataSource(
-    private val network: ComicNetworkDataSource
+    private val network: ShortsNetworkDataSource
 ) : PagingSource<Int, ShortsResponse>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ShortsResponse> {

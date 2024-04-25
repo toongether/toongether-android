@@ -7,8 +7,6 @@ import kr.toongether.domain.CheckDuplicateUserUseCase
 import kr.toongether.domain.CheckEmailUseCase
 import kr.toongether.domain.SendEmailUseCase
 import kr.toongether.domain.SignupUseCase
-import kr.toongether.model.Email
-import kr.toongether.model.Signup
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect

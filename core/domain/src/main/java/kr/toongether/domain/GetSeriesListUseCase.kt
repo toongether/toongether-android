@@ -1,9 +1,6 @@
 package kr.toongether.domain
 
 import kr.toongether.data.ComicRepository
-import kr.toongether.model.Cycle
-import kr.toongether.model.DayOfWeek
-import kr.toongether.model.SeriesList
 import javax.inject.Inject
 
 class GetSeriesListUseCase @Inject constructor(

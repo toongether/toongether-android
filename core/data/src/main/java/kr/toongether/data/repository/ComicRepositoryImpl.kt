@@ -11,19 +11,11 @@ import kr.toongether.data.model.asModel
 import kr.toongether.data.model.asRequest
 import kr.toongether.data.paging.SeriesPagingDataSource
 import kr.toongether.data.paging.ShortsPagingDataSource
-import kr.toongether.model.Comic
-import kr.toongether.model.Cycle
-import kr.toongether.model.DayOfWeek
-import kr.toongether.model.Series
-import kr.toongether.model.SeriesEpisodeList
-import kr.toongether.model.SeriesList
-import kr.toongether.model.Shorts
-import kr.toongether.model.ShortsList
-import kr.toongether.network.datasource.ComicNetworkDataSource
+import kr.toongether.network.datasource.ShortsNetworkDataSource
 import javax.inject.Inject
 
 internal class ComicRepositoryImpl @Inject constructor(
-    private val network: ComicNetworkDataSource
+    private val network: ShortsNetworkDataSource
 ) : ComicRepository {
     override suspend fun getShortsList(page: Int): ShortsList =
         network.getShortsList(page).asModel()

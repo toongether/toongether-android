@@ -5,8 +5,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.model.Episode
-import kr.toongether.model.SeriesEpisodeList
 
 fun LazyListScope.seriesCardItems(
     items: SeriesEpisodeList,

@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import kr.toongether.network.datasource.ComicNetworkDataSource
+import kr.toongether.network.datasource.ShortsNetworkDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
 import kr.toongether.network.interceptor.AuthInterceptor
 import kr.toongether.network.retrofit.RetrofitComicNetwork
@@ -63,7 +63,7 @@ internal interface DataSourceModule {
     @Binds
     fun bindsComicNetworkDataSource(
         retrofitComicNetwork: RetrofitComicNetwork
-    ): ComicNetworkDataSource
+    ): ShortsNetworkDataSource
 
     @Singleton
     @Binds

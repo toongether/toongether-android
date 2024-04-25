@@ -1,7 +1,6 @@
 package kr.toongether.domain
 
 import kr.toongether.data.UserRepository
-import kr.toongether.model.Email
 import javax.inject.Inject
 
 class SendEmailUseCase @Inject constructor(

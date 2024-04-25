@@ -6,7 +6,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.model.Series
 
 fun LazyGridScope.seriesCardItems(
     items: LazyPagingItems<Series>,

@@ -5,10 +5,12 @@ import kotlinx.datetime.LocalDateTime
 data class Series(
     val id: Long,
     val title: String,
-    val titleInfo: TitleInfo,
+    val description: String,
+    val titleMaker: TitleMaker,
+    val publishStatus: PublishStatus,
     val dayOfWeek: DayOfWeek,
-    val cycle: Cycle,
-    val genre: String,
+    val serialCycle: SerialCycle,
+    val genre: List<String>,
     val author: Author,
-    val createdDate: LocalDateTime
+    val createdDate: LocalDateTime,
 )

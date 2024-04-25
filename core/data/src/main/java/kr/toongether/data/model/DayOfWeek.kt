@@ -1,8 +1,5 @@
 package kr.toongether.data.model
 
-import kr.toongether.model.DayOfWeek
-import kr.toongether.network.model.NetworkDayOfWeek
-
 fun NetworkDayOfWeek.asModel(): DayOfWeek = when (this) {
     NetworkDayOfWeek.MONDAY -> DayOfWeek.MONDAY
     NetworkDayOfWeek.TUESDAY -> DayOfWeek.TUESDAY

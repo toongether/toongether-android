@@ -1,11 +1,5 @@
 package kr.toongether.episode
 
-import kr.toongether.model.Author
-import kr.toongether.model.Cycle
-import kr.toongether.model.DayOfWeek
-import kr.toongether.model.SeriesEpisodeList
-import kr.toongether.model.TitleInfo
-
 data class EpisodeState(
     val seriesEpisodeList: SeriesEpisodeList = SeriesEpisodeList(
         cycle = Cycle.WEEKLY,

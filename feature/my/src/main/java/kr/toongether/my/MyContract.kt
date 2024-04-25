@@ -1,7 +1,5 @@
 package kr.toongether.my
 
-import kr.toongether.model.User
-
 data class MyState(
     val userInfo: User = User(
         id = 0,

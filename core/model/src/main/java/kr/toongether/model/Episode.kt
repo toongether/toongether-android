@@ -9,6 +9,7 @@ data class Episode(
     val thumbnail: String,
     val likeCount: Int,
     val commentCount: Int,
+    val views: Int,
     val createdDate: LocalDateTime,
-    val liked: Boolean
+    val liked: Boolean,
 )

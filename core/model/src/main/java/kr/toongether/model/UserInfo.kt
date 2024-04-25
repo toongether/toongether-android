@@ -1,9 +1,9 @@
 package kr.toongether.model
 
-data class User(
+data class UserInfo(
     val id: Long,
     val userId: String,
     val email: String,
     val name: String,
-    val profileImage: String
+    val profileImage: String,
 )

@@ -2,14 +2,6 @@ package kr.toongether.data
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import kr.toongether.model.Comic
-import kr.toongether.model.Cycle
-import kr.toongether.model.DayOfWeek
-import kr.toongether.model.Series
-import kr.toongether.model.SeriesEpisodeList
-import kr.toongether.model.SeriesList
-import kr.toongether.model.Shorts
-import kr.toongether.model.ShortsList
 
 interface ComicRepository {
     suspend fun getShortsList(

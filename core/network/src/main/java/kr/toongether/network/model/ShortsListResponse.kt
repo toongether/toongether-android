@@ -5,10 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ShortsListResponse(
-    @SerialName("shortsResponse")
-    val shortsResponse: List<ShortsResponse>,
-    @SerialName("hasMorePage")
-    val hasMorePage: Boolean,
-    @SerialName("currentPage")
-    val currentPage: Int
+    @SerialName("shortsResponse") val shortsResponse: List<ShortsResponse>,
+    @SerialName("hasMorePage") val hasMorePage: Boolean,
+    @SerialName("currentPage") val currentPage: Int,
 )

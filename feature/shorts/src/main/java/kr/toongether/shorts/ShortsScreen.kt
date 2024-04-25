@@ -22,7 +22,6 @@ import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.component.ToongetherTopAppBar
-import kr.toongether.model.Shorts
 import kr.toongether.ui.LoadingScreen
 import kr.toongether.ui.shortsCardItems
 import org.orbitmvi.orbit.compose.collectAsState

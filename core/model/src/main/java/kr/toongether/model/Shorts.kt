@@ -5,11 +5,12 @@ import kotlinx.datetime.LocalDateTime
 data class Shorts(
     val id: Long,
     val title: String,
-    val genre: String,
+    val genre: List<String>,
     val thumbnail: String,
-    val commentCount: Int,
     val likeCount: Int,
+    val commentCount: Int,
     val author: Author,
+    val views: Int,
     val createdDate: LocalDateTime,
-    val liked: Boolean
+    val liked: Boolean,
 )

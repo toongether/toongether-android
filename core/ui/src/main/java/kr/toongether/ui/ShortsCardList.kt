@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.model.Shorts
 
 fun LazyListScope.shortsCardItems(
     items: LazyPagingItems<Shorts>,

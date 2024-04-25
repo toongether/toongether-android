@@ -2,16 +2,13 @@ package kr.toongether.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kr.toongether.network.datasource.ComicNetworkDataSource
-import kr.toongether.network.model.NetworkCycle
-import kr.toongether.network.model.NetworkDayOfWeek
-import kr.toongether.network.model.SeriesResponse
+import kr.toongether.network.datasource.ShortsNetworkDataSource
 import java.io.IOException
 
 internal class SeriesPagingDataSource(
     private val dayOfWeek: NetworkDayOfWeek?,
     private val cycle: NetworkCycle?,
-    private val network: ComicNetworkDataSource
+    private val network: ShortsNetworkDataSource
 ) : PagingSource<Int, SeriesResponse>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SeriesResponse> {

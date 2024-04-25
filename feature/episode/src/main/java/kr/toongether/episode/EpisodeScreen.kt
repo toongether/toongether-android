@@ -25,7 +25,6 @@ import kr.toongether.comic.navigation.navigateToComic
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
 import kr.toongether.designsystem.theme.TransparentBlack
-import kr.toongether.model.Episode
 import kr.toongether.ui.LoadingScreen
 import kr.toongether.ui.TitleImageCard
 import kr.toongether.ui.seriesCardItems

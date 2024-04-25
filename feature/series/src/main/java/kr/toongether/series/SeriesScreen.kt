@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +30,6 @@ import kr.toongether.designsystem.component.ToongetherTopAppBar
 import kr.toongether.designsystem.theme.ToongetherColors
 import kr.toongether.designsystem.theme.pretendard
 import kr.toongether.episode.navigatoin.navigateToEpisode
-import kr.toongether.model.Series
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)

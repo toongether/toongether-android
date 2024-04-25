@@ -1,44 +1,25 @@
 package kr.toongether.network.datasource
 
 import kotlinx.serialization.json.JsonPrimitive
-import kr.toongether.network.model.EmailRequest
-import kr.toongether.network.model.LoginRequest
-import kr.toongether.network.model.RefreshTokenRequest
-import kr.toongether.network.model.SignupRequest
-import kr.toongether.network.model.TokenResponse
-import kr.toongether.network.model.UserResponse
+import kr.toongether.network.model.LoginTokenResponse
+import kr.toongether.network.model.UserInfoResponse
 
 interface UserNetworkDataSource {
     suspend fun signup(
-        signupRequest: SignupRequest
-    )
-
-    suspend fun login(
-        loginRequest: LoginRequest
-    ): TokenResponse
-
-    suspend fun sendEmail(
-        emailRequest: EmailRequest
-    )
-
-    suspend fun checkEmail(
+        userId: String,
+        password: String,
+        name: String,
         email: String,
-        code: String
-    ): Boolean
-
-    suspend fun getUser(): UserResponse
-
+        code: String,
+    )
+    suspend fun refreshToken(refreshToken: String): JsonPrimitive
+    suspend fun login(userId: String, password: String): LoginTokenResponse
+    suspend fun changePassword(
+        existingPassword: String,
+        changePassword: String,
+        checkChangePassword: String,
+    )
+    suspend fun validateUser(userId: String): Boolean
+    suspend fun getUserInfo(): UserInfoResponse
     suspend fun deleteUser()
-
-    suspend fun refreshToken(
-        refreshTokenRequest: RefreshTokenRequest
-    ): JsonPrimitive
-
-    suspend fun checkDuplicateUser(
-        userId: String
-    ): Boolean
-
-    suspend fun checkDuplicateEmail(
-        email: String
-    ): Boolean
 }
