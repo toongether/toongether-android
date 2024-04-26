@@ -9,7 +9,7 @@ data class EpisodeDetailResponse(
     @SerialName("id") val id: Long,
     @SerialName("seriesTitle") val seriesTitle: String,
     @SerialName("episodeTitle") val episodeTitle: String,
-    @SerialName("titlemakerColor") val titlemakerColor: String,
+    @SerialName("titlemakerColor") val titleMakerColor: String,
     @SerialName("thumbnail") val thumbnail: String,
     @SerialName("imageURL") val imageURL: List<String>,
     @SerialName("createdDate") val createdDate: LocalDateTime,

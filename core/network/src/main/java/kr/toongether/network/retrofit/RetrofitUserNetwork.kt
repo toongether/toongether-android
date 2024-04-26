@@ -29,7 +29,7 @@ private interface RetrofitUserNetworkApi {
     @POST("user/refresh")
     suspend fun refreshToken(
         @Body refreshAccessTokenRequest: RefreshAccessTokenRequest
-    ): JsonPrimitive
+    ): String
 
     @POST("user/login")
     suspend fun login(
@@ -89,7 +89,7 @@ internal class RetrofitUserNetwork @Inject constructor(
         userApi.signup(SignupRequest(userId, password, name, email, code))
     }
 
-    override suspend fun refreshToken(refreshToken: String): JsonPrimitive = networkHandler {
+    override suspend fun refreshToken(refreshToken: String): String = networkHandler {
         userApi.refreshToken(RefreshAccessTokenRequest(refreshToken))
     }
 

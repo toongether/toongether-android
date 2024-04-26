@@ -1,7 +1,10 @@
 package kr.toongether.data.model
 
-fun NetworkAuthor.asModel(): Author = Author(
+import kr.toongether.model.Author
+import kr.toongether.network.model.NetworkAuthor
+
+internal fun NetworkAuthor.asModel() = Author(
     id = id,
     name = name,
-    profileImage = profileImage
+    profileImage = profileImage,
 )

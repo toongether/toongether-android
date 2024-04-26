@@ -6,7 +6,7 @@ data class EpisodeDetail(
     val id: Long,
     val seriesTitle: String,
     val episodeTitle: String,
-    val titlemakerColor: String,
+    val titleMakerColor: String,
     val thumbnail: String,
     val imageURL: List<String>,
     val createdDate: LocalDateTime,

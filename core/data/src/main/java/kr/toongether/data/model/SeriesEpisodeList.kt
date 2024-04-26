@@ -1,10 +1,9 @@
 package kr.toongether.data.model
 
-import kr.toongether.model.Series
-import kr.toongether.network.model.SeriesResponse
+import kr.toongether.model.SeriesEpisodeList
+import kr.toongether.network.model.SeriesEpisodeListResponse
 
-internal fun SeriesResponse.asModel() = Series(
-    id = id,
+internal fun SeriesEpisodeListResponse.asModel() = SeriesEpisodeList(
     title = title,
     description = description,
     titleMaker = titleMaker.asModel(),
@@ -13,5 +12,5 @@ internal fun SeriesResponse.asModel() = Series(
     serialCycle = serialCycle.asSerialCycle(),
     genre = genre,
     author = author.asModel(),
-    createdDate = createdDate
+    episodeList = episodeList.map { it.asModel() }
 )

@@ -1,6 +1,5 @@
 package kr.toongether.domain
 
-import kr.toongether.data.ComicRepository
 import javax.inject.Inject
 
 class GetShortsEpisodeUseCase @Inject constructor(

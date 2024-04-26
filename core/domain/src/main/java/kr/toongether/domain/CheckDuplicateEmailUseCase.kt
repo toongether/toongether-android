@@ -1,6 +1,5 @@
 package kr.toongether.domain
 
-import kr.toongether.data.UserRepository
 import javax.inject.Inject
 
 class CheckDuplicateEmailUseCase @Inject constructor(

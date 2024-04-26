@@ -1,6 +1,5 @@
 package kr.toongether.network.datasource
 
-import kotlinx.serialization.json.JsonPrimitive
 import kr.toongether.network.model.LoginTokenResponse
 import kr.toongether.network.model.UserInfoResponse
 
@@ -12,7 +11,7 @@ interface UserNetworkDataSource {
         email: String,
         code: String,
     )
-    suspend fun refreshToken(refreshToken: String): JsonPrimitive
+    suspend fun refreshToken(refreshToken: String): String
     suspend fun login(userId: String, password: String): LoginTokenResponse
     suspend fun changePassword(
         existingPassword: String,
