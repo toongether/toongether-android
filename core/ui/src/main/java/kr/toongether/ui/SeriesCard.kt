@@ -2,6 +2,7 @@ package kr.toongether.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,24 +19,25 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import androidx.core.graphics.toColorInt
 import coil.compose.AsyncImage
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
+import kotlinx.coroutines.Dispatchers
 import kr.toongether.designsystem.theme.Shape
+import java.nio.ByteBuffer
 
 @Composable
 fun SeriesCard(
     modifier: Modifier = Modifier,
-    titleImage: String,
-    thumbnailImage: String,
-    backgroundColor: String,
-    titleWidth: Float
+    title: String,
+    backgroundImage: String,
+    gradientColor: String,
 ) {
-    var width by remember { mutableStateOf(1.dp) }
-    val localDensity = LocalDensity.current
-
     Box(
         modifier = modifier
             .padding(4.dp)
@@ -44,14 +46,9 @@ fun SeriesCard(
         AsyncImage(
             modifier = modifier
                 .fillMaxWidth()
-                .onGloballyPositioned {
-                    with(localDensity) {
-                        width = it.size.width.toDp()
-                    }
-                }
-                .height(width * 4 / 3)
+                .aspectRatio(0.75f)
                 .align(Alignment.BottomCenter),
-            model = thumbnailImage,
+            model = backgroundImage,
             contentDescription = null,
             contentScale = ContentScale.Crop
         )
@@ -65,26 +62,23 @@ fun SeriesCard(
                     brush = Brush.verticalGradient(
                         listOf(
                             Color.Transparent,
-                            Color(backgroundColor.toColorInt())
+                            Color(gradientColor.toColorInt())
                         )
                     )
                 )
         )
 
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(63.dp)
-                .align(Alignment.BottomCenter)
-        ) {
-            AsyncImage(
-                modifier = modifier
-                    .width(titleWidth.dp)
-                    .align(Alignment.Center),
-                model = titleImage,
-                contentDescription = null,
-                contentScale = ContentScale.FillWidth
-            )
-        }
+        AsyncImage(
+            modifier = Modifier
+                .width(65.dp)
+                .padding(bottom = 8.dp)
+                .align(Alignment.BottomCenter),
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(ByteBuffer.wrap(title.toByteArray()))
+                .decoderFactory(SvgDecoder.Factory())
+                .decoderDispatcher(Dispatchers.IO)
+                .build(),
+            contentDescription = null
+        )
     }
 }

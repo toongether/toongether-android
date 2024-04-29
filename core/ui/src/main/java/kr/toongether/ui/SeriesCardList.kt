@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
+import kr.toongether.model.Series
 
 fun LazyGridScope.seriesCardItems(
     items: LazyPagingItems<Series>,
@@ -21,10 +22,9 @@ fun LazyGridScope.seriesCardItems(
                     interactionSource = remember { NoRippleInteractionSource() },
                     indication = null
                 ) { onItemClick(items[index]!!) },
-            titleImage = items[index]!!.titleInfo.titleImage,
-            thumbnailImage = items[index]!!.titleInfo.thumbnailImage,
-            backgroundColor = items[index]!!.titleInfo.color,
-            titleWidth = items[index]!!.titleInfo.titleWidth
+            title = items[index]!!.titleMaker.titleSvg,
+            backgroundImage = items[index]!!.titleMaker.backgroundImage,
+            gradientColor = items[index]!!.titleMaker.color,
         )
     }
 )

@@ -34,7 +34,6 @@ fun TitleImageCard(
     modifier: Modifier = Modifier,
     thumbnailImage: String,
     titleImage: String,
-    titleWidth: Float,
     author: String,
     cycle: String,
     genre: String,
@@ -97,7 +96,6 @@ fun TitleImageCard(
 
                 AsyncImage(
                     modifier = modifier
-                        .width(titleWidth.dp * 3)
                         .align(Alignment.CenterHorizontally),
                     model = titleImage,
                     contentDescription = null,

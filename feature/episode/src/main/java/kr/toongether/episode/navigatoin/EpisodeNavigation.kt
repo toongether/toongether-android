@@ -1,15 +1,16 @@
 package kr.toongether.episode.navigatoin
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
+import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.accompanist.navigation.animation.composable
-import kr.toongether.episode.EpisodeRoute
+//import kr.toongether.episode.EpisodeRoute
 
 const val EpisodeRoute = "episode_route/{id}"
 
@@ -25,7 +26,7 @@ fun NavGraphBuilder.episodeScreen(navController: NavController) {
         enterTransition = {
             when (initialState.destination.route) {
                 "series_route", "home_route" -> slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
                 else -> null
@@ -34,16 +35,16 @@ fun NavGraphBuilder.episodeScreen(navController: NavController) {
         exitTransition = {
             when (targetState.destination.route) {
                 "series_route", "home_route" -> slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
                 else -> null
             }
         }
     ) {
-        EpisodeRoute(
-            id = it.arguments?.getLong("id") ?: 0L,
-            navController = navController
-        )
+//        EpisodeRoute(
+//            id = it.arguments?.getLong("id") ?: 0L,
+//            navController = navController
+//        )
     }
 }

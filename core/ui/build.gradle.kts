@@ -20,5 +20,6 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.paging.compose)
     implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
     implementation(libs.lottie.compose)
 }

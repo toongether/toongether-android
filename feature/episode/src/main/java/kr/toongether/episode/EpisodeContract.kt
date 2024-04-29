@@ -1,22 +1,31 @@
 package kr.toongether.episode
 
+import kr.toongether.model.Author
+import kr.toongether.model.DayOfWeek
+import kr.toongether.model.PublishStatus
+import kr.toongether.model.SerialCycle
+import kr.toongether.model.SeriesEpisodeList
+import kr.toongether.model.TitleMaker
+
 data class EpisodeState(
     val seriesEpisodeList: SeriesEpisodeList = SeriesEpisodeList(
-        cycle = Cycle.WEEKLY,
+        serialCycle = SerialCycle.WEEKLY,
         dayOfWeek = DayOfWeek.SUNDAY,
-        titleInfo = TitleInfo(
+        titleMaker = TitleMaker(
             color = "#000000",
-            titleWidth = 0f,
-            titleImage = "",
-            thumbnailImage = ""
+            titleSvg = "",
+            backgroundImage = ""
         ),
         author = Author(
             id = 0,
             name = "",
-            profileImage = null
+            profileImage = ""
         ),
         episodeList = emptyList(),
-        genre = ""
+        description = "",
+        publishStatus = PublishStatus.ON_GOING,
+        genre = emptyList(),
+        title = ""
     ),
     val isLoading: Boolean = false
 )

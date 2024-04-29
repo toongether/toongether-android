@@ -1,16 +1,16 @@
 package kr.toongether.comic.navigation
 
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
+import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.accompanist.navigation.animation.composable
-import kr.toongether.comic.ComicRoute
+//import kr.toongether.comic.ComicRoute
 
 const val ComicRoute = "comic_route/{seriesId}/{episodeNumber}"
 
@@ -26,7 +26,6 @@ fun NavController.navigateToComic(
     this.navigate("comic_route/$seriesId/$episodeNumber", navOptions)
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.comicScreen(
     navController: NavController,
     alert: (@Composable () -> Unit) -> Unit
@@ -40,12 +39,12 @@ fun NavGraphBuilder.comicScreen(
         enterTransition = {
             when (initialState.destination.route) {
                 "episode_route/{id}" -> slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
 
                 "shorts_route", "home_route" -> slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
 
@@ -56,12 +55,12 @@ fun NavGraphBuilder.comicScreen(
         exitTransition = {
             when (targetState.destination.route) {
                 "episode_route/{id}" -> slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
 
                 "shorts_route", "home_route" -> slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
 
@@ -69,11 +68,11 @@ fun NavGraphBuilder.comicScreen(
             }
         }
     ) {
-        ComicRoute(
-            navController = navController,
-            seriesId = it.arguments?.getLong("seriesId") ?: 0L,
-            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L,
-            alert = alert
-        )
+//        ComicRoute(
+//            navController = navController,
+//            seriesId = it.arguments?.getLong("seriesId") ?: 0L,
+//            episodeNumber = it.arguments?.getLong("episodeNumber") ?: 0L,
+//            alert = alert
+//        )
     }
 }

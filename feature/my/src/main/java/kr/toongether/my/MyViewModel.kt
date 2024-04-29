@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
-import kr.toongether.domain.DeleteUserUseCase
-import kr.toongether.domain.GetUserUseCase
+import kr.toongether.data.UserRepository
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -18,8 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
     private val toongetherPreferences: ToongetherPreferencesDataSource,
-    private val getUserUseCase: GetUserUseCase,
-    private val deleteUserUseCase: DeleteUserUseCase
+    private val userRepository: UserRepository,
 ) : ContainerHost<MyState, MySideEffect>, ViewModel() {
 
     override val container = container<MyState, MySideEffect>(MyState())
@@ -37,20 +39,9 @@ class MyViewModel @Inject constructor(
     }
 
     fun getUser() = intent {
-        reduce {
-            state.copy(
-                isLoading = true
-            )
-        }
-        getUserUseCase.invoke()
-            .onSuccess {
-                reduce {
-                    state.copy(
-                        userInfo = it,
-                        isLoading = false
-                    )
-                }
-            }.onFailure {
+        userRepository.getUserInfo()
+            .onStart { reduce { state.copy(isLoading = true) } }
+            .catch {
                 postSideEffect(MySideEffect.Toast(it.message!!))
                 reduce {
                     state.copy(
@@ -58,10 +49,21 @@ class MyViewModel @Inject constructor(
                     )
                 }
             }
+            .onEach {
+                reduce {
+                    state.copy(
+                        userInfo = it,
+                        isLoading = false
+                    )
+                }
+            }
+            .collect()
     }
 
     fun deleteUser() = intent {
-        deleteUserUseCase.invoke()
+        runCatching {
+            userRepository.deleteUser()
+        }
             .onSuccess {
                 postSideEffect(MySideEffect.NavigateToMy)
                 deleteToken()

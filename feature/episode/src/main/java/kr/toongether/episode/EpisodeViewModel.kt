@@ -2,7 +2,11 @@ package kr.toongether.episode
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kr.toongether.domain.GetSeriesUseCase
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kr.toongether.data.SeriesRepository
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -12,27 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EpisodeViewModel @Inject constructor(
-    private val getSeriesUseCase: GetSeriesUseCase
+    private val seriesRepository: SeriesRepository
 ) : ContainerHost<EpisodeState, EpisodeSideEffect>, ViewModel() {
 
     override val container = container<EpisodeState, EpisodeSideEffect>(EpisodeState())
 
-    fun getSeriesEpisode(id: Long) = intent {
-        reduce {
-            state.copy(
-                isLoading = true
-            )
-        }
-
-        getSeriesUseCase.invoke(id = id)
-            .onSuccess {
-                reduce {
-                    state.copy(
-                        seriesEpisodeList = it,
-                        isLoading = false
-                    )
-                }
-            }.onFailure {
+    fun getSeriesEpisodeList(id: Long) = intent {
+        seriesRepository.getSeriesEpisodeList(id)
+            .onStart { reduce { state.copy(isLoading = true) } }
+            .catch {
                 postSideEffect(EpisodeSideEffect.Toast(it.message!!))
                 reduce {
                     state.copy(
@@ -40,5 +32,14 @@ class EpisodeViewModel @Inject constructor(
                     )
                 }
             }
+            .onEach {
+                reduce {
+                    state.copy(
+                        seriesEpisodeList = it,
+                        isLoading = false
+                    )
+                }
+            }
+            .collect()
     }
 }
