@@ -1,5 +1,6 @@
 package kr.toongether.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -20,6 +21,7 @@ import kr.toongether.model.Episode
 import kr.toongether.model.SerialCycle
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesEpisodeList
+import kr.toongether.model.SeriesList
 import kr.toongether.network.datasource.SeriesNetworkDataSource
 import javax.inject.Inject
 
@@ -38,9 +40,9 @@ internal class SeriesRepositoryImpl @Inject constructor(
         }.flowOn(dispatcher)
     }
 
-    override fun getSeriesList(
-        dayOfWeek: DayOfWeek,
-        serialCycle: SerialCycle,
+    override fun getPagingSeriesList(
+        dayOfWeek: DayOfWeek?,
+        serialCycle: SerialCycle?,
         page: Int,
         limit: Int
     ): Flow<PagingData<Series>> {
@@ -48,8 +50,8 @@ internal class SeriesRepositoryImpl @Inject constructor(
             config = PagingConfig(pageSize = limit, enablePlaceholders = false),
             pagingSourceFactory = {
                 SeriesPagingSource(
-                    dayOfWeek.name,
-                    serialCycle.name,
+                    dayOfWeek?.name,
+                    serialCycle?.name,
                     page,
                     limit,
                     network
@@ -59,6 +61,17 @@ internal class SeriesRepositoryImpl @Inject constructor(
             it.map { seriesResponse ->
                 seriesResponse.asModel()
             }
+        }.flowOn(dispatcher)
+    }
+
+    override fun getSeriesList(
+        dayOfWeek: DayOfWeek?,
+        serialCycle: SerialCycle?,
+        page: Int,
+        limit: Int
+    ): Flow<SeriesList> {
+        return flow {
+            emit(network.getSeriesList(dayOfWeek?.name, serialCycle?.name, page, limit).asModel())
         }.flowOn(dispatcher)
     }
 

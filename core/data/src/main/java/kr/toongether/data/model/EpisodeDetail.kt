@@ -1,5 +1,7 @@
 package kr.toongether.data.model
 
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.EpisodeDetail
 import kr.toongether.network.model.EpisodeDetailResponse
 
@@ -10,7 +12,7 @@ internal fun EpisodeDetailResponse.asModel() = EpisodeDetail(
     titleMakerColor = titleMakerColor,
     thumbnail = thumbnail,
     imageURL = imageURL,
-    createdDate = createdDate,
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
     width = width,
     height = height,
     lastHeight = lastHeight,

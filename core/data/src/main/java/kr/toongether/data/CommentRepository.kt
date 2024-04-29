@@ -7,6 +7,6 @@ import kr.toongether.model.Comment
 interface CommentRepository {
     fun getComments(
         episodeId: Long,
-        page: Int,
+        page: Int = 1,
     ): Flow<PagingData<Comment>>
 }

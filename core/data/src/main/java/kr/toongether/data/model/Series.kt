@@ -1,5 +1,7 @@
 package kr.toongether.data.model
 
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.Series
 import kr.toongether.network.model.SeriesResponse
 
@@ -13,5 +15,5 @@ internal fun SeriesResponse.asModel() = Series(
     serialCycle = serialCycle.asSerialCycle(),
     genre = genre,
     author = author.asModel(),
-    createdDate = createdDate
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault())
 )

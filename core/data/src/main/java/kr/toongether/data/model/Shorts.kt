@@ -1,5 +1,7 @@
 package kr.toongether.data.model
 
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.Shorts
 import kr.toongether.network.model.ShortsResponse
 
@@ -12,6 +14,6 @@ internal fun ShortsResponse.asModel() = Shorts(
     commentCount = commentCount,
     author = author.asModel(),
     views = views,
-    createdDate = createdDate,
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
     liked = liked
 )

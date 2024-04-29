@@ -15,15 +15,16 @@ internal class CommentsPagingSource(
     private val network: CommentNetworkDataSource
 ) : PagingSource<Int, CommentResponse>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CommentResponse> {
+        val currentPage = params.key ?: page
         return try {
             val response = network.getComments(
-                page = page,
+                page = currentPage,
                 episodeId = episodeId
             )
             LoadResult.Page(
                 data = response.commentResponse,
                 prevKey = null,
-                nextKey = if (response.hasMorePage) page.plus(1) else null
+                nextKey = if (response.hasMorePage) currentPage.plus(1) else null
             )
         } catch (e: IOException) {
             LoadResult.Error(e)

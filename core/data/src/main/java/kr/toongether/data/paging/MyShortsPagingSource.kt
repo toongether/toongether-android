@@ -13,15 +13,16 @@ internal class MyShortsPagingSource(
 ) : PagingSource<Int, ShortsResponse>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ShortsResponse> {
+        val currentPage = params.key ?: page
         return try {
             val response = network.getMyShortsList(
-                page = page,
+                page = currentPage,
                 limit = limit,
             )
             LoadResult.Page(
                 data = response.shortsResponse,
                 prevKey = null,
-                nextKey = if (response.hasMorePage) page.plus(1) else null
+                nextKey = if (response.hasMorePage) currentPage.plus(1) else null
             )
         } catch (e: IOException) {
             LoadResult.Error(e)

@@ -43,7 +43,7 @@ internal class ShortsRepositoryImpl @Inject constructor(
         }.flowOn(dispatcher)
     }
 
-    override fun getShortsList(sortBy: SortBy, page: Int, limit: Int): Flow<PagingData<Shorts>> {
+    override fun getPagingShortsList(sortBy: SortBy, page: Int, limit: Int): Flow<PagingData<Shorts>> {
         return Pager(
             config = PagingConfig(pageSize = limit, enablePlaceholders = false),
             pagingSourceFactory = { ShortsPagingSource(sortBy.name, page, limit, network) }
@@ -51,6 +51,12 @@ internal class ShortsRepositoryImpl @Inject constructor(
             it.map { pagingData ->
                 pagingData.asModel()
             }
+        }.flowOn(dispatcher)
+    }
+
+    override fun getShortsList(sortBy: SortBy, page: Int, limit: Int): Flow<ShortsList> {
+        return flow {
+            emit(network.getShortsList(sortBy.name, page, limit).asModel())
         }.flowOn(dispatcher)
     }
 

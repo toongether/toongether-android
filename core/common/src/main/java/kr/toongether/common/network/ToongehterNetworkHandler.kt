@@ -1,5 +1,6 @@
 package kr.toongether.common.network
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -11,9 +12,12 @@ suspend inline fun <T> networkHandler(
     crossinline networkCall: suspend () -> T
 ): T {
     return try {
-        withContext(Dispatchers.IO) {
+        runCatching {
             networkCall.invoke()
+        }.onFailure {
+            Log.e("ERROR", it.message.toString())
         }
+        networkCall.invoke()
     } catch (e: HttpException) {
         val message = e.response()?.errorBody()?.string()?.split(":\"", "\"}")?.get(1)
 
@@ -21,9 +25,11 @@ suspend inline fun <T> networkHandler(
             500, 501, 502, 503 -> {
                 throw RuntimeException(InternalServerExceptionMessage)
             }
+
             401, 403, 407 -> {
                 throw RuntimeException(TokenExpiredExceptionMessage)
             }
+
             else -> {
                 throw RuntimeException(message)
             }

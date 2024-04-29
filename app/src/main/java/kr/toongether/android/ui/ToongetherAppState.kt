@@ -15,8 +15,8 @@ import kr.toongether.home.navigation.HomeRoute
 import kr.toongether.home.navigation.navigateToHome
 import kr.toongether.my.navigation.MyRoute
 import kr.toongether.my.navigation.navigateToMy
-import kr.toongether.series.navigation.SeriesRoute
-import kr.toongether.series.navigation.navigateToSeries
+import kr.toongether.seriesinterface.navigation.SeriesRoute
+import kr.toongether.seriesinterface.navigation.navigateToSeries
 import kr.toongether.shorts.navigation.ShortsRoute
 import kr.toongether.shorts.navigation.navigateToShorts
 

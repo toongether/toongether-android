@@ -1,5 +1,7 @@
 package kr.toongether.data.model
 
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kr.toongether.model.Episode
 import kr.toongether.network.model.EpisodeResponse
 
@@ -11,6 +13,6 @@ internal fun EpisodeResponse.asModel() = Episode(
     likeCount = likeCount,
     commentCount = commentCount,
     views = views,
-    createdDate = createdDate,
+    createdDate = createdDate.toLocalDateTime(TimeZone.currentSystemDefault()),
     liked = liked,
 )

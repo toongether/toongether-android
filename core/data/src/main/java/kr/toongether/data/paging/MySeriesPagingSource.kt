@@ -13,15 +13,16 @@ internal class MySeriesPagingSource(
 ) : PagingSource<Int, SeriesResponse>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SeriesResponse> {
+        val currentPage = params.key ?: page
         return try {
             val response = network.getMySeries(
-                page = page,
+                page = currentPage,
                 limit = limit,
             )
             LoadResult.Page(
                 data = response.seriesResponse,
                 prevKey = null,
-                nextKey = if (response.hasMorePage) page.plus(1) else null
+                nextKey = if (response.hasMorePage) currentPage.plus(1) else null
             )
         } catch (e: IOException) {
             LoadResult.Error(e)

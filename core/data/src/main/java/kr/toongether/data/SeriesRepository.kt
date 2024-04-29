@@ -11,16 +11,23 @@ import kr.toongether.model.SeriesList
 
 interface SeriesRepository {
     fun getMySeries(
-        page: Int,
-        limit: Int,
+        page: Int = 1,
+        limit: Int = 10,
+    ): Flow<PagingData<Series>>
+
+    fun getPagingSeriesList(
+        dayOfWeek: DayOfWeek? = null,
+        serialCycle: SerialCycle? = null,
+        page: Int = 1,
+        limit: Int = 10,
     ): Flow<PagingData<Series>>
 
     fun getSeriesList(
-        dayOfWeek: DayOfWeek,
-        serialCycle: SerialCycle,
-        page: Int,
-        limit: Int,
-    ): Flow<PagingData<Series>>
+        dayOfWeek: DayOfWeek? = null,
+        serialCycle: SerialCycle? = null,
+        page: Int = 1,
+        limit: Int = 10,
+    ): Flow<SeriesList>
 
     fun getSeriesEpisodeList(
         seriesId: Long,

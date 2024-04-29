@@ -41,3 +41,7 @@ val pretendard = FontFamily(
     Font(R.font.pretendard_medium, FontWeight.Medium),
     Font(R.font.pretendard_regular, FontWeight.Normal)
 )
+
+val gangwonedupower = FontFamily(
+    Font(R.font.gangwonedupower, FontWeight.Bold)
+)
