@@ -12,8 +12,8 @@ interface SeriesNetworkDataSource {
     ): SeriesListResponse
 
     suspend fun getSeriesList(
-        dayOfWeek: String,
-        cycle: String,
+        dayOfWeek: String?,
+        cycle: String?,
         page: Int,
         limit: Int,
     ): SeriesListResponse

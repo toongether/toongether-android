@@ -1,5 +1,6 @@
 package kr.toongether.network.retrofit
 
+import android.util.Log
 import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.CommentNetworkDataSource
 import kr.toongether.network.datasource.HomeNetworkDataSource
@@ -48,8 +49,8 @@ private interface RetrofitComicNetworkApi {
 
     @GET("comic/series/list")
     suspend fun getSeriesList(
-        @Query("dayOfWeek") dayOfWeek: String,
-        @Query("cycle") cycle: String,
+        @Query("dayOfWeek") dayOfWeek: String?,
+        @Query("cycle") cycle: String?,
         @Query("page") page: Int,
         @Query("limit") limit: Int,
     ): SeriesListResponse
@@ -87,7 +88,7 @@ private interface RetrofitComicNetworkApi {
     ): CommentListResponse
 
     @GET("home/get/comic")
-    suspend fun getHomeView(): List<HomeViewResponse<Any>>
+    suspend fun getHomeView(): List<HomeViewResponse>
 }
 
 @Singleton
@@ -101,7 +102,7 @@ internal class RetrofitComicNetwork @Inject constructor(
             comicApi.getComments(episodeId, page)
         }
 
-    override suspend fun getHomeView(): List<HomeViewResponse<Any>> = networkHandler {
+    override suspend fun getHomeView(): List<HomeViewResponse> = networkHandler {
         comicApi.getHomeView()
     }
 
@@ -118,8 +119,8 @@ internal class RetrofitComicNetwork @Inject constructor(
     }
 
     override suspend fun getSeriesList(
-        dayOfWeek: String,
-        cycle: String,
+        dayOfWeek: String?,
+        cycle: String?,
         page: Int,
         limit: Int
     ): SeriesListResponse = networkHandler {

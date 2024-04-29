@@ -1,5 +1,6 @@
 package kr.toongether.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -15,5 +16,5 @@ data class SeriesResponse(
     @SerialName("cycle") val serialCycle: String,
     @SerialName("genre") val genre: List<String>,
     @SerialName("author") val author: NetworkAuthor,
-    @SerialName("createdDate") val createdDate: LocalDateTime,
+    @SerialName("createdDate") val createdDate: Instant,
 )

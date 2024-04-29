@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
+import kr.toongether.network.model.RefreshAccessTokenRequest
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -31,12 +32,12 @@ class AuthInterceptor @Inject constructor(
             runBlocking(Dispatchers.IO) {
                 kotlin.runCatching {
                     userNetworkDataSource.get()
-                        .refreshToken(RefreshTokenRequest(toongetherPreferences.refreshToken.first()))
+                        .refreshToken(toongetherPreferences.refreshToken.first())
                 }.onSuccess {
-                    toongetherPreferences.saveAccessToken(it.content)
+                    toongetherPreferences.saveAccessToken(it)
 
                     val newRequest = chain.request().newBuilder()
-                        .addHeader(AUTHORIZATION, "Bearer ${it.content}")
+                        .addHeader(AUTHORIZATION, "Bearer $it")
                         .build()
 
                     response = chain.proceed(newRequest)
@@ -47,17 +48,15 @@ class AuthInterceptor @Inject constructor(
                         runBlocking(Dispatchers.IO) {
                             kotlin.runCatching {
                                 userNetworkDataSource.get().login(
-                                    LoginRequest(
-                                        userId = toongetherPreferences.id.first(),
-                                        password = toongetherPreferences.pw.first()
-                                    )
+                                    toongetherPreferences.id.first(),
+                                    toongetherPreferences.pw.first()
                                 )
                             }.onSuccess { token ->
                                 toongetherPreferences.saveAccessToken(token.accessToken)
                                 toongetherPreferences.saveRefreshToken(token.refreshToken)
 
                                 val secondRequest = chain.request().newBuilder()
-                                    .addHeader(AUTHORIZATION, "Bearer ${it.content}")
+                                    .addHeader(AUTHORIZATION, "Bearer $it")
                                     .build()
 
                                 response = chain.proceed(secondRequest)

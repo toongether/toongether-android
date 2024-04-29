@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class NetworkAuthor(
     @SerialName("id") val id: Long,
     @SerialName("name") val name: String,
-    @SerialName("profileImage") val profileImage: String,
+    @SerialName("profileImage") val profileImage: String?,
 )

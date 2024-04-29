@@ -1,5 +1,6 @@
 package kr.toongether.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -12,7 +13,7 @@ data class EpisodeDetailResponse(
     @SerialName("titlemakerColor") val titleMakerColor: String,
     @SerialName("thumbnail") val thumbnail: String,
     @SerialName("imageURL") val imageURL: List<String>,
-    @SerialName("createdDate") val createdDate: LocalDateTime,
+    @SerialName("createdDate") val createdDate: Instant,
     @SerialName("width") val width: Int,
     @SerialName("height") val height: Int,
     @SerialName("lastHeight") val lastHeight: Int,

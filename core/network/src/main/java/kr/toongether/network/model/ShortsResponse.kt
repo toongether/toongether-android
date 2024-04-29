@@ -1,5 +1,6 @@
 package kr.toongether.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -14,6 +15,6 @@ data class ShortsResponse(
     @SerialName("commentCount") val commentCount: Int,
     @SerialName("author") val author: NetworkAuthor,
     @SerialName("views") val views: Int,
-    @SerialName("createdDate") val createdDate: LocalDateTime,
+    @SerialName("createdDate") val createdDate: Instant,
     @SerialName("liked") val liked: Boolean,
 )
