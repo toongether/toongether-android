@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Episode
+import kr.toongether.model.EpisodeDetail
 import kr.toongether.model.SerialCycle
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesEpisodeList
@@ -36,7 +37,7 @@ interface SeriesRepository {
     fun getSeriesEpisode(
         seriesId: Long,
         episodeNumber: Long,
-    ): Flow<Episode>
+    ): Flow<EpisodeDetail>
 
     fun getMySeriesEpisodeList(
         seriesId: Long,

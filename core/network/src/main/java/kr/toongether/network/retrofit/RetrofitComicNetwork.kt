@@ -2,16 +2,19 @@ package kr.toongether.network.retrofit
 
 import android.util.Log
 import kr.toongether.common.network.networkHandler
+import kr.toongether.model.EpisodeDetail
 import kr.toongether.network.datasource.CommentNetworkDataSource
 import kr.toongether.network.datasource.HomeNetworkDataSource
 import kr.toongether.network.datasource.LikeNetworkDataSource
 import kr.toongether.network.datasource.SeriesNetworkDataSource
 import kr.toongether.network.datasource.ShortsNetworkDataSource
 import kr.toongether.network.model.CommentListResponse
+import kr.toongether.network.model.EpisodeDetailResponse
 import kr.toongether.network.model.EpisodeResponse
 import kr.toongether.network.model.HomeViewResponse
 import kr.toongether.network.model.SeriesEpisodeListResponse
 import kr.toongether.network.model.SeriesListResponse
+import kr.toongether.network.model.ShortsDetailResponse
 import kr.toongether.network.model.ShortsListResponse
 import kr.toongether.network.model.ShortsResponse
 import retrofit2.Retrofit
@@ -26,7 +29,7 @@ private interface RetrofitComicNetworkApi {
     @GET("comic/shorts/{shortsId}")
     suspend fun getShorts(
         @Path("shortsId") shortsId: Long,
-    ): ShortsResponse
+    ): ShortsDetailResponse
 
     @GET("comic/shorts/my")
     suspend fun getMyShortsList(
@@ -64,7 +67,7 @@ private interface RetrofitComicNetworkApi {
     suspend fun getSeriesEpisode(
         @Path("seriesId") seriesId: Long,
         @Path("episodeNumber") episodeNumber: Long,
-    ): EpisodeResponse
+    ): EpisodeDetailResponse
 
     @GET("comic/series/episode/my/{seriesId}")
     suspend fun getMySeriesEpisodeList(
@@ -132,7 +135,7 @@ internal class RetrofitComicNetwork @Inject constructor(
             comicApi.getSeriesEpisodeList(seriesId)
         }
 
-    override suspend fun getSeriesEpisode(seriesId: Long, episodeNumber: Long): EpisodeResponse =
+    override suspend fun getSeriesEpisode(seriesId: Long, episodeNumber: Long): EpisodeDetailResponse =
         networkHandler {
             comicApi.getSeriesEpisode(seriesId, episodeNumber)
         }
@@ -142,7 +145,7 @@ internal class RetrofitComicNetwork @Inject constructor(
             comicApi.getMySeriesEpisodeList(seriesId)
         }
 
-    override suspend fun getShorts(shortsId: Long): ShortsResponse = networkHandler {
+    override suspend fun getShorts(shortsId: Long): ShortsDetailResponse = networkHandler {
         comicApi.getShorts(shortsId)
     }
 

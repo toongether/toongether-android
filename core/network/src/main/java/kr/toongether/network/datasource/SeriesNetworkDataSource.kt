@@ -25,7 +25,7 @@ interface SeriesNetworkDataSource {
     suspend fun getSeriesEpisode(
         seriesId: Long,
         episodeNumber: Long,
-    ): EpisodeResponse
+    ): EpisodeDetailResponse
 
     suspend fun getMySeriesEpisodeList(
         seriesId: Long,

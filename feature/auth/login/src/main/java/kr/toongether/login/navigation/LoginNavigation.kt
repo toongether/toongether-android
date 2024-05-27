@@ -1,13 +1,13 @@
 package kr.toongether.login.navigation
 
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import com.google.accompanist.navigation.animation.composable
+import androidx.navigation.compose.composable
 import kr.toongether.login.LoginRoute
 
 const val LoginRoute = "login_route"
@@ -26,7 +26,7 @@ fun NavGraphBuilder.loginScreen(
         enterTransition = {
             when (initialState.destination.route) {
                 "my_route", "comic_route/{seriesId}/{episodeNumber}", "setting_route" -> slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
                 else -> null
@@ -35,7 +35,7 @@ fun NavGraphBuilder.loginScreen(
         exitTransition = {
             when (targetState.destination.route) {
                 "my_route", "comic_route/{seriesId}/{episodeNumber}", "setting_route" -> slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
                 else -> null

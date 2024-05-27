@@ -44,7 +44,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherButton
 import kr.toongether.designsystem.component.ToongetherTextField
-import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
 import kr.toongether.designsystem.icon.icons.Cancel
 import kr.toongether.designsystem.theme.Blue60
@@ -198,7 +197,7 @@ internal fun InputPasswordScreen(
                 onClick = onBackClick
             ) {
                 Icon(
-                    imageVector = ToongetherIcons.Back,
+                    imageVector = Icons.Back,
                     contentDescription = null,
                     tint = Color.White
                 )
@@ -239,7 +238,7 @@ internal fun InputPasswordScreen(
                         ) {
                             Icon(
                                 modifier = modifier.size(18.dp),
-                                imageVector = ToongetherIcons.Cancel,
+                                imageVector = Icons.Cancel,
                                 contentDescription = null,
                                 tint = Gray60
                             )
@@ -289,7 +288,7 @@ internal fun InputPasswordScreen(
                         ) {
                             Icon(
                                 modifier = modifier.size(18.dp),
-                                imageVector = ToongetherIcons.Cancel,
+                                imageVector = Icons.Cancel,
                                 contentDescription = null,
                                 tint = Gray60
                             )

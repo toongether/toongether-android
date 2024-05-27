@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
-import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
+import kr.hs.dgsw.smartschool.datastore.UserPreferencesDataSource
 import kr.toongether.data.UserRepository
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(
-    private val toongetherPreferences: ToongetherPreferencesDataSource,
+    private val toongetherPreferences: UserPreferencesDataSource,
     private val userRepository: UserRepository,
 ) : ContainerHost<MyState, MySideEffect>, ViewModel() {
 

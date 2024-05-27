@@ -16,20 +16,39 @@ dependencyResolutionManagement {
 
 rootProject.name = "Toongether"
 include(":app")
-include(":core:designsystem")
-include(":feature:home")
-include(":feature:comic")
-include(":feature:series")
-include(":feature:shorts")
-include(":feature:community")
-include(":feature:my")
-include(":feature:auth:login")
-include(":core:network")
-include(":core:model")
-include(":core:data")
-include(":core:domain")
-include(":core:common")
-include(":core:ui")
-include(":feature:auth:signup")
-include(":core:datastore")
-include(":feature:episode")
+include(
+    ":core:designsystem",
+    ":core:network",
+    ":core:model",
+    ":core:data",
+    ":core:domain",
+    ":core:common",
+    ":core:ui",
+    ":core:datastore",
+)
+include(
+    ":feature:series:interface",
+    ":feature:series:source",
+    ":feature:series:demo",
+    ":feature:series:test",
+    ":feature:series:testing"
+)
+include(
+    ":feature:shorts:interface",
+    ":feature:shorts:source",
+    ":feature:shorts:demo"
+)
+//include(":feature:home:source")
+//include(":feature:comic:source")
+//include(":feature:comic:demo")
+//include(":feature:comic:interface")
+//include(":feature:community")
+//include(":feature:my")
+//include(":feature:auth:login")
+//include(":feature:auth:signup")
+//include(":feature:episode:source")
+//include(":feature:episode:interface")
+//include(":feature:episode:demo")
+//include(":feature:home:interface")
+//include(":feature:shorts:demo")
+//include(":feature:main:source")

@@ -4,15 +4,14 @@ import dagger.Lazy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
+import kr.hs.dgsw.smartschool.datastore.UserPreferencesDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
-import kr.toongether.network.model.RefreshAccessTokenRequest
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
-    private val toongetherPreferences: ToongetherPreferencesDataSource,
+    private val toongetherPreferences: UserPreferencesDataSource,
     private val userNetworkDataSource: Lazy<UserNetworkDataSource>
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

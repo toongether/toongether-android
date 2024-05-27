@@ -18,6 +18,7 @@ import kr.toongether.data.paging.MySeriesPagingSource
 import kr.toongether.data.paging.SeriesPagingSource
 import kr.toongether.model.DayOfWeek
 import kr.toongether.model.Episode
+import kr.toongether.model.EpisodeDetail
 import kr.toongether.model.SerialCycle
 import kr.toongether.model.Series
 import kr.toongether.model.SeriesEpisodeList
@@ -81,7 +82,7 @@ internal class SeriesRepositoryImpl @Inject constructor(
         }.flowOn(dispatcher)
     }
 
-    override fun getSeriesEpisode(seriesId: Long, episodeNumber: Long): Flow<Episode> {
+    override fun getSeriesEpisode(seriesId: Long, episodeNumber: Long): Flow<EpisodeDetail> {
         return flow {
             emit(network.getSeriesEpisode(seriesId, episodeNumber).asModel())
         }.flowOn(dispatcher)

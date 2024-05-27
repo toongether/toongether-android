@@ -13,10 +13,10 @@ import kr.toongether.common.network.Dispatcher
 import kr.toongether.common.network.ToongetherDispatcher
 import kr.toongether.data.ShortsRepository
 import kr.toongether.data.model.asModel
-import kr.toongether.data.paging.MySeriesPagingSource
 import kr.toongether.data.paging.MyShortsPagingSource
 import kr.toongether.data.paging.ShortsPagingSource
 import kr.toongether.model.Shorts
+import kr.toongether.model.ShortsDetail
 import kr.toongether.model.ShortsList
 import kr.toongether.model.SortBy
 import kr.toongether.network.datasource.ShortsNetworkDataSource
@@ -26,7 +26,7 @@ internal class ShortsRepositoryImpl @Inject constructor(
     private val network: ShortsNetworkDataSource,
     @Dispatcher(ToongetherDispatcher.IO) private val dispatcher: CoroutineDispatcher,
 ) : ShortsRepository {
-    override fun getShorts(shortsId: Long): Flow<Shorts> {
+    override fun getShorts(shortsId: Long): Flow<ShortsDetail> {
         return flow {
             emit(network.getShorts(shortsId).asModel())
         }.flowOn(dispatcher)

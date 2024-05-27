@@ -37,12 +37,12 @@ android {
 dependencies {
 
     implementation(project(":core:designsystem"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:series"))
-    implementation(project(":feature:shorts"))
-    implementation(project(":feature:my"))
-    implementation(project(":feature:comic"))
-    implementation(project(":feature:auth:login"))
-    implementation(project(":feature:auth:signup"))
-    implementation(project(":feature:episode"))
+//    implementation(project(":feature:home:source"))
+    implementation(project(":feature:series:source"))
+//    implementation(project(":feature:shorts:source"))
+//    implementation(project(":feature:my"))
+//    implementation(project(":feature:comic:source"))
+//    implementation(project(":feature:auth:login"))
+//    implementation(project(":feature:auth:signup"))
+//    implementation(project(":feature:episode:source"))
 }

@@ -1,6 +1,5 @@
 package kr.toongether.login
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -42,7 +41,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kr.toongether.designsystem.component.ToongetherLargeButton
 import kr.toongether.designsystem.component.ToongetherTextField
-import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.icon.icons.Back
 import kr.toongether.designsystem.icon.icons.Cancel
 import kr.toongether.designsystem.theme.Blue60
@@ -140,7 +138,7 @@ internal fun LoginScreen(
                 onClick = onBackClick
             ) {
                 Icon(
-                    imageVector = ToongetherIcons.Back,
+                    imageVector = Icons.Back,
                     contentDescription = null,
                     tint = Color.White
                 )
@@ -175,7 +173,7 @@ internal fun LoginScreen(
                     ) {
                         Icon(
                             modifier = modifier.size(18.dp),
-                            imageVector = ToongetherIcons.Cancel,
+                            imageVector = Icons.Cancel,
                             contentDescription = null,
                             tint = Gray60
                         )
@@ -207,7 +205,7 @@ internal fun LoginScreen(
                         ) {
                             Icon(
                                 modifier = modifier.size(18.dp),
-                                imageVector = ToongetherIcons.Cancel,
+                                imageVector = Icons.Cancel,
                                 contentDescription = null,
                                 tint = Gray60
                             )

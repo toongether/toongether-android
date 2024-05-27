@@ -1,15 +1,14 @@
 package kr.toongether.signup.navigation
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
+import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.accompanist.navigation.animation.composable
 import kr.toongether.signup.AgreeRoute
 import kr.toongether.signup.CheckEmailRoute
 import kr.toongether.signup.InputPasswordRoute
@@ -47,7 +46,6 @@ fun NavController.navigateToAgree(navOptions: NavOptions? = null) {
     this.navigate(AgreeRoute, navOptions)
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.signupScreen(
     navController: NavController,
     alert: (@Composable () -> Unit) -> Unit
@@ -57,7 +55,7 @@ fun NavGraphBuilder.signupScreen(
         enterTransition = {
             when (initialState.destination.route) {
                 AgreeRoute -> slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
 
@@ -67,7 +65,7 @@ fun NavGraphBuilder.signupScreen(
         exitTransition = {
             when (targetState.destination.route) {
                 AgreeRoute -> slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
 
@@ -89,13 +87,13 @@ fun NavGraphBuilder.signupScreen(
         ),
         enterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(durationMillis = 400)
             )
         },
         exitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(durationMillis = 400)
             )
         }
@@ -118,13 +116,13 @@ fun NavGraphBuilder.signupScreen(
         ),
         enterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(durationMillis = 400)
             )
         },
         exitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(durationMillis = 400)
             )
         }
@@ -143,7 +141,7 @@ fun NavGraphBuilder.signupScreen(
         enterTransition = {
             when (initialState.destination.route) {
                 "login_route" -> slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(durationMillis = 400)
                 )
 
@@ -153,7 +151,7 @@ fun NavGraphBuilder.signupScreen(
         exitTransition = {
             when (targetState.destination.route) {
                 "login_route" -> slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(durationMillis = 400)
                 )
 

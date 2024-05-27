@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kr.hs.dgsw.smartschool.datastore.ToongetherPreferencesDataSource
+import kr.hs.dgsw.smartschool.datastore.UserPreferencesDataSource
 import kr.toongether.data.UserRepository
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val toongetherPreferences: ToongetherPreferencesDataSource
+    private val toongetherPreferences: UserPreferencesDataSource
 ) : ContainerHost<LoginState, LoginSideEffect>, ViewModel() {
 
     override val container = container<LoginState, LoginSideEffect>(LoginState())

@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -31,9 +31,10 @@ internal fun Project.configureAndroidCompose(
             add("implementation", libs.findLibrary("androidx-core-ktx").get())
             add("implementation", libs.findLibrary("androidx-activity-compose").get())
             add("implementation", libs.findLibrary("androidx.compose.material3").get())
-            add("implementation", libs.findLibrary("androidx.compose.material").get())
             add("implementation", libs.findLibrary("androidx.navigation.compose").get())
             add("implementation", libs.findLibrary("navigation.animation").get())
+            add("implementation", libs.findLibrary("androidx-compose-ui-tooling").get())
+            add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
 
             add("androidTestImplementation", libs.findLibrary("androidx.test.espresso.core").get())
             add("androidTestImplementation", libs.findLibrary("androidx.test.runner").get())
