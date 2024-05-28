@@ -12,4 +12,8 @@ object ToongetherIcons {
     val Shorts @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_shorts)
     val MagnifyingGlass @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_magnifying_glass)
     val List @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_list)
+    val ThumbsUp @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_thumbs_up)
+    val ChatDots @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_chat_dots)
+    val CaretCircleLeft @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_caret_circle_left)
+    val CaretCircleRight @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_caret_circle_right)
 }

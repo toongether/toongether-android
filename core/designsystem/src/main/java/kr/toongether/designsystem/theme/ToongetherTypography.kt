@@ -54,4 +54,18 @@ object ToongetherTypography {
         fontSize = 12.sp,
         lineHeight = 1.2.em,
     )
+
+    val Label1 =  TextStyle(
+        fontFamily = Pretendard,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        lineHeight = 1.2.em,
+    )
+
+    val Label2 =  TextStyle(
+        fontFamily = Pretendard,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 1.2.em,
+    )
 }

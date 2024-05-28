@@ -7,6 +7,9 @@ object ToongetherColors {
     val White = Color(0xFFFFFFFF)
     val Black = Color(0xFF000000)
 
+    // Primary
+    val PrimaryNormal = Color(0xFF1169F5)
+
     // Background
     val BackgroundNormal = Color(0xFF111111)
     val BackgroundAlternative = Color(0xFF000000)
