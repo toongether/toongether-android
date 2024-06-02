@@ -1,8 +1,5 @@
 package kr.toongether.network.retrofit
 
-import android.util.Log
-import kr.toongether.common.network.networkHandler
-import kr.toongether.model.EpisodeDetail
 import kr.toongether.network.datasource.CommentNetworkDataSource
 import kr.toongether.network.datasource.HomeNetworkDataSource
 import kr.toongether.network.datasource.LikeNetworkDataSource
@@ -10,13 +7,12 @@ import kr.toongether.network.datasource.SeriesNetworkDataSource
 import kr.toongether.network.datasource.ShortsNetworkDataSource
 import kr.toongether.network.model.CommentListResponse
 import kr.toongether.network.model.EpisodeDetailResponse
-import kr.toongether.network.model.EpisodeResponse
 import kr.toongether.network.model.HomeViewResponse
 import kr.toongether.network.model.SeriesEpisodeListResponse
 import kr.toongether.network.model.SeriesListResponse
 import kr.toongether.network.model.ShortsDetailResponse
 import kr.toongether.network.model.ShortsListResponse
-import kr.toongether.network.model.ShortsResponse
+import kr.toongether.network.util.networkHandler
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.POST

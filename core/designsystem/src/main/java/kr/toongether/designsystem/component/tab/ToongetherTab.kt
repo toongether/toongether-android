@@ -28,7 +28,7 @@ fun ToongetherTab(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     selectedContentColor: Color = ToongetherColors.LabelNormal,
-    unselectedContentColor: Color = ToongetherColors.LabelAssistive,
+    unselectedContentColor: Color = ToongetherColors.LabelNormal.copy(0.28f),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit
 ) {

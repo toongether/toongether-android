@@ -2,6 +2,7 @@ package kr.toongether.shortsinterface
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -27,9 +28,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +49,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -60,6 +66,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import kotlinx.coroutines.launch
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.theme.GangwonEduPower
 import kr.toongether.designsystem.theme.ToongetherColors
@@ -70,14 +77,16 @@ import my.nanihadesuka.compose.LazyColumnScrollbar
 import my.nanihadesuka.compose.ScrollbarSettings
 
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShortsScreen(
     modifier: Modifier = Modifier,
+    onClickLike: (Long, Int) -> Unit,
     uiState: ShortsUiState,
 ) {
+    val scope = rememberCoroutineScope()
+
     var showInteractionUI by remember { mutableStateOf(true) }
-    var currentShortsIndex by remember { mutableIntStateOf(0) }
 
     val lazyListState = rememberLazyListState()
     val isScrollInProgress by remember { derivedStateOf { lazyListState.isScrollInProgress } }
@@ -107,12 +116,14 @@ fun ShortsScreen(
         }
 
         is ShortsUiState.Success -> {
+            val pagerState = rememberPagerState { uiState.shorts.size }
+
             LaunchedEffect(key1 = firstVisibleItemScrollOffset) {
                 val viewportHeight = lazyListState.layoutInfo.viewportSize.height
                 val viewportWidth = lazyListState.layoutInfo.viewportSize.width
-                val height = uiState.shorts[currentShortsIndex].height
-                val lastHeight = uiState.shorts[currentShortsIndex].lastHeight
-                val width = uiState.shorts[currentShortsIndex].width
+                val height = uiState.shorts[pagerState.currentPage].height
+                val lastHeight = uiState.shorts[pagerState.currentPage].lastHeight
+                val width = uiState.shorts[pagerState.currentPage].width
                 val totalItemCount = lazyListState.layoutInfo.totalItemsCount
 
                 if (maxVisibleItemScrollOffset < firstVisibleItemScrollOffset) {
@@ -122,23 +133,17 @@ fun ShortsScreen(
                 if (width > 0 && height > 0) {
                     val totalHeight =
                         (viewportWidth * height / width) * (totalItemCount - 1) + (viewportWidth * lastHeight / width)
-                    println("totalHeight: $totalHeight")
-                    println("viewportWidth: $viewportWidth")
-                    println("viewportHeight: $viewportHeight")
-                    println("width: $width")
-                    println("height: $height")
-                    println("lastHeight: $lastHeight")
                     scrollbarPosition =
                         (firstVisibleItemScrollOffset + maxVisibleItemScrollOffset * lazyListState.firstVisibleItemIndex) * viewportHeight / totalHeight
                 }
             }
 
-            LaunchedEffect(key1 = currentShortsIndex) {
+            LaunchedEffect(key1 = pagerState.currentPage) {
                 lazyListState.scrollToItem(0)
             }
 
             LaunchedEffect(key1 = isScrollInProgress) {
-                showInteractionUI = false
+                if (isScrollInProgress) showInteractionUI = false
             }
 
             Box(
@@ -152,29 +157,31 @@ fun ShortsScreen(
                         onClick = { showInteractionUI = !showInteractionUI }
                     )
             ) {
-                LazyColumn(
-                    state = lazyListState
-                ) {
-                    itemsIndexed(
-                        items = uiState.shorts[currentShortsIndex].imageURL,
-                    ) { index, imageUrl ->
-                        AsyncImage(
-                            modifier = Modifier
-                                .then(
-                                    if (index != uiState.shorts[currentShortsIndex].endIndex) {
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .aspectRatio(uiState.shorts[currentShortsIndex].width.toFloat() / uiState.shorts[currentShortsIndex].height)
-                                    } else {
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .aspectRatio(uiState.shorts[currentShortsIndex].width.toFloat() / uiState.shorts[currentShortsIndex].lastHeight)
-                                    }
-                                ),
-                            model = imageUrl,
-                            contentDescription = null,
-                            contentScale = ContentScale.FillWidth
-                        )
+                HorizontalPager(state = pagerState) {
+                    LazyColumn(
+                        state = lazyListState
+                    ) {
+                        itemsIndexed(
+                            items = uiState.shorts[it].imageURL,
+                        ) { index, imageUrl ->
+                            AsyncImage(
+                                modifier = Modifier
+                                    .then(
+                                        if (index != uiState.shorts[it].endIndex) {
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .aspectRatio(uiState.shorts[it].width.toFloat() / uiState.shorts[it].height)
+                                        } else {
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .aspectRatio(uiState.shorts[it].width.toFloat() / uiState.shorts[it].lastHeight)
+                                        }
+                                    ),
+                                model = imageUrl,
+                                contentDescription = null,
+                                contentScale = ContentScale.FillWidth
+                            )
+                        }
                     }
                 }
 
@@ -196,7 +203,7 @@ fun ShortsScreen(
                             IconButton(onClick = { /*TODO: Navigate To Search*/ }) {
                                 Icon(
                                     modifier = Modifier.size(24.dp),
-                                    imageVector = ToongetherIcons.MagnifyingGlass,
+                                    imageVector = ToongetherIcons.Bold.MagnifyingGlass,
                                     tint = ToongetherColors.LabelNormal,
                                     contentDescription = "Search"
                                 )
@@ -215,12 +222,18 @@ fun ShortsScreen(
                     exit = slideOutVertically(targetOffsetY = { it }) + fadeOut()
                 ) {
                     BottomBar(
-                        profileImage = uiState.shortsList[currentShortsIndex].author.profileImage,
-                        author = uiState.shortsList[currentShortsIndex].author.name,
-                        title = uiState.shortsList[currentShortsIndex].title,
-                        liked = uiState.shortsList[currentShortsIndex].liked,
-                        likeCount = uiState.shortsList[currentShortsIndex].likeCount,
-                        commentCount = uiState.shortsList[currentShortsIndex].commentCount,
+                        profileImage = uiState.shortsList[pagerState.currentPage].author.profileImage,
+                        author = uiState.shortsList[pagerState.currentPage].author.name,
+                        title = uiState.shorts[pagerState.currentPage].title,
+                        liked = uiState.shorts[pagerState.currentPage].liked,
+                        likeCount = uiState.shorts[pagerState.currentPage].likeCount,
+                        commentCount = uiState.shorts[pagerState.currentPage].commentCount,
+                        onLikeClick = {
+                            onClickLike(
+                                uiState.shorts[pagerState.currentPage].id,
+                                pagerState.currentPage
+                            )
+                        }
                     )
                 }
 
@@ -240,12 +253,19 @@ fun ShortsScreen(
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = null,
-                                onClick = { currentShortsIndex-- },
-                                enabled = currentShortsIndex > 0
+                                onClick = {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(
+                                            pagerState.currentPage.minus(1),
+                                            animationSpec = tween(delayMillis = 250, durationMillis = 500)
+                                        )
+                                    }
+                                },
+                                enabled = pagerState.currentPage > 0
                             ),
-                        imageVector = ToongetherIcons.CaretCircleLeft,
+                        imageVector = ToongetherIcons.Fill.CaretCircleLeft,
                         contentDescription = "Previous",
-                        tint = if (currentShortsIndex > 0) ToongetherColors.BackgroundNormal else ToongetherColors.BackgroundNormal.copy(
+                        tint = if (pagerState.currentPage > 0) ToongetherColors.BackgroundNormal else ToongetherColors.BackgroundNormal.copy(
                             0.5f
                         ),
                     )
@@ -267,12 +287,19 @@ fun ShortsScreen(
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = null,
-                                onClick = { currentShortsIndex++ },
-                                enabled = currentShortsIndex < uiState.shorts.size - 1
+                                onClick = {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(
+                                            page = pagerState.currentPage.plus(1),
+                                            animationSpec = tween(delayMillis = 250, durationMillis = 500)
+                                        )
+                                    }
+                                },
+                                enabled = pagerState.currentPage < uiState.shorts.size - 1
                             ),
-                        imageVector = ToongetherIcons.CaretCircleRight,
+                        imageVector = ToongetherIcons.Fill.CaretCircleRight,
                         contentDescription = "Next",
-                        tint = if (currentShortsIndex < uiState.shorts.size - 1) ToongetherColors.BackgroundNormal else ToongetherColors.BackgroundNormal.copy(
+                        tint = if (pagerState.currentPage < uiState.shorts.size - 1) ToongetherColors.BackgroundNormal else ToongetherColors.BackgroundNormal.copy(
                             0.5f
                         ),
                     )
@@ -288,6 +315,7 @@ fun ShortsScreen(
                     Box(
                         modifier = Modifier
                             .padding(vertical = 64.dp)
+                            .padding(end = 4.dp)
                             .size(28.dp, 48.dp)
                             .background(
                                 ToongetherColors.BackgroundNormal,
@@ -297,7 +325,7 @@ fun ShortsScreen(
                     ) {
                         Icon(
                             modifier = Modifier.size(18.dp),
-                            imageVector = ToongetherIcons.List,
+                            imageVector = ToongetherIcons.Bold.List,
                             contentDescription = null,
                             tint = ToongetherColors.White
                         )
@@ -319,6 +347,7 @@ private fun BottomBar(
     liked: Boolean,
     likeCount: Int,
     commentCount: Int,
+    onLikeClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -348,7 +377,7 @@ private fun BottomBar(
                 Text(
                     text = author,
                     style = ToongetherTypography.Label2,
-                    color = ToongetherColors.LabelAssistive,
+                    color = ToongetherColors.LabelNormal.copy(0.6f),
                 )
             }
 
@@ -361,13 +390,19 @@ private fun BottomBar(
 
         Row {
             Column(
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = onLikeClick
+                    ),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
-                    imageVector = ToongetherIcons.ThumbsUp,
+                    imageVector = ToongetherIcons.Fill.ThumbsUp,
                     contentDescription = "Like",
                     tint = if (liked) ToongetherColors.PrimaryNormal else ToongetherColors.White,
                 )
@@ -385,7 +420,7 @@ private fun BottomBar(
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
-                    imageVector = ToongetherIcons.ChatDots,
+                    imageVector = ToongetherIcons.Fill.ChatDots,
                     contentDescription = "Chats",
                     tint = ToongetherColors.White,
                 )
@@ -399,5 +434,3 @@ private fun BottomBar(
         }
     }
 }
-
-private val SCROLL_BAR_HEIGHT = 40.dp

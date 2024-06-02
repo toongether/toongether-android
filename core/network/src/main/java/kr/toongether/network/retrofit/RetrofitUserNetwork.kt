@@ -1,7 +1,5 @@
 package kr.toongether.network.retrofit
 
-import kotlinx.serialization.json.JsonPrimitive
-import kr.toongether.common.network.networkHandler
 import kr.toongether.network.datasource.EmailNetworkDataSource
 import kr.toongether.network.datasource.UserNetworkDataSource
 import kr.toongether.network.model.ChangePasswordRequest
@@ -11,6 +9,7 @@ import kr.toongether.network.model.LoginTokenResponse
 import kr.toongether.network.model.RefreshAccessTokenRequest
 import kr.toongether.network.model.SignupRequest
 import kr.toongether.network.model.UserInfoResponse
+import kr.toongether.network.util.networkHandler
 import retrofit2.Retrofit
 import retrofit2.http.Body
 import retrofit2.http.DELETE

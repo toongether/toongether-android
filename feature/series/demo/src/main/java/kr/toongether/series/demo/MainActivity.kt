@@ -13,8 +13,6 @@ import kr.toongether.series.SeriesScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @ExperimentalFoundationApi
-    @ExperimentalMaterial3Api
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -26,9 +24,7 @@ class MainActivity : ComponentActivity() {
             )
         )
         setContent {
-            ToongetherTheme {
-                SeriesScreen(navigateToEpisode = {})
-            }
+            SeriesScreen(navigateToEpisode = { _, _, _ -> })
         }
     }
 }

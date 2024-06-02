@@ -9,7 +9,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import kr.toongether.archive.source.navigation.navigateToArchive
+import kr.toongether.community.navigation.navigateToCommunity
 import kr.toongether.main.navigation.NavigationDestination
+import kr.toongether.my.navigation.navigateToMy
+import kr.toongether.series.navigation.navigateToSeries
+import kr.toongether.shorts.navigation.navigateToShorts
+
+@Composable
+fun rememberMainScreenState(navController: NavHostController = rememberNavController()): MainScreenState {
+    return remember(navController) {
+        MainScreenState(navController)
+    }
+}
 
 @Stable
 class MainScreenState(
@@ -21,12 +33,6 @@ class MainScreenState(
 
     val navigationDestinations: List<NavigationDestination> = NavigationDestination.entries
 
-    val isShowBottomBar: Boolean
-        @Composable get() = when (currentDestination?.route) {
-            HomeRoute, SeriesRoute, ShortsRoute, MyRoute -> true
-            else -> false
-        }
-
     fun navigateToNavigationDestination(navigationDestination: NavigationDestination) {
         val navOptions = navOptions {
             popUpTo(navController.graph.findStartDestination().id) {
@@ -37,10 +43,11 @@ class MainScreenState(
         }
 
         when (navigationDestination) {
-            NavigationDestination.HOME -> navController.navigateToHome(navOptions)
             NavigationDestination.SERIES -> navController.navigateToSeries(navOptions)
             NavigationDestination.SHORTS -> navController.navigateToShorts(navOptions)
             NavigationDestination.MY -> navController.navigateToMy(navOptions)
+            NavigationDestination.ARCHIVE -> navController.navigateToArchive(navOptions)
+            NavigationDestination.COMMUNITY -> navController.navigateToCommunity(navOptions)
         }
     }
 }

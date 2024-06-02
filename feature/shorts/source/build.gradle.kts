@@ -11,4 +11,5 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":feature:shorts:interface"))
     implementation(libs.androidx.paging.compose)
+    implementation(libs.kotlinx.datetime)
 }

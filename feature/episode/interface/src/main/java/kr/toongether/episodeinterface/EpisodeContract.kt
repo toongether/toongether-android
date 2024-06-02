@@ -2,9 +2,10 @@ package kr.toongether.episodeinterface
 
 import kr.toongether.model.SeriesEpisodeList
 
-sealed interface EpisodeState {
-    data class Success(val data: SeriesEpisodeList) : EpisodeState
-    object Loading : EpisodeState
+sealed interface EpisodeUiState {
+    data class Success(val data: SeriesEpisodeList) : EpisodeUiState
+    data object Loading : EpisodeUiState
+    data class Error(val message: String) : EpisodeUiState
 }
 
 sealed class EpisodeSideEffect {

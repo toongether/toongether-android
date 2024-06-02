@@ -41,7 +41,7 @@ class LoginViewModel @Inject constructor(
                     saveId(userId)
                     savePassword(password)
                 }
-                postSideEffect(LoginSideEffect.NavigateToMy)
+                postSideEffect(LoginSideEffect.Success)
             }
             .collect()
     }

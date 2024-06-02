@@ -5,23 +5,24 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import kr.toongether.designsystem.icon.ToongetherIcons
 
 enum class NavigationDestination(
-    val icon: @Composable () -> ImageVector,
+    val icon: (@Composable () -> ImageVector)? = null,
     val label: String,
 ) {
     SERIES(
-        icon = { ToongetherIcons.Series },
+        icon = { ToongetherIcons.Fill.Series },
         label = "웹툰"
     ),
     SHORTS(
-        icon = { ToongetherIcons.Series },
+        icon = { ToongetherIcons.Fill.Series },
         label = "숏툰"
     ),
     COMMUNITY(
-        icon = { ToongetherIcons.Community },
+        icon = { ToongetherIcons.Fill.Community },
         label = "커뮤니티"
     ),
     ARCHIVE(
-        icon = { ToongetherIcons.Archive },
+        icon = { ToongetherIcons.Fill.Archive },
         label = "보관함"
-    )
+    ),
+    MY(label = "MY")
 }

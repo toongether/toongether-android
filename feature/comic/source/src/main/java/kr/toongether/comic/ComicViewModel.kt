@@ -7,10 +7,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kr.toongether.comicinterface.ComicSideEffect
-import kr.toongether.comicinterface.ComicState
+import kr.toongether.comicinterface.ComicUiState
+import kr.toongether.common.network.exception.BadRequestException
+import kr.toongether.common.network.exception.UnauthorizedException
 import kr.toongether.data.LikeRepository
 import kr.toongether.data.SeriesRepository
-import kr.toongether.data.ShortsRepository
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -21,81 +22,37 @@ import javax.inject.Inject
 @HiltViewModel
 class ComicViewModel @Inject constructor(
     private val seriesRepository: SeriesRepository,
-    private val shortsRepository: ShortsRepository,
     private val likeRepository: LikeRepository,
-) : ContainerHost<ComicState, ComicSideEffect>, ViewModel() {
+) : ContainerHost<ComicUiState, ComicSideEffect>, ViewModel() {
 
-    override val container = container<ComicState, ComicSideEffect>(ComicState.Loading)
-
-    fun getComic(id: Long) = intent {
-        shortsRepository.getShorts(id)
-            .onStart { reduce { ComicState.Loading } }
-            .onEach {
-                reduce {
-                    ComicState.Success(shorts = it)
-                }
-            }
-            .collect()
-    }
+    override val container = container<ComicUiState, ComicSideEffect>(ComicUiState.Loading)
 
     fun getComic(seriesId: Long, episodeId: Long) = intent {
         seriesRepository.getSeriesEpisode(seriesId, episodeId)
-            .onStart { reduce { ComicState.Loading } }
+            .onStart { reduce { ComicUiState.Loading } }
+            .catch { reduce { ComicUiState.Error("에피소드를 불러오는데 실패했습니다.") } }
+            .onEach { reduce { ComicUiState.Success(episode = it) } }
+            .collect()
+    }
+
+    fun like(seriesEpisodeId: Long) = intent {
+        likeRepository.likeSeries(seriesEpisodeId)
+            .catch {
+                if (it is UnauthorizedException || it is BadRequestException) {
+                    postSideEffect(ComicSideEffect.NavigateToLogin)
+                } else {
+                    reduce { ComicUiState.Error("좋아요 실패") }
+                }
+            }
             .onEach {
+                val episode = (state as ComicUiState.Success).episode
                 reduce {
-                    ComicState.Success(episode = it)
-                }
-            }
-            .collect()
-    }
-
-    fun likeShorts(shortsId: Long) = intent {
-        likeRepository.likeShorts(shortsId)
-            .onEach {
-                val state = state as ComicState.Success
-                if (it) {
-                    ComicState.Success(shorts = state.shorts?.copy(
-                        liked = true,
-                        likeCount = state.shorts?.likeCount!!.plus(1)
-                    ))
-                } else {
-                    ComicState.Success(shorts = state.shorts?.copy(
-                        liked = false,
-                        likeCount = state.shorts?.likeCount!!.minus(1)
-                    ))
-                }
-            }
-            .catch {
-                if (it.message.toString().contains("400")) {
-                    postSideEffect(ComicSideEffect.LoginToast)
-                } else {
-                    postSideEffect(ComicSideEffect.Toast(it.message!!))
-                }
-            }
-            .collect()
-    }
-
-    fun likeSeries(seriesId: Long) = intent {
-        likeRepository.likeSeries(seriesId)
-            .onEach {
-                val state = state as ComicState.Success
-                if (it) {
-                    ComicState.Success(episode = state.episode?.copy(
-                        liked = true,
-                        likeCount = state.episode?.likeCount!!.plus(1)
-                    ))
-                } else {
-                    ComicState.Success(episode = state.episode?.copy(
-                        liked = false,
-                        likeCount = state.episode?.likeCount!!.minus(1)
-                    ))
-                }
-            }
-            .catch {
-                if (it.message.toString().contains("400")) {
-                    postSideEffect(ComicSideEffect.LoginToast)
-                } else {
-                    postSideEffect(ComicSideEffect.Toast(it.message!!))
+                    ComicUiState.Success(
+                        episode.copy(
+                            liked = it,
+                            likeCount = if (it) episode.likeCount + 1 else episode.likeCount - 1
+                        )
+                    )
                 }
             }
             .collect()

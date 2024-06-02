@@ -2,21 +2,15 @@ package kr.toongether.comic.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.navigation.navOptions
 import kr.toongether.comic.ComicScreen
 
-const val ComicRoute = "comic_route/{seriesId}/{episodeNumber}"
-
-fun NavController.navigateToComic(shortsId: Long, navOptions: NavOptions? = null) {
-    this.navigate("comic_route/-1/$shortsId", navOptions)
-}
+const val COMIC_ROUTE = "comic_route/{seriesId}/{episodeNumber}"
 
 fun NavController.navigateToComic(
     seriesId: Long,
@@ -32,7 +26,7 @@ fun NavGraphBuilder.comicScreen(
     popBackStack: () -> Unit,
 ) {
     composable(
-        route = ComicRoute,
+        route = COMIC_ROUTE,
         arguments = listOf(
             navArgument("seriesId") { type = NavType.LongType },
             navArgument("episodeNumber") { type = NavType.LongType }

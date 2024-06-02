@@ -6,5 +6,5 @@ data class LoginState(
 
 sealed class LoginSideEffect {
     data class Toast(val text: String) : LoginSideEffect()
-    object NavigateToMy : LoginSideEffect()
+    data object Success : LoginSideEffect()
 }

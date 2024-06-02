@@ -40,17 +40,26 @@ include(
     ":feature:shorts:source",
     ":feature:shorts:demo"
 )
+include(
+    ":feature:episode:interface",
+    ":feature:episode:source",
+    ":feature:episode:demo"
+)
+include(
+    ":feature:comic:interface",
+    ":feature:comic:source",
+    ":feature:comic:demo"
+)
+
+include(
+    ":feature:main:demo",
+    ":feature:main:source"
+)
 //include(":feature:home:source")
-//include(":feature:comic:source")
-//include(":feature:comic:demo")
-//include(":feature:comic:interface")
-//include(":feature:community")
-//include(":feature:my")
-//include(":feature:auth:login")
-//include(":feature:auth:signup")
-//include(":feature:episode:source")
-//include(":feature:episode:interface")
-//include(":feature:episode:demo")
+include(":feature:community:source")
+include(":feature:my:source")
+include(":feature:auth:login")
+include(":feature:auth:signup")
 //include(":feature:home:interface")
-//include(":feature:shorts:demo")
-//include(":feature:main:source")
+
+include(":feature:archive:source")

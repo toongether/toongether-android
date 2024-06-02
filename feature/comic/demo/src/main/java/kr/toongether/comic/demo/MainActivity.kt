@@ -15,25 +15,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.auto(
-                android.graphics.Color.TRANSPARENT,
+            statusBarStyle = SystemBarStyle.dark(
                 android.graphics.Color.TRANSPARENT,
             ),
-            navigationBarStyle = SystemBarStyle.auto(
-                android.graphics.Color.TRANSPARENT,
+            navigationBarStyle = SystemBarStyle.dark(
                 android.graphics.Color.TRANSPARENT,
             )
         )
         setContent {
             ToongetherTheme {
                 ComicScreen(
-                    episodeNumber = 87,
-                    seriesId = -1,
-                    navigateToLogin = { /*TODO*/ },
+                    episodeNumber = 0,
+                    seriesId = 275,
                     navigateToComic = {},
-                    popBackStack = { /*TODO*/ }) {
-                    
-                }
+                    popBackStack = {},
+                )
             }
         }
     }

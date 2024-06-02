@@ -13,10 +13,9 @@ import kr.toongether.shorts.ShortsScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @ExperimentalFoundationApi
-    @ExperimentalMaterial3Api
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(
                 android.graphics.Color.TRANSPARENT,
@@ -25,11 +24,10 @@ class MainActivity : ComponentActivity() {
                 android.graphics.Color.TRANSPARENT,
             )
         )
+
         setContent {
             ToongetherTheme {
-                ShortsScreen(navigateToComic = {
-
-                })
+                ShortsScreen(navigateToLogin = {})
             }
         }
     }

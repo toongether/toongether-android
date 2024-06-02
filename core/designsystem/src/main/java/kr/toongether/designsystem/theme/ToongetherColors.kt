@@ -17,7 +17,7 @@ object ToongetherColors {
     // Label
     val LabelStrong = Color(0xFFFFFFFF)
     val LabelNormal = Color(0xFFF7F7F8)
-    val LabelAssistive = Color(0x47AEB0B6)
+    val LabelAssistive = Color(0xFF64686E)
 
     // Component
     val ComponentNormal = Color(0xFF1D1F21)

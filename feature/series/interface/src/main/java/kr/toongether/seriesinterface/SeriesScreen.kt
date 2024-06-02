@@ -1,7 +1,11 @@
 package kr.toongether.seriesinterface
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,17 +67,20 @@ import kr.toongether.designsystem.component.tab.ToongetherTabRow
 import kr.toongether.designsystem.icon.ToongetherIcons
 import kr.toongether.designsystem.theme.ToongetherColors
 import kr.toongether.designsystem.theme.ToongetherTypography
+import kr.toongether.model.Series
 import java.nio.ByteBuffer
 
 
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun SeriesScreen(
     modifier: Modifier = Modifier,
     uiState: SeriesUiState,
-    onTabClick: (tabIndex: Int) -> Unit,
-    onComicClick: (Long) -> Unit,
+    onSeriesClick: (Series) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val lazyGridState = rememberLazyGridState()
@@ -96,7 +103,7 @@ fun SeriesScreen(
                     IconButton(onClick = { /*TODO: Navigate To Search*/ }) {
                         Icon(
                             modifier = Modifier.size(24.dp),
-                            imageVector = ToongetherIcons.MagnifyingGlass,
+                            imageVector = ToongetherIcons.Bold.MagnifyingGlass,
                             tint = ToongetherColors.LabelNormal,
                             contentDescription = "Search"
                         )
@@ -105,7 +112,7 @@ fun SeriesScreen(
                     IconButton(onClick = { /*TODO: Navigate To Profile*/ }) {
                         Icon(
                             modifier = Modifier.size(24.dp),
-                            imageVector = ToongetherIcons.List,
+                            imageVector = ToongetherIcons.Bold.List,
                             tint = ToongetherColors.LabelNormal,
                             contentDescription = "List"
                         )
@@ -172,61 +179,76 @@ fun SeriesScreen(
                                 items = uiState.seriesList[it],
                                 key = { it.id }
                             ) { series ->
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .aspectRatio(0.75f)
-                                        .background(
-                                            Color(series.titleMaker.color.toColorInt()),
-                                            RoundedCornerShape(4.dp)
-                                        ),
-                                    contentAlignment = Alignment.BottomCenter
-                                ) {
-                                    AsyncImage(
-                                        modifier = Modifier
-                                            .clip(RoundedCornerShape(4.dp))
-                                            .fillMaxSize(),
-                                        model = series.titleMaker.backgroundImage,
-                                        contentDescription = null,
-                                        contentScale = ContentScale.Crop
-                                    )
-
+                                with(sharedTransitionScope) {
                                     Box(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .fillMaxHeight(0.7f)
+                                            .aspectRatio(0.75f)
                                             .background(
-                                                brush = Brush.verticalGradient(
-                                                    colors = listOf(
-                                                        Color(series.titleMaker.color.toColorInt()).copy(
-                                                            0f
-                                                        ),
-                                                        Color(series.titleMaker.color.toColorInt()).copy(
-                                                            0.9f
-                                                        )
-                                                    )
-                                                ),
+                                                Color(series.titleMaker.color.toColorInt()),
                                                 RoundedCornerShape(4.dp)
                                             )
-                                    )
-
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(55.dp)
-                                            .padding(horizontal = 20.dp, vertical = 8.dp),
+                                            .clickable(
+                                                interactionSource = remember { MutableInteractionSource() },
+                                                indication = null,
+                                                onClick = { onSeriesClick(series) }
+                                            ),
+                                        contentAlignment = Alignment.BottomCenter
                                     ) {
                                         AsyncImage(
                                             modifier = Modifier
-                                                .fillMaxSize()
-                                                .align(Alignment.Center),
-                                            model = ImageRequest.Builder(LocalContext.current)
-                                                .data(ByteBuffer.wrap(series.titleMaker.titleSvg.toByteArray()))
-                                                .decoderFactory(SvgDecoder.Factory())
-                                                .build(),
+                                                .sharedElement(
+                                                    sharedTransitionScope.rememberSharedContentState(key = "backgroundImage-${series.id}"),
+                                                    animatedVisibilityScope = animatedContentScope
+                                                )
+                                                .clip(RoundedCornerShape(4.dp))
+                                                .fillMaxSize(),
+                                            model = series.titleMaker.backgroundImage,
                                             contentDescription = null,
-                                            contentScale = ContentScale.Fit
+                                            contentScale = ContentScale.Crop
                                         )
+
+                                        Box(
+                                            modifier = Modifier
+                                                .sharedElement(
+                                                    sharedTransitionScope.rememberSharedContentState(key = "backgroundColor-${series.id}"),
+                                                    animatedVisibilityScope = animatedContentScope
+                                                )
+                                                .fillMaxWidth()
+                                                .fillMaxHeight(0.7f)
+                                                .background(
+                                                    brush = Brush.verticalGradient(
+                                                        colors = listOf(
+                                                            Color(series.titleMaker.color.toColorInt()).copy(
+                                                                0f
+                                                            ),
+                                                            Color(series.titleMaker.color.toColorInt()).copy(
+                                                                0.9f
+                                                            )
+                                                        )
+                                                    ),
+                                                    RoundedCornerShape(4.dp)
+                                                )
+                                        )
+
+                                        Box(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(55.dp)
+                                                .padding(horizontal = 20.dp, vertical = 8.dp),
+                                        ) {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                                    .align(Alignment.Center),
+                                                model = ImageRequest.Builder(LocalContext.current)
+                                                    .data(ByteBuffer.wrap(series.titleMaker.titleSvg.toByteArray()))
+                                                    .decoderFactory(SvgDecoder.Factory())
+                                                    .build(),
+                                                contentDescription = null,
+                                                contentScale = ContentScale.Fit
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -279,7 +301,7 @@ private fun GenreTabRow(
                 Text(
                     text = genre,
                     style = ToongetherTypography.Body4,
-                    color = if (selected) ToongetherColors.Black else ToongetherColors.LabelAssistive,
+                    color = if (selected) ToongetherColors.Black else ToongetherColors.LabelNormal.copy(0.28f),
                 )
             }
         }

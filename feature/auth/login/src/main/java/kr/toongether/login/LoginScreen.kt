@@ -14,11 +14,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,29 +38,22 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import kr.toongether.designsystem.component.ToongetherAlert
 import kr.toongether.designsystem.component.ToongetherLargeButton
 import kr.toongether.designsystem.component.ToongetherTextField
-import kr.toongether.designsystem.icon.icons.Back
-import kr.toongether.designsystem.icon.icons.Cancel
-import kr.toongether.designsystem.theme.Blue60
-import kr.toongether.designsystem.theme.Blue80
-import kr.toongether.designsystem.theme.Gray60
-import kr.toongether.designsystem.theme.pretendard
+import kr.toongether.designsystem.icon.ToongetherIcons
+import kr.toongether.designsystem.theme.Pretendard
+import kr.toongether.designsystem.theme.ToongetherColors
 import kr.toongether.designsystem.utils.NoRippleInteractionSource
-import kr.toongether.signup.navigation.navigateToAgree
-import kr.toongether.ui.AlertScreen
-import kr.toongether.ui.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun LoginRoute(
     modifier: Modifier = Modifier,
-    navController: NavController,
     viewModel: LoginViewModel = hiltViewModel(),
-    alert: (@Composable () -> Unit) -> Unit
+    onBackClick: () -> Unit,
+    onClickSignup: () -> Unit,
 ) {
     var userId by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -75,25 +68,26 @@ internal fun LoginRoute(
             is LoginSideEffect.Toast -> {
                 isShowAlert = true
                 keyboardController.hide()
-                alert {
-                    AlertScreen(
-                        isShowAlert = isShowAlert,
-                        text = it.text,
-                        buttonText = "확인"
-                    ) {
-                        isShowAlert = false
-                        keyboardController.show()
-                    }
-                }
             }
-            is LoginSideEffect.NavigateToMy -> navController.popBackStack()
+            is LoginSideEffect.Success -> onBackClick()
         }
+    }
+
+    if (isShowAlert) {
+         ToongetherAlert(
+             text = "아이디 또는 비밀번호가 일치하지 않습니다.",
+             buttonText = "확인",
+             onClickButton = {
+                 isShowAlert = false
+                 keyboardController.show()
+             }
+         )
     }
 
     LoginScreen(
         modifier = modifier,
         state = state,
-        onBackClick = navController::popBackStack,
+        onBackClick = onBackClick,
         onClickLogin = viewModel::login,
         userId = userId,
         password = password,
@@ -104,11 +98,10 @@ internal fun LoginRoute(
         onUserIdChange = { userId = it },
         onClickShowPassword = { showPassword = !showPassword },
         onClickPasswordCancel = { password = "" },
-        onClickSignup = navController::navigateToAgree
+        onClickSignup = onClickSignup
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun LoginScreen(
     modifier: Modifier = Modifier,
@@ -129,7 +122,7 @@ internal fun LoginScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(ToongetherColors.BackgroundNormal)
     ) {
         Column {
             Spacer(modifier = modifier.statusBarsPadding())
@@ -138,9 +131,9 @@ internal fun LoginScreen(
                 onClick = onBackClick
             ) {
                 Icon(
-                    imageVector = Icons.Back,
+                    imageVector = ToongetherIcons.Bold.ArrowLeft,
                     contentDescription = null,
-                    tint = Color.White
+                    tint = ToongetherColors.White
                 )
             }
 
@@ -152,7 +145,7 @@ internal fun LoginScreen(
                 color = Color.White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendard
+                fontFamily = Pretendard
             )
 
             Spacer(modifier = modifier.height(60.dp))
@@ -173,9 +166,9 @@ internal fun LoginScreen(
                     ) {
                         Icon(
                             modifier = modifier.size(18.dp),
-                            imageVector = Icons.Cancel,
+                            imageVector = ToongetherIcons.Fill.XCircle,
                             contentDescription = null,
-                            tint = Gray60
+                            tint = ToongetherColors.LabelAssistive
                         )
                     }
                 }
@@ -205,9 +198,9 @@ internal fun LoginScreen(
                         ) {
                             Icon(
                                 modifier = modifier.size(18.dp),
-                                imageVector = Icons.Cancel,
+                                imageVector = ToongetherIcons.Fill.XCircle,
                                 contentDescription = null,
-                                tint = Gray60
+                                tint = ToongetherColors.LabelAssistive
                             )
                         }
 
@@ -220,7 +213,7 @@ internal fun LoginScreen(
                             Icon(
                                 imageVector = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                                 contentDescription = "Visibility",
-                                tint = Gray60
+                                tint = ToongetherColors.LabelAssistive
                             )
                         }
                     }
@@ -234,7 +227,7 @@ internal fun LoginScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 onClick = { onClickLogin(userId, password) },
-                color = if (userId.isNotBlank() && password.isNotBlank()) Blue60 else Blue80,
+                color = if (userId.isNotBlank() && password.isNotBlank()) ToongetherColors.PrimaryNormal else ToongetherColors.PrimaryNormal.copy(0.6f),
                 text = "로그인"
             )
 
@@ -248,7 +241,7 @@ internal fun LoginScreen(
                     modifier = modifier,
                     text = "툰게더가 처음이신가요? ",
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendard,
+                    fontFamily = Pretendard,
                     color = Color.White,
                     fontSize = 14.sp
                 )
@@ -262,14 +255,11 @@ internal fun LoginScreen(
                         ),
                     text = "회원가입",
                     fontWeight = FontWeight.SemiBold,
-                    fontFamily = pretendard,
-                    color = Blue60,
+                    fontFamily = Pretendard,
+                    color = ToongetherColors.PrimaryNormal,
                     fontSize = 14.sp
                 )
             }
-        }
-        if (state.isLoading) {
-            LoadingScreen()
         }
     }
 }

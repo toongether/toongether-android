@@ -12,6 +12,6 @@ sealed interface ShortsUiState {
     data class Error(val message: String) : ShortsUiState
 }
 
-sealed class ShortsSideEffect {
-    data class Toast(val text: String) : ShortsSideEffect()
+sealed interface ShortsSideEffect {
+    data object NavigateToLogin : ShortsSideEffect
 }

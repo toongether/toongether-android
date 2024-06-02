@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(project(":feature:comic:interface"))
+    implementation(project(":core:common"))
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.datetime)
 }

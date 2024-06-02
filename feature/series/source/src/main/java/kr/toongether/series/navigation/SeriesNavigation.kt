@@ -1,5 +1,8 @@
 package kr.toongether.series.navigation
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.NavController
@@ -14,10 +17,17 @@ fun NavController.navigateToSeries(navOptions: NavOptions? = null) {
     this.navigate(SERIES_ROUTE, navOptions)
 }
 
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
-fun NavGraphBuilder.seriesScreen(navigateToEpisode: (episodeId: Long) -> Unit) {
+@OptIn(ExperimentalSharedTransitionApi::class)
+fun NavGraphBuilder.seriesScreen(
+    navigateToEpisode: (Long, String, String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
+) {
     composable(route = SERIES_ROUTE) {
-        SeriesScreen(navigateToEpisode = navigateToEpisode)
+        SeriesScreen(
+            navigateToEpisode = navigateToEpisode,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope
+        )
     }
 }
