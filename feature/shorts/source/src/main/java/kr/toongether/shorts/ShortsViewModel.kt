@@ -1,6 +1,5 @@
 package kr.toongether.shorts
 
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch

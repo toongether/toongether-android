@@ -3,7 +3,6 @@ package kr.toongether.seriesinterface
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -242,7 +241,7 @@ fun SeriesScreen(
                                                     .fillMaxSize()
                                                     .align(Alignment.Center),
                                                 model = ImageRequest.Builder(LocalContext.current)
-                                                    .data(ByteBuffer.wrap(series.titleMaker.titleSvg.toByteArray()))
+                                                    .data(ByteBuffer.wrap(series.titleMaker.alignCenterTitleSvg.toByteArray()))
                                                     .decoderFactory(SvgDecoder.Factory())
                                                     .build(),
                                                 contentDescription = null,

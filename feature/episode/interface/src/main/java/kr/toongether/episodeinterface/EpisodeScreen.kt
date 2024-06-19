@@ -17,11 +17,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -154,9 +154,10 @@ fun EpisodeScreen(
                                 .padding(horizontal = 20.dp, vertical = 16.dp)
                         ) {
                             AsyncImage(
-                                modifier = Modifier.weight(1f),
+                                modifier = Modifier
+                                    .weight(1f),
                                 model = ImageRequest.Builder(LocalContext.current)
-                                    .data(ByteBuffer.wrap(uiState.data.titleMaker.titleSvg.toByteArray()))
+                                    .data(ByteBuffer.wrap(uiState.data.titleMaker.alignLeftTitleSvg?.toByteArray() ?: ByteArray(0)))
                                     .decoderFactory(SvgDecoder.Factory())
                                     .build(),
                                 contentDescription = null,

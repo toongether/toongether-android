@@ -369,7 +369,7 @@ private fun BottomBar(
                     modifier = Modifier
                         .size(24.dp)
                         .clip(CircleShape),
-                    model = profileImage ?: kr.toongether.designsystem.R.drawable.ic_tonnie_default,
+                    model = profileImage ?: kr.toongether.designsystem.R.drawable.ic_toonie_default,
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )

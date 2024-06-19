@@ -22,7 +22,7 @@ fun LazyGridScope.seriesCardItems(
                     interactionSource = remember { NoRippleInteractionSource() },
                     indication = null
                 ) { onItemClick(items[index]!!) },
-            title = items[index]!!.titleMaker.titleSvg,
+            title = items[index]!!.titleMaker.alignCenterTitleSvg,
             backgroundImage = items[index]!!.titleMaker.backgroundImage,
             gradientColor = items[index]!!.titleMaker.color,
         )

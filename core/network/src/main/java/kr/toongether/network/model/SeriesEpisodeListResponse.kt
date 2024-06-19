@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class SeriesEpisodeListResponse(
     @SerialName("title") val title: String,
     @SerialName("description") val description: String,
-    @SerialName("titleMaker") val titleMaker: TitleMakerResponse,
+    @SerialName("titleMaker") val titleMaker: TitleMakerEpisodeResponse,
     @SerialName("publishStatus") val publishStatus: String,
     @SerialName("dayOfWeek") val dayOfWeek: String,
     @SerialName("cycle") val serialCycle: String,

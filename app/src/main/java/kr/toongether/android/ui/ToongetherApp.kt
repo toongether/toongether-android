@@ -34,7 +34,6 @@ fun ToongetherApp(
             modifier = Modifier
                 .fillMaxSize()
                 .background(ToongetherColors.BackgroundNormal)
-                .safeDrawingPadding()
         ) {
             mainScreen(
                 navigateToEpisode = navController::navigateToEpisode,

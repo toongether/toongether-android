@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -67,6 +68,7 @@ fun MainScreen(
         showLaunchScreen = false
     }
 
+
     AnimatedVisibility(visible = showLaunchScreen) {
         Box(
             modifier = modifier
@@ -84,7 +86,8 @@ fun MainScreen(
     AnimatedVisibility(visible = !showLaunchScreen) {
         Scaffold(
             modifier = modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .safeDrawingPadding(),
             bottomBar = {
                 ToongetherBottomBar(
                     destinations = mainScreenState.navigationDestinations,
@@ -145,7 +148,7 @@ private fun ToongetherBottomBar(
                             modifier = Modifier
                                 .size(24.dp)
                                 .clip(CircleShape),
-                            model = kr.toongether.designsystem.R.drawable.ic_tonnie_default,
+                            model = kr.toongether.designsystem.R.drawable.ic_toonie_default,
                             contentDescription = null,
                         )
                     }
